@@ -59,7 +59,38 @@ export class AppController {
       },
     });
   }
+  @Get('offers')
+async getOffers(@Query('initData') initData: string) {
+  if (!initData) {
+    throw new UnauthorizedException('initData is required');
+  }
 
+  const telegramUser = this.telegramAuth.validateInitData(initData);
+
+  const user = await this.prisma.user.findUnique({
+    where: {
+      telegramId: String(telegramUser.id),
+    },
+  });
+
+  if (!user) {
+    throw new UnauthorizedException(
+      'Telegram user is not registered',
+    );
+  }
+
+  return this.prisma.offer.findMany({
+    where: {
+      buyerId: user.id,
+    },
+    include: {
+      gift: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+}
     @Get('offers/incoming')
   async getIncomingOffers(@Query('initData') initData: string) {
     if (!initData) {

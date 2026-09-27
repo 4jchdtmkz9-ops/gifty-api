@@ -60,8 +60,8 @@ export class AppController {
     });
   }
 
-  @Get('offers')
-  async getOffers(@Query('initData') initData: string) {
+    @Get('offers/incoming')
+  async getIncomingOffers(@Query('initData') initData: string) {
     if (!initData) {
       throw new UnauthorizedException('initData is required');
     }
@@ -75,15 +75,20 @@ export class AppController {
     });
 
     if (!user) {
-      throw new UnauthorizedException('Telegram user is not registered');
+      throw new UnauthorizedException(
+        'Telegram user is not registered',
+      );
     }
 
     return this.prisma.offer.findMany({
       where: {
-        buyerId: user.id,
+        gift: {
+          ownerId: user.id,
+        },
       },
       include: {
         gift: true,
+        buyer: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -189,6 +194,70 @@ export class AppController {
       },
       data: {
         status: 'CANCELLED',
+      },
+    });
+  }
+
+  @Post('offers/accept')
+  async acceptOffer(
+    @Body()
+    body: {
+      offerId: string;
+      initData?: string;
+    },
+  ) {
+    if (!body.initData) {
+      throw new UnauthorizedException('initData is required');
+    }
+
+    const telegramUser = this.telegramAuth.validateInitData(
+      body.initData,
+    );
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        telegramId: String(telegramUser.id),
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Telegram user is not registered');
+    }
+
+    const offer = await this.prisma.offer.findUnique({
+      where: {
+        id: body.offerId,
+      },
+      include: {
+        gift: true,
+      },
+    });
+
+    if (!offer) {
+      throw new Error('Offer not found');
+    }
+
+    if (offer.status !== 'PENDING') {
+      throw new Error('Only pending offers can be accepted');
+    }
+
+    if (!offer.gift.ownerId) {
+      throw new Error('This gift has no owner');
+    }
+
+    if (offer.gift.ownerId !== user.id) {
+      throw new UnauthorizedException(
+        'You can only accept offers for your own gifts',
+      );
+    }
+
+    return this.prisma.offer.update({
+      where: {
+        id: body.offerId,
+      },
+      data: {
+        status: 'ACCEPTED',
+        sellerId: user.id,
       },
     });
   }

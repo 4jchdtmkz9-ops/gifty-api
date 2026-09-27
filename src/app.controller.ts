@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, Query, UnauthorizedException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { TonService } from './ton.service.js';
 import { PrismaService } from './prisma.service.js';
@@ -54,10 +61,26 @@ export class AppController {
   }
 
   @Get('offers')
-  async getOffers(@Query('buyerId') buyerId: string) {
+  async getOffers(@Query('initData') initData: string) {
+    if (!initData) {
+      throw new UnauthorizedException('initData is required');
+    }
+
+    const telegramUser = this.telegramAuth.validateInitData(initData);
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        telegramId: String(telegramUser.id),
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Telegram user is not registered');
+    }
+
     return this.prisma.offer.findMany({
       where: {
-        buyerId,
+        buyerId: user.id,
       },
       include: {
         gift: true,
@@ -119,8 +142,27 @@ export class AppController {
     @Body()
     body: {
       offerId: string;
+      initData?: string;
     },
   ) {
+    if (!body.initData) {
+      throw new UnauthorizedException('initData is required');
+    }
+
+    const telegramUser = this.telegramAuth.validateInitData(
+      body.initData,
+    );
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        telegramId: String(telegramUser.id),
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Telegram user is not registered');
+    }
+
     const offer = await this.prisma.offer.findUnique({
       where: {
         id: body.offerId,
@@ -129,6 +171,12 @@ export class AppController {
 
     if (!offer) {
       throw new Error('Offer not found');
+    }
+
+    if (offer.buyerId !== user.id) {
+      throw new UnauthorizedException(
+        'You can only cancel your own offers',
+      );
     }
 
     if (offer.status !== 'PENDING') {

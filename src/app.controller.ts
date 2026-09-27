@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UnauthorizedException } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { TonService } from './ton.service.js';
 import { PrismaService } from './prisma.service.js';
+import { TelegramAuthService } from './auth/telegram-auth.service.js';
 
 @Controller()
 export class AppController {
@@ -9,6 +10,7 @@ export class AppController {
     private readonly appService: AppService,
     private readonly tonService: TonService,
     private readonly prisma: PrismaService,
+    private readonly telegramAuth: TelegramAuthService,
   ) {}
 
   @Get()
@@ -72,16 +74,37 @@ export class AppController {
     body: {
       amountTon: string;
       giftId: string;
-      buyerId: string;
       sellerId?: string;
       expiresAt?: string;
+      initData?: string;
     },
   ) {
+    if (!body.initData) {
+      throw new UnauthorizedException('initData is required');
+    }
+
+    const telegramUser = this.telegramAuth.validateInitData(
+      body.initData,
+    );
+
+    const user = await this.prisma.user.upsert({
+      where: {
+        telegramId: String(telegramUser.id),
+      },
+      update: {
+        username: telegramUser.username ?? null,
+      },
+      create: {
+        telegramId: String(telegramUser.id),
+        username: telegramUser.username ?? null,
+      },
+    });
+
     return this.prisma.offer.create({
       data: {
         amountTon: body.amountTon,
         giftId: body.giftId,
-        buyerId: body.buyerId,
+        buyerId: user.id,
         sellerId: body.sellerId,
         expiresAt: body.expiresAt
           ? new Date(body.expiresAt)

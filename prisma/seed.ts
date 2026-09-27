@@ -11,38 +11,60 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
-  await prisma.gift.createMany({
-    data: [
-      {
-        name: 'Diamond Ring',
-        collection: 'Telegram Gifts',
-        emoji: '💎',
-        priceTon: '24.5',
-        status: 'LISTED',
+  const gifts = [
+    {
+      name: 'Diamond Ring',
+      collection: 'Telegram Gifts',
+      emoji: '💎',
+      priceTon: '24.5',
+      status: 'LISTED',
+    },
+    {
+      name: 'Astral Shard',
+      collection: 'Limited Gifts',
+      emoji: '🔮',
+      priceTon: '18.2',
+      status: 'LISTED',
+    },
+    {
+      name: 'Golden Bear',
+      collection: 'Rare Gifts',
+      emoji: '🐻',
+      priceTon: '42',
+      status: 'LISTED',
+    },
+    {
+      name: 'Crystal Heart',
+      collection: 'Premium Gifts',
+      emoji: '💜',
+      priceTon: '31.8',
+      status: 'LISTED',
+    },
+  ];
+
+  for (const gift of gifts) {
+    const existing = await prisma.gift.findFirst({
+      where: {
+        name: gift.name,
+        collection: gift.collection,
       },
-      {
-        name: 'Astral Shard',
-        collection: 'Limited Gifts',
-        emoji: '🔮',
-        priceTon: '18.2',
-        status: 'LISTED',
-      },
-      {
-        name: 'Golden Bear',
-        collection: 'Rare Gifts',
-        emoji: '🐻',
-        priceTon: '42',
-        status: 'LISTED',
-      },
-      {
-        name: 'Crystal Heart',
-        collection: 'Premium Gifts',
-        emoji: '💜',
-        priceTon: '31.8',
-        status: 'LISTED',
-      },
-    ],
-  });
+    });
+
+    if (existing) {
+      await prisma.gift.update({
+        where: {
+          id: existing.id,
+        },
+        data: gift,
+      });
+    } else {
+      await prisma.gift.create({
+        data: gift,
+      });
+    }
+  }
+
+  console.log('GIFTY seed completed successfully');
 }
 
 main()

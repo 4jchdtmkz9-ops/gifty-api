@@ -1,0 +1,7 @@
+ALTER TABLE "User"
+ADD COLUMN "firstName" TEXT,
+ADD COLUMN "lastName" TEXT,
+ADD COLUMN "photoUrl" TEXT;
+
+ALTER TABLE "Wallet"
+ADD COLUMN "isConnected" BOOLEAN NOT NULL DEFAULT true;

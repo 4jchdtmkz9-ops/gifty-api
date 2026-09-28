@@ -124,6 +124,9 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   telegramId: 'telegramId',
   username: 'username',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  photoUrl: 'photoUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -132,6 +135,7 @@ exports.Prisma.WalletScalarFieldEnum = {
   id: 'id',
   address: 'address',
   network: 'network',
+  isConnected: 'isConnected',
   createdAt: 'createdAt',
   userId: 'userId'
 };

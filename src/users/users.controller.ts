@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  ConflictException,
   Get,
   Post,
   UnauthorizedException,
@@ -46,22 +47,39 @@ export class UsersController {
 
     const telegramUser = this.telegramAuth.validateInitData(body.initData);
 
-    const user = await this.prisma.user.upsert({
-      where: {
-        telegramId: String(telegramUser.id),
-      },
-      update: {
-        username: telegramUser.username ?? null,
-      },
-      create: {
-        telegramId: String(telegramUser.id),
-        username: telegramUser.username ?? null,
+    return this.upsertTelegramUser(telegramUser);
+  }
+
+  @Post('me')
+  async getCurrentUser(@Body() body: { initData?: string; address?: string; network?: string }) {
+    if (!body.initData) {
+      throw new UnauthorizedException('initData is required');
+    }
+
+    const telegramUser = this.telegramAuth.validateInitData(body.initData);
+    const user = await this.upsertTelegramUser(telegramUser);
+
+    if (body.address) {
+      await this.saveWallet(user.id, body.address, body.network ?? 'TON');
+    } else {
+      await this.prisma.wallet.updateMany({
+        where: { userId: user.id, isConnected: true },
+        data: { isConnected: false },
+      });
+    }
+
+    return this.prisma.user.findUniqueOrThrow({
+      where: { id: user.id },
+      include: {
+        wallets: {
+          where: { isConnected: true },
+          orderBy: { createdAt: 'desc' },
+        },
       },
     });
-
-    return user;
   }
-    @Post('wallet')
+
+  @Post('wallet')
   async connectWallet(
     @Body()
     body: {
@@ -80,31 +98,82 @@ export class UsersController {
 
     const telegramUser = this.telegramAuth.validateInitData(body.initData);
 
-    const user = await this.prisma.user.findUnique({
-      where: {
-        telegramId: String(telegramUser.id),
-      },
-    });
+    const user = await this.upsertTelegramUser(telegramUser);
 
-    if (!user) {
-      throw new UnauthorizedException('Telegram user is not registered');
+    return this.saveWallet(user.id, body.address, body.network ?? 'TON');
+  }
+
+  private saveWallet(userId: string, address: string, network: string) {
+    return this.prisma.$transaction(async (tx) => {
+      const existingWallet = await tx.wallet.findUnique({
+        where: { address },
+      });
+
+      if (existingWallet && existingWallet.userId !== userId) {
+        throw new ConflictException('Wallet is already linked to another user');
+      }
+
+      await tx.wallet.updateMany({
+        where: { userId, isConnected: true },
+        data: { isConnected: false },
+      });
+
+      return tx.wallet.upsert({
+        where: { address },
+        update: {
+          network,
+          isConnected: true,
+        },
+        create: {
+          address,
+          network,
+          userId,
+          isConnected: true,
+        },
+      });
+    });
+  }
+
+  @Post('wallet/disconnect')
+  async disconnectWallet(@Body() body: { initData?: string }) {
+    if (!body.initData) {
+      throw new UnauthorizedException('initData is required');
     }
 
-    const wallet = await this.prisma.wallet.upsert({
-      where: {
-        address: body.address,
-      },
-      update: {
-        userId: user.id,
-        network: body.network ?? 'TON',
-      },
-      create: {
-        address: body.address,
-        network: body.network ?? 'TON',
-        userId: user.id,
-      },
+    const telegramUser = this.telegramAuth.validateInitData(body.initData);
+    const user = await this.upsertTelegramUser(telegramUser);
+
+    const result = await this.prisma.wallet.updateMany({
+      where: { userId: user.id, isConnected: true },
+      data: { isConnected: false },
     });
 
-    return wallet;
+    return { disconnected: result.count > 0 };
+  }
+
+  private upsertTelegramUser(telegramUser: {
+    id: number | string;
+    username?: string;
+    first_name?: string;
+    last_name?: string;
+    photo_url?: string;
+  }) {
+    const profile = {
+      username: telegramUser.username ?? null,
+      firstName: telegramUser.first_name ?? null,
+      lastName: telegramUser.last_name ?? null,
+      photoUrl: telegramUser.photo_url?.startsWith('https://')
+        ? telegramUser.photo_url
+        : null,
+    };
+
+    return this.prisma.user.upsert({
+      where: { telegramId: String(telegramUser.id) },
+      update: profile,
+      create: {
+        telegramId: String(telegramUser.id),
+        ...profile,
+      },
+    });
   }
 }

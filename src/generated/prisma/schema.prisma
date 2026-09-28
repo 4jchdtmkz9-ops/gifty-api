@@ -11,6 +11,9 @@ model User {
   id         String   @id @default(cuid())
   telegramId String   @unique
   username   String?
+  firstName  String?
+  lastName   String?
+  photoUrl   String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
@@ -23,10 +26,11 @@ model User {
 }
 
 model Wallet {
-  id        String   @id @default(cuid())
-  address   String   @unique
-  network   String   @default("TON")
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  address     String   @unique
+  network     String   @default("TON")
+  isConnected Boolean  @default(true)
+  createdAt   DateTime @default(now())
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

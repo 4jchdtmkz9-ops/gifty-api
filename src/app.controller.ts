@@ -4,6 +4,8 @@ import {
   Get,
   Post,
   Query,
+  BadRequestException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { AppService } from './app.service.js';
@@ -33,40 +35,58 @@ export class AppController {
   @Get('gifts')
   async getGifts() {
     return this.prisma.gift.findMany({
+      where: { status: 'LISTED' },
       orderBy: {
         createdAt: 'desc',
       },
     })
   }
   @Get('gifts/owned')
-async getOwnedGifts(@Query('initData') initData: string) {
+  async getOwnedGifts(@Query('initData') initData: string) {
   if (!initData) {
     throw new UnauthorizedException('initData is required');
   }
 
   const telegramUser = this.telegramAuth.validateInitData(initData);
 
-  const user = await this.prisma.user.findUnique({
-    where: {
+  const user = await this.prisma.user.upsert({
+    where: { telegramId: String(telegramUser.id) },
+    update: { username: telegramUser.username ?? null },
+    create: {
       telegramId: String(telegramUser.id),
+      username: telegramUser.username ?? null,
     },
   });
-
-  if (!user) {
-    throw new UnauthorizedException(
-      'Telegram user is not registered',
-    );
-  }
 
   return this.prisma.gift.findMany({
     where: {
       ownerId: user.id,
+      status: 'OWNED',
     },
     orderBy: {
       updatedAt: 'desc',
     },
   });
 }
+
+  @Get('gifts/listed')
+  async getListedGifts(@Query('initData') initData: string) {
+    if (!initData) throw new UnauthorizedException('initData is required');
+    const telegramUser = this.telegramAuth.validateInitData(initData);
+    const user = await this.prisma.user.upsert({
+      where: { telegramId: String(telegramUser.id) },
+      update: { username: telegramUser.username ?? null },
+      create: {
+        telegramId: String(telegramUser.id),
+        username: telegramUser.username ?? null,
+      },
+    });
+
+    return this.prisma.gift.findMany({
+      where: { ownerId: user.id, status: { in: ['LISTED', 'RESERVED'] } },
+      orderBy: { updatedAt: 'desc' },
+    });
+  }
 
   
 @Post('transactions')
@@ -155,17 +175,14 @@ async getOffers(@Query('initData') initData: string) {
   }
 
   const telegramUser = this.telegramAuth.validateInitData(initData);
-  const user = await this.prisma.user.findUnique({
-    where: {
+  const user = await this.prisma.user.upsert({
+    where: { telegramId: String(telegramUser.id) },
+    update: { username: telegramUser.username ?? null },
+    create: {
       telegramId: String(telegramUser.id),
+      username: telegramUser.username ?? null,
     },
   });
-
-  if (!user) {
-    throw new UnauthorizedException(
-      'Telegram user is not registered',
-    );
-  }
 
   return this.prisma.offer.findMany({
     where: {
@@ -187,17 +204,14 @@ async getOffers(@Query('initData') initData: string) {
 
     const telegramUser = this.telegramAuth.validateInitData(initData);
 
-    const user = await this.prisma.user.findUnique({
-      where: {
+    const user = await this.prisma.user.upsert({
+      where: { telegramId: String(telegramUser.id) },
+      update: { username: telegramUser.username ?? null },
+      create: {
         telegramId: String(telegramUser.id),
+        username: telegramUser.username ?? null,
       },
     });
-
-    if (!user) {
-      throw new UnauthorizedException(
-        'Telegram user is not registered',
-      );
-    }
 
     return this.prisma.offer.findMany({
       where: {
@@ -226,6 +240,10 @@ async getOffers(@Query('initData') initData: string) {
       initData?: string;
     },
   ) {
+    if (!body.giftId) throw new BadRequestException('Gift id is required');
+    if (!body.amountTon || !/^\d{1,11}(\.\d{1,9})?$/.test(body.amountTon) || Number(body.amountTon) <= 0) {
+      throw new BadRequestException('Offer amount must be greater than zero and have up to 9 decimal places');
+    }
     if (!body.initData) {
       throw new UnauthorizedException('initData is required');
     }
@@ -247,12 +265,17 @@ async getOffers(@Query('initData') initData: string) {
       },
     });
 
+    const gift = await this.prisma.gift.findUnique({ where: { id: body.giftId } });
+    if (!gift) throw new NotFoundException('Gift not found');
+    if (gift.status !== 'LISTED') throw new BadRequestException('Offers are available only for listed gifts');
+    if (gift.ownerId === user.id) throw new BadRequestException('You cannot make an offer on your own gift');
+
     return this.prisma.offer.create({
       data: {
         amountTon: body.amountTon,
         giftId: body.giftId,
         buyerId: user.id,
-        sellerId: body.sellerId,
+        sellerId: gift.ownerId,
         expiresAt: body.expiresAt
           ? new Date(body.expiresAt)
           : undefined,
@@ -294,7 +317,7 @@ async getOffers(@Query('initData') initData: string) {
     });
 
     if (!offer) {
-      throw new Error('Offer not found');
+      throw new NotFoundException('Offer not found');
     }
 
     if (offer.buyerId !== user.id) {
@@ -304,7 +327,7 @@ async getOffers(@Query('initData') initData: string) {
     }
 
     if (offer.status !== 'PENDING') {
-      throw new Error('Only pending offers can be cancelled');
+      throw new BadRequestException('Only pending offers can be cancelled');
     }
 
     return this.prisma.offer.update({
@@ -353,15 +376,11 @@ async getOffers(@Query('initData') initData: string) {
     });
 
     if (!offer) {
-      throw new Error('Offer not found');
+      throw new NotFoundException('Offer not found');
     }
 
     if (offer.status !== 'PENDING') {
-      throw new Error('Only pending offers can be accepted');
-    }
-
-    if (!offer.gift.ownerId) {
-      throw new Error('This gift has no owner');
+      throw new BadRequestException('Only pending offers can be accepted');
     }
 
     if (offer.gift.ownerId !== user.id) {
@@ -370,18 +389,72 @@ async getOffers(@Query('initData') initData: string) {
       );
     }
 
-    return this.prisma.offer.update({
-      where: {
-        id: body.offerId,
-      },
-      data: {
-        status: 'ACCEPTED',
-        sellerId: user.id,
-      },
+    return this.prisma.$transaction(async (tx) => {
+      const reserved = await tx.gift.updateMany({
+        where: { id: offer.giftId, ownerId: user.id, status: 'LISTED' },
+        data: { status: 'RESERVED' },
+      });
+      if (reserved.count !== 1) {
+        throw new BadRequestException('This gift is no longer available');
+      }
+
+      const accepted = await tx.offer.updateMany({
+        where: { id: offer.id, status: 'PENDING' },
+        data: { status: 'ACCEPTED', sellerId: user.id },
+      });
+      if (accepted.count !== 1) {
+        throw new BadRequestException('This offer is no longer pending');
+      }
+
+      await tx.offer.updateMany({
+        where: { giftId: offer.giftId, id: { not: offer.id }, status: 'PENDING' },
+        data: { status: 'CANCELLED' },
+      });
+      return tx.offer.findUnique({
+        where: { id: offer.id },
+        include: { gift: true },
+      });
     });
   }
+
+  @Post('offers/reject')
+  async rejectOffer(
+    @Body() body: { offerId: string; initData?: string },
+  ) {
+    if (!body.offerId) throw new BadRequestException('Offer id is required');
+    if (!body.initData) throw new UnauthorizedException('initData is required');
+
+    const telegramUser = this.telegramAuth.validateInitData(body.initData);
+    const user = await this.prisma.user.findUnique({
+      where: { telegramId: String(telegramUser.id) },
+    });
+    if (!user) throw new UnauthorizedException('Telegram user is not registered');
+
+    const offer = await this.prisma.offer.findUnique({
+      where: { id: body.offerId },
+      include: { gift: true },
+    });
+    if (!offer) throw new NotFoundException('Offer not found');
+    if (offer.gift.ownerId !== user.id) {
+      throw new UnauthorizedException('You can only reject offers for your own gifts');
+    }
+    if (offer.status !== 'PENDING') {
+      throw new BadRequestException('Only pending offers can be rejected');
+    }
+
+    const updated = await this.prisma.offer.updateMany({
+      where: { id: offer.id, status: 'PENDING' },
+      data: { status: 'REJECTED' },
+    });
+    if (updated.count !== 1) throw new BadRequestException('This offer is no longer pending');
+    return this.prisma.offer.findUnique({
+      where: { id: offer.id },
+      include: { gift: true, buyer: true },
+    });
+  }
+
   @Post('gifts/sell')
-async sellGift(
+  async sellGift(
   @Body()
   body: {
     giftId: string;
@@ -389,6 +462,15 @@ async sellGift(
     initData?: string;
   },
 ) {
+  if (!body.giftId) {
+    throw new BadRequestException('Gift id is required');
+  }
+  if (!body.priceTon || !/^\d{1,11}(\.\d{1,9})?$/.test(body.priceTon)) {
+    throw new BadRequestException('Enter a valid price with up to 9 decimal places');
+  }
+  if (Number(body.priceTon) <= 0) {
+    throw new BadRequestException('Price must be greater than zero');
+  }
   if (!body.initData) {
     throw new UnauthorizedException('initData is required');
   }
@@ -416,7 +498,7 @@ async sellGift(
   });
 
   if (!gift) {
-    throw new Error('Gift not found');
+    throw new NotFoundException('Gift not found');
   }
 
   if (gift.ownerId !== user.id) {
@@ -425,8 +507,8 @@ async sellGift(
     );
   }
 
-  if (gift.status !== 'OWNED') {
-    throw new Error('Only owned gifts can be listed');
+  if (gift.status !== 'OWNED' && gift.status !== 'LISTED') {
+    throw new BadRequestException(`Gift cannot be listed from status ${gift.status}`);
   }
 
   return this.prisma.gift.update({
@@ -439,4 +521,35 @@ async sellGift(
     },
   });
 }
+
+  @Post('gifts/unlist')
+  async unlistGift(@Body() body: { giftId: string; initData?: string }) {
+    if (!body.giftId) throw new BadRequestException('Gift id is required');
+    if (!body.initData) throw new UnauthorizedException('initData is required');
+    const telegramUser = this.telegramAuth.validateInitData(body.initData);
+    const user = await this.prisma.user.findUnique({
+      where: { telegramId: String(telegramUser.id) },
+    });
+    if (!user) throw new UnauthorizedException('Telegram user is not registered');
+
+    const gift = await this.prisma.gift.findUnique({ where: { id: body.giftId } });
+    if (!gift) throw new NotFoundException('Gift not found');
+    if (gift.ownerId !== user.id) {
+      throw new UnauthorizedException('You can only edit your own listings');
+    }
+    if (gift.status !== 'LISTED') throw new BadRequestException('Gift is not listed');
+
+    return this.prisma.$transaction(async (tx) => {
+      const changed = await tx.gift.updateMany({
+        where: { id: gift.id, ownerId: user.id, status: 'LISTED' },
+        data: { status: 'OWNED' },
+      });
+      if (changed.count !== 1) throw new BadRequestException('Gift is no longer listed');
+      await tx.offer.updateMany({
+        where: { giftId: gift.id, status: 'PENDING' },
+        data: { status: 'CANCELLED' },
+      });
+      return tx.gift.findUnique({ where: { id: gift.id } });
+    });
+  }
 }

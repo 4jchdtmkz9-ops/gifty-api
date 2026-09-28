@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { PrismaClient } from '../dist/generated/prisma/client.js';
+import { PrismaClient } from '../src/generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 
 const adapter = new PrismaPg({
@@ -52,15 +52,16 @@ async function main() {
 
     if (existing) {
       await prisma.gift.update({
-        where: {
-          id: existing.id,
+        where: { id: existing.id },
+        data: {
+          name: gift.name,
+          collection: gift.collection,
+          emoji: gift.emoji,
+          priceTon: gift.priceTon,
         },
-        data: gift,
       });
     } else {
-      await prisma.gift.create({
-        data: gift,
-      });
+      await prisma.gift.create({ data: gift });
     }
   }
 

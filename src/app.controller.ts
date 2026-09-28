@@ -39,26 +39,86 @@ export class AppController {
     });
   }
 
-  @Post('transactions')
-  async createTransaction(
-    @Body()
-    body: {
-      type: string;
-      amountTon: string;
-      giftId?: string;
-      buyerId?: string;
+  
+@Post('transactions')
+async createTransaction(
+  @Body()
+  body: {
+    type: string;
+    amountTon: string;
+    giftId?: string;
+    initData?: string;
+  },
+) {
+  if (!body.initData) {
+    throw new UnauthorizedException('initData is required');
+  }
+
+  const telegramUser = this.telegramAuth.validateInitData(
+    body.initData,
+  );
+
+  const user = await this.prisma.user.upsert({
+    where: {
+      telegramId: String(telegramUser.id),
     },
-  ) {
-    return this.prisma.transaction.create({
+    update: {
+      username: telegramUser.username ?? null,
+    },
+    create: {
+      telegramId: String(telegramUser.id),
+      username: telegramUser.username ?? null,
+    },
+  });
+
+  if (!body.giftId) {
+    throw new Error('giftId is required');
+  }
+
+  const gift = await this.prisma.gift.findUnique({
+    where: {
+      id: body.giftId,
+    },
+  });
+
+  if (!gift) {
+    throw new Error('Gift not found');
+  }
+
+  if (gift.status !== 'LISTED') {
+    throw new Error('Gift is not available for purchase');
+  }
+
+  if (gift.ownerId) {
+    throw new Error('Gift already has an owner');
+  }
+
+  const transaction = await this.prisma.$transaction(async (tx) => {
+    const createdTransaction = await tx.transaction.create({
       data: {
         type: body.type,
         amountTon: body.amountTon,
-        giftId: body.giftId,
-        buyerId: body.buyerId,
-        status: 'PENDING',
+        giftId: gift.id,
+        buyerId: user.id,
+        status: 'COMPLETED',
       },
     });
-  }
+
+    await tx.gift.update({
+      where: {
+        id: gift.id,
+      },
+      data: {
+        ownerId: user.id,
+        status: 'OWNED',
+      },
+    });
+
+    return createdTransaction;
+  });
+
+  return transaction;
+}
   @Get('offers')
 async getOffers(@Query('initData') initData: string) {
   if (!initData) {
@@ -66,7 +126,6 @@ async getOffers(@Query('initData') initData: string) {
   }
 
   const telegramUser = this.telegramAuth.validateInitData(initData);
-
   const user = await this.prisma.user.findUnique({
     where: {
       telegramId: String(telegramUser.id),

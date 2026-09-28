@@ -380,4 +380,63 @@ async getOffers(@Query('initData') initData: string) {
       },
     });
   }
+  @Post('gifts/sell')
+async sellGift(
+  @Body()
+  body: {
+    giftId: string;
+    priceTon: string;
+    initData?: string;
+  },
+) {
+  if (!body.initData) {
+    throw new UnauthorizedException('initData is required');
+  }
+
+  const telegramUser = this.telegramAuth.validateInitData(
+    body.initData,
+  );
+
+  const user = await this.prisma.user.findUnique({
+    where: {
+      telegramId: String(telegramUser.id),
+    },
+  });
+
+  if (!user) {
+    throw new UnauthorizedException(
+      'Telegram user is not registered',
+    );
+  }
+
+  const gift = await this.prisma.gift.findUnique({
+    where: {
+      id: body.giftId,
+    },
+  });
+
+  if (!gift) {
+    throw new Error('Gift not found');
+  }
+
+  if (gift.ownerId !== user.id) {
+    throw new UnauthorizedException(
+      'You can only sell your own gifts',
+    );
+  }
+
+  if (gift.status !== 'OWNED') {
+    throw new Error('Only owned gifts can be listed');
+  }
+
+  return this.prisma.gift.update({
+    where: {
+      id: gift.id,
+    },
+    data: {
+      priceTon: body.priceTon,
+      status: 'LISTED',
+    },
+  });
+}
 }

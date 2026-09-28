@@ -7,6 +7,7 @@ import {
   BadRequestException,
   NotFoundException,
   UnauthorizedException,
+  ServiceUnavailableException,
 } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { TonService } from './ton.service.js';
@@ -41,6 +42,56 @@ export class AppController {
       },
     })
   }
+
+  @Get('market/nfts')
+  async getMarketplaceNfts(
+    @Query('search') search = '',
+    @Query('offset') offset = '0',
+  ) {
+    const token = process.env.PORTALS_PARTNER_TOKEN;
+    if (!token) {
+      throw new ServiceUnavailableException(
+        'The Portals marketplace API token is not configured',
+      );
+    }
+
+    const parsedOffset = Number.parseInt(offset, 10);
+    const params = new URLSearchParams({
+      status: 'listed',
+      sort_by: 'listed_at desc',
+      limit: '50',
+      offset: String(Number.isFinite(parsedOffset) ? Math.max(0, parsedOffset) : 0),
+      with_attributes: 'true',
+    });
+    const query = search.trim();
+    if (query) params.set('search', query.slice(0, 100));
+
+    const response = await fetch(
+      `https://portal-market.com/partners/nfts/search?${params.toString()}`,
+      {
+        headers: { Authorization: `partners ${token}` },
+        signal: AbortSignal.timeout(12_000),
+      },
+    );
+
+    if (!response.ok) {
+      throw new ServiceUnavailableException(
+        response.status === 401
+          ? 'The Portals marketplace API token is invalid'
+          : 'The Portals marketplace is temporarily unavailable',
+      );
+    }
+
+    const payload = (await response.json()) as {
+      results?: unknown[] | null;
+      total_count?: number | null;
+    };
+    return {
+      items: payload.results ?? [],
+      totalCount: payload.total_count ?? 0,
+    };
+  }
+
   @Get('gifts/owned')
   async getOwnedGifts(@Query('initData') initData: string) {
   if (!initData) {

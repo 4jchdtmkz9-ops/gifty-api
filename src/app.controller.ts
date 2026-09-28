@@ -509,6 +509,55 @@ async getOffers(@Query('initData') initData: string) {
     });
   }
 
+  @Post('offers/release-accepted')
+  async releaseAcceptedOffer(
+    @Body() body: { offerId: string; initData?: string },
+  ) {
+    if (!body.offerId) throw new BadRequestException('Offer id is required');
+    if (!body.initData) throw new UnauthorizedException('initData is required');
+
+    const telegramUser = this.telegramAuth.validateInitData(body.initData);
+    const user = await this.prisma.user.findUnique({
+      where: { telegramId: String(telegramUser.id) },
+    });
+    if (!user) throw new UnauthorizedException('Telegram user is not registered');
+
+    const offer = await this.prisma.offer.findUnique({
+      where: { id: body.offerId },
+      include: { gift: true },
+    });
+    if (!offer) throw new NotFoundException('Offer not found');
+    if (offer.sellerId !== user.id || offer.gift.ownerId !== user.id) {
+      throw new UnauthorizedException('Only the seller can release this accepted offer');
+    }
+    if (offer.status !== 'ACCEPTED') {
+      throw new BadRequestException('Only accepted offers can be released');
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      const reopened = await tx.gift.updateMany({
+        where: { id: offer.giftId, ownerId: user.id, status: 'RESERVED' },
+        data: { status: 'LISTED' },
+      });
+      if (reopened.count !== 1) {
+        throw new BadRequestException('This gift is no longer reserved');
+      }
+
+      const cancelled = await tx.offer.updateMany({
+        where: { id: offer.id, sellerId: user.id, status: 'ACCEPTED' },
+        data: { status: 'CANCELLED' },
+      });
+      if (cancelled.count !== 1) {
+        throw new BadRequestException('This accepted offer has already changed');
+      }
+
+      return tx.offer.findUnique({
+        where: { id: offer.id },
+        include: { gift: true },
+      });
+    });
+  }
+
   @Post('gifts/sell')
   async sellGift(
   @Body()

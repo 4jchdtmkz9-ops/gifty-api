@@ -25,7 +25,7 @@ export class UsersController {
       update: {},
       create: {
         telegramId: 'test-telegram-user',
-        username: 'gifty_test',
+        username: 'orbit_test',
       },
     });
 

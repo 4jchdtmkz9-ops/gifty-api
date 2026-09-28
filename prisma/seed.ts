@@ -65,7 +65,7 @@ async function main() {
     }
   }
 
-  console.log('GIFTY seed completed successfully');
+  console.log('ORBIT seed completed successfully');
 }
 
 main()

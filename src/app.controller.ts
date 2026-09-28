@@ -196,7 +196,7 @@ async getOffers(@Query('initData') initData: string) {
     },
   });
 }
-    @Get('offers/incoming')
+  @Get('offers/incoming')
   async getIncomingOffers(@Query('initData') initData: string) {
     if (!initData) {
       throw new UnauthorizedException('initData is required');
@@ -227,6 +227,62 @@ async getOffers(@Query('initData') initData: string) {
         createdAt: 'desc',
       },
     });
+  }
+
+  @Get('profile/history')
+  async getProfileHistory(@Query('initData') initData: string) {
+    if (!initData) throw new UnauthorizedException('initData is required');
+    const telegramUser = this.telegramAuth.validateInitData(initData);
+    const user = await this.prisma.user.upsert({
+      where: { telegramId: String(telegramUser.id) },
+      update: { username: telegramUser.username ?? null },
+      create: {
+        telegramId: String(telegramUser.id),
+        username: telegramUser.username ?? null,
+      },
+    });
+
+    const [transactions, offers] = await Promise.all([
+      this.prisma.transaction.findMany({
+        where: {
+          type: { not: 'OFFER_ACCEPTED' },
+          OR: [{ buyerId: user.id }, { sellerId: user.id }],
+        },
+        include: { gift: true },
+      }),
+      this.prisma.offer.findMany({
+        where: {
+          status: { in: ['ACCEPTED', 'CANCELLED', 'REJECTED'] },
+          OR: [
+            { buyerId: user.id },
+            { sellerId: user.id },
+            { gift: { ownerId: user.id } },
+          ],
+        },
+        include: { gift: true },
+      }),
+    ]);
+
+    return [
+      ...transactions.map((transaction) => ({
+        id: `transaction:${transaction.id}`,
+        kind: 'TRANSACTION' as const,
+        event: transaction.type,
+        status: transaction.status,
+        amountTon: transaction.amountTon,
+        gift: transaction.gift,
+        createdAt: transaction.createdAt,
+      })),
+      ...offers.map((offer) => ({
+        id: `offer:${offer.id}`,
+        kind: 'OFFER' as const,
+        event: offer.status,
+        status: offer.status,
+        amountTon: offer.amountTon,
+        gift: offer.gift,
+        createdAt: offer.updatedAt,
+      })),
+    ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
   @Post('offers')

@@ -42,6 +42,10 @@ model Gift {
   collection String
   emoji      String?
   priceTon   Decimal  @db.Decimal(20, 9)
+  backdropName String?
+  backdropColor String?
+  symbolName String?
+  symbolImageUrl String?
   status     String   @default("LISTED")
   ownerId    String?
   createdAt  DateTime @default(now())

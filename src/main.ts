@@ -10,7 +10,8 @@ async function bootstrap() {
   'http://localhost:3000',
   'http://localhost:3001',
   'https://gifty-web-iota.vercel.app',
-],
+    ],
+    allowedHeaders: ['Content-Type', 'X-Telegram-Init-Data'],
   });
 
   await app.listen(process.env.PORT ?? 3001);

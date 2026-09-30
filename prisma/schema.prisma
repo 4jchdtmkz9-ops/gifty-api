@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../dist/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -23,6 +23,11 @@ model User {
   sellerTransactions Transaction[] @relation("SellerTransactions")
   buyerOffers        Offer[]       @relation("BuyerOffers")
   sellerOffers       Offer[]       @relation("SellerOffers")
+  createdPvpRooms    PvpRoom[]     @relation("PvpRoomCreator")
+  wonPvpRooms        PvpRoom[]     @relation("PvpRoomWinner")
+  pvpParticipations  PvpParticipant[]
+  sentPvpInvitations PvpInvitation[] @relation("PvpInvitationSender")
+  receivedPvpInvitations PvpInvitation[] @relation("PvpInvitationRecipient")
 }
 
 model Wallet {
@@ -93,4 +98,51 @@ model Offer {
   expiresAt DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model PvpRoom {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  stakeGram   Decimal  @db.Decimal(20, 9)
+  status      String   @default("WAITING")
+  winnerId    String?
+  createdAt   DateTime @default(now())
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  creatorId String
+  creator   User   @relation("PvpRoomCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  winner    User?  @relation("PvpRoomWinner", fields: [winnerId], references: [id], onDelete: SetNull)
+  participants PvpParticipant[]
+  invitations  PvpInvitation[]
+}
+
+model PvpParticipant {
+  id       String   @id @default(cuid())
+  roomId   String
+  userId   String
+  joinedAt DateTime @default(now())
+
+  room PvpRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, userId])
+  @@index([userId, joinedAt])
+}
+
+model PvpInvitation {
+  id         String   @id @default(cuid())
+  roomId     String
+  senderId   String
+  recipientId String
+  status     String   @default("PENDING")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  room      PvpRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  sender    User    @relation("PvpInvitationSender", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient User    @relation("PvpInvitationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, recipientId])
+  @@index([recipientId, status, createdAt])
 }

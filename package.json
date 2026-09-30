@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "type": "module",
   "scripts": {
-    "build": "nest build && prisma generate",
+    "build": "prisma generate && nest build && mkdir -p dist/generated/prisma && cp -R src/generated/prisma/. dist/generated/prisma/",
     "deploy": "nest deploy",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",

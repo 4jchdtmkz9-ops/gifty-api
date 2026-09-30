@@ -146,6 +146,10 @@ exports.Prisma.GiftScalarFieldEnum = {
   collection: 'collection',
   emoji: 'emoji',
   priceTon: 'priceTon',
+  backdropName: 'backdropName',
+  backdropColor: 'backdropColor',
+  symbolName: 'symbolName',
+  symbolImageUrl: 'symbolImageUrl',
   status: 'status',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
@@ -177,6 +181,35 @@ exports.Prisma.OfferScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PvpRoomScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  stakeGram: 'stakeGram',
+  status: 'status',
+  winnerId: 'winnerId',
+  createdAt: 'createdAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  creatorId: 'creatorId'
+};
+
+exports.Prisma.PvpParticipantScalarFieldEnum = {
+  id: 'id',
+  roomId: 'roomId',
+  userId: 'userId',
+  joinedAt: 'joinedAt'
+};
+
+exports.Prisma.PvpInvitationScalarFieldEnum = {
+  id: 'id',
+  roomId: 'roomId',
+  senderId: 'senderId',
+  recipientId: 'recipientId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -198,7 +231,10 @@ exports.Prisma.ModelName = {
   Wallet: 'Wallet',
   Gift: 'Gift',
   Transaction: 'Transaction',
-  Offer: 'Offer'
+  Offer: 'Offer',
+  PvpRoom: 'PvpRoom',
+  PvpParticipant: 'PvpParticipant',
+  PvpInvitation: 'PvpInvitation'
 };
 
 /**

@@ -15,29 +15,44 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 /**
  * Model User
- *
+ * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
  * Model Wallet
- *
+ * 
  */
 export type Wallet = $Result.DefaultSelection<Prisma.$WalletPayload>
 /**
  * Model Gift
- *
+ * 
  */
 export type Gift = $Result.DefaultSelection<Prisma.$GiftPayload>
 /**
  * Model Transaction
- *
+ * 
  */
 export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
 /**
  * Model Offer
- *
+ * 
  */
 export type Offer = $Result.DefaultSelection<Prisma.$OfferPayload>
+/**
+ * Model PvpRoom
+ * 
+ */
+export type PvpRoom = $Result.DefaultSelection<Prisma.$PvpRoomPayload>
+/**
+ * Model PvpParticipant
+ * 
+ */
+export type PvpParticipant = $Result.DefaultSelection<Prisma.$PvpParticipantPayload>
+/**
+ * Model PvpInvitation
+ * 
+ */
+export type PvpInvitation = $Result.DefaultSelection<Prisma.$PvpInvitationPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -149,7 +164,7 @@ export class PrismaClient<
    *   prisma.user.create({ data: { name: 'Alice' } }),
    * ])
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
@@ -209,6 +224,36 @@ export class PrismaClient<
     * ```
     */
   get offer(): Prisma.OfferDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pvpRoom`: Exposes CRUD operations for the **PvpRoom** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PvpRooms
+    * const pvpRooms = await prisma.pvpRoom.findMany()
+    * ```
+    */
+  get pvpRoom(): Prisma.PvpRoomDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pvpParticipant`: Exposes CRUD operations for the **PvpParticipant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PvpParticipants
+    * const pvpParticipants = await prisma.pvpParticipant.findMany()
+    * ```
+    */
+  get pvpParticipant(): Prisma.PvpParticipantDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pvpInvitation`: Exposes CRUD operations for the **PvpInvitation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PvpInvitations
+    * const pvpInvitations = await prisma.pvpInvitation.findMany()
+    * ```
+    */
+  get pvpInvitation(): Prisma.PvpInvitationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -660,7 +705,10 @@ export namespace Prisma {
     Wallet: 'Wallet',
     Gift: 'Gift',
     Transaction: 'Transaction',
-    Offer: 'Offer'
+    Offer: 'Offer',
+    PvpRoom: 'PvpRoom',
+    PvpParticipant: 'PvpParticipant',
+    PvpInvitation: 'PvpInvitation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -676,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "wallet" | "gift" | "transaction" | "offer"
+      modelProps: "user" | "wallet" | "gift" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpInvitation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1050,6 +1098,228 @@ export namespace Prisma {
           }
         }
       }
+      PvpRoom: {
+        payload: Prisma.$PvpRoomPayload<ExtArgs>
+        fields: Prisma.PvpRoomFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PvpRoomFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PvpRoomFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>
+          }
+          findFirst: {
+            args: Prisma.PvpRoomFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PvpRoomFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>
+          }
+          findMany: {
+            args: Prisma.PvpRoomFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>[]
+          }
+          create: {
+            args: Prisma.PvpRoomCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>
+          }
+          createMany: {
+            args: Prisma.PvpRoomCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PvpRoomCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>[]
+          }
+          delete: {
+            args: Prisma.PvpRoomDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>
+          }
+          update: {
+            args: Prisma.PvpRoomUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>
+          }
+          deleteMany: {
+            args: Prisma.PvpRoomDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PvpRoomUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PvpRoomUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>[]
+          }
+          upsert: {
+            args: Prisma.PvpRoomUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpRoomPayload>
+          }
+          aggregate: {
+            args: Prisma.PvpRoomAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePvpRoom>
+          }
+          groupBy: {
+            args: Prisma.PvpRoomGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PvpRoomGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PvpRoomCountArgs<ExtArgs>
+            result: $Utils.Optional<PvpRoomCountAggregateOutputType> | number
+          }
+        }
+      }
+      PvpParticipant: {
+        payload: Prisma.$PvpParticipantPayload<ExtArgs>
+        fields: Prisma.PvpParticipantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PvpParticipantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PvpParticipantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>
+          }
+          findFirst: {
+            args: Prisma.PvpParticipantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PvpParticipantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>
+          }
+          findMany: {
+            args: Prisma.PvpParticipantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>[]
+          }
+          create: {
+            args: Prisma.PvpParticipantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>
+          }
+          createMany: {
+            args: Prisma.PvpParticipantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PvpParticipantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>[]
+          }
+          delete: {
+            args: Prisma.PvpParticipantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>
+          }
+          update: {
+            args: Prisma.PvpParticipantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>
+          }
+          deleteMany: {
+            args: Prisma.PvpParticipantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PvpParticipantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PvpParticipantUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>[]
+          }
+          upsert: {
+            args: Prisma.PvpParticipantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantPayload>
+          }
+          aggregate: {
+            args: Prisma.PvpParticipantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePvpParticipant>
+          }
+          groupBy: {
+            args: Prisma.PvpParticipantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PvpParticipantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PvpParticipantCountArgs<ExtArgs>
+            result: $Utils.Optional<PvpParticipantCountAggregateOutputType> | number
+          }
+        }
+      }
+      PvpInvitation: {
+        payload: Prisma.$PvpInvitationPayload<ExtArgs>
+        fields: Prisma.PvpInvitationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PvpInvitationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PvpInvitationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>
+          }
+          findFirst: {
+            args: Prisma.PvpInvitationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PvpInvitationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>
+          }
+          findMany: {
+            args: Prisma.PvpInvitationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>[]
+          }
+          create: {
+            args: Prisma.PvpInvitationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>
+          }
+          createMany: {
+            args: Prisma.PvpInvitationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PvpInvitationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>[]
+          }
+          delete: {
+            args: Prisma.PvpInvitationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>
+          }
+          update: {
+            args: Prisma.PvpInvitationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>
+          }
+          deleteMany: {
+            args: Prisma.PvpInvitationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PvpInvitationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PvpInvitationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>[]
+          }
+          upsert: {
+            args: Prisma.PvpInvitationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpInvitationPayload>
+          }
+          aggregate: {
+            args: Prisma.PvpInvitationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePvpInvitation>
+          }
+          groupBy: {
+            args: Prisma.PvpInvitationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PvpInvitationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PvpInvitationCountArgs<ExtArgs>
+            result: $Utils.Optional<PvpInvitationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1087,7 +1357,7 @@ export namespace Prisma {
      * ```
      * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
-     *
+     * 
      * // Emit as events only
      * log: [
      *   { emit: 'event', level: 'query' },
@@ -1095,14 +1365,14 @@ export namespace Prisma {
      *   { emit: 'event', level: 'warn' }
      *   { emit: 'event', level: 'error' }
      * ]
-     *
+     * 
      * / Emit as events and log to stdout
      * og: [
      *  { emit: 'stdout', level: 'query' },
      *  { emit: 'stdout', level: 'info' },
      *  { emit: 'stdout', level: 'warn' }
      *  { emit: 'stdout', level: 'error' }
-     *
+     * 
      * ```
      * Read more in our [docs](https://pris.ly/d/logging).
      */
@@ -1119,16 +1389,16 @@ export namespace Prisma {
     }
     /**
      * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
-     *
+     * 
      * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
-     *
+     * 
      * Learn more: https://pris.ly/d/driver-adapters
-     *
+     * 
      * @example
      * ```ts
      * import { PrismaPg } from '@prisma/adapter-pg'
      * import { PrismaClient } from './generated/prisma/client'
-     *
+     * 
      * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
      * const prisma = new PrismaClient({ adapter })
      * ```
@@ -1136,13 +1406,13 @@ export namespace Prisma {
     adapter?: runtime.SqlDriverAdapterFactory
     /**
      * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
-     *
+     * 
      * Learn more: https://pris.ly/d/accelerate
      */
     accelerateUrl?: string
     /**
      * Global configuration for omitting model fields by default.
-     *
+     * 
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -1158,7 +1428,7 @@ export namespace Prisma {
     /**
      * SQL commenter plugins that add metadata to SQL queries as comments.
      * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
-     *
+     * 
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -1178,6 +1448,9 @@ export namespace Prisma {
     gift?: GiftOmit
     transaction?: TransactionOmit
     offer?: OfferOmit
+    pvpRoom?: PvpRoomOmit
+    pvpParticipant?: PvpParticipantOmit
+    pvpInvitation?: PvpInvitationOmit
   }
 
   /* Types for Logging */
@@ -1264,6 +1537,11 @@ export namespace Prisma {
     sellerTransactions: number
     buyerOffers: number
     sellerOffers: number
+    createdPvpRooms: number
+    wonPvpRooms: number
+    pvpParticipations: number
+    sentPvpInvitations: number
+    receivedPvpInvitations: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1273,6 +1551,11 @@ export namespace Prisma {
     sellerTransactions?: boolean | UserCountOutputTypeCountSellerTransactionsArgs
     buyerOffers?: boolean | UserCountOutputTypeCountBuyerOffersArgs
     sellerOffers?: boolean | UserCountOutputTypeCountSellerOffersArgs
+    createdPvpRooms?: boolean | UserCountOutputTypeCountCreatedPvpRoomsArgs
+    wonPvpRooms?: boolean | UserCountOutputTypeCountWonPvpRoomsArgs
+    pvpParticipations?: boolean | UserCountOutputTypeCountPvpParticipationsArgs
+    sentPvpInvitations?: boolean | UserCountOutputTypeCountSentPvpInvitationsArgs
+    receivedPvpInvitations?: boolean | UserCountOutputTypeCountReceivedPvpInvitationsArgs
   }
 
   // Custom InputTypes
@@ -1328,6 +1611,41 @@ export namespace Prisma {
     where?: OfferWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedPvpRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpRoomWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWonPvpRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpRoomWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPvpParticipationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpParticipantWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSentPvpInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpInvitationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReceivedPvpInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpInvitationWhereInput
+  }
+
 
   /**
    * Count Type GiftCountOutputType
@@ -1366,6 +1684,46 @@ export namespace Prisma {
    */
   export type GiftCountOutputTypeCountOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OfferWhereInput
+  }
+
+
+  /**
+   * Count Type PvpRoomCountOutputType
+   */
+
+  export type PvpRoomCountOutputType = {
+    participants: number
+    invitations: number
+  }
+
+  export type PvpRoomCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | PvpRoomCountOutputTypeCountParticipantsArgs
+    invitations?: boolean | PvpRoomCountOutputTypeCountInvitationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PvpRoomCountOutputType without action
+   */
+  export type PvpRoomCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoomCountOutputType
+     */
+    select?: PvpRoomCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PvpRoomCountOutputType without action
+   */
+  export type PvpRoomCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpParticipantWhereInput
+  }
+
+  /**
+   * PvpRoomCountOutputType without action
+   */
+  export type PvpRoomCountOutputTypeCountInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpInvitationWhereInput
   }
 
 
@@ -1459,43 +1817,43 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Users
     **/
     _count?: true | UserCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: UserMaxAggregateInputType
@@ -1567,6 +1925,11 @@ export namespace Prisma {
     sellerTransactions?: boolean | User$sellerTransactionsArgs<ExtArgs>
     buyerOffers?: boolean | User$buyerOffersArgs<ExtArgs>
     sellerOffers?: boolean | User$sellerOffersArgs<ExtArgs>
+    createdPvpRooms?: boolean | User$createdPvpRoomsArgs<ExtArgs>
+    wonPvpRooms?: boolean | User$wonPvpRoomsArgs<ExtArgs>
+    pvpParticipations?: boolean | User$pvpParticipationsArgs<ExtArgs>
+    sentPvpInvitations?: boolean | User$sentPvpInvitationsArgs<ExtArgs>
+    receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1611,6 +1974,11 @@ export namespace Prisma {
     sellerTransactions?: boolean | User$sellerTransactionsArgs<ExtArgs>
     buyerOffers?: boolean | User$buyerOffersArgs<ExtArgs>
     sellerOffers?: boolean | User$sellerOffersArgs<ExtArgs>
+    createdPvpRooms?: boolean | User$createdPvpRoomsArgs<ExtArgs>
+    wonPvpRooms?: boolean | User$wonPvpRoomsArgs<ExtArgs>
+    pvpParticipations?: boolean | User$pvpParticipationsArgs<ExtArgs>
+    sentPvpInvitations?: boolean | User$sentPvpInvitationsArgs<ExtArgs>
+    receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1625,6 +1993,11 @@ export namespace Prisma {
       sellerTransactions: Prisma.$TransactionPayload<ExtArgs>[]
       buyerOffers: Prisma.$OfferPayload<ExtArgs>[]
       sellerOffers: Prisma.$OfferPayload<ExtArgs>[]
+      createdPvpRooms: Prisma.$PvpRoomPayload<ExtArgs>[]
+      wonPvpRooms: Prisma.$PvpRoomPayload<ExtArgs>[]
+      pvpParticipations: Prisma.$PvpParticipantPayload<ExtArgs>[]
+      sentPvpInvitations: Prisma.$PvpInvitationPayload<ExtArgs>[]
+      receivedPvpInvitations: Prisma.$PvpInvitationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1714,13 +2087,13 @@ export namespace Prisma {
      * @example
      * // Get all Users
      * const users = await prisma.user.findMany()
-     *
+     * 
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -1734,7 +2107,7 @@ export namespace Prisma {
      *     // ... data to create a User
      *   }
      * })
-     *
+     * 
      */
     create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -1748,7 +2121,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -1762,7 +2135,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Users and only return the `id`
      * const userWithIdOnly = await prisma.user.createManyAndReturn({
      *   select: { id: true },
@@ -1772,7 +2145,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -1786,7 +2159,7 @@ export namespace Prisma {
      *     // ... filter to delete one User
      *   }
      * })
-     *
+     * 
      */
     delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -1803,7 +2176,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -1817,7 +2190,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -1836,7 +2209,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -1853,7 +2226,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Users and only return the `id`
      * const userWithIdOnly = await prisma.user.updateManyAndReturn({
      *   select: { id: true },
@@ -1866,7 +2239,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -1955,7 +2328,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends UserGroupByArgs,
@@ -2035,6 +2408,11 @@ export namespace Prisma {
     sellerTransactions<T extends User$sellerTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sellerTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     buyerOffers<T extends User$buyerOffersArgs<ExtArgs> = {}>(args?: Subset<T, User$buyerOffersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sellerOffers<T extends User$sellerOffersArgs<ExtArgs> = {}>(args?: Subset<T, User$sellerOffersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    createdPvpRooms<T extends User$createdPvpRoomsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdPvpRoomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    wonPvpRooms<T extends User$wonPvpRoomsArgs<ExtArgs> = {}>(args?: Subset<T, User$wonPvpRoomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pvpParticipations<T extends User$pvpParticipationsArgs<ExtArgs> = {}>(args?: Subset<T, User$pvpParticipationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sentPvpInvitations<T extends User$sentPvpInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, User$sentPvpInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receivedPvpInvitations<T extends User$receivedPvpInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedPvpInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2073,7 +2451,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -2142,31 +2520,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -2194,31 +2572,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -2246,31 +2624,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -2609,6 +2987,126 @@ export namespace Prisma {
   }
 
   /**
+   * User.createdPvpRooms
+   */
+  export type User$createdPvpRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    where?: PvpRoomWhereInput
+    orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
+    cursor?: PvpRoomWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
+  }
+
+  /**
+   * User.wonPvpRooms
+   */
+  export type User$wonPvpRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    where?: PvpRoomWhereInput
+    orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
+    cursor?: PvpRoomWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
+  }
+
+  /**
+   * User.pvpParticipations
+   */
+  export type User$pvpParticipationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    where?: PvpParticipantWhereInput
+    orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
+    cursor?: PvpParticipantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * User.sentPvpInvitations
+   */
+  export type User$sentPvpInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    where?: PvpInvitationWhereInput
+    orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
+    cursor?: PvpInvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * User.receivedPvpInvitations
+   */
+  export type User$receivedPvpInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    where?: PvpInvitationWhereInput
+    orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
+    cursor?: PvpInvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2701,43 +3199,43 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Wallets
     **/
     _count?: true | WalletCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: WalletMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: WalletMaxAggregateInputType
@@ -2933,13 +3431,13 @@ export namespace Prisma {
      * @example
      * // Get all Wallets
      * const wallets = await prisma.wallet.findMany()
-     *
+     * 
      * // Get first 10 Wallets
      * const wallets = await prisma.wallet.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const walletWithIdOnly = await prisma.wallet.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends WalletFindManyArgs>(args?: SelectSubset<T, WalletFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -2953,7 +3451,7 @@ export namespace Prisma {
      *     // ... data to create a Wallet
      *   }
      * })
-     *
+     * 
      */
     create<T extends WalletCreateArgs>(args: SelectSubset<T, WalletCreateArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2967,7 +3465,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends WalletCreateManyArgs>(args?: SelectSubset<T, WalletCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2981,7 +3479,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Wallets and only return the `id`
      * const walletWithIdOnly = await prisma.wallet.createManyAndReturn({
      *   select: { id: true },
@@ -2991,7 +3489,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends WalletCreateManyAndReturnArgs>(args?: SelectSubset<T, WalletCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -3005,7 +3503,7 @@ export namespace Prisma {
      *     // ... filter to delete one Wallet
      *   }
      * })
-     *
+     * 
      */
     delete<T extends WalletDeleteArgs>(args: SelectSubset<T, WalletDeleteArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3022,7 +3520,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends WalletUpdateArgs>(args: SelectSubset<T, WalletUpdateArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3036,7 +3534,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends WalletDeleteManyArgs>(args?: SelectSubset<T, WalletDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3055,7 +3553,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends WalletUpdateManyArgs>(args: SelectSubset<T, WalletUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3072,7 +3570,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Wallets and only return the `id`
      * const walletWithIdOnly = await prisma.wallet.updateManyAndReturn({
      *   select: { id: true },
@@ -3085,7 +3583,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends WalletUpdateManyAndReturnArgs>(args: SelectSubset<T, WalletUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -3174,7 +3672,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends WalletGroupByArgs,
@@ -3285,7 +3783,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Wallet", 'DateTime'>
     readonly userId: FieldRef<"Wallet", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -3354,31 +3852,31 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Wallets.
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Wallets.
      */
     distinct?: WalletScalarFieldEnum | WalletScalarFieldEnum[]
@@ -3406,31 +3904,31 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Wallets.
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Wallets.
      */
     distinct?: WalletScalarFieldEnum | WalletScalarFieldEnum[]
@@ -3458,31 +3956,31 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Wallets.
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Wallets.
      */
     distinct?: WalletScalarFieldEnum | WalletScalarFieldEnum[]
@@ -3729,6 +4227,10 @@ export namespace Prisma {
     collection: string | null
     emoji: string | null
     priceTon: Decimal | null
+    backdropName: string | null
+    backdropColor: string | null
+    symbolName: string | null
+    symbolImageUrl: string | null
     status: string | null
     ownerId: string | null
     createdAt: Date | null
@@ -3741,6 +4243,10 @@ export namespace Prisma {
     collection: string | null
     emoji: string | null
     priceTon: Decimal | null
+    backdropName: string | null
+    backdropColor: string | null
+    symbolName: string | null
+    symbolImageUrl: string | null
     status: string | null
     ownerId: string | null
     createdAt: Date | null
@@ -3753,6 +4259,10 @@ export namespace Prisma {
     collection: number
     emoji: number
     priceTon: number
+    backdropName: number
+    backdropColor: number
+    symbolName: number
+    symbolImageUrl: number
     status: number
     ownerId: number
     createdAt: number
@@ -3775,6 +4285,10 @@ export namespace Prisma {
     collection?: true
     emoji?: true
     priceTon?: true
+    backdropName?: true
+    backdropColor?: true
+    symbolName?: true
+    symbolImageUrl?: true
     status?: true
     ownerId?: true
     createdAt?: true
@@ -3787,6 +4301,10 @@ export namespace Prisma {
     collection?: true
     emoji?: true
     priceTon?: true
+    backdropName?: true
+    backdropColor?: true
+    symbolName?: true
+    symbolImageUrl?: true
     status?: true
     ownerId?: true
     createdAt?: true
@@ -3799,6 +4317,10 @@ export namespace Prisma {
     collection?: true
     emoji?: true
     priceTon?: true
+    backdropName?: true
+    backdropColor?: true
+    symbolName?: true
+    symbolImageUrl?: true
     status?: true
     ownerId?: true
     createdAt?: true
@@ -3813,55 +4335,55 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Gifts
     **/
     _count?: true | GiftCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: GiftAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: GiftSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: GiftMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: GiftMaxAggregateInputType
@@ -3898,6 +4420,10 @@ export namespace Prisma {
     collection: string
     emoji: string | null
     priceTon: Decimal
+    backdropName: string | null
+    backdropColor: string | null
+    symbolName: string | null
+    symbolImageUrl: string | null
     status: string
     ownerId: string | null
     createdAt: Date
@@ -3929,6 +4455,10 @@ export namespace Prisma {
     collection?: boolean
     emoji?: boolean
     priceTon?: boolean
+    backdropName?: boolean
+    backdropColor?: boolean
+    symbolName?: boolean
+    symbolImageUrl?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -3945,6 +4475,10 @@ export namespace Prisma {
     collection?: boolean
     emoji?: boolean
     priceTon?: boolean
+    backdropName?: boolean
+    backdropColor?: boolean
+    symbolName?: boolean
+    symbolImageUrl?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -3958,6 +4492,10 @@ export namespace Prisma {
     collection?: boolean
     emoji?: boolean
     priceTon?: boolean
+    backdropName?: boolean
+    backdropColor?: boolean
+    symbolName?: boolean
+    symbolImageUrl?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -3971,13 +4509,17 @@ export namespace Prisma {
     collection?: boolean
     emoji?: boolean
     priceTon?: boolean
+    backdropName?: boolean
+    backdropColor?: boolean
+    symbolName?: boolean
+    symbolImageUrl?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type GiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "collection" | "emoji" | "priceTon" | "status" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["gift"]>
+  export type GiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "collection" | "emoji" | "priceTon" | "backdropName" | "backdropColor" | "symbolName" | "symbolImageUrl" | "status" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["gift"]>
   export type GiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | Gift$ownerArgs<ExtArgs>
     transactions?: boolean | Gift$transactionsArgs<ExtArgs>
@@ -4004,6 +4546,10 @@ export namespace Prisma {
       collection: string
       emoji: string | null
       priceTon: Prisma.Decimal
+      backdropName: string | null
+      backdropColor: string | null
+      symbolName: string | null
+      symbolImageUrl: string | null
       status: string
       ownerId: string | null
       createdAt: Date
@@ -4087,13 +4633,13 @@ export namespace Prisma {
      * @example
      * // Get all Gifts
      * const gifts = await prisma.gift.findMany()
-     *
+     * 
      * // Get first 10 Gifts
      * const gifts = await prisma.gift.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const giftWithIdOnly = await prisma.gift.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends GiftFindManyArgs>(args?: SelectSubset<T, GiftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -4107,7 +4653,7 @@ export namespace Prisma {
      *     // ... data to create a Gift
      *   }
      * })
-     *
+     * 
      */
     create<T extends GiftCreateArgs>(args: SelectSubset<T, GiftCreateArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4121,7 +4667,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends GiftCreateManyArgs>(args?: SelectSubset<T, GiftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4135,7 +4681,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Gifts and only return the `id`
      * const giftWithIdOnly = await prisma.gift.createManyAndReturn({
      *   select: { id: true },
@@ -4145,7 +4691,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends GiftCreateManyAndReturnArgs>(args?: SelectSubset<T, GiftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -4159,7 +4705,7 @@ export namespace Prisma {
      *     // ... filter to delete one Gift
      *   }
      * })
-     *
+     * 
      */
     delete<T extends GiftDeleteArgs>(args: SelectSubset<T, GiftDeleteArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4176,7 +4722,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends GiftUpdateArgs>(args: SelectSubset<T, GiftUpdateArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4190,7 +4736,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends GiftDeleteManyArgs>(args?: SelectSubset<T, GiftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4209,7 +4755,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends GiftUpdateManyArgs>(args: SelectSubset<T, GiftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4226,7 +4772,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Gifts and only return the `id`
      * const giftWithIdOnly = await prisma.gift.updateManyAndReturn({
      *   select: { id: true },
@@ -4239,7 +4785,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends GiftUpdateManyAndReturnArgs>(args: SelectSubset<T, GiftUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -4328,7 +4874,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends GiftGroupByArgs,
@@ -4439,12 +4985,16 @@ export namespace Prisma {
     readonly collection: FieldRef<"Gift", 'String'>
     readonly emoji: FieldRef<"Gift", 'String'>
     readonly priceTon: FieldRef<"Gift", 'Decimal'>
+    readonly backdropName: FieldRef<"Gift", 'String'>
+    readonly backdropColor: FieldRef<"Gift", 'String'>
+    readonly symbolName: FieldRef<"Gift", 'String'>
+    readonly symbolImageUrl: FieldRef<"Gift", 'String'>
     readonly status: FieldRef<"Gift", 'String'>
     readonly ownerId: FieldRef<"Gift", 'String'>
     readonly createdAt: FieldRef<"Gift", 'DateTime'>
     readonly updatedAt: FieldRef<"Gift", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -4513,31 +5063,31 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Gifts.
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Gifts.
      */
     distinct?: GiftScalarFieldEnum | GiftScalarFieldEnum[]
@@ -4565,31 +5115,31 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Gifts.
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Gifts.
      */
     distinct?: GiftScalarFieldEnum | GiftScalarFieldEnum[]
@@ -4617,31 +5167,31 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Gifts.
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Gifts.
      */
     distinct?: GiftScalarFieldEnum | GiftScalarFieldEnum[]
@@ -5045,55 +5595,55 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Transactions
     **/
     _count?: true | TransactionCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TransactionAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TransactionSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TransactionMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TransactionMaxAggregateInputType
@@ -5331,13 +5881,13 @@ export namespace Prisma {
      * @example
      * // Get all Transactions
      * const transactions = await prisma.transaction.findMany()
-     *
+     * 
      * // Get first 10 Transactions
      * const transactions = await prisma.transaction.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const transactionWithIdOnly = await prisma.transaction.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TransactionFindManyArgs>(args?: SelectSubset<T, TransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -5351,7 +5901,7 @@ export namespace Prisma {
      *     // ... data to create a Transaction
      *   }
      * })
-     *
+     * 
      */
     create<T extends TransactionCreateArgs>(args: SelectSubset<T, TransactionCreateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5365,7 +5915,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TransactionCreateManyArgs>(args?: SelectSubset<T, TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5379,7 +5929,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Transactions and only return the `id`
      * const transactionWithIdOnly = await prisma.transaction.createManyAndReturn({
      *   select: { id: true },
@@ -5389,7 +5939,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -5403,7 +5953,7 @@ export namespace Prisma {
      *     // ... filter to delete one Transaction
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TransactionDeleteArgs>(args: SelectSubset<T, TransactionDeleteArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5420,7 +5970,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TransactionUpdateArgs>(args: SelectSubset<T, TransactionUpdateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5434,7 +5984,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TransactionDeleteManyArgs>(args?: SelectSubset<T, TransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5453,7 +6003,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TransactionUpdateManyArgs>(args: SelectSubset<T, TransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5470,7 +6020,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Transactions and only return the `id`
      * const transactionWithIdOnly = await prisma.transaction.updateManyAndReturn({
      *   select: { id: true },
@@ -5483,7 +6033,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends TransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, TransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -5572,7 +6122,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TransactionGroupByArgs,
@@ -5689,7 +6239,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -5758,31 +6308,31 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Transactions.
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Transactions.
      */
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
@@ -5810,31 +6360,31 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Transactions.
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Transactions.
      */
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
@@ -5862,31 +6412,31 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Transactions.
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Transactions.
      */
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
@@ -6274,55 +6824,55 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Offers
     **/
     _count?: true | OfferCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: OfferAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: OfferSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: OfferMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: OfferMaxAggregateInputType
@@ -6554,13 +7104,13 @@ export namespace Prisma {
      * @example
      * // Get all Offers
      * const offers = await prisma.offer.findMany()
-     *
+     * 
      * // Get first 10 Offers
      * const offers = await prisma.offer.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const offerWithIdOnly = await prisma.offer.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends OfferFindManyArgs>(args?: SelectSubset<T, OfferFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -6574,7 +7124,7 @@ export namespace Prisma {
      *     // ... data to create a Offer
      *   }
      * })
-     *
+     * 
      */
     create<T extends OfferCreateArgs>(args: SelectSubset<T, OfferCreateArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6588,7 +7138,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends OfferCreateManyArgs>(args?: SelectSubset<T, OfferCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6602,7 +7152,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Offers and only return the `id`
      * const offerWithIdOnly = await prisma.offer.createManyAndReturn({
      *   select: { id: true },
@@ -6612,7 +7162,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends OfferCreateManyAndReturnArgs>(args?: SelectSubset<T, OfferCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -6626,7 +7176,7 @@ export namespace Prisma {
      *     // ... filter to delete one Offer
      *   }
      * })
-     *
+     * 
      */
     delete<T extends OfferDeleteArgs>(args: SelectSubset<T, OfferDeleteArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6643,7 +7193,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends OfferUpdateArgs>(args: SelectSubset<T, OfferUpdateArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6657,7 +7207,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends OfferDeleteManyArgs>(args?: SelectSubset<T, OfferDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6676,7 +7226,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends OfferUpdateManyArgs>(args: SelectSubset<T, OfferUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6693,7 +7243,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Offers and only return the `id`
      * const offerWithIdOnly = await prisma.offer.updateManyAndReturn({
      *   select: { id: true },
@@ -6706,7 +7256,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends OfferUpdateManyAndReturnArgs>(args: SelectSubset<T, OfferUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -6795,7 +7345,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends OfferGroupByArgs,
@@ -6911,7 +7461,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Offer", 'DateTime'>
     readonly updatedAt: FieldRef<"Offer", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -6980,31 +7530,31 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Offers.
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Offers.
      */
     distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
@@ -7032,31 +7582,31 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Offers.
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Offers.
      */
     distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
@@ -7084,31 +7634,31 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Offers.
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Offers.
      */
     distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
@@ -7349,6 +7899,3403 @@ export namespace Prisma {
 
 
   /**
+   * Model PvpRoom
+   */
+
+  export type AggregatePvpRoom = {
+    _count: PvpRoomCountAggregateOutputType | null
+    _avg: PvpRoomAvgAggregateOutputType | null
+    _sum: PvpRoomSumAggregateOutputType | null
+    _min: PvpRoomMinAggregateOutputType | null
+    _max: PvpRoomMaxAggregateOutputType | null
+  }
+
+  export type PvpRoomAvgAggregateOutputType = {
+    stakeGram: Decimal | null
+  }
+
+  export type PvpRoomSumAggregateOutputType = {
+    stakeGram: Decimal | null
+  }
+
+  export type PvpRoomMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    stakeGram: Decimal | null
+    status: string | null
+    winnerId: string | null
+    createdAt: Date | null
+    startedAt: Date | null
+    completedAt: Date | null
+    creatorId: string | null
+  }
+
+  export type PvpRoomMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    stakeGram: Decimal | null
+    status: string | null
+    winnerId: string | null
+    createdAt: Date | null
+    startedAt: Date | null
+    completedAt: Date | null
+    creatorId: string | null
+  }
+
+  export type PvpRoomCountAggregateOutputType = {
+    id: number
+    code: number
+    stakeGram: number
+    status: number
+    winnerId: number
+    createdAt: number
+    startedAt: number
+    completedAt: number
+    creatorId: number
+    _all: number
+  }
+
+
+  export type PvpRoomAvgAggregateInputType = {
+    stakeGram?: true
+  }
+
+  export type PvpRoomSumAggregateInputType = {
+    stakeGram?: true
+  }
+
+  export type PvpRoomMinAggregateInputType = {
+    id?: true
+    code?: true
+    stakeGram?: true
+    status?: true
+    winnerId?: true
+    createdAt?: true
+    startedAt?: true
+    completedAt?: true
+    creatorId?: true
+  }
+
+  export type PvpRoomMaxAggregateInputType = {
+    id?: true
+    code?: true
+    stakeGram?: true
+    status?: true
+    winnerId?: true
+    createdAt?: true
+    startedAt?: true
+    completedAt?: true
+    creatorId?: true
+  }
+
+  export type PvpRoomCountAggregateInputType = {
+    id?: true
+    code?: true
+    stakeGram?: true
+    status?: true
+    winnerId?: true
+    createdAt?: true
+    startedAt?: true
+    completedAt?: true
+    creatorId?: true
+    _all?: true
+  }
+
+  export type PvpRoomAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpRoom to aggregate.
+     */
+    where?: PvpRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpRooms to fetch.
+     */
+    orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PvpRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PvpRooms
+    **/
+    _count?: true | PvpRoomCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PvpRoomAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PvpRoomSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PvpRoomMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PvpRoomMaxAggregateInputType
+  }
+
+  export type GetPvpRoomAggregateType<T extends PvpRoomAggregateArgs> = {
+        [P in keyof T & keyof AggregatePvpRoom]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePvpRoom[P]>
+      : GetScalarType<T[P], AggregatePvpRoom[P]>
+  }
+
+
+
+
+  export type PvpRoomGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpRoomWhereInput
+    orderBy?: PvpRoomOrderByWithAggregationInput | PvpRoomOrderByWithAggregationInput[]
+    by: PvpRoomScalarFieldEnum[] | PvpRoomScalarFieldEnum
+    having?: PvpRoomScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PvpRoomCountAggregateInputType | true
+    _avg?: PvpRoomAvgAggregateInputType
+    _sum?: PvpRoomSumAggregateInputType
+    _min?: PvpRoomMinAggregateInputType
+    _max?: PvpRoomMaxAggregateInputType
+  }
+
+  export type PvpRoomGroupByOutputType = {
+    id: string
+    code: string
+    stakeGram: Decimal
+    status: string
+    winnerId: string | null
+    createdAt: Date
+    startedAt: Date | null
+    completedAt: Date | null
+    creatorId: string
+    _count: PvpRoomCountAggregateOutputType | null
+    _avg: PvpRoomAvgAggregateOutputType | null
+    _sum: PvpRoomSumAggregateOutputType | null
+    _min: PvpRoomMinAggregateOutputType | null
+    _max: PvpRoomMaxAggregateOutputType | null
+  }
+
+  type GetPvpRoomGroupByPayload<T extends PvpRoomGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PvpRoomGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PvpRoomGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PvpRoomGroupByOutputType[P]>
+            : GetScalarType<T[P], PvpRoomGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PvpRoomSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    stakeGram?: boolean
+    status?: boolean
+    winnerId?: boolean
+    createdAt?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    creatorId?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
+    participants?: boolean | PvpRoom$participantsArgs<ExtArgs>
+    invitations?: boolean | PvpRoom$invitationsArgs<ExtArgs>
+    _count?: boolean | PvpRoomCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpRoom"]>
+
+  export type PvpRoomSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    stakeGram?: boolean
+    status?: boolean
+    winnerId?: boolean
+    createdAt?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    creatorId?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpRoom"]>
+
+  export type PvpRoomSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    stakeGram?: boolean
+    status?: boolean
+    winnerId?: boolean
+    createdAt?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    creatorId?: boolean
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpRoom"]>
+
+  export type PvpRoomSelectScalar = {
+    id?: boolean
+    code?: boolean
+    stakeGram?: boolean
+    status?: boolean
+    winnerId?: boolean
+    createdAt?: boolean
+    startedAt?: boolean
+    completedAt?: boolean
+    creatorId?: boolean
+  }
+
+  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "winnerId" | "createdAt" | "startedAt" | "completedAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
+  export type PvpRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
+    participants?: boolean | PvpRoom$participantsArgs<ExtArgs>
+    invitations?: boolean | PvpRoom$invitationsArgs<ExtArgs>
+    _count?: boolean | PvpRoomCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PvpRoomIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
+  }
+  export type PvpRoomIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
+  }
+
+  export type $PvpRoomPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PvpRoom"
+    objects: {
+      creator: Prisma.$UserPayload<ExtArgs>
+      winner: Prisma.$UserPayload<ExtArgs> | null
+      participants: Prisma.$PvpParticipantPayload<ExtArgs>[]
+      invitations: Prisma.$PvpInvitationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      stakeGram: Prisma.Decimal
+      status: string
+      winnerId: string | null
+      createdAt: Date
+      startedAt: Date | null
+      completedAt: Date | null
+      creatorId: string
+    }, ExtArgs["result"]["pvpRoom"]>
+    composites: {}
+  }
+
+  type PvpRoomGetPayload<S extends boolean | null | undefined | PvpRoomDefaultArgs> = $Result.GetResult<Prisma.$PvpRoomPayload, S>
+
+  type PvpRoomCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PvpRoomFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PvpRoomCountAggregateInputType | true
+    }
+
+  export interface PvpRoomDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PvpRoom'], meta: { name: 'PvpRoom' } }
+    /**
+     * Find zero or one PvpRoom that matches the filter.
+     * @param {PvpRoomFindUniqueArgs} args - Arguments to find a PvpRoom
+     * @example
+     * // Get one PvpRoom
+     * const pvpRoom = await prisma.pvpRoom.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PvpRoomFindUniqueArgs>(args: SelectSubset<T, PvpRoomFindUniqueArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PvpRoom that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PvpRoomFindUniqueOrThrowArgs} args - Arguments to find a PvpRoom
+     * @example
+     * // Get one PvpRoom
+     * const pvpRoom = await prisma.pvpRoom.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PvpRoomFindUniqueOrThrowArgs>(args: SelectSubset<T, PvpRoomFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpRoom that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpRoomFindFirstArgs} args - Arguments to find a PvpRoom
+     * @example
+     * // Get one PvpRoom
+     * const pvpRoom = await prisma.pvpRoom.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PvpRoomFindFirstArgs>(args?: SelectSubset<T, PvpRoomFindFirstArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpRoom that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpRoomFindFirstOrThrowArgs} args - Arguments to find a PvpRoom
+     * @example
+     * // Get one PvpRoom
+     * const pvpRoom = await prisma.pvpRoom.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PvpRoomFindFirstOrThrowArgs>(args?: SelectSubset<T, PvpRoomFindFirstOrThrowArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PvpRooms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpRoomFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PvpRooms
+     * const pvpRooms = await prisma.pvpRoom.findMany()
+     * 
+     * // Get first 10 PvpRooms
+     * const pvpRooms = await prisma.pvpRoom.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pvpRoomWithIdOnly = await prisma.pvpRoom.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PvpRoomFindManyArgs>(args?: SelectSubset<T, PvpRoomFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PvpRoom.
+     * @param {PvpRoomCreateArgs} args - Arguments to create a PvpRoom.
+     * @example
+     * // Create one PvpRoom
+     * const PvpRoom = await prisma.pvpRoom.create({
+     *   data: {
+     *     // ... data to create a PvpRoom
+     *   }
+     * })
+     * 
+     */
+    create<T extends PvpRoomCreateArgs>(args: SelectSubset<T, PvpRoomCreateArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PvpRooms.
+     * @param {PvpRoomCreateManyArgs} args - Arguments to create many PvpRooms.
+     * @example
+     * // Create many PvpRooms
+     * const pvpRoom = await prisma.pvpRoom.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PvpRoomCreateManyArgs>(args?: SelectSubset<T, PvpRoomCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PvpRooms and returns the data saved in the database.
+     * @param {PvpRoomCreateManyAndReturnArgs} args - Arguments to create many PvpRooms.
+     * @example
+     * // Create many PvpRooms
+     * const pvpRoom = await prisma.pvpRoom.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PvpRooms and only return the `id`
+     * const pvpRoomWithIdOnly = await prisma.pvpRoom.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PvpRoomCreateManyAndReturnArgs>(args?: SelectSubset<T, PvpRoomCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PvpRoom.
+     * @param {PvpRoomDeleteArgs} args - Arguments to delete one PvpRoom.
+     * @example
+     * // Delete one PvpRoom
+     * const PvpRoom = await prisma.pvpRoom.delete({
+     *   where: {
+     *     // ... filter to delete one PvpRoom
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PvpRoomDeleteArgs>(args: SelectSubset<T, PvpRoomDeleteArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PvpRoom.
+     * @param {PvpRoomUpdateArgs} args - Arguments to update one PvpRoom.
+     * @example
+     * // Update one PvpRoom
+     * const pvpRoom = await prisma.pvpRoom.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PvpRoomUpdateArgs>(args: SelectSubset<T, PvpRoomUpdateArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PvpRooms.
+     * @param {PvpRoomDeleteManyArgs} args - Arguments to filter PvpRooms to delete.
+     * @example
+     * // Delete a few PvpRooms
+     * const { count } = await prisma.pvpRoom.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PvpRoomDeleteManyArgs>(args?: SelectSubset<T, PvpRoomDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpRooms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpRoomUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PvpRooms
+     * const pvpRoom = await prisma.pvpRoom.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PvpRoomUpdateManyArgs>(args: SelectSubset<T, PvpRoomUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpRooms and returns the data updated in the database.
+     * @param {PvpRoomUpdateManyAndReturnArgs} args - Arguments to update many PvpRooms.
+     * @example
+     * // Update many PvpRooms
+     * const pvpRoom = await prisma.pvpRoom.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PvpRooms and only return the `id`
+     * const pvpRoomWithIdOnly = await prisma.pvpRoom.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PvpRoomUpdateManyAndReturnArgs>(args: SelectSubset<T, PvpRoomUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PvpRoom.
+     * @param {PvpRoomUpsertArgs} args - Arguments to update or create a PvpRoom.
+     * @example
+     * // Update or create a PvpRoom
+     * const pvpRoom = await prisma.pvpRoom.upsert({
+     *   create: {
+     *     // ... data to create a PvpRoom
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PvpRoom we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PvpRoomUpsertArgs>(args: SelectSubset<T, PvpRoomUpsertArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PvpRooms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpRoomCountArgs} args - Arguments to filter PvpRooms to count.
+     * @example
+     * // Count the number of PvpRooms
+     * const count = await prisma.pvpRoom.count({
+     *   where: {
+     *     // ... the filter for the PvpRooms we want to count
+     *   }
+     * })
+    **/
+    count<T extends PvpRoomCountArgs>(
+      args?: Subset<T, PvpRoomCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PvpRoomCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PvpRoom.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpRoomAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PvpRoomAggregateArgs>(args: Subset<T, PvpRoomAggregateArgs>): Prisma.PrismaPromise<GetPvpRoomAggregateType<T>>
+
+    /**
+     * Group by PvpRoom.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpRoomGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PvpRoomGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PvpRoomGroupByArgs['orderBy'] }
+        : { orderBy?: PvpRoomGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PvpRoomGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPvpRoomGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PvpRoom model
+   */
+  readonly fields: PvpRoomFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PvpRoom.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PvpRoomClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    winner<T extends PvpRoom$winnerArgs<ExtArgs> = {}>(args?: Subset<T, PvpRoom$winnerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    participants<T extends PvpRoom$participantsArgs<ExtArgs> = {}>(args?: Subset<T, PvpRoom$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invitations<T extends PvpRoom$invitationsArgs<ExtArgs> = {}>(args?: Subset<T, PvpRoom$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PvpRoom model
+   */
+  interface PvpRoomFieldRefs {
+    readonly id: FieldRef<"PvpRoom", 'String'>
+    readonly code: FieldRef<"PvpRoom", 'String'>
+    readonly stakeGram: FieldRef<"PvpRoom", 'Decimal'>
+    readonly status: FieldRef<"PvpRoom", 'String'>
+    readonly winnerId: FieldRef<"PvpRoom", 'String'>
+    readonly createdAt: FieldRef<"PvpRoom", 'DateTime'>
+    readonly startedAt: FieldRef<"PvpRoom", 'DateTime'>
+    readonly completedAt: FieldRef<"PvpRoom", 'DateTime'>
+    readonly creatorId: FieldRef<"PvpRoom", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PvpRoom findUnique
+   */
+  export type PvpRoomFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpRoom to fetch.
+     */
+    where: PvpRoomWhereUniqueInput
+  }
+
+  /**
+   * PvpRoom findUniqueOrThrow
+   */
+  export type PvpRoomFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpRoom to fetch.
+     */
+    where: PvpRoomWhereUniqueInput
+  }
+
+  /**
+   * PvpRoom findFirst
+   */
+  export type PvpRoomFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpRoom to fetch.
+     */
+    where?: PvpRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpRooms to fetch.
+     */
+    orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpRooms.
+     */
+    cursor?: PvpRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpRooms.
+     */
+    distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
+  }
+
+  /**
+   * PvpRoom findFirstOrThrow
+   */
+  export type PvpRoomFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpRoom to fetch.
+     */
+    where?: PvpRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpRooms to fetch.
+     */
+    orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpRooms.
+     */
+    cursor?: PvpRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpRooms.
+     */
+    distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
+  }
+
+  /**
+   * PvpRoom findMany
+   */
+  export type PvpRoomFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpRooms to fetch.
+     */
+    where?: PvpRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpRooms to fetch.
+     */
+    orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PvpRooms.
+     */
+    cursor?: PvpRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpRooms.
+     */
+    distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
+  }
+
+  /**
+   * PvpRoom create
+   */
+  export type PvpRoomCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PvpRoom.
+     */
+    data: XOR<PvpRoomCreateInput, PvpRoomUncheckedCreateInput>
+  }
+
+  /**
+   * PvpRoom createMany
+   */
+  export type PvpRoomCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PvpRooms.
+     */
+    data: PvpRoomCreateManyInput | PvpRoomCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PvpRoom createManyAndReturn
+   */
+  export type PvpRoomCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * The data used to create many PvpRooms.
+     */
+    data: PvpRoomCreateManyInput | PvpRoomCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpRoom update
+   */
+  export type PvpRoomUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PvpRoom.
+     */
+    data: XOR<PvpRoomUpdateInput, PvpRoomUncheckedUpdateInput>
+    /**
+     * Choose, which PvpRoom to update.
+     */
+    where: PvpRoomWhereUniqueInput
+  }
+
+  /**
+   * PvpRoom updateMany
+   */
+  export type PvpRoomUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PvpRooms.
+     */
+    data: XOR<PvpRoomUpdateManyMutationInput, PvpRoomUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpRooms to update
+     */
+    where?: PvpRoomWhereInput
+    /**
+     * Limit how many PvpRooms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpRoom updateManyAndReturn
+   */
+  export type PvpRoomUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * The data used to update PvpRooms.
+     */
+    data: XOR<PvpRoomUpdateManyMutationInput, PvpRoomUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpRooms to update
+     */
+    where?: PvpRoomWhereInput
+    /**
+     * Limit how many PvpRooms to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpRoom upsert
+   */
+  export type PvpRoomUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PvpRoom to update in case it exists.
+     */
+    where: PvpRoomWhereUniqueInput
+    /**
+     * In case the PvpRoom found by the `where` argument doesn't exist, create a new PvpRoom with this data.
+     */
+    create: XOR<PvpRoomCreateInput, PvpRoomUncheckedCreateInput>
+    /**
+     * In case the PvpRoom was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PvpRoomUpdateInput, PvpRoomUncheckedUpdateInput>
+  }
+
+  /**
+   * PvpRoom delete
+   */
+  export type PvpRoomDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+    /**
+     * Filter which PvpRoom to delete.
+     */
+    where: PvpRoomWhereUniqueInput
+  }
+
+  /**
+   * PvpRoom deleteMany
+   */
+  export type PvpRoomDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpRooms to delete
+     */
+    where?: PvpRoomWhereInput
+    /**
+     * Limit how many PvpRooms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpRoom.winner
+   */
+  export type PvpRoom$winnerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * PvpRoom.participants
+   */
+  export type PvpRoom$participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    where?: PvpParticipantWhereInput
+    orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
+    cursor?: PvpParticipantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * PvpRoom.invitations
+   */
+  export type PvpRoom$invitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    where?: PvpInvitationWhereInput
+    orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
+    cursor?: PvpInvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * PvpRoom without action
+   */
+  export type PvpRoomDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpRoom
+     */
+    select?: PvpRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpRoom
+     */
+    omit?: PvpRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpRoomInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PvpParticipant
+   */
+
+  export type AggregatePvpParticipant = {
+    _count: PvpParticipantCountAggregateOutputType | null
+    _min: PvpParticipantMinAggregateOutputType | null
+    _max: PvpParticipantMaxAggregateOutputType | null
+  }
+
+  export type PvpParticipantMinAggregateOutputType = {
+    id: string | null
+    roomId: string | null
+    userId: string | null
+    joinedAt: Date | null
+  }
+
+  export type PvpParticipantMaxAggregateOutputType = {
+    id: string | null
+    roomId: string | null
+    userId: string | null
+    joinedAt: Date | null
+  }
+
+  export type PvpParticipantCountAggregateOutputType = {
+    id: number
+    roomId: number
+    userId: number
+    joinedAt: number
+    _all: number
+  }
+
+
+  export type PvpParticipantMinAggregateInputType = {
+    id?: true
+    roomId?: true
+    userId?: true
+    joinedAt?: true
+  }
+
+  export type PvpParticipantMaxAggregateInputType = {
+    id?: true
+    roomId?: true
+    userId?: true
+    joinedAt?: true
+  }
+
+  export type PvpParticipantCountAggregateInputType = {
+    id?: true
+    roomId?: true
+    userId?: true
+    joinedAt?: true
+    _all?: true
+  }
+
+  export type PvpParticipantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpParticipant to aggregate.
+     */
+    where?: PvpParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipants to fetch.
+     */
+    orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PvpParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PvpParticipants
+    **/
+    _count?: true | PvpParticipantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PvpParticipantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PvpParticipantMaxAggregateInputType
+  }
+
+  export type GetPvpParticipantAggregateType<T extends PvpParticipantAggregateArgs> = {
+        [P in keyof T & keyof AggregatePvpParticipant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePvpParticipant[P]>
+      : GetScalarType<T[P], AggregatePvpParticipant[P]>
+  }
+
+
+
+
+  export type PvpParticipantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpParticipantWhereInput
+    orderBy?: PvpParticipantOrderByWithAggregationInput | PvpParticipantOrderByWithAggregationInput[]
+    by: PvpParticipantScalarFieldEnum[] | PvpParticipantScalarFieldEnum
+    having?: PvpParticipantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PvpParticipantCountAggregateInputType | true
+    _min?: PvpParticipantMinAggregateInputType
+    _max?: PvpParticipantMaxAggregateInputType
+  }
+
+  export type PvpParticipantGroupByOutputType = {
+    id: string
+    roomId: string
+    userId: string
+    joinedAt: Date
+    _count: PvpParticipantCountAggregateOutputType | null
+    _min: PvpParticipantMinAggregateOutputType | null
+    _max: PvpParticipantMaxAggregateOutputType | null
+  }
+
+  type GetPvpParticipantGroupByPayload<T extends PvpParticipantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PvpParticipantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PvpParticipantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PvpParticipantGroupByOutputType[P]>
+            : GetScalarType<T[P], PvpParticipantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PvpParticipantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    userId?: boolean
+    joinedAt?: boolean
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpParticipant"]>
+
+  export type PvpParticipantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    userId?: boolean
+    joinedAt?: boolean
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpParticipant"]>
+
+  export type PvpParticipantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    userId?: boolean
+    joinedAt?: boolean
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpParticipant"]>
+
+  export type PvpParticipantSelectScalar = {
+    id?: boolean
+    roomId?: boolean
+    userId?: boolean
+    joinedAt?: boolean
+  }
+
+  export type PvpParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "userId" | "joinedAt", ExtArgs["result"]["pvpParticipant"]>
+  export type PvpParticipantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PvpParticipantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PvpParticipantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PvpParticipantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PvpParticipant"
+    objects: {
+      room: Prisma.$PvpRoomPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roomId: string
+      userId: string
+      joinedAt: Date
+    }, ExtArgs["result"]["pvpParticipant"]>
+    composites: {}
+  }
+
+  type PvpParticipantGetPayload<S extends boolean | null | undefined | PvpParticipantDefaultArgs> = $Result.GetResult<Prisma.$PvpParticipantPayload, S>
+
+  type PvpParticipantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PvpParticipantFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PvpParticipantCountAggregateInputType | true
+    }
+
+  export interface PvpParticipantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PvpParticipant'], meta: { name: 'PvpParticipant' } }
+    /**
+     * Find zero or one PvpParticipant that matches the filter.
+     * @param {PvpParticipantFindUniqueArgs} args - Arguments to find a PvpParticipant
+     * @example
+     * // Get one PvpParticipant
+     * const pvpParticipant = await prisma.pvpParticipant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PvpParticipantFindUniqueArgs>(args: SelectSubset<T, PvpParticipantFindUniqueArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PvpParticipant that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PvpParticipantFindUniqueOrThrowArgs} args - Arguments to find a PvpParticipant
+     * @example
+     * // Get one PvpParticipant
+     * const pvpParticipant = await prisma.pvpParticipant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PvpParticipantFindUniqueOrThrowArgs>(args: SelectSubset<T, PvpParticipantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpParticipant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantFindFirstArgs} args - Arguments to find a PvpParticipant
+     * @example
+     * // Get one PvpParticipant
+     * const pvpParticipant = await prisma.pvpParticipant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PvpParticipantFindFirstArgs>(args?: SelectSubset<T, PvpParticipantFindFirstArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpParticipant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantFindFirstOrThrowArgs} args - Arguments to find a PvpParticipant
+     * @example
+     * // Get one PvpParticipant
+     * const pvpParticipant = await prisma.pvpParticipant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PvpParticipantFindFirstOrThrowArgs>(args?: SelectSubset<T, PvpParticipantFindFirstOrThrowArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PvpParticipants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PvpParticipants
+     * const pvpParticipants = await prisma.pvpParticipant.findMany()
+     * 
+     * // Get first 10 PvpParticipants
+     * const pvpParticipants = await prisma.pvpParticipant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pvpParticipantWithIdOnly = await prisma.pvpParticipant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PvpParticipantFindManyArgs>(args?: SelectSubset<T, PvpParticipantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PvpParticipant.
+     * @param {PvpParticipantCreateArgs} args - Arguments to create a PvpParticipant.
+     * @example
+     * // Create one PvpParticipant
+     * const PvpParticipant = await prisma.pvpParticipant.create({
+     *   data: {
+     *     // ... data to create a PvpParticipant
+     *   }
+     * })
+     * 
+     */
+    create<T extends PvpParticipantCreateArgs>(args: SelectSubset<T, PvpParticipantCreateArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PvpParticipants.
+     * @param {PvpParticipantCreateManyArgs} args - Arguments to create many PvpParticipants.
+     * @example
+     * // Create many PvpParticipants
+     * const pvpParticipant = await prisma.pvpParticipant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PvpParticipantCreateManyArgs>(args?: SelectSubset<T, PvpParticipantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PvpParticipants and returns the data saved in the database.
+     * @param {PvpParticipantCreateManyAndReturnArgs} args - Arguments to create many PvpParticipants.
+     * @example
+     * // Create many PvpParticipants
+     * const pvpParticipant = await prisma.pvpParticipant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PvpParticipants and only return the `id`
+     * const pvpParticipantWithIdOnly = await prisma.pvpParticipant.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PvpParticipantCreateManyAndReturnArgs>(args?: SelectSubset<T, PvpParticipantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PvpParticipant.
+     * @param {PvpParticipantDeleteArgs} args - Arguments to delete one PvpParticipant.
+     * @example
+     * // Delete one PvpParticipant
+     * const PvpParticipant = await prisma.pvpParticipant.delete({
+     *   where: {
+     *     // ... filter to delete one PvpParticipant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PvpParticipantDeleteArgs>(args: SelectSubset<T, PvpParticipantDeleteArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PvpParticipant.
+     * @param {PvpParticipantUpdateArgs} args - Arguments to update one PvpParticipant.
+     * @example
+     * // Update one PvpParticipant
+     * const pvpParticipant = await prisma.pvpParticipant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PvpParticipantUpdateArgs>(args: SelectSubset<T, PvpParticipantUpdateArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PvpParticipants.
+     * @param {PvpParticipantDeleteManyArgs} args - Arguments to filter PvpParticipants to delete.
+     * @example
+     * // Delete a few PvpParticipants
+     * const { count } = await prisma.pvpParticipant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PvpParticipantDeleteManyArgs>(args?: SelectSubset<T, PvpParticipantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PvpParticipants
+     * const pvpParticipant = await prisma.pvpParticipant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PvpParticipantUpdateManyArgs>(args: SelectSubset<T, PvpParticipantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpParticipants and returns the data updated in the database.
+     * @param {PvpParticipantUpdateManyAndReturnArgs} args - Arguments to update many PvpParticipants.
+     * @example
+     * // Update many PvpParticipants
+     * const pvpParticipant = await prisma.pvpParticipant.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PvpParticipants and only return the `id`
+     * const pvpParticipantWithIdOnly = await prisma.pvpParticipant.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PvpParticipantUpdateManyAndReturnArgs>(args: SelectSubset<T, PvpParticipantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PvpParticipant.
+     * @param {PvpParticipantUpsertArgs} args - Arguments to update or create a PvpParticipant.
+     * @example
+     * // Update or create a PvpParticipant
+     * const pvpParticipant = await prisma.pvpParticipant.upsert({
+     *   create: {
+     *     // ... data to create a PvpParticipant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PvpParticipant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PvpParticipantUpsertArgs>(args: SelectSubset<T, PvpParticipantUpsertArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PvpParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantCountArgs} args - Arguments to filter PvpParticipants to count.
+     * @example
+     * // Count the number of PvpParticipants
+     * const count = await prisma.pvpParticipant.count({
+     *   where: {
+     *     // ... the filter for the PvpParticipants we want to count
+     *   }
+     * })
+    **/
+    count<T extends PvpParticipantCountArgs>(
+      args?: Subset<T, PvpParticipantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PvpParticipantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PvpParticipant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PvpParticipantAggregateArgs>(args: Subset<T, PvpParticipantAggregateArgs>): Prisma.PrismaPromise<GetPvpParticipantAggregateType<T>>
+
+    /**
+     * Group by PvpParticipant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PvpParticipantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PvpParticipantGroupByArgs['orderBy'] }
+        : { orderBy?: PvpParticipantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PvpParticipantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPvpParticipantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PvpParticipant model
+   */
+  readonly fields: PvpParticipantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PvpParticipant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PvpParticipantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    room<T extends PvpRoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PvpRoomDefaultArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PvpParticipant model
+   */
+  interface PvpParticipantFieldRefs {
+    readonly id: FieldRef<"PvpParticipant", 'String'>
+    readonly roomId: FieldRef<"PvpParticipant", 'String'>
+    readonly userId: FieldRef<"PvpParticipant", 'String'>
+    readonly joinedAt: FieldRef<"PvpParticipant", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PvpParticipant findUnique
+   */
+  export type PvpParticipantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipant to fetch.
+     */
+    where: PvpParticipantWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipant findUniqueOrThrow
+   */
+  export type PvpParticipantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipant to fetch.
+     */
+    where: PvpParticipantWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipant findFirst
+   */
+  export type PvpParticipantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipant to fetch.
+     */
+    where?: PvpParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipants to fetch.
+     */
+    orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpParticipants.
+     */
+    cursor?: PvpParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpParticipants.
+     */
+    distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * PvpParticipant findFirstOrThrow
+   */
+  export type PvpParticipantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipant to fetch.
+     */
+    where?: PvpParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipants to fetch.
+     */
+    orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpParticipants.
+     */
+    cursor?: PvpParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpParticipants.
+     */
+    distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * PvpParticipant findMany
+   */
+  export type PvpParticipantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipants to fetch.
+     */
+    where?: PvpParticipantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipants to fetch.
+     */
+    orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PvpParticipants.
+     */
+    cursor?: PvpParticipantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpParticipants.
+     */
+    distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * PvpParticipant create
+   */
+  export type PvpParticipantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PvpParticipant.
+     */
+    data: XOR<PvpParticipantCreateInput, PvpParticipantUncheckedCreateInput>
+  }
+
+  /**
+   * PvpParticipant createMany
+   */
+  export type PvpParticipantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PvpParticipants.
+     */
+    data: PvpParticipantCreateManyInput | PvpParticipantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PvpParticipant createManyAndReturn
+   */
+  export type PvpParticipantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * The data used to create many PvpParticipants.
+     */
+    data: PvpParticipantCreateManyInput | PvpParticipantCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpParticipant update
+   */
+  export type PvpParticipantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PvpParticipant.
+     */
+    data: XOR<PvpParticipantUpdateInput, PvpParticipantUncheckedUpdateInput>
+    /**
+     * Choose, which PvpParticipant to update.
+     */
+    where: PvpParticipantWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipant updateMany
+   */
+  export type PvpParticipantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PvpParticipants.
+     */
+    data: XOR<PvpParticipantUpdateManyMutationInput, PvpParticipantUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpParticipants to update
+     */
+    where?: PvpParticipantWhereInput
+    /**
+     * Limit how many PvpParticipants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpParticipant updateManyAndReturn
+   */
+  export type PvpParticipantUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * The data used to update PvpParticipants.
+     */
+    data: XOR<PvpParticipantUpdateManyMutationInput, PvpParticipantUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpParticipants to update
+     */
+    where?: PvpParticipantWhereInput
+    /**
+     * Limit how many PvpParticipants to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpParticipant upsert
+   */
+  export type PvpParticipantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PvpParticipant to update in case it exists.
+     */
+    where: PvpParticipantWhereUniqueInput
+    /**
+     * In case the PvpParticipant found by the `where` argument doesn't exist, create a new PvpParticipant with this data.
+     */
+    create: XOR<PvpParticipantCreateInput, PvpParticipantUncheckedCreateInput>
+    /**
+     * In case the PvpParticipant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PvpParticipantUpdateInput, PvpParticipantUncheckedUpdateInput>
+  }
+
+  /**
+   * PvpParticipant delete
+   */
+  export type PvpParticipantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+    /**
+     * Filter which PvpParticipant to delete.
+     */
+    where: PvpParticipantWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipant deleteMany
+   */
+  export type PvpParticipantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpParticipants to delete
+     */
+    where?: PvpParticipantWhereInput
+    /**
+     * Limit how many PvpParticipants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpParticipant without action
+   */
+  export type PvpParticipantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipant
+     */
+    select?: PvpParticipantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipant
+     */
+    omit?: PvpParticipantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PvpInvitation
+   */
+
+  export type AggregatePvpInvitation = {
+    _count: PvpInvitationCountAggregateOutputType | null
+    _min: PvpInvitationMinAggregateOutputType | null
+    _max: PvpInvitationMaxAggregateOutputType | null
+  }
+
+  export type PvpInvitationMinAggregateOutputType = {
+    id: string | null
+    roomId: string | null
+    senderId: string | null
+    recipientId: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PvpInvitationMaxAggregateOutputType = {
+    id: string | null
+    roomId: string | null
+    senderId: string | null
+    recipientId: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PvpInvitationCountAggregateOutputType = {
+    id: number
+    roomId: number
+    senderId: number
+    recipientId: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PvpInvitationMinAggregateInputType = {
+    id?: true
+    roomId?: true
+    senderId?: true
+    recipientId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PvpInvitationMaxAggregateInputType = {
+    id?: true
+    roomId?: true
+    senderId?: true
+    recipientId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PvpInvitationCountAggregateInputType = {
+    id?: true
+    roomId?: true
+    senderId?: true
+    recipientId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PvpInvitationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpInvitation to aggregate.
+     */
+    where?: PvpInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpInvitations to fetch.
+     */
+    orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PvpInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpInvitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PvpInvitations
+    **/
+    _count?: true | PvpInvitationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PvpInvitationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PvpInvitationMaxAggregateInputType
+  }
+
+  export type GetPvpInvitationAggregateType<T extends PvpInvitationAggregateArgs> = {
+        [P in keyof T & keyof AggregatePvpInvitation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePvpInvitation[P]>
+      : GetScalarType<T[P], AggregatePvpInvitation[P]>
+  }
+
+
+
+
+  export type PvpInvitationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpInvitationWhereInput
+    orderBy?: PvpInvitationOrderByWithAggregationInput | PvpInvitationOrderByWithAggregationInput[]
+    by: PvpInvitationScalarFieldEnum[] | PvpInvitationScalarFieldEnum
+    having?: PvpInvitationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PvpInvitationCountAggregateInputType | true
+    _min?: PvpInvitationMinAggregateInputType
+    _max?: PvpInvitationMaxAggregateInputType
+  }
+
+  export type PvpInvitationGroupByOutputType = {
+    id: string
+    roomId: string
+    senderId: string
+    recipientId: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: PvpInvitationCountAggregateOutputType | null
+    _min: PvpInvitationMinAggregateOutputType | null
+    _max: PvpInvitationMaxAggregateOutputType | null
+  }
+
+  type GetPvpInvitationGroupByPayload<T extends PvpInvitationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PvpInvitationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PvpInvitationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PvpInvitationGroupByOutputType[P]>
+            : GetScalarType<T[P], PvpInvitationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PvpInvitationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    senderId?: boolean
+    recipientId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpInvitation"]>
+
+  export type PvpInvitationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    senderId?: boolean
+    recipientId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpInvitation"]>
+
+  export type PvpInvitationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    senderId?: boolean
+    recipientId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpInvitation"]>
+
+  export type PvpInvitationSelectScalar = {
+    id?: boolean
+    roomId?: boolean
+    senderId?: boolean
+    recipientId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PvpInvitationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "senderId" | "recipientId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["pvpInvitation"]>
+  export type PvpInvitationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PvpInvitationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PvpInvitationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    room?: boolean | PvpRoomDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PvpInvitationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PvpInvitation"
+    objects: {
+      room: Prisma.$PvpRoomPayload<ExtArgs>
+      sender: Prisma.$UserPayload<ExtArgs>
+      recipient: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roomId: string
+      senderId: string
+      recipientId: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["pvpInvitation"]>
+    composites: {}
+  }
+
+  type PvpInvitationGetPayload<S extends boolean | null | undefined | PvpInvitationDefaultArgs> = $Result.GetResult<Prisma.$PvpInvitationPayload, S>
+
+  type PvpInvitationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PvpInvitationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PvpInvitationCountAggregateInputType | true
+    }
+
+  export interface PvpInvitationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PvpInvitation'], meta: { name: 'PvpInvitation' } }
+    /**
+     * Find zero or one PvpInvitation that matches the filter.
+     * @param {PvpInvitationFindUniqueArgs} args - Arguments to find a PvpInvitation
+     * @example
+     * // Get one PvpInvitation
+     * const pvpInvitation = await prisma.pvpInvitation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PvpInvitationFindUniqueArgs>(args: SelectSubset<T, PvpInvitationFindUniqueArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PvpInvitation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PvpInvitationFindUniqueOrThrowArgs} args - Arguments to find a PvpInvitation
+     * @example
+     * // Get one PvpInvitation
+     * const pvpInvitation = await prisma.pvpInvitation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PvpInvitationFindUniqueOrThrowArgs>(args: SelectSubset<T, PvpInvitationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpInvitation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpInvitationFindFirstArgs} args - Arguments to find a PvpInvitation
+     * @example
+     * // Get one PvpInvitation
+     * const pvpInvitation = await prisma.pvpInvitation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PvpInvitationFindFirstArgs>(args?: SelectSubset<T, PvpInvitationFindFirstArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpInvitation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpInvitationFindFirstOrThrowArgs} args - Arguments to find a PvpInvitation
+     * @example
+     * // Get one PvpInvitation
+     * const pvpInvitation = await prisma.pvpInvitation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PvpInvitationFindFirstOrThrowArgs>(args?: SelectSubset<T, PvpInvitationFindFirstOrThrowArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PvpInvitations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpInvitationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PvpInvitations
+     * const pvpInvitations = await prisma.pvpInvitation.findMany()
+     * 
+     * // Get first 10 PvpInvitations
+     * const pvpInvitations = await prisma.pvpInvitation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pvpInvitationWithIdOnly = await prisma.pvpInvitation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PvpInvitationFindManyArgs>(args?: SelectSubset<T, PvpInvitationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PvpInvitation.
+     * @param {PvpInvitationCreateArgs} args - Arguments to create a PvpInvitation.
+     * @example
+     * // Create one PvpInvitation
+     * const PvpInvitation = await prisma.pvpInvitation.create({
+     *   data: {
+     *     // ... data to create a PvpInvitation
+     *   }
+     * })
+     * 
+     */
+    create<T extends PvpInvitationCreateArgs>(args: SelectSubset<T, PvpInvitationCreateArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PvpInvitations.
+     * @param {PvpInvitationCreateManyArgs} args - Arguments to create many PvpInvitations.
+     * @example
+     * // Create many PvpInvitations
+     * const pvpInvitation = await prisma.pvpInvitation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PvpInvitationCreateManyArgs>(args?: SelectSubset<T, PvpInvitationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PvpInvitations and returns the data saved in the database.
+     * @param {PvpInvitationCreateManyAndReturnArgs} args - Arguments to create many PvpInvitations.
+     * @example
+     * // Create many PvpInvitations
+     * const pvpInvitation = await prisma.pvpInvitation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PvpInvitations and only return the `id`
+     * const pvpInvitationWithIdOnly = await prisma.pvpInvitation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PvpInvitationCreateManyAndReturnArgs>(args?: SelectSubset<T, PvpInvitationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PvpInvitation.
+     * @param {PvpInvitationDeleteArgs} args - Arguments to delete one PvpInvitation.
+     * @example
+     * // Delete one PvpInvitation
+     * const PvpInvitation = await prisma.pvpInvitation.delete({
+     *   where: {
+     *     // ... filter to delete one PvpInvitation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PvpInvitationDeleteArgs>(args: SelectSubset<T, PvpInvitationDeleteArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PvpInvitation.
+     * @param {PvpInvitationUpdateArgs} args - Arguments to update one PvpInvitation.
+     * @example
+     * // Update one PvpInvitation
+     * const pvpInvitation = await prisma.pvpInvitation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PvpInvitationUpdateArgs>(args: SelectSubset<T, PvpInvitationUpdateArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PvpInvitations.
+     * @param {PvpInvitationDeleteManyArgs} args - Arguments to filter PvpInvitations to delete.
+     * @example
+     * // Delete a few PvpInvitations
+     * const { count } = await prisma.pvpInvitation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PvpInvitationDeleteManyArgs>(args?: SelectSubset<T, PvpInvitationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpInvitations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpInvitationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PvpInvitations
+     * const pvpInvitation = await prisma.pvpInvitation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PvpInvitationUpdateManyArgs>(args: SelectSubset<T, PvpInvitationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpInvitations and returns the data updated in the database.
+     * @param {PvpInvitationUpdateManyAndReturnArgs} args - Arguments to update many PvpInvitations.
+     * @example
+     * // Update many PvpInvitations
+     * const pvpInvitation = await prisma.pvpInvitation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PvpInvitations and only return the `id`
+     * const pvpInvitationWithIdOnly = await prisma.pvpInvitation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PvpInvitationUpdateManyAndReturnArgs>(args: SelectSubset<T, PvpInvitationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PvpInvitation.
+     * @param {PvpInvitationUpsertArgs} args - Arguments to update or create a PvpInvitation.
+     * @example
+     * // Update or create a PvpInvitation
+     * const pvpInvitation = await prisma.pvpInvitation.upsert({
+     *   create: {
+     *     // ... data to create a PvpInvitation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PvpInvitation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PvpInvitationUpsertArgs>(args: SelectSubset<T, PvpInvitationUpsertArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PvpInvitations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpInvitationCountArgs} args - Arguments to filter PvpInvitations to count.
+     * @example
+     * // Count the number of PvpInvitations
+     * const count = await prisma.pvpInvitation.count({
+     *   where: {
+     *     // ... the filter for the PvpInvitations we want to count
+     *   }
+     * })
+    **/
+    count<T extends PvpInvitationCountArgs>(
+      args?: Subset<T, PvpInvitationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PvpInvitationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PvpInvitation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpInvitationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PvpInvitationAggregateArgs>(args: Subset<T, PvpInvitationAggregateArgs>): Prisma.PrismaPromise<GetPvpInvitationAggregateType<T>>
+
+    /**
+     * Group by PvpInvitation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpInvitationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PvpInvitationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PvpInvitationGroupByArgs['orderBy'] }
+        : { orderBy?: PvpInvitationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PvpInvitationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPvpInvitationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PvpInvitation model
+   */
+  readonly fields: PvpInvitationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PvpInvitation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PvpInvitationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    room<T extends PvpRoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PvpRoomDefaultArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    recipient<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PvpInvitation model
+   */
+  interface PvpInvitationFieldRefs {
+    readonly id: FieldRef<"PvpInvitation", 'String'>
+    readonly roomId: FieldRef<"PvpInvitation", 'String'>
+    readonly senderId: FieldRef<"PvpInvitation", 'String'>
+    readonly recipientId: FieldRef<"PvpInvitation", 'String'>
+    readonly status: FieldRef<"PvpInvitation", 'String'>
+    readonly createdAt: FieldRef<"PvpInvitation", 'DateTime'>
+    readonly updatedAt: FieldRef<"PvpInvitation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PvpInvitation findUnique
+   */
+  export type PvpInvitationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpInvitation to fetch.
+     */
+    where: PvpInvitationWhereUniqueInput
+  }
+
+  /**
+   * PvpInvitation findUniqueOrThrow
+   */
+  export type PvpInvitationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpInvitation to fetch.
+     */
+    where: PvpInvitationWhereUniqueInput
+  }
+
+  /**
+   * PvpInvitation findFirst
+   */
+  export type PvpInvitationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpInvitation to fetch.
+     */
+    where?: PvpInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpInvitations to fetch.
+     */
+    orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpInvitations.
+     */
+    cursor?: PvpInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpInvitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpInvitations.
+     */
+    distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * PvpInvitation findFirstOrThrow
+   */
+  export type PvpInvitationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpInvitation to fetch.
+     */
+    where?: PvpInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpInvitations to fetch.
+     */
+    orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpInvitations.
+     */
+    cursor?: PvpInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpInvitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpInvitations.
+     */
+    distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * PvpInvitation findMany
+   */
+  export type PvpInvitationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpInvitations to fetch.
+     */
+    where?: PvpInvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpInvitations to fetch.
+     */
+    orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PvpInvitations.
+     */
+    cursor?: PvpInvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpInvitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpInvitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpInvitations.
+     */
+    distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
+  }
+
+  /**
+   * PvpInvitation create
+   */
+  export type PvpInvitationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PvpInvitation.
+     */
+    data: XOR<PvpInvitationCreateInput, PvpInvitationUncheckedCreateInput>
+  }
+
+  /**
+   * PvpInvitation createMany
+   */
+  export type PvpInvitationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PvpInvitations.
+     */
+    data: PvpInvitationCreateManyInput | PvpInvitationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PvpInvitation createManyAndReturn
+   */
+  export type PvpInvitationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * The data used to create many PvpInvitations.
+     */
+    data: PvpInvitationCreateManyInput | PvpInvitationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpInvitation update
+   */
+  export type PvpInvitationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PvpInvitation.
+     */
+    data: XOR<PvpInvitationUpdateInput, PvpInvitationUncheckedUpdateInput>
+    /**
+     * Choose, which PvpInvitation to update.
+     */
+    where: PvpInvitationWhereUniqueInput
+  }
+
+  /**
+   * PvpInvitation updateMany
+   */
+  export type PvpInvitationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PvpInvitations.
+     */
+    data: XOR<PvpInvitationUpdateManyMutationInput, PvpInvitationUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpInvitations to update
+     */
+    where?: PvpInvitationWhereInput
+    /**
+     * Limit how many PvpInvitations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpInvitation updateManyAndReturn
+   */
+  export type PvpInvitationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * The data used to update PvpInvitations.
+     */
+    data: XOR<PvpInvitationUpdateManyMutationInput, PvpInvitationUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpInvitations to update
+     */
+    where?: PvpInvitationWhereInput
+    /**
+     * Limit how many PvpInvitations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpInvitation upsert
+   */
+  export type PvpInvitationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PvpInvitation to update in case it exists.
+     */
+    where: PvpInvitationWhereUniqueInput
+    /**
+     * In case the PvpInvitation found by the `where` argument doesn't exist, create a new PvpInvitation with this data.
+     */
+    create: XOR<PvpInvitationCreateInput, PvpInvitationUncheckedCreateInput>
+    /**
+     * In case the PvpInvitation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PvpInvitationUpdateInput, PvpInvitationUncheckedUpdateInput>
+  }
+
+  /**
+   * PvpInvitation delete
+   */
+  export type PvpInvitationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+    /**
+     * Filter which PvpInvitation to delete.
+     */
+    where: PvpInvitationWhereUniqueInput
+  }
+
+  /**
+   * PvpInvitation deleteMany
+   */
+  export type PvpInvitationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpInvitations to delete
+     */
+    where?: PvpInvitationWhereInput
+    /**
+     * Limit how many PvpInvitations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpInvitation without action
+   */
+  export type PvpInvitationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpInvitation
+     */
+    select?: PvpInvitationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpInvitation
+     */
+    omit?: PvpInvitationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpInvitationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7394,6 +11341,10 @@ export namespace Prisma {
     collection: 'collection',
     emoji: 'emoji',
     priceTon: 'priceTon',
+    backdropName: 'backdropName',
+    backdropColor: 'backdropColor',
+    symbolName: 'symbolName',
+    symbolImageUrl: 'symbolImageUrl',
     status: 'status',
     ownerId: 'ownerId',
     createdAt: 'createdAt',
@@ -7434,6 +11385,44 @@ export namespace Prisma {
   export type OfferScalarFieldEnum = (typeof OfferScalarFieldEnum)[keyof typeof OfferScalarFieldEnum]
 
 
+  export const PvpRoomScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    stakeGram: 'stakeGram',
+    status: 'status',
+    winnerId: 'winnerId',
+    createdAt: 'createdAt',
+    startedAt: 'startedAt',
+    completedAt: 'completedAt',
+    creatorId: 'creatorId'
+  };
+
+  export type PvpRoomScalarFieldEnum = (typeof PvpRoomScalarFieldEnum)[keyof typeof PvpRoomScalarFieldEnum]
+
+
+  export const PvpParticipantScalarFieldEnum: {
+    id: 'id',
+    roomId: 'roomId',
+    userId: 'userId',
+    joinedAt: 'joinedAt'
+  };
+
+  export type PvpParticipantScalarFieldEnum = (typeof PvpParticipantScalarFieldEnum)[keyof typeof PvpParticipantScalarFieldEnum]
+
+
+  export const PvpInvitationScalarFieldEnum: {
+    id: 'id',
+    roomId: 'roomId',
+    senderId: 'senderId',
+    recipientId: 'recipientId',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PvpInvitationScalarFieldEnum = (typeof PvpInvitationScalarFieldEnum)[keyof typeof PvpInvitationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -7467,63 +11456,63 @@ export namespace Prisma {
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-
+    
 
 
   /**
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-
+    
 
 
   /**
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-
+    
 
 
   /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-
+    
 
 
   /**
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-
+    
 
 
   /**
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-
+    
   /**
    * Deep Input Types
    */
@@ -7547,6 +11536,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionListRelationFilter
     buyerOffers?: OfferListRelationFilter
     sellerOffers?: OfferListRelationFilter
+    createdPvpRooms?: PvpRoomListRelationFilter
+    wonPvpRooms?: PvpRoomListRelationFilter
+    pvpParticipations?: PvpParticipantListRelationFilter
+    sentPvpInvitations?: PvpInvitationListRelationFilter
+    receivedPvpInvitations?: PvpInvitationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7564,6 +11558,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionOrderByRelationAggregateInput
     buyerOffers?: OfferOrderByRelationAggregateInput
     sellerOffers?: OfferOrderByRelationAggregateInput
+    createdPvpRooms?: PvpRoomOrderByRelationAggregateInput
+    wonPvpRooms?: PvpRoomOrderByRelationAggregateInput
+    pvpParticipations?: PvpParticipantOrderByRelationAggregateInput
+    sentPvpInvitations?: PvpInvitationOrderByRelationAggregateInput
+    receivedPvpInvitations?: PvpInvitationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7584,6 +11583,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionListRelationFilter
     buyerOffers?: OfferListRelationFilter
     sellerOffers?: OfferListRelationFilter
+    createdPvpRooms?: PvpRoomListRelationFilter
+    wonPvpRooms?: PvpRoomListRelationFilter
+    pvpParticipations?: PvpParticipantListRelationFilter
+    sentPvpInvitations?: PvpInvitationListRelationFilter
+    receivedPvpInvitations?: PvpInvitationListRelationFilter
   }, "id" | "telegramId">
 
   export type UserOrderByWithAggregationInput = {
@@ -7683,6 +11687,10 @@ export namespace Prisma {
     collection?: StringFilter<"Gift"> | string
     emoji?: StringNullableFilter<"Gift"> | string | null
     priceTon?: DecimalFilter<"Gift"> | Decimal | DecimalJsLike | number | string
+    backdropName?: StringNullableFilter<"Gift"> | string | null
+    backdropColor?: StringNullableFilter<"Gift"> | string | null
+    symbolName?: StringNullableFilter<"Gift"> | string | null
+    symbolImageUrl?: StringNullableFilter<"Gift"> | string | null
     status?: StringFilter<"Gift"> | string
     ownerId?: StringNullableFilter<"Gift"> | string | null
     createdAt?: DateTimeFilter<"Gift"> | Date | string
@@ -7698,6 +11706,10 @@ export namespace Prisma {
     collection?: SortOrder
     emoji?: SortOrderInput | SortOrder
     priceTon?: SortOrder
+    backdropName?: SortOrderInput | SortOrder
+    backdropColor?: SortOrderInput | SortOrder
+    symbolName?: SortOrderInput | SortOrder
+    symbolImageUrl?: SortOrderInput | SortOrder
     status?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -7716,6 +11728,10 @@ export namespace Prisma {
     collection?: StringFilter<"Gift"> | string
     emoji?: StringNullableFilter<"Gift"> | string | null
     priceTon?: DecimalFilter<"Gift"> | Decimal | DecimalJsLike | number | string
+    backdropName?: StringNullableFilter<"Gift"> | string | null
+    backdropColor?: StringNullableFilter<"Gift"> | string | null
+    symbolName?: StringNullableFilter<"Gift"> | string | null
+    symbolImageUrl?: StringNullableFilter<"Gift"> | string | null
     status?: StringFilter<"Gift"> | string
     ownerId?: StringNullableFilter<"Gift"> | string | null
     createdAt?: DateTimeFilter<"Gift"> | Date | string
@@ -7731,6 +11747,10 @@ export namespace Prisma {
     collection?: SortOrder
     emoji?: SortOrderInput | SortOrder
     priceTon?: SortOrder
+    backdropName?: SortOrderInput | SortOrder
+    backdropColor?: SortOrderInput | SortOrder
+    symbolName?: SortOrderInput | SortOrder
+    symbolImageUrl?: SortOrderInput | SortOrder
     status?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -7751,6 +11771,10 @@ export namespace Prisma {
     collection?: StringWithAggregatesFilter<"Gift"> | string
     emoji?: StringNullableWithAggregatesFilter<"Gift"> | string | null
     priceTon?: DecimalWithAggregatesFilter<"Gift"> | Decimal | DecimalJsLike | number | string
+    backdropName?: StringNullableWithAggregatesFilter<"Gift"> | string | null
+    backdropColor?: StringNullableWithAggregatesFilter<"Gift"> | string | null
+    symbolName?: StringNullableWithAggregatesFilter<"Gift"> | string | null
+    symbolImageUrl?: StringNullableWithAggregatesFilter<"Gift"> | string | null
     status?: StringWithAggregatesFilter<"Gift"> | string
     ownerId?: StringNullableWithAggregatesFilter<"Gift"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Gift"> | Date | string
@@ -7928,6 +11952,218 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Offer"> | Date | string
   }
 
+  export type PvpRoomWhereInput = {
+    AND?: PvpRoomWhereInput | PvpRoomWhereInput[]
+    OR?: PvpRoomWhereInput[]
+    NOT?: PvpRoomWhereInput | PvpRoomWhereInput[]
+    id?: StringFilter<"PvpRoom"> | string
+    code?: StringFilter<"PvpRoom"> | string
+    stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PvpRoom"> | string
+    winnerId?: StringNullableFilter<"PvpRoom"> | string | null
+    createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
+    startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    creatorId?: StringFilter<"PvpRoom"> | string
+    creator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    winner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    participants?: PvpParticipantListRelationFilter
+    invitations?: PvpInvitationListRelationFilter
+  }
+
+  export type PvpRoomOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    stakeGram?: SortOrder
+    status?: SortOrder
+    winnerId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    startedAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    creatorId?: SortOrder
+    creator?: UserOrderByWithRelationInput
+    winner?: UserOrderByWithRelationInput
+    participants?: PvpParticipantOrderByRelationAggregateInput
+    invitations?: PvpInvitationOrderByRelationAggregateInput
+  }
+
+  export type PvpRoomWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: PvpRoomWhereInput | PvpRoomWhereInput[]
+    OR?: PvpRoomWhereInput[]
+    NOT?: PvpRoomWhereInput | PvpRoomWhereInput[]
+    stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PvpRoom"> | string
+    winnerId?: StringNullableFilter<"PvpRoom"> | string | null
+    createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
+    startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    creatorId?: StringFilter<"PvpRoom"> | string
+    creator?: XOR<UserScalarRelationFilter, UserWhereInput>
+    winner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    participants?: PvpParticipantListRelationFilter
+    invitations?: PvpInvitationListRelationFilter
+  }, "id" | "code">
+
+  export type PvpRoomOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    stakeGram?: SortOrder
+    status?: SortOrder
+    winnerId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    startedAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    creatorId?: SortOrder
+    _count?: PvpRoomCountOrderByAggregateInput
+    _avg?: PvpRoomAvgOrderByAggregateInput
+    _max?: PvpRoomMaxOrderByAggregateInput
+    _min?: PvpRoomMinOrderByAggregateInput
+    _sum?: PvpRoomSumOrderByAggregateInput
+  }
+
+  export type PvpRoomScalarWhereWithAggregatesInput = {
+    AND?: PvpRoomScalarWhereWithAggregatesInput | PvpRoomScalarWhereWithAggregatesInput[]
+    OR?: PvpRoomScalarWhereWithAggregatesInput[]
+    NOT?: PvpRoomScalarWhereWithAggregatesInput | PvpRoomScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PvpRoom"> | string
+    code?: StringWithAggregatesFilter<"PvpRoom"> | string
+    stakeGram?: DecimalWithAggregatesFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    status?: StringWithAggregatesFilter<"PvpRoom"> | string
+    winnerId?: StringNullableWithAggregatesFilter<"PvpRoom"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PvpRoom"> | Date | string
+    startedAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
+    creatorId?: StringWithAggregatesFilter<"PvpRoom"> | string
+  }
+
+  export type PvpParticipantWhereInput = {
+    AND?: PvpParticipantWhereInput | PvpParticipantWhereInput[]
+    OR?: PvpParticipantWhereInput[]
+    NOT?: PvpParticipantWhereInput | PvpParticipantWhereInput[]
+    id?: StringFilter<"PvpParticipant"> | string
+    roomId?: StringFilter<"PvpParticipant"> | string
+    userId?: StringFilter<"PvpParticipant"> | string
+    joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
+    room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PvpParticipantOrderByWithRelationInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    userId?: SortOrder
+    joinedAt?: SortOrder
+    room?: PvpRoomOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PvpParticipantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    roomId_userId?: PvpParticipantRoomIdUserIdCompoundUniqueInput
+    AND?: PvpParticipantWhereInput | PvpParticipantWhereInput[]
+    OR?: PvpParticipantWhereInput[]
+    NOT?: PvpParticipantWhereInput | PvpParticipantWhereInput[]
+    roomId?: StringFilter<"PvpParticipant"> | string
+    userId?: StringFilter<"PvpParticipant"> | string
+    joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
+    room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "roomId_userId">
+
+  export type PvpParticipantOrderByWithAggregationInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    userId?: SortOrder
+    joinedAt?: SortOrder
+    _count?: PvpParticipantCountOrderByAggregateInput
+    _max?: PvpParticipantMaxOrderByAggregateInput
+    _min?: PvpParticipantMinOrderByAggregateInput
+  }
+
+  export type PvpParticipantScalarWhereWithAggregatesInput = {
+    AND?: PvpParticipantScalarWhereWithAggregatesInput | PvpParticipantScalarWhereWithAggregatesInput[]
+    OR?: PvpParticipantScalarWhereWithAggregatesInput[]
+    NOT?: PvpParticipantScalarWhereWithAggregatesInput | PvpParticipantScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PvpParticipant"> | string
+    roomId?: StringWithAggregatesFilter<"PvpParticipant"> | string
+    userId?: StringWithAggregatesFilter<"PvpParticipant"> | string
+    joinedAt?: DateTimeWithAggregatesFilter<"PvpParticipant"> | Date | string
+  }
+
+  export type PvpInvitationWhereInput = {
+    AND?: PvpInvitationWhereInput | PvpInvitationWhereInput[]
+    OR?: PvpInvitationWhereInput[]
+    NOT?: PvpInvitationWhereInput | PvpInvitationWhereInput[]
+    id?: StringFilter<"PvpInvitation"> | string
+    roomId?: StringFilter<"PvpInvitation"> | string
+    senderId?: StringFilter<"PvpInvitation"> | string
+    recipientId?: StringFilter<"PvpInvitation"> | string
+    status?: StringFilter<"PvpInvitation"> | string
+    createdAt?: DateTimeFilter<"PvpInvitation"> | Date | string
+    updatedAt?: DateTimeFilter<"PvpInvitation"> | Date | string
+    room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PvpInvitationOrderByWithRelationInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    room?: PvpRoomOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
+    recipient?: UserOrderByWithRelationInput
+  }
+
+  export type PvpInvitationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    roomId_recipientId?: PvpInvitationRoomIdRecipientIdCompoundUniqueInput
+    AND?: PvpInvitationWhereInput | PvpInvitationWhereInput[]
+    OR?: PvpInvitationWhereInput[]
+    NOT?: PvpInvitationWhereInput | PvpInvitationWhereInput[]
+    roomId?: StringFilter<"PvpInvitation"> | string
+    senderId?: StringFilter<"PvpInvitation"> | string
+    recipientId?: StringFilter<"PvpInvitation"> | string
+    status?: StringFilter<"PvpInvitation"> | string
+    createdAt?: DateTimeFilter<"PvpInvitation"> | Date | string
+    updatedAt?: DateTimeFilter<"PvpInvitation"> | Date | string
+    room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "roomId_recipientId">
+
+  export type PvpInvitationOrderByWithAggregationInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PvpInvitationCountOrderByAggregateInput
+    _max?: PvpInvitationMaxOrderByAggregateInput
+    _min?: PvpInvitationMinOrderByAggregateInput
+  }
+
+  export type PvpInvitationScalarWhereWithAggregatesInput = {
+    AND?: PvpInvitationScalarWhereWithAggregatesInput | PvpInvitationScalarWhereWithAggregatesInput[]
+    OR?: PvpInvitationScalarWhereWithAggregatesInput[]
+    NOT?: PvpInvitationScalarWhereWithAggregatesInput | PvpInvitationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PvpInvitation"> | string
+    roomId?: StringWithAggregatesFilter<"PvpInvitation"> | string
+    senderId?: StringWithAggregatesFilter<"PvpInvitation"> | string
+    recipientId?: StringWithAggregatesFilter<"PvpInvitation"> | string
+    status?: StringWithAggregatesFilter<"PvpInvitation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PvpInvitation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PvpInvitation"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     telegramId: string
@@ -7943,6 +12179,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7960,6 +12201,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUpdateInput = {
@@ -7977,6 +12223,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7994,6 +12245,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -8097,6 +12353,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8111,6 +12371,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
@@ -8125,6 +12389,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8139,6 +12407,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8153,6 +12425,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
@@ -8165,6 +12441,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8176,6 +12456,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8351,6 +12635,210 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PvpRoomCreateInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
+    winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
+    participants?: PvpParticipantCreateNestedManyWithoutRoomInput
+    invitations?: PvpInvitationCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomUncheckedCreateInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    winnerId?: string | null
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creatorId: string
+    participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
+    invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
+    winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
+    participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
+    invitations?: PvpInvitationUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
+    invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomCreateManyInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    winnerId?: string | null
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creatorId: string
+  }
+
+  export type PvpRoomUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PvpRoomUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PvpParticipantCreateInput = {
+    id?: string
+    joinedAt?: Date | string
+    room: PvpRoomCreateNestedOneWithoutParticipantsInput
+    user: UserCreateNestedOneWithoutPvpParticipationsInput
+  }
+
+  export type PvpParticipantUncheckedCreateInput = {
+    id?: string
+    roomId: string
+    userId: string
+    joinedAt?: Date | string
+  }
+
+  export type PvpParticipantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
+    user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
+  }
+
+  export type PvpParticipantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantCreateManyInput = {
+    id?: string
+    roomId: string
+    userId: string
+    joinedAt?: Date | string
+  }
+
+  export type PvpParticipantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationCreateInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    room: PvpRoomCreateNestedOneWithoutInvitationsInput
+    sender: UserCreateNestedOneWithoutSentPvpInvitationsInput
+    recipient: UserCreateNestedOneWithoutReceivedPvpInvitationsInput
+  }
+
+  export type PvpInvitationUncheckedCreateInput = {
+    id?: string
+    roomId: string
+    senderId: string
+    recipientId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PvpInvitationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: PvpRoomUpdateOneRequiredWithoutInvitationsNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentPvpInvitationsNestedInput
+    recipient?: UserUpdateOneRequiredWithoutReceivedPvpInvitationsNestedInput
+  }
+
+  export type PvpInvitationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationCreateManyInput = {
+    id?: string
+    roomId: string
+    senderId: string
+    recipientId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PvpInvitationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8416,6 +12904,24 @@ export namespace Prisma {
     none?: OfferWhereInput
   }
 
+  export type PvpRoomListRelationFilter = {
+    every?: PvpRoomWhereInput
+    some?: PvpRoomWhereInput
+    none?: PvpRoomWhereInput
+  }
+
+  export type PvpParticipantListRelationFilter = {
+    every?: PvpParticipantWhereInput
+    some?: PvpParticipantWhereInput
+    none?: PvpParticipantWhereInput
+  }
+
+  export type PvpInvitationListRelationFilter = {
+    every?: PvpInvitationWhereInput
+    some?: PvpInvitationWhereInput
+    none?: PvpInvitationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -8434,6 +12940,18 @@ export namespace Prisma {
   }
 
   export type OfferOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PvpRoomOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PvpParticipantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PvpInvitationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8587,6 +13105,10 @@ export namespace Prisma {
     collection?: SortOrder
     emoji?: SortOrder
     priceTon?: SortOrder
+    backdropName?: SortOrder
+    backdropColor?: SortOrder
+    symbolName?: SortOrder
+    symbolImageUrl?: SortOrder
     status?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -8603,6 +13125,10 @@ export namespace Prisma {
     collection?: SortOrder
     emoji?: SortOrder
     priceTon?: SortOrder
+    backdropName?: SortOrder
+    backdropColor?: SortOrder
+    symbolName?: SortOrder
+    symbolImageUrl?: SortOrder
     status?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -8615,6 +13141,10 @@ export namespace Prisma {
     collection?: SortOrder
     emoji?: SortOrder
     priceTon?: SortOrder
+    backdropName?: SortOrder
+    backdropColor?: SortOrder
+    symbolName?: SortOrder
+    symbolImageUrl?: SortOrder
     status?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -8767,6 +13297,116 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type PvpRoomCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    stakeGram?: SortOrder
+    status?: SortOrder
+    winnerId?: SortOrder
+    createdAt?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    creatorId?: SortOrder
+  }
+
+  export type PvpRoomAvgOrderByAggregateInput = {
+    stakeGram?: SortOrder
+  }
+
+  export type PvpRoomMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    stakeGram?: SortOrder
+    status?: SortOrder
+    winnerId?: SortOrder
+    createdAt?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    creatorId?: SortOrder
+  }
+
+  export type PvpRoomMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    stakeGram?: SortOrder
+    status?: SortOrder
+    winnerId?: SortOrder
+    createdAt?: SortOrder
+    startedAt?: SortOrder
+    completedAt?: SortOrder
+    creatorId?: SortOrder
+  }
+
+  export type PvpRoomSumOrderByAggregateInput = {
+    stakeGram?: SortOrder
+  }
+
+  export type PvpRoomScalarRelationFilter = {
+    is?: PvpRoomWhereInput
+    isNot?: PvpRoomWhereInput
+  }
+
+  export type PvpParticipantRoomIdUserIdCompoundUniqueInput = {
+    roomId: string
+    userId: string
+  }
+
+  export type PvpParticipantCountOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    userId?: SortOrder
+    joinedAt?: SortOrder
+  }
+
+  export type PvpParticipantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    userId?: SortOrder
+    joinedAt?: SortOrder
+  }
+
+  export type PvpParticipantMinOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    userId?: SortOrder
+    joinedAt?: SortOrder
+  }
+
+  export type PvpInvitationRoomIdRecipientIdCompoundUniqueInput = {
+    roomId: string
+    recipientId: string
+  }
+
+  export type PvpInvitationCountOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PvpInvitationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PvpInvitationMinOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    senderId?: SortOrder
+    recipientId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type WalletCreateNestedManyWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -8809,6 +13449,41 @@ export namespace Prisma {
     connect?: OfferWhereUniqueInput | OfferWhereUniqueInput[]
   }
 
+  export type PvpRoomCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<PvpRoomCreateWithoutCreatorInput, PvpRoomUncheckedCreateWithoutCreatorInput> | PvpRoomCreateWithoutCreatorInput[] | PvpRoomUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutCreatorInput | PvpRoomCreateOrConnectWithoutCreatorInput[]
+    createMany?: PvpRoomCreateManyCreatorInputEnvelope
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+  }
+
+  export type PvpRoomCreateNestedManyWithoutWinnerInput = {
+    create?: XOR<PvpRoomCreateWithoutWinnerInput, PvpRoomUncheckedCreateWithoutWinnerInput> | PvpRoomCreateWithoutWinnerInput[] | PvpRoomUncheckedCreateWithoutWinnerInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutWinnerInput | PvpRoomCreateOrConnectWithoutWinnerInput[]
+    createMany?: PvpRoomCreateManyWinnerInputEnvelope
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+  }
+
+  export type PvpParticipantCreateNestedManyWithoutUserInput = {
+    create?: XOR<PvpParticipantCreateWithoutUserInput, PvpParticipantUncheckedCreateWithoutUserInput> | PvpParticipantCreateWithoutUserInput[] | PvpParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutUserInput | PvpParticipantCreateOrConnectWithoutUserInput[]
+    createMany?: PvpParticipantCreateManyUserInputEnvelope
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+  }
+
+  export type PvpInvitationCreateNestedManyWithoutSenderInput = {
+    create?: XOR<PvpInvitationCreateWithoutSenderInput, PvpInvitationUncheckedCreateWithoutSenderInput> | PvpInvitationCreateWithoutSenderInput[] | PvpInvitationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutSenderInput | PvpInvitationCreateOrConnectWithoutSenderInput[]
+    createMany?: PvpInvitationCreateManySenderInputEnvelope
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+  }
+
+  export type PvpInvitationCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<PvpInvitationCreateWithoutRecipientInput, PvpInvitationUncheckedCreateWithoutRecipientInput> | PvpInvitationCreateWithoutRecipientInput[] | PvpInvitationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRecipientInput | PvpInvitationCreateOrConnectWithoutRecipientInput[]
+    createMany?: PvpInvitationCreateManyRecipientInputEnvelope
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+  }
+
   export type WalletUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -8849,6 +13524,41 @@ export namespace Prisma {
     connectOrCreate?: OfferCreateOrConnectWithoutSellerInput | OfferCreateOrConnectWithoutSellerInput[]
     createMany?: OfferCreateManySellerInputEnvelope
     connect?: OfferWhereUniqueInput | OfferWhereUniqueInput[]
+  }
+
+  export type PvpRoomUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<PvpRoomCreateWithoutCreatorInput, PvpRoomUncheckedCreateWithoutCreatorInput> | PvpRoomCreateWithoutCreatorInput[] | PvpRoomUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutCreatorInput | PvpRoomCreateOrConnectWithoutCreatorInput[]
+    createMany?: PvpRoomCreateManyCreatorInputEnvelope
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+  }
+
+  export type PvpRoomUncheckedCreateNestedManyWithoutWinnerInput = {
+    create?: XOR<PvpRoomCreateWithoutWinnerInput, PvpRoomUncheckedCreateWithoutWinnerInput> | PvpRoomCreateWithoutWinnerInput[] | PvpRoomUncheckedCreateWithoutWinnerInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutWinnerInput | PvpRoomCreateOrConnectWithoutWinnerInput[]
+    createMany?: PvpRoomCreateManyWinnerInputEnvelope
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+  }
+
+  export type PvpParticipantUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PvpParticipantCreateWithoutUserInput, PvpParticipantUncheckedCreateWithoutUserInput> | PvpParticipantCreateWithoutUserInput[] | PvpParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutUserInput | PvpParticipantCreateOrConnectWithoutUserInput[]
+    createMany?: PvpParticipantCreateManyUserInputEnvelope
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+  }
+
+  export type PvpInvitationUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<PvpInvitationCreateWithoutSenderInput, PvpInvitationUncheckedCreateWithoutSenderInput> | PvpInvitationCreateWithoutSenderInput[] | PvpInvitationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutSenderInput | PvpInvitationCreateOrConnectWithoutSenderInput[]
+    createMany?: PvpInvitationCreateManySenderInputEnvelope
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+  }
+
+  export type PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<PvpInvitationCreateWithoutRecipientInput, PvpInvitationUncheckedCreateWithoutRecipientInput> | PvpInvitationCreateWithoutRecipientInput[] | PvpInvitationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRecipientInput | PvpInvitationCreateOrConnectWithoutRecipientInput[]
+    createMany?: PvpInvitationCreateManyRecipientInputEnvelope
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8947,6 +13657,76 @@ export namespace Prisma {
     deleteMany?: OfferScalarWhereInput | OfferScalarWhereInput[]
   }
 
+  export type PvpRoomUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<PvpRoomCreateWithoutCreatorInput, PvpRoomUncheckedCreateWithoutCreatorInput> | PvpRoomCreateWithoutCreatorInput[] | PvpRoomUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutCreatorInput | PvpRoomCreateOrConnectWithoutCreatorInput[]
+    upsert?: PvpRoomUpsertWithWhereUniqueWithoutCreatorInput | PvpRoomUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: PvpRoomCreateManyCreatorInputEnvelope
+    set?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    disconnect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    delete?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    update?: PvpRoomUpdateWithWhereUniqueWithoutCreatorInput | PvpRoomUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: PvpRoomUpdateManyWithWhereWithoutCreatorInput | PvpRoomUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: PvpRoomScalarWhereInput | PvpRoomScalarWhereInput[]
+  }
+
+  export type PvpRoomUpdateManyWithoutWinnerNestedInput = {
+    create?: XOR<PvpRoomCreateWithoutWinnerInput, PvpRoomUncheckedCreateWithoutWinnerInput> | PvpRoomCreateWithoutWinnerInput[] | PvpRoomUncheckedCreateWithoutWinnerInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutWinnerInput | PvpRoomCreateOrConnectWithoutWinnerInput[]
+    upsert?: PvpRoomUpsertWithWhereUniqueWithoutWinnerInput | PvpRoomUpsertWithWhereUniqueWithoutWinnerInput[]
+    createMany?: PvpRoomCreateManyWinnerInputEnvelope
+    set?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    disconnect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    delete?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    update?: PvpRoomUpdateWithWhereUniqueWithoutWinnerInput | PvpRoomUpdateWithWhereUniqueWithoutWinnerInput[]
+    updateMany?: PvpRoomUpdateManyWithWhereWithoutWinnerInput | PvpRoomUpdateManyWithWhereWithoutWinnerInput[]
+    deleteMany?: PvpRoomScalarWhereInput | PvpRoomScalarWhereInput[]
+  }
+
+  export type PvpParticipantUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PvpParticipantCreateWithoutUserInput, PvpParticipantUncheckedCreateWithoutUserInput> | PvpParticipantCreateWithoutUserInput[] | PvpParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutUserInput | PvpParticipantCreateOrConnectWithoutUserInput[]
+    upsert?: PvpParticipantUpsertWithWhereUniqueWithoutUserInput | PvpParticipantUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PvpParticipantCreateManyUserInputEnvelope
+    set?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    disconnect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    delete?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    update?: PvpParticipantUpdateWithWhereUniqueWithoutUserInput | PvpParticipantUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PvpParticipantUpdateManyWithWhereWithoutUserInput | PvpParticipantUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PvpParticipantScalarWhereInput | PvpParticipantScalarWhereInput[]
+  }
+
+  export type PvpInvitationUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<PvpInvitationCreateWithoutSenderInput, PvpInvitationUncheckedCreateWithoutSenderInput> | PvpInvitationCreateWithoutSenderInput[] | PvpInvitationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutSenderInput | PvpInvitationCreateOrConnectWithoutSenderInput[]
+    upsert?: PvpInvitationUpsertWithWhereUniqueWithoutSenderInput | PvpInvitationUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: PvpInvitationCreateManySenderInputEnvelope
+    set?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    disconnect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    delete?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    update?: PvpInvitationUpdateWithWhereUniqueWithoutSenderInput | PvpInvitationUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: PvpInvitationUpdateManyWithWhereWithoutSenderInput | PvpInvitationUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
+  }
+
+  export type PvpInvitationUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<PvpInvitationCreateWithoutRecipientInput, PvpInvitationUncheckedCreateWithoutRecipientInput> | PvpInvitationCreateWithoutRecipientInput[] | PvpInvitationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRecipientInput | PvpInvitationCreateOrConnectWithoutRecipientInput[]
+    upsert?: PvpInvitationUpsertWithWhereUniqueWithoutRecipientInput | PvpInvitationUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: PvpInvitationCreateManyRecipientInputEnvelope
+    set?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    disconnect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    delete?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    update?: PvpInvitationUpdateWithWhereUniqueWithoutRecipientInput | PvpInvitationUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: PvpInvitationUpdateManyWithWhereWithoutRecipientInput | PvpInvitationUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
+  }
+
   export type WalletUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -9029,6 +13809,76 @@ export namespace Prisma {
     update?: OfferUpdateWithWhereUniqueWithoutSellerInput | OfferUpdateWithWhereUniqueWithoutSellerInput[]
     updateMany?: OfferUpdateManyWithWhereWithoutSellerInput | OfferUpdateManyWithWhereWithoutSellerInput[]
     deleteMany?: OfferScalarWhereInput | OfferScalarWhereInput[]
+  }
+
+  export type PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<PvpRoomCreateWithoutCreatorInput, PvpRoomUncheckedCreateWithoutCreatorInput> | PvpRoomCreateWithoutCreatorInput[] | PvpRoomUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutCreatorInput | PvpRoomCreateOrConnectWithoutCreatorInput[]
+    upsert?: PvpRoomUpsertWithWhereUniqueWithoutCreatorInput | PvpRoomUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: PvpRoomCreateManyCreatorInputEnvelope
+    set?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    disconnect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    delete?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    update?: PvpRoomUpdateWithWhereUniqueWithoutCreatorInput | PvpRoomUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: PvpRoomUpdateManyWithWhereWithoutCreatorInput | PvpRoomUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: PvpRoomScalarWhereInput | PvpRoomScalarWhereInput[]
+  }
+
+  export type PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput = {
+    create?: XOR<PvpRoomCreateWithoutWinnerInput, PvpRoomUncheckedCreateWithoutWinnerInput> | PvpRoomCreateWithoutWinnerInput[] | PvpRoomUncheckedCreateWithoutWinnerInput[]
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutWinnerInput | PvpRoomCreateOrConnectWithoutWinnerInput[]
+    upsert?: PvpRoomUpsertWithWhereUniqueWithoutWinnerInput | PvpRoomUpsertWithWhereUniqueWithoutWinnerInput[]
+    createMany?: PvpRoomCreateManyWinnerInputEnvelope
+    set?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    disconnect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    delete?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    connect?: PvpRoomWhereUniqueInput | PvpRoomWhereUniqueInput[]
+    update?: PvpRoomUpdateWithWhereUniqueWithoutWinnerInput | PvpRoomUpdateWithWhereUniqueWithoutWinnerInput[]
+    updateMany?: PvpRoomUpdateManyWithWhereWithoutWinnerInput | PvpRoomUpdateManyWithWhereWithoutWinnerInput[]
+    deleteMany?: PvpRoomScalarWhereInput | PvpRoomScalarWhereInput[]
+  }
+
+  export type PvpParticipantUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PvpParticipantCreateWithoutUserInput, PvpParticipantUncheckedCreateWithoutUserInput> | PvpParticipantCreateWithoutUserInput[] | PvpParticipantUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutUserInput | PvpParticipantCreateOrConnectWithoutUserInput[]
+    upsert?: PvpParticipantUpsertWithWhereUniqueWithoutUserInput | PvpParticipantUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PvpParticipantCreateManyUserInputEnvelope
+    set?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    disconnect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    delete?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    update?: PvpParticipantUpdateWithWhereUniqueWithoutUserInput | PvpParticipantUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PvpParticipantUpdateManyWithWhereWithoutUserInput | PvpParticipantUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PvpParticipantScalarWhereInput | PvpParticipantScalarWhereInput[]
+  }
+
+  export type PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<PvpInvitationCreateWithoutSenderInput, PvpInvitationUncheckedCreateWithoutSenderInput> | PvpInvitationCreateWithoutSenderInput[] | PvpInvitationUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutSenderInput | PvpInvitationCreateOrConnectWithoutSenderInput[]
+    upsert?: PvpInvitationUpsertWithWhereUniqueWithoutSenderInput | PvpInvitationUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: PvpInvitationCreateManySenderInputEnvelope
+    set?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    disconnect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    delete?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    update?: PvpInvitationUpdateWithWhereUniqueWithoutSenderInput | PvpInvitationUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: PvpInvitationUpdateManyWithWhereWithoutSenderInput | PvpInvitationUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
+  }
+
+  export type PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<PvpInvitationCreateWithoutRecipientInput, PvpInvitationUncheckedCreateWithoutRecipientInput> | PvpInvitationCreateWithoutRecipientInput[] | PvpInvitationUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRecipientInput | PvpInvitationCreateOrConnectWithoutRecipientInput[]
+    upsert?: PvpInvitationUpsertWithWhereUniqueWithoutRecipientInput | PvpInvitationUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: PvpInvitationCreateManyRecipientInputEnvelope
+    set?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    disconnect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    delete?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    update?: PvpInvitationUpdateWithWhereUniqueWithoutRecipientInput | PvpInvitationUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: PvpInvitationUpdateManyWithWhereWithoutRecipientInput | PvpInvitationUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWalletsInput = {
@@ -9253,6 +14103,190 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSellerOffersInput, UserUpdateWithoutSellerOffersInput>, UserUncheckedUpdateWithoutSellerOffersInput>
   }
 
+  export type UserCreateNestedOneWithoutCreatedPvpRoomsInput = {
+    create?: XOR<UserCreateWithoutCreatedPvpRoomsInput, UserUncheckedCreateWithoutCreatedPvpRoomsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedPvpRoomsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutWonPvpRoomsInput = {
+    create?: XOR<UserCreateWithoutWonPvpRoomsInput, UserUncheckedCreateWithoutWonPvpRoomsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWonPvpRoomsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PvpParticipantCreateNestedManyWithoutRoomInput = {
+    create?: XOR<PvpParticipantCreateWithoutRoomInput, PvpParticipantUncheckedCreateWithoutRoomInput> | PvpParticipantCreateWithoutRoomInput[] | PvpParticipantUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutRoomInput | PvpParticipantCreateOrConnectWithoutRoomInput[]
+    createMany?: PvpParticipantCreateManyRoomInputEnvelope
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+  }
+
+  export type PvpInvitationCreateNestedManyWithoutRoomInput = {
+    create?: XOR<PvpInvitationCreateWithoutRoomInput, PvpInvitationUncheckedCreateWithoutRoomInput> | PvpInvitationCreateWithoutRoomInput[] | PvpInvitationUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRoomInput | PvpInvitationCreateOrConnectWithoutRoomInput[]
+    createMany?: PvpInvitationCreateManyRoomInputEnvelope
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+  }
+
+  export type PvpParticipantUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<PvpParticipantCreateWithoutRoomInput, PvpParticipantUncheckedCreateWithoutRoomInput> | PvpParticipantCreateWithoutRoomInput[] | PvpParticipantUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutRoomInput | PvpParticipantCreateOrConnectWithoutRoomInput[]
+    createMany?: PvpParticipantCreateManyRoomInputEnvelope
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+  }
+
+  export type PvpInvitationUncheckedCreateNestedManyWithoutRoomInput = {
+    create?: XOR<PvpInvitationCreateWithoutRoomInput, PvpInvitationUncheckedCreateWithoutRoomInput> | PvpInvitationCreateWithoutRoomInput[] | PvpInvitationUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRoomInput | PvpInvitationCreateOrConnectWithoutRoomInput[]
+    createMany?: PvpInvitationCreateManyRoomInputEnvelope
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedPvpRoomsInput, UserUncheckedCreateWithoutCreatedPvpRoomsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedPvpRoomsInput
+    upsert?: UserUpsertWithoutCreatedPvpRoomsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedPvpRoomsInput, UserUpdateWithoutCreatedPvpRoomsInput>, UserUncheckedUpdateWithoutCreatedPvpRoomsInput>
+  }
+
+  export type UserUpdateOneWithoutWonPvpRoomsNestedInput = {
+    create?: XOR<UserCreateWithoutWonPvpRoomsInput, UserUncheckedCreateWithoutWonPvpRoomsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWonPvpRoomsInput
+    upsert?: UserUpsertWithoutWonPvpRoomsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWonPvpRoomsInput, UserUpdateWithoutWonPvpRoomsInput>, UserUncheckedUpdateWithoutWonPvpRoomsInput>
+  }
+
+  export type PvpParticipantUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<PvpParticipantCreateWithoutRoomInput, PvpParticipantUncheckedCreateWithoutRoomInput> | PvpParticipantCreateWithoutRoomInput[] | PvpParticipantUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutRoomInput | PvpParticipantCreateOrConnectWithoutRoomInput[]
+    upsert?: PvpParticipantUpsertWithWhereUniqueWithoutRoomInput | PvpParticipantUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: PvpParticipantCreateManyRoomInputEnvelope
+    set?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    disconnect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    delete?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    update?: PvpParticipantUpdateWithWhereUniqueWithoutRoomInput | PvpParticipantUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: PvpParticipantUpdateManyWithWhereWithoutRoomInput | PvpParticipantUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: PvpParticipantScalarWhereInput | PvpParticipantScalarWhereInput[]
+  }
+
+  export type PvpInvitationUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<PvpInvitationCreateWithoutRoomInput, PvpInvitationUncheckedCreateWithoutRoomInput> | PvpInvitationCreateWithoutRoomInput[] | PvpInvitationUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRoomInput | PvpInvitationCreateOrConnectWithoutRoomInput[]
+    upsert?: PvpInvitationUpsertWithWhereUniqueWithoutRoomInput | PvpInvitationUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: PvpInvitationCreateManyRoomInputEnvelope
+    set?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    disconnect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    delete?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    update?: PvpInvitationUpdateWithWhereUniqueWithoutRoomInput | PvpInvitationUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: PvpInvitationUpdateManyWithWhereWithoutRoomInput | PvpInvitationUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
+  }
+
+  export type PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<PvpParticipantCreateWithoutRoomInput, PvpParticipantUncheckedCreateWithoutRoomInput> | PvpParticipantCreateWithoutRoomInput[] | PvpParticipantUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutRoomInput | PvpParticipantCreateOrConnectWithoutRoomInput[]
+    upsert?: PvpParticipantUpsertWithWhereUniqueWithoutRoomInput | PvpParticipantUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: PvpParticipantCreateManyRoomInputEnvelope
+    set?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    disconnect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    delete?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    connect?: PvpParticipantWhereUniqueInput | PvpParticipantWhereUniqueInput[]
+    update?: PvpParticipantUpdateWithWhereUniqueWithoutRoomInput | PvpParticipantUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: PvpParticipantUpdateManyWithWhereWithoutRoomInput | PvpParticipantUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: PvpParticipantScalarWhereInput | PvpParticipantScalarWhereInput[]
+  }
+
+  export type PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput = {
+    create?: XOR<PvpInvitationCreateWithoutRoomInput, PvpInvitationUncheckedCreateWithoutRoomInput> | PvpInvitationCreateWithoutRoomInput[] | PvpInvitationUncheckedCreateWithoutRoomInput[]
+    connectOrCreate?: PvpInvitationCreateOrConnectWithoutRoomInput | PvpInvitationCreateOrConnectWithoutRoomInput[]
+    upsert?: PvpInvitationUpsertWithWhereUniqueWithoutRoomInput | PvpInvitationUpsertWithWhereUniqueWithoutRoomInput[]
+    createMany?: PvpInvitationCreateManyRoomInputEnvelope
+    set?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    disconnect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    delete?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
+    update?: PvpInvitationUpdateWithWhereUniqueWithoutRoomInput | PvpInvitationUpdateWithWhereUniqueWithoutRoomInput[]
+    updateMany?: PvpInvitationUpdateManyWithWhereWithoutRoomInput | PvpInvitationUpdateManyWithWhereWithoutRoomInput[]
+    deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
+  }
+
+  export type PvpRoomCreateNestedOneWithoutParticipantsInput = {
+    create?: XOR<PvpRoomCreateWithoutParticipantsInput, PvpRoomUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutParticipantsInput
+    connect?: PvpRoomWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPvpParticipationsInput = {
+    create?: XOR<UserCreateWithoutPvpParticipationsInput, UserUncheckedCreateWithoutPvpParticipationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPvpParticipationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput = {
+    create?: XOR<PvpRoomCreateWithoutParticipantsInput, PvpRoomUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutParticipantsInput
+    upsert?: PvpRoomUpsertWithoutParticipantsInput
+    connect?: PvpRoomWhereUniqueInput
+    update?: XOR<XOR<PvpRoomUpdateToOneWithWhereWithoutParticipantsInput, PvpRoomUpdateWithoutParticipantsInput>, PvpRoomUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPvpParticipationsNestedInput = {
+    create?: XOR<UserCreateWithoutPvpParticipationsInput, UserUncheckedCreateWithoutPvpParticipationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPvpParticipationsInput
+    upsert?: UserUpsertWithoutPvpParticipationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPvpParticipationsInput, UserUpdateWithoutPvpParticipationsInput>, UserUncheckedUpdateWithoutPvpParticipationsInput>
+  }
+
+  export type PvpRoomCreateNestedOneWithoutInvitationsInput = {
+    create?: XOR<PvpRoomCreateWithoutInvitationsInput, PvpRoomUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutInvitationsInput
+    connect?: PvpRoomWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutSentPvpInvitationsInput = {
+    create?: XOR<UserCreateWithoutSentPvpInvitationsInput, UserUncheckedCreateWithoutSentPvpInvitationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentPvpInvitationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReceivedPvpInvitationsInput = {
+    create?: XOR<UserCreateWithoutReceivedPvpInvitationsInput, UserUncheckedCreateWithoutReceivedPvpInvitationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedPvpInvitationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PvpRoomUpdateOneRequiredWithoutInvitationsNestedInput = {
+    create?: XOR<PvpRoomCreateWithoutInvitationsInput, PvpRoomUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: PvpRoomCreateOrConnectWithoutInvitationsInput
+    upsert?: PvpRoomUpsertWithoutInvitationsInput
+    connect?: PvpRoomWhereUniqueInput
+    update?: XOR<XOR<PvpRoomUpdateToOneWithWhereWithoutInvitationsInput, PvpRoomUpdateWithoutInvitationsInput>, PvpRoomUncheckedUpdateWithoutInvitationsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutSentPvpInvitationsNestedInput = {
+    create?: XOR<UserCreateWithoutSentPvpInvitationsInput, UserUncheckedCreateWithoutSentPvpInvitationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentPvpInvitationsInput
+    upsert?: UserUpsertWithoutSentPvpInvitationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentPvpInvitationsInput, UserUpdateWithoutSentPvpInvitationsInput>, UserUncheckedUpdateWithoutSentPvpInvitationsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutReceivedPvpInvitationsNestedInput = {
+    create?: XOR<UserCreateWithoutReceivedPvpInvitationsInput, UserUncheckedCreateWithoutReceivedPvpInvitationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedPvpInvitationsInput
+    upsert?: UserUpsertWithoutReceivedPvpInvitationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedPvpInvitationsInput, UserUpdateWithoutReceivedPvpInvitationsInput>, UserUncheckedUpdateWithoutReceivedPvpInvitationsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9459,6 +14493,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9472,6 +14510,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9621,6 +14663,156 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PvpRoomCreateWithoutCreatorInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
+    participants?: PvpParticipantCreateNestedManyWithoutRoomInput
+    invitations?: PvpInvitationCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomUncheckedCreateWithoutCreatorInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    winnerId?: string | null
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
+    invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomCreateOrConnectWithoutCreatorInput = {
+    where: PvpRoomWhereUniqueInput
+    create: XOR<PvpRoomCreateWithoutCreatorInput, PvpRoomUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type PvpRoomCreateManyCreatorInputEnvelope = {
+    data: PvpRoomCreateManyCreatorInput | PvpRoomCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PvpRoomCreateWithoutWinnerInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
+    participants?: PvpParticipantCreateNestedManyWithoutRoomInput
+    invitations?: PvpInvitationCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomUncheckedCreateWithoutWinnerInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creatorId: string
+    participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
+    invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomCreateOrConnectWithoutWinnerInput = {
+    where: PvpRoomWhereUniqueInput
+    create: XOR<PvpRoomCreateWithoutWinnerInput, PvpRoomUncheckedCreateWithoutWinnerInput>
+  }
+
+  export type PvpRoomCreateManyWinnerInputEnvelope = {
+    data: PvpRoomCreateManyWinnerInput | PvpRoomCreateManyWinnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PvpParticipantCreateWithoutUserInput = {
+    id?: string
+    joinedAt?: Date | string
+    room: PvpRoomCreateNestedOneWithoutParticipantsInput
+  }
+
+  export type PvpParticipantUncheckedCreateWithoutUserInput = {
+    id?: string
+    roomId: string
+    joinedAt?: Date | string
+  }
+
+  export type PvpParticipantCreateOrConnectWithoutUserInput = {
+    where: PvpParticipantWhereUniqueInput
+    create: XOR<PvpParticipantCreateWithoutUserInput, PvpParticipantUncheckedCreateWithoutUserInput>
+  }
+
+  export type PvpParticipantCreateManyUserInputEnvelope = {
+    data: PvpParticipantCreateManyUserInput | PvpParticipantCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PvpInvitationCreateWithoutSenderInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    room: PvpRoomCreateNestedOneWithoutInvitationsInput
+    recipient: UserCreateNestedOneWithoutReceivedPvpInvitationsInput
+  }
+
+  export type PvpInvitationUncheckedCreateWithoutSenderInput = {
+    id?: string
+    roomId: string
+    recipientId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PvpInvitationCreateOrConnectWithoutSenderInput = {
+    where: PvpInvitationWhereUniqueInput
+    create: XOR<PvpInvitationCreateWithoutSenderInput, PvpInvitationUncheckedCreateWithoutSenderInput>
+  }
+
+  export type PvpInvitationCreateManySenderInputEnvelope = {
+    data: PvpInvitationCreateManySenderInput | PvpInvitationCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PvpInvitationCreateWithoutRecipientInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    room: PvpRoomCreateNestedOneWithoutInvitationsInput
+    sender: UserCreateNestedOneWithoutSentPvpInvitationsInput
+  }
+
+  export type PvpInvitationUncheckedCreateWithoutRecipientInput = {
+    id?: string
+    roomId: string
+    senderId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PvpInvitationCreateOrConnectWithoutRecipientInput = {
+    where: PvpInvitationWhereUniqueInput
+    create: XOR<PvpInvitationCreateWithoutRecipientInput, PvpInvitationUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type PvpInvitationCreateManyRecipientInputEnvelope = {
+    data: PvpInvitationCreateManyRecipientInput | PvpInvitationCreateManyRecipientInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WalletUpsertWithWhereUniqueWithoutUserInput = {
     where: WalletWhereUniqueInput
     update: XOR<WalletUpdateWithoutUserInput, WalletUncheckedUpdateWithoutUserInput>
@@ -9674,6 +14866,10 @@ export namespace Prisma {
     collection?: StringFilter<"Gift"> | string
     emoji?: StringNullableFilter<"Gift"> | string | null
     priceTon?: DecimalFilter<"Gift"> | Decimal | DecimalJsLike | number | string
+    backdropName?: StringNullableFilter<"Gift"> | string | null
+    backdropColor?: StringNullableFilter<"Gift"> | string | null
+    symbolName?: StringNullableFilter<"Gift"> | string | null
+    symbolImageUrl?: StringNullableFilter<"Gift"> | string | null
     status?: StringFilter<"Gift"> | string
     ownerId?: StringNullableFilter<"Gift"> | string | null
     createdAt?: DateTimeFilter<"Gift"> | Date | string
@@ -9775,6 +14971,124 @@ export namespace Prisma {
     data: XOR<OfferUpdateManyMutationInput, OfferUncheckedUpdateManyWithoutSellerInput>
   }
 
+  export type PvpRoomUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: PvpRoomWhereUniqueInput
+    update: XOR<PvpRoomUpdateWithoutCreatorInput, PvpRoomUncheckedUpdateWithoutCreatorInput>
+    create: XOR<PvpRoomCreateWithoutCreatorInput, PvpRoomUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type PvpRoomUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: PvpRoomWhereUniqueInput
+    data: XOR<PvpRoomUpdateWithoutCreatorInput, PvpRoomUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type PvpRoomUpdateManyWithWhereWithoutCreatorInput = {
+    where: PvpRoomScalarWhereInput
+    data: XOR<PvpRoomUpdateManyMutationInput, PvpRoomUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type PvpRoomScalarWhereInput = {
+    AND?: PvpRoomScalarWhereInput | PvpRoomScalarWhereInput[]
+    OR?: PvpRoomScalarWhereInput[]
+    NOT?: PvpRoomScalarWhereInput | PvpRoomScalarWhereInput[]
+    id?: StringFilter<"PvpRoom"> | string
+    code?: StringFilter<"PvpRoom"> | string
+    stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    status?: StringFilter<"PvpRoom"> | string
+    winnerId?: StringNullableFilter<"PvpRoom"> | string | null
+    createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
+    startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    creatorId?: StringFilter<"PvpRoom"> | string
+  }
+
+  export type PvpRoomUpsertWithWhereUniqueWithoutWinnerInput = {
+    where: PvpRoomWhereUniqueInput
+    update: XOR<PvpRoomUpdateWithoutWinnerInput, PvpRoomUncheckedUpdateWithoutWinnerInput>
+    create: XOR<PvpRoomCreateWithoutWinnerInput, PvpRoomUncheckedCreateWithoutWinnerInput>
+  }
+
+  export type PvpRoomUpdateWithWhereUniqueWithoutWinnerInput = {
+    where: PvpRoomWhereUniqueInput
+    data: XOR<PvpRoomUpdateWithoutWinnerInput, PvpRoomUncheckedUpdateWithoutWinnerInput>
+  }
+
+  export type PvpRoomUpdateManyWithWhereWithoutWinnerInput = {
+    where: PvpRoomScalarWhereInput
+    data: XOR<PvpRoomUpdateManyMutationInput, PvpRoomUncheckedUpdateManyWithoutWinnerInput>
+  }
+
+  export type PvpParticipantUpsertWithWhereUniqueWithoutUserInput = {
+    where: PvpParticipantWhereUniqueInput
+    update: XOR<PvpParticipantUpdateWithoutUserInput, PvpParticipantUncheckedUpdateWithoutUserInput>
+    create: XOR<PvpParticipantCreateWithoutUserInput, PvpParticipantUncheckedCreateWithoutUserInput>
+  }
+
+  export type PvpParticipantUpdateWithWhereUniqueWithoutUserInput = {
+    where: PvpParticipantWhereUniqueInput
+    data: XOR<PvpParticipantUpdateWithoutUserInput, PvpParticipantUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PvpParticipantUpdateManyWithWhereWithoutUserInput = {
+    where: PvpParticipantScalarWhereInput
+    data: XOR<PvpParticipantUpdateManyMutationInput, PvpParticipantUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PvpParticipantScalarWhereInput = {
+    AND?: PvpParticipantScalarWhereInput | PvpParticipantScalarWhereInput[]
+    OR?: PvpParticipantScalarWhereInput[]
+    NOT?: PvpParticipantScalarWhereInput | PvpParticipantScalarWhereInput[]
+    id?: StringFilter<"PvpParticipant"> | string
+    roomId?: StringFilter<"PvpParticipant"> | string
+    userId?: StringFilter<"PvpParticipant"> | string
+    joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
+  }
+
+  export type PvpInvitationUpsertWithWhereUniqueWithoutSenderInput = {
+    where: PvpInvitationWhereUniqueInput
+    update: XOR<PvpInvitationUpdateWithoutSenderInput, PvpInvitationUncheckedUpdateWithoutSenderInput>
+    create: XOR<PvpInvitationCreateWithoutSenderInput, PvpInvitationUncheckedCreateWithoutSenderInput>
+  }
+
+  export type PvpInvitationUpdateWithWhereUniqueWithoutSenderInput = {
+    where: PvpInvitationWhereUniqueInput
+    data: XOR<PvpInvitationUpdateWithoutSenderInput, PvpInvitationUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type PvpInvitationUpdateManyWithWhereWithoutSenderInput = {
+    where: PvpInvitationScalarWhereInput
+    data: XOR<PvpInvitationUpdateManyMutationInput, PvpInvitationUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type PvpInvitationScalarWhereInput = {
+    AND?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
+    OR?: PvpInvitationScalarWhereInput[]
+    NOT?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
+    id?: StringFilter<"PvpInvitation"> | string
+    roomId?: StringFilter<"PvpInvitation"> | string
+    senderId?: StringFilter<"PvpInvitation"> | string
+    recipientId?: StringFilter<"PvpInvitation"> | string
+    status?: StringFilter<"PvpInvitation"> | string
+    createdAt?: DateTimeFilter<"PvpInvitation"> | Date | string
+    updatedAt?: DateTimeFilter<"PvpInvitation"> | Date | string
+  }
+
+  export type PvpInvitationUpsertWithWhereUniqueWithoutRecipientInput = {
+    where: PvpInvitationWhereUniqueInput
+    update: XOR<PvpInvitationUpdateWithoutRecipientInput, PvpInvitationUncheckedUpdateWithoutRecipientInput>
+    create: XOR<PvpInvitationCreateWithoutRecipientInput, PvpInvitationUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type PvpInvitationUpdateWithWhereUniqueWithoutRecipientInput = {
+    where: PvpInvitationWhereUniqueInput
+    data: XOR<PvpInvitationUpdateWithoutRecipientInput, PvpInvitationUncheckedUpdateWithoutRecipientInput>
+  }
+
+  export type PvpInvitationUpdateManyWithWhereWithoutRecipientInput = {
+    where: PvpInvitationScalarWhereInput
+    data: XOR<PvpInvitationUpdateManyMutationInput, PvpInvitationUncheckedUpdateManyWithoutRecipientInput>
+  }
+
   export type UserCreateWithoutWalletsInput = {
     id?: string
     telegramId: string
@@ -9789,6 +15103,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutWalletsInput = {
@@ -9805,6 +15124,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserCreateOrConnectWithoutWalletsInput = {
@@ -9837,6 +15161,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletsInput = {
@@ -9853,6 +15182,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserCreateWithoutGiftsInput = {
@@ -9869,6 +15203,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutGiftsInput = {
@@ -9885,6 +15224,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserCreateOrConnectWithoutGiftsInput = {
@@ -9983,6 +15327,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGiftsInput = {
@@ -9999,6 +15348,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutGiftInput = {
@@ -10039,6 +15393,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10052,6 +15410,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
@@ -10078,6 +15440,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutBuyerTransactionsInput = {
@@ -10094,6 +15461,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserCreateOrConnectWithoutBuyerTransactionsInput = {
@@ -10115,6 +15487,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
     buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutSellerTransactionsInput = {
@@ -10131,6 +15508,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
     buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
     sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserCreateOrConnectWithoutSellerTransactionsInput = {
@@ -10155,6 +15537,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10168,6 +15554,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10200,6 +15590,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerTransactionsInput = {
@@ -10216,6 +15611,11 @@ export namespace Prisma {
     sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUpsertWithoutSellerTransactionsInput = {
@@ -10243,6 +15643,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
     buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerTransactionsInput = {
@@ -10259,6 +15664,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
     buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
     sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type GiftCreateWithoutOffersInput = {
@@ -10267,6 +15677,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10280,6 +15694,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
@@ -10306,6 +15724,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
     sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
     sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutBuyerOffersInput = {
@@ -10322,6 +15745,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
     sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
     sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserCreateOrConnectWithoutBuyerOffersInput = {
@@ -10343,6 +15771,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
     sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutSellerOffersInput = {
@@ -10359,6 +15792,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
     sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
     buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserCreateOrConnectWithoutSellerOffersInput = {
@@ -10383,6 +15821,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10396,6 +15838,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10428,6 +15874,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
     sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
     sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerOffersInput = {
@@ -10444,6 +15895,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
     sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
     sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUpsertWithoutSellerOffersInput = {
@@ -10471,6 +15927,11 @@ export namespace Prisma {
     buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
     sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerOffersInput = {
@@ -10487,6 +15948,729 @@ export namespace Prisma {
     buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
     sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
     buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserCreateWithoutCreatedPvpRoomsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedPvpRoomsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedPvpRoomsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedPvpRoomsInput, UserUncheckedCreateWithoutCreatedPvpRoomsInput>
+  }
+
+  export type UserCreateWithoutWonPvpRoomsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserUncheckedCreateWithoutWonPvpRoomsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserCreateOrConnectWithoutWonPvpRoomsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWonPvpRoomsInput, UserUncheckedCreateWithoutWonPvpRoomsInput>
+  }
+
+  export type PvpParticipantCreateWithoutRoomInput = {
+    id?: string
+    joinedAt?: Date | string
+    user: UserCreateNestedOneWithoutPvpParticipationsInput
+  }
+
+  export type PvpParticipantUncheckedCreateWithoutRoomInput = {
+    id?: string
+    userId: string
+    joinedAt?: Date | string
+  }
+
+  export type PvpParticipantCreateOrConnectWithoutRoomInput = {
+    where: PvpParticipantWhereUniqueInput
+    create: XOR<PvpParticipantCreateWithoutRoomInput, PvpParticipantUncheckedCreateWithoutRoomInput>
+  }
+
+  export type PvpParticipantCreateManyRoomInputEnvelope = {
+    data: PvpParticipantCreateManyRoomInput | PvpParticipantCreateManyRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PvpInvitationCreateWithoutRoomInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sender: UserCreateNestedOneWithoutSentPvpInvitationsInput
+    recipient: UserCreateNestedOneWithoutReceivedPvpInvitationsInput
+  }
+
+  export type PvpInvitationUncheckedCreateWithoutRoomInput = {
+    id?: string
+    senderId: string
+    recipientId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PvpInvitationCreateOrConnectWithoutRoomInput = {
+    where: PvpInvitationWhereUniqueInput
+    create: XOR<PvpInvitationCreateWithoutRoomInput, PvpInvitationUncheckedCreateWithoutRoomInput>
+  }
+
+  export type PvpInvitationCreateManyRoomInputEnvelope = {
+    data: PvpInvitationCreateManyRoomInput | PvpInvitationCreateManyRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutCreatedPvpRoomsInput = {
+    update: XOR<UserUpdateWithoutCreatedPvpRoomsInput, UserUncheckedUpdateWithoutCreatedPvpRoomsInput>
+    create: XOR<UserCreateWithoutCreatedPvpRoomsInput, UserUncheckedCreateWithoutCreatedPvpRoomsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedPvpRoomsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedPvpRoomsInput, UserUncheckedUpdateWithoutCreatedPvpRoomsInput>
+  }
+
+  export type UserUpdateWithoutCreatedPvpRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedPvpRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUpsertWithoutWonPvpRoomsInput = {
+    update: XOR<UserUpdateWithoutWonPvpRoomsInput, UserUncheckedUpdateWithoutWonPvpRoomsInput>
+    create: XOR<UserCreateWithoutWonPvpRoomsInput, UserUncheckedCreateWithoutWonPvpRoomsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWonPvpRoomsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWonPvpRoomsInput, UserUncheckedUpdateWithoutWonPvpRoomsInput>
+  }
+
+  export type UserUpdateWithoutWonPvpRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWonPvpRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type PvpParticipantUpsertWithWhereUniqueWithoutRoomInput = {
+    where: PvpParticipantWhereUniqueInput
+    update: XOR<PvpParticipantUpdateWithoutRoomInput, PvpParticipantUncheckedUpdateWithoutRoomInput>
+    create: XOR<PvpParticipantCreateWithoutRoomInput, PvpParticipantUncheckedCreateWithoutRoomInput>
+  }
+
+  export type PvpParticipantUpdateWithWhereUniqueWithoutRoomInput = {
+    where: PvpParticipantWhereUniqueInput
+    data: XOR<PvpParticipantUpdateWithoutRoomInput, PvpParticipantUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type PvpParticipantUpdateManyWithWhereWithoutRoomInput = {
+    where: PvpParticipantScalarWhereInput
+    data: XOR<PvpParticipantUpdateManyMutationInput, PvpParticipantUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type PvpInvitationUpsertWithWhereUniqueWithoutRoomInput = {
+    where: PvpInvitationWhereUniqueInput
+    update: XOR<PvpInvitationUpdateWithoutRoomInput, PvpInvitationUncheckedUpdateWithoutRoomInput>
+    create: XOR<PvpInvitationCreateWithoutRoomInput, PvpInvitationUncheckedCreateWithoutRoomInput>
+  }
+
+  export type PvpInvitationUpdateWithWhereUniqueWithoutRoomInput = {
+    where: PvpInvitationWhereUniqueInput
+    data: XOR<PvpInvitationUpdateWithoutRoomInput, PvpInvitationUncheckedUpdateWithoutRoomInput>
+  }
+
+  export type PvpInvitationUpdateManyWithWhereWithoutRoomInput = {
+    where: PvpInvitationScalarWhereInput
+    data: XOR<PvpInvitationUpdateManyMutationInput, PvpInvitationUncheckedUpdateManyWithoutRoomInput>
+  }
+
+  export type PvpRoomCreateWithoutParticipantsInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
+    winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
+    invitations?: PvpInvitationCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomUncheckedCreateWithoutParticipantsInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    winnerId?: string | null
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creatorId: string
+    invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomCreateOrConnectWithoutParticipantsInput = {
+    where: PvpRoomWhereUniqueInput
+    create: XOR<PvpRoomCreateWithoutParticipantsInput, PvpRoomUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type UserCreateWithoutPvpParticipationsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserUncheckedCreateWithoutPvpParticipationsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserCreateOrConnectWithoutPvpParticipationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPvpParticipationsInput, UserUncheckedCreateWithoutPvpParticipationsInput>
+  }
+
+  export type PvpRoomUpsertWithoutParticipantsInput = {
+    update: XOR<PvpRoomUpdateWithoutParticipantsInput, PvpRoomUncheckedUpdateWithoutParticipantsInput>
+    create: XOR<PvpRoomCreateWithoutParticipantsInput, PvpRoomUncheckedCreateWithoutParticipantsInput>
+    where?: PvpRoomWhereInput
+  }
+
+  export type PvpRoomUpdateToOneWithWhereWithoutParticipantsInput = {
+    where?: PvpRoomWhereInput
+    data: XOR<PvpRoomUpdateWithoutParticipantsInput, PvpRoomUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type PvpRoomUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
+    winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
+    invitations?: PvpInvitationUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomUncheckedUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type UserUpsertWithoutPvpParticipationsInput = {
+    update: XOR<UserUpdateWithoutPvpParticipationsInput, UserUncheckedUpdateWithoutPvpParticipationsInput>
+    create: XOR<UserCreateWithoutPvpParticipationsInput, UserUncheckedCreateWithoutPvpParticipationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPvpParticipationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPvpParticipationsInput, UserUncheckedUpdateWithoutPvpParticipationsInput>
+  }
+
+  export type UserUpdateWithoutPvpParticipationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPvpParticipationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type PvpRoomCreateWithoutInvitationsInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
+    winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
+    participants?: PvpParticipantCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomUncheckedCreateWithoutInvitationsInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    winnerId?: string | null
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creatorId: string
+    participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
+  }
+
+  export type PvpRoomCreateOrConnectWithoutInvitationsInput = {
+    where: PvpRoomWhereUniqueInput
+    create: XOR<PvpRoomCreateWithoutInvitationsInput, PvpRoomUncheckedCreateWithoutInvitationsInput>
+  }
+
+  export type UserCreateWithoutSentPvpInvitationsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserUncheckedCreateWithoutSentPvpInvitationsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type UserCreateOrConnectWithoutSentPvpInvitationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSentPvpInvitationsInput, UserUncheckedCreateWithoutSentPvpInvitationsInput>
+  }
+
+  export type UserCreateWithoutReceivedPvpInvitationsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+  }
+
+  export type UserUncheckedCreateWithoutReceivedPvpInvitationsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+  }
+
+  export type UserCreateOrConnectWithoutReceivedPvpInvitationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReceivedPvpInvitationsInput, UserUncheckedCreateWithoutReceivedPvpInvitationsInput>
+  }
+
+  export type PvpRoomUpsertWithoutInvitationsInput = {
+    update: XOR<PvpRoomUpdateWithoutInvitationsInput, PvpRoomUncheckedUpdateWithoutInvitationsInput>
+    create: XOR<PvpRoomCreateWithoutInvitationsInput, PvpRoomUncheckedCreateWithoutInvitationsInput>
+    where?: PvpRoomWhereInput
+  }
+
+  export type PvpRoomUpdateToOneWithWhereWithoutInvitationsInput = {
+    where?: PvpRoomWhereInput
+    data: XOR<PvpRoomUpdateWithoutInvitationsInput, PvpRoomUncheckedUpdateWithoutInvitationsInput>
+  }
+
+  export type PvpRoomUpdateWithoutInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
+    winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
+    participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomUncheckedUpdateWithoutInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type UserUpsertWithoutSentPvpInvitationsInput = {
+    update: XOR<UserUpdateWithoutSentPvpInvitationsInput, UserUncheckedUpdateWithoutSentPvpInvitationsInput>
+    create: XOR<UserCreateWithoutSentPvpInvitationsInput, UserUncheckedCreateWithoutSentPvpInvitationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSentPvpInvitationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSentPvpInvitationsInput, UserUncheckedUpdateWithoutSentPvpInvitationsInput>
+  }
+
+  export type UserUpdateWithoutSentPvpInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSentPvpInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type UserUpsertWithoutReceivedPvpInvitationsInput = {
+    update: XOR<UserUpdateWithoutReceivedPvpInvitationsInput, UserUncheckedUpdateWithoutReceivedPvpInvitationsInput>
+    create: XOR<UserCreateWithoutReceivedPvpInvitationsInput, UserUncheckedCreateWithoutReceivedPvpInvitationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceivedPvpInvitationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceivedPvpInvitationsInput, UserUncheckedUpdateWithoutReceivedPvpInvitationsInput>
+  }
+
+  export type UserUpdateWithoutReceivedPvpInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceivedPvpInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type WalletCreateManyUserInput = {
@@ -10503,6 +16687,10 @@ export namespace Prisma {
     collection: string
     emoji?: string | null
     priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10554,6 +16742,52 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type PvpRoomCreateManyCreatorInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    winnerId?: string | null
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+  }
+
+  export type PvpRoomCreateManyWinnerInput = {
+    id?: string
+    code: string
+    stakeGram: Decimal | DecimalJsLike | number | string
+    status?: string
+    createdAt?: Date | string
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    creatorId: string
+  }
+
+  export type PvpParticipantCreateManyUserInput = {
+    id?: string
+    roomId: string
+    joinedAt?: Date | string
+  }
+
+  export type PvpInvitationCreateManySenderInput = {
+    id?: string
+    roomId: string
+    recipientId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PvpInvitationCreateManyRecipientInput = {
+    id?: string
+    roomId: string
+    senderId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type WalletUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -10584,6 +16818,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10597,6 +16835,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10610,6 +16852,10 @@ export namespace Prisma {
     collection?: StringFieldUpdateOperationsInput | string
     emoji?: NullableStringFieldUpdateOperationsInput | string | null
     priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10753,6 +16999,152 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PvpRoomUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
+    participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
+    invitations?: PvpInvitationUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomUncheckedUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
+    invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomUncheckedUpdateManyWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PvpRoomUpdateWithoutWinnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
+    participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
+    invitations?: PvpInvitationUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomUncheckedUpdateWithoutWinnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+    participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
+    invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
+  }
+
+  export type PvpRoomUncheckedUpdateManyWithoutWinnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    creatorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PvpParticipantUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
+  }
+
+  export type PvpParticipantUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: PvpRoomUpdateOneRequiredWithoutInvitationsNestedInput
+    recipient?: UserUpdateOneRequiredWithoutReceivedPvpInvitationsNestedInput
+  }
+
+  export type PvpInvitationUncheckedUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationUncheckedUpdateManyWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationUpdateWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: PvpRoomUpdateOneRequiredWithoutInvitationsNestedInput
+    sender?: UserUpdateOneRequiredWithoutSentPvpInvitationsNestedInput
+  }
+
+  export type PvpInvitationUncheckedUpdateWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationUncheckedUpdateManyWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TransactionCreateManyGiftInput = {
     id?: string
     type: string
@@ -10841,6 +17233,66 @@ export namespace Prisma {
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantCreateManyRoomInput = {
+    id?: string
+    userId: string
+    joinedAt?: Date | string
+  }
+
+  export type PvpInvitationCreateManyRoomInput = {
+    id?: string
+    senderId: string
+    recipientId: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PvpParticipantUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
+  }
+
+  export type PvpParticipantUncheckedUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantUncheckedUpdateManyWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutSentPvpInvitationsNestedInput
+    recipient?: UserUpdateOneRequiredWithoutReceivedPvpInvitationsNestedInput
+  }
+
+  export type PvpInvitationUncheckedUpdateWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpInvitationUncheckedUpdateManyWithoutRoomInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

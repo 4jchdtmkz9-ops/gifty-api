@@ -34,6 +34,41 @@ function canonicalStake(value: string) {
   return `${BigInt(whole).toString()}.${cleanFraction || '0'}`;
 }
 
+const NANO = 1_000_000_000n;
+
+function toNano(value: string | number | { toString(): string }) {
+  const [whole = '0', fraction = ''] = String(value).split('.');
+  return BigInt(whole) * NANO + BigInt((fraction + '000000000').slice(0, 9));
+}
+
+function fromNano(value: bigint) {
+  const whole = value / NANO;
+  const fraction = (value % NANO).toString().padStart(9, '0').replace(/0+$/, '');
+  return `${whole}.${fraction || '0'}`;
+}
+
+function randomBigIntBelow(maxExclusive: bigint) {
+  const byteLength = Math.ceil(maxExclusive.toString(2).length / 8);
+  const range = 1n << BigInt(byteLength * 8);
+  const cutoff = range - (range % maxExclusive);
+  let value: bigint;
+  do {
+    value = BigInt(`0x${randomBytes(byteLength).toString('hex')}`);
+  } while (value >= cutoff);
+  return value % maxExclusive;
+}
+
+function chooseWeightedParticipant<T extends { stakeGram: { toString(): string } }>(participants: T[]) {
+  const total = participants.reduce((sum, participant) => sum + toNano(participant.stakeGram), 0n);
+  if (total <= 0n) return participants[randomInt(participants.length)];
+  let ticket = randomBigIntBelow(total);
+  for (const participant of participants) {
+    ticket -= toNano(participant.stakeGram);
+    if (ticket < 0n) return participant;
+  }
+  return participants[participants.length - 1];
+}
+
 @Controller('pvp')
 export class PvpController implements OnModuleInit, OnModuleDestroy {
   private expiryTimer?: NodeJS.Timeout;
@@ -88,11 +123,15 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       orderBy: { createdAt: 'desc' },
       take: 30,
     });
-    return rooms.map((room) => ({
-      ...room,
-      viewerIsCreator: room.creatorId === user.id,
-      viewerIsParticipant: room.participants.some(({ userId }) => userId === user.id),
-    }));
+    return rooms.map((room) => {
+      const viewerEntry = room.participants.find(({ userId }) => userId === user.id);
+      return {
+        ...room,
+        viewerIsCreator: room.creatorId === user.id,
+        viewerIsParticipant: Boolean(viewerEntry),
+        viewerStakeGram: viewerEntry?.stakeGram ?? null,
+      };
+    });
   }
 
   @Post('public-join')
@@ -105,19 +144,18 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     const stake = canonicalStake(input);
     await this.finishExpiredPublicRooms();
     const roomId = await this.prisma.$transaction(async (tx) => {
-      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${stake}))`;
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('orbit-public-arena'))`;
       const now = new Date();
       const room = await tx.pvpRoom.findFirst({
         where: {
           isPublic: true,
-          stakeGram: stake,
           OR: [
             { status: 'WAITING' },
             { status: 'COUNTDOWN', countdownEndsAt: { gt: now } },
           ],
         },
-        include: { participants: { select: { userId: true } } },
-        orderBy: { createdAt: 'asc' },
+        include: { participants: { select: { userId: true, stakeGram: true } } },
+        orderBy: { createdAt: 'desc' },
       });
 
       if (!room) {
@@ -127,24 +165,36 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
             stakeGram: stake,
             creatorId: user.id,
             isPublic: true,
-            participants: { create: { userId: user.id } },
+            participants: { create: { userId: user.id, stakeGram: stake } },
           },
         });
         return created.id;
       }
 
-      if (room.participants.some(({ userId }) => userId === user.id)) return room.id;
-      await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id } });
+      const existingEntry = room.participants.find(({ userId }) => userId === user.id);
+      if (existingEntry) {
+        if (room.status === 'WAITING') {
+          const total = toNano(room.stakeGram) - toNano(existingEntry.stakeGram) + toNano(stake);
+          await tx.pvpParticipant.update({ where: { roomId_userId: { roomId: room.id, userId: user.id } }, data: { stakeGram: stake } });
+          await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
+        }
+        return room.id;
+      }
+      await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: stake } });
+      const total = toNano(room.stakeGram) + toNano(stake);
       if (room.status === 'WAITING' && room.participants.length >= 1) {
         const startedAt = new Date();
         await tx.pvpRoom.update({
           where: { id: room.id },
           data: {
+            stakeGram: fromNano(total),
             status: 'COUNTDOWN',
             startedAt,
             countdownEndsAt: new Date(startedAt.getTime() + 15_000),
           },
         });
+      } else {
+        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
       }
       return room.id;
     });
@@ -173,7 +223,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           code,
           stakeGram: stake,
           creatorId: creator.id,
-          participants: { create: { userId: creator.id } },
+          participants: { create: { userId: creator.id, stakeGram: stake } },
           invitations: invitees.length ? {
             create: invitees.map(({ id }) => ({ senderId: creator.id, recipientId: id })),
           } : undefined,
@@ -211,6 +261,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       ...room,
       viewerIsCreator: room.creatorId === user.id,
       viewerIsParticipant: room.participants.some(({ userId }) => userId === user.id),
+      viewerStakeGram: room.participants.find(({ userId }) => userId === user.id)?.stakeGram ?? null,
     };
   }
 
@@ -225,7 +276,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       await tx.pvpParticipant.upsert({
         where: { roomId_userId: { roomId: room.id, userId: user.id } },
         update: {},
-        create: { roomId: room.id, userId: user.id },
+        create: { roomId: room.id, userId: user.id, stakeGram: room.stakeGram },
       });
       await tx.pvpInvitation.updateMany({
         where: { roomId: room.id, recipientId: user.id, status: 'PENDING' },
@@ -270,7 +321,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         await tx.pvpParticipant.upsert({
           where: { roomId_userId: { roomId: invitation.roomId, userId: user.id } },
           update: {},
-          create: { roomId: invitation.roomId, userId: user.id },
+          create: { roomId: invitation.roomId, userId: user.id, stakeGram: invitation.room.stakeGram },
         });
       }
     });
@@ -330,6 +381,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       ...room,
       viewerIsCreator: room.creatorId === userId,
       viewerIsParticipant: room.participants.some(({ userId: participantId }) => participantId === userId),
+      viewerStakeGram: room.participants.find(({ userId: participantId }) => participantId === userId)?.stakeGram ?? null,
     };
   }
 
@@ -340,7 +392,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       const now = new Date();
       const expired = await this.prisma.pvpRoom.findMany({
         where: { isPublic: true, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
-        include: { participants: { select: { userId: true } } },
+        include: { participants: { select: { userId: true, stakeGram: true } } },
         take: 50,
       });
       for (const room of expired) {
@@ -351,7 +403,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           });
           continue;
         }
-        const winner = room.participants[randomInt(room.participants.length)];
+        const winner = chooseWeightedParticipant(room.participants);
         await this.prisma.pvpRoom.updateMany({
           where: { id: room.id, isPublic: true, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
           data: { status: 'COMPLETED', winnerId: winner.userId, completedAt: now },

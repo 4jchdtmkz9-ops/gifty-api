@@ -123,6 +123,7 @@ model PvpParticipant {
   id       String   @id @default(cuid())
   roomId   String
   userId   String
+  stakeGram Decimal @default(0) @db.Decimal(20, 9)
   joinedAt DateTime @default(now())
 
   room PvpRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)

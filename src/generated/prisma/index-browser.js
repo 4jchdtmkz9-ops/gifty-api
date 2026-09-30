@@ -199,6 +199,7 @@ exports.Prisma.PvpParticipantScalarFieldEnum = {
   id: 'id',
   roomId: 'roomId',
   userId: 'userId',
+  stakeGram: 'stakeGram',
   joinedAt: 'joinedAt'
 };
 

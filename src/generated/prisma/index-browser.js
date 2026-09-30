@@ -186,9 +186,11 @@ exports.Prisma.PvpRoomScalarFieldEnum = {
   code: 'code',
   stakeGram: 'stakeGram',
   status: 'status',
+  isPublic: 'isPublic',
   winnerId: 'winnerId',
   createdAt: 'createdAt',
   startedAt: 'startedAt',
+  countdownEndsAt: 'countdownEndsAt',
   completedAt: 'completedAt',
   creatorId: 'creatorId'
 };

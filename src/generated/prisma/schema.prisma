@@ -101,14 +101,16 @@ model Offer {
 }
 
 model PvpRoom {
-  id          String    @id @default(cuid())
-  code        String    @unique
-  stakeGram   Decimal   @db.Decimal(20, 9)
-  status      String    @default("WAITING")
-  winnerId    String?
-  createdAt   DateTime  @default(now())
-  startedAt   DateTime?
-  completedAt DateTime?
+  id              String    @id @default(cuid())
+  code            String    @unique
+  stakeGram       Decimal   @db.Decimal(20, 9)
+  status          String    @default("WAITING")
+  isPublic        Boolean   @default(false)
+  winnerId        String?
+  createdAt       DateTime  @default(now())
+  startedAt       DateTime?
+  countdownEndsAt DateTime?
+  completedAt     DateTime?
 
   creatorId    String
   creator      User             @relation("PvpRoomCreator", fields: [creatorId], references: [id], onDelete: Cascade)

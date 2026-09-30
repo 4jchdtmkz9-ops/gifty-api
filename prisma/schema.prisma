@@ -105,9 +105,11 @@ model PvpRoom {
   code        String   @unique
   stakeGram   Decimal  @db.Decimal(20, 9)
   status      String   @default("WAITING")
+  isPublic    Boolean  @default(false)
   winnerId    String?
   createdAt   DateTime @default(now())
   startedAt   DateTime?
+  countdownEndsAt DateTime?
   completedAt DateTime?
 
   creatorId String

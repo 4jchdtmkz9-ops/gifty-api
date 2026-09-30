@@ -5,6 +5,8 @@ import {
   Get,
   Headers,
   NotFoundException,
+  OnModuleDestroy,
+  OnModuleInit,
   Post,
   Query,
   UnauthorizedException,
@@ -26,12 +28,32 @@ const roomInclude = {
   winner: { select: { id: true, username: true, firstName: true, photoUrl: true } },
 };
 
+function canonicalStake(value: string) {
+  const [whole = '0', fraction = ''] = value.split('.');
+  const cleanFraction = fraction.replace(/0+$/, '');
+  return `${BigInt(whole).toString()}.${cleanFraction || '0'}`;
+}
+
 @Controller('pvp')
-export class PvpController {
+export class PvpController implements OnModuleInit, OnModuleDestroy {
+  private expiryTimer?: NodeJS.Timeout;
+  private expirySweepRunning = false;
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly telegramAuth: TelegramAuthService,
   ) {}
+
+  onModuleInit() {
+    this.expiryTimer = setInterval(() => {
+      void this.finishExpiredPublicRooms().catch((error: unknown) => console.error('Arena countdown sweep failed:', error));
+    }, 1000);
+    this.expiryTimer.unref();
+  }
+
+  onModuleDestroy() {
+    if (this.expiryTimer) clearInterval(this.expiryTimer);
+  }
 
   @Get('users/search')
   async searchUsers(@Query('q') query: string, @Headers('x-telegram-init-data') initData: string) {
@@ -47,6 +69,87 @@ export class PvpController {
       orderBy: { username: 'asc' },
       take: 20,
     });
+  }
+
+  @Get('public-rooms')
+  async publicRooms(@Headers('x-telegram-init-data') initData: string) {
+    const user = await this.getUser(initData);
+    await this.finishExpiredPublicRooms();
+    const recentCutoff = new Date(Date.now() - 30_000);
+    const rooms = await this.prisma.pvpRoom.findMany({
+      where: {
+        isPublic: true,
+        OR: [
+          { status: { in: ['WAITING', 'COUNTDOWN'] } },
+          { status: 'COMPLETED', completedAt: { gte: recentCutoff } },
+        ],
+      },
+      include: roomInclude,
+      orderBy: { createdAt: 'desc' },
+      take: 30,
+    });
+    return rooms.map((room) => ({
+      ...room,
+      viewerIsCreator: room.creatorId === user.id,
+      viewerIsParticipant: room.participants.some(({ userId }) => userId === user.id),
+    }));
+  }
+
+  @Post('public-join')
+  async joinPublicArena(@Body() body: { initData?: string; stakeGram?: string }) {
+    const user = await this.getUser(body.initData);
+    const input = body.stakeGram ?? '';
+    if (!/^\d{1,8}(\.\d{1,9})?$/.test(input) || Number(input) <= 0 || Number(input) > 100000) {
+      throw new BadRequestException('Enter a demo stake from 0.000000001 to 100,000 GRAM');
+    }
+    const stake = canonicalStake(input);
+    await this.finishExpiredPublicRooms();
+    const roomId = await this.prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${stake}))`;
+      const now = new Date();
+      const room = await tx.pvpRoom.findFirst({
+        where: {
+          isPublic: true,
+          stakeGram: stake,
+          OR: [
+            { status: 'WAITING' },
+            { status: 'COUNTDOWN', countdownEndsAt: { gt: now } },
+          ],
+        },
+        include: { participants: { select: { userId: true } } },
+        orderBy: { createdAt: 'asc' },
+      });
+
+      if (!room) {
+        const created = await tx.pvpRoom.create({
+          data: {
+            code: randomBytes(5).toString('base64url').toUpperCase(),
+            stakeGram: stake,
+            creatorId: user.id,
+            isPublic: true,
+            participants: { create: { userId: user.id } },
+          },
+        });
+        return created.id;
+      }
+
+      if (room.participants.some(({ userId }) => userId === user.id)) return room.id;
+      await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id } });
+      if (room.status === 'WAITING' && room.participants.length >= 1) {
+        const startedAt = new Date();
+        await tx.pvpRoom.update({
+          where: { id: room.id },
+          data: {
+            status: 'COUNTDOWN',
+            startedAt,
+            countdownEndsAt: new Date(startedAt.getTime() + 15_000),
+          },
+        });
+      }
+      return room.id;
+    });
+
+    return this.getRoomForViewer(roomId, user.id);
   }
 
   @Post('rooms')
@@ -219,6 +322,44 @@ export class PvpController {
         photoUrl: telegramUser.photo_url?.startsWith('https://') ? telegramUser.photo_url : null,
       },
     });
+  }
+
+  private async getRoomForViewer(roomId: string, userId: string) {
+    const room = await this.prisma.pvpRoom.findUniqueOrThrow({ where: { id: roomId }, include: roomInclude });
+    return {
+      ...room,
+      viewerIsCreator: room.creatorId === userId,
+      viewerIsParticipant: room.participants.some(({ userId: participantId }) => participantId === userId),
+    };
+  }
+
+  private async finishExpiredPublicRooms() {
+    if (this.expirySweepRunning) return;
+    this.expirySweepRunning = true;
+    try {
+      const now = new Date();
+      const expired = await this.prisma.pvpRoom.findMany({
+        where: { isPublic: true, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
+        include: { participants: { select: { userId: true } } },
+        take: 50,
+      });
+      for (const room of expired) {
+        if (room.participants.length < 2) {
+          await this.prisma.pvpRoom.updateMany({
+            where: { id: room.id, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
+            data: { status: 'WAITING', startedAt: null, countdownEndsAt: null },
+          });
+          continue;
+        }
+        const winner = room.participants[randomInt(room.participants.length)];
+        await this.prisma.pvpRoom.updateMany({
+          where: { id: room.id, isPublic: true, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
+          data: { status: 'COMPLETED', winnerId: winner.userId, completedAt: now },
+        });
+      }
+    } finally {
+      this.expirySweepRunning = false;
+    }
   }
 
   private async notifyInvitees(telegramIds: string[], code: string, stakeGram: string) {

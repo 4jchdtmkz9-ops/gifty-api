@@ -7923,9 +7923,11 @@ export namespace Prisma {
     code: string | null
     stakeGram: Decimal | null
     status: string | null
+    isPublic: boolean | null
     winnerId: string | null
     createdAt: Date | null
     startedAt: Date | null
+    countdownEndsAt: Date | null
     completedAt: Date | null
     creatorId: string | null
   }
@@ -7935,9 +7937,11 @@ export namespace Prisma {
     code: string | null
     stakeGram: Decimal | null
     status: string | null
+    isPublic: boolean | null
     winnerId: string | null
     createdAt: Date | null
     startedAt: Date | null
+    countdownEndsAt: Date | null
     completedAt: Date | null
     creatorId: string | null
   }
@@ -7947,9 +7951,11 @@ export namespace Prisma {
     code: number
     stakeGram: number
     status: number
+    isPublic: number
     winnerId: number
     createdAt: number
     startedAt: number
+    countdownEndsAt: number
     completedAt: number
     creatorId: number
     _all: number
@@ -7969,9 +7975,11 @@ export namespace Prisma {
     code?: true
     stakeGram?: true
     status?: true
+    isPublic?: true
     winnerId?: true
     createdAt?: true
     startedAt?: true
+    countdownEndsAt?: true
     completedAt?: true
     creatorId?: true
   }
@@ -7981,9 +7989,11 @@ export namespace Prisma {
     code?: true
     stakeGram?: true
     status?: true
+    isPublic?: true
     winnerId?: true
     createdAt?: true
     startedAt?: true
+    countdownEndsAt?: true
     completedAt?: true
     creatorId?: true
   }
@@ -7993,9 +8003,11 @@ export namespace Prisma {
     code?: true
     stakeGram?: true
     status?: true
+    isPublic?: true
     winnerId?: true
     createdAt?: true
     startedAt?: true
+    countdownEndsAt?: true
     completedAt?: true
     creatorId?: true
     _all?: true
@@ -8092,9 +8104,11 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal
     status: string
+    isPublic: boolean
     winnerId: string | null
     createdAt: Date
     startedAt: Date | null
+    countdownEndsAt: Date | null
     completedAt: Date | null
     creatorId: string
     _count: PvpRoomCountAggregateOutputType | null
@@ -8123,9 +8137,11 @@ export namespace Prisma {
     code?: boolean
     stakeGram?: boolean
     status?: boolean
+    isPublic?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
+    countdownEndsAt?: boolean
     completedAt?: boolean
     creatorId?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -8140,9 +8156,11 @@ export namespace Prisma {
     code?: boolean
     stakeGram?: boolean
     status?: boolean
+    isPublic?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
+    countdownEndsAt?: boolean
     completedAt?: boolean
     creatorId?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -8154,9 +8172,11 @@ export namespace Prisma {
     code?: boolean
     stakeGram?: boolean
     status?: boolean
+    isPublic?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
+    countdownEndsAt?: boolean
     completedAt?: boolean
     creatorId?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -8168,14 +8188,16 @@ export namespace Prisma {
     code?: boolean
     stakeGram?: boolean
     status?: boolean
+    isPublic?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
+    countdownEndsAt?: boolean
     completedAt?: boolean
     creatorId?: boolean
   }
 
-  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "winnerId" | "createdAt" | "startedAt" | "completedAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
+  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "isPublic" | "winnerId" | "createdAt" | "startedAt" | "countdownEndsAt" | "completedAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
   export type PvpRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
@@ -8205,9 +8227,11 @@ export namespace Prisma {
       code: string
       stakeGram: Prisma.Decimal
       status: string
+      isPublic: boolean
       winnerId: string | null
       createdAt: Date
       startedAt: Date | null
+      countdownEndsAt: Date | null
       completedAt: Date | null
       creatorId: string
     }, ExtArgs["result"]["pvpRoom"]>
@@ -8641,9 +8665,11 @@ export namespace Prisma {
     readonly code: FieldRef<"PvpRoom", 'String'>
     readonly stakeGram: FieldRef<"PvpRoom", 'Decimal'>
     readonly status: FieldRef<"PvpRoom", 'String'>
+    readonly isPublic: FieldRef<"PvpRoom", 'Boolean'>
     readonly winnerId: FieldRef<"PvpRoom", 'String'>
     readonly createdAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly startedAt: FieldRef<"PvpRoom", 'DateTime'>
+    readonly countdownEndsAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly completedAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly creatorId: FieldRef<"PvpRoom", 'String'>
   }
@@ -11390,9 +11416,11 @@ export namespace Prisma {
     code: 'code',
     stakeGram: 'stakeGram',
     status: 'status',
+    isPublic: 'isPublic',
     winnerId: 'winnerId',
     createdAt: 'createdAt',
     startedAt: 'startedAt',
+    countdownEndsAt: 'countdownEndsAt',
     completedAt: 'completedAt',
     creatorId: 'creatorId'
   };
@@ -11960,9 +11988,11 @@ export namespace Prisma {
     code?: StringFilter<"PvpRoom"> | string
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringFilter<"PvpRoom"> | string
+    isPublic?: BoolFilter<"PvpRoom"> | boolean
     winnerId?: StringNullableFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    countdownEndsAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringFilter<"PvpRoom"> | string
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11976,9 +12006,11 @@ export namespace Prisma {
     code?: SortOrder
     stakeGram?: SortOrder
     status?: SortOrder
+    isPublic?: SortOrder
     winnerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
+    countdownEndsAt?: SortOrderInput | SortOrder
     completedAt?: SortOrderInput | SortOrder
     creatorId?: SortOrder
     creator?: UserOrderByWithRelationInput
@@ -11995,9 +12027,11 @@ export namespace Prisma {
     NOT?: PvpRoomWhereInput | PvpRoomWhereInput[]
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringFilter<"PvpRoom"> | string
+    isPublic?: BoolFilter<"PvpRoom"> | boolean
     winnerId?: StringNullableFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    countdownEndsAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringFilter<"PvpRoom"> | string
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -12011,9 +12045,11 @@ export namespace Prisma {
     code?: SortOrder
     stakeGram?: SortOrder
     status?: SortOrder
+    isPublic?: SortOrder
     winnerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
+    countdownEndsAt?: SortOrderInput | SortOrder
     completedAt?: SortOrderInput | SortOrder
     creatorId?: SortOrder
     _count?: PvpRoomCountOrderByAggregateInput
@@ -12031,9 +12067,11 @@ export namespace Prisma {
     code?: StringWithAggregatesFilter<"PvpRoom"> | string
     stakeGram?: DecimalWithAggregatesFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringWithAggregatesFilter<"PvpRoom"> | string
+    isPublic?: BoolWithAggregatesFilter<"PvpRoom"> | boolean
     winnerId?: StringNullableWithAggregatesFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
+    countdownEndsAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringWithAggregatesFilter<"PvpRoom"> | string
   }
@@ -12640,8 +12678,10 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
@@ -12654,9 +12694,11 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creatorId: string
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
@@ -12668,8 +12710,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
@@ -12682,9 +12726,11 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
@@ -12696,9 +12742,11 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creatorId: string
   }
@@ -12708,8 +12756,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -12718,9 +12768,11 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
   }
@@ -13302,9 +13354,11 @@ export namespace Prisma {
     code?: SortOrder
     stakeGram?: SortOrder
     status?: SortOrder
+    isPublic?: SortOrder
     winnerId?: SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrder
+    countdownEndsAt?: SortOrder
     completedAt?: SortOrder
     creatorId?: SortOrder
   }
@@ -13318,9 +13372,11 @@ export namespace Prisma {
     code?: SortOrder
     stakeGram?: SortOrder
     status?: SortOrder
+    isPublic?: SortOrder
     winnerId?: SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrder
+    countdownEndsAt?: SortOrder
     completedAt?: SortOrder
     creatorId?: SortOrder
   }
@@ -13330,9 +13386,11 @@ export namespace Prisma {
     code?: SortOrder
     stakeGram?: SortOrder
     status?: SortOrder
+    isPublic?: SortOrder
     winnerId?: SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrder
+    countdownEndsAt?: SortOrder
     completedAt?: SortOrder
     creatorId?: SortOrder
   }
@@ -14668,8 +14726,10 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
     participants?: PvpParticipantCreateNestedManyWithoutRoomInput
@@ -14681,9 +14741,11 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
     invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
@@ -14704,8 +14766,10 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     participants?: PvpParticipantCreateNestedManyWithoutRoomInput
@@ -14717,8 +14781,10 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creatorId: string
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
@@ -14995,9 +15061,11 @@ export namespace Prisma {
     code?: StringFilter<"PvpRoom"> | string
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringFilter<"PvpRoom"> | string
+    isPublic?: BoolFilter<"PvpRoom"> | boolean
     winnerId?: StringNullableFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    countdownEndsAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringFilter<"PvpRoom"> | string
   }
@@ -16242,8 +16310,10 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
@@ -16255,9 +16325,11 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creatorId: string
     invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
@@ -16331,8 +16403,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
@@ -16344,9 +16418,11 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
@@ -16410,8 +16486,10 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
@@ -16423,9 +16501,11 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creatorId: string
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
@@ -16546,8 +16626,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
@@ -16559,9 +16641,11 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
@@ -16747,9 +16831,11 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
   }
 
@@ -16758,8 +16844,10 @@ export namespace Prisma {
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
+    isPublic?: boolean
     createdAt?: Date | string
     startedAt?: Date | string | null
+    countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
     creatorId: string
   }
@@ -17004,8 +17092,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
     participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
@@ -17017,9 +17107,11 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
     invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
@@ -17030,9 +17122,11 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -17041,8 +17135,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
@@ -17054,8 +17150,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
@@ -17067,8 +17165,10 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
   }

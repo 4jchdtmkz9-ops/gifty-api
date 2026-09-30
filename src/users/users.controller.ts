@@ -61,11 +61,6 @@ export class UsersController {
 
     if (body.address) {
       await this.saveWallet(user.id, body.address, body.network ?? 'TON');
-    } else {
-      await this.prisma.wallet.updateMany({
-        where: { userId: user.id, isConnected: true },
-        data: { isConnected: false },
-      });
     }
 
     return this.prisma.user.findUniqueOrThrow({

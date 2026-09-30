@@ -144,7 +144,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     const stake = canonicalStake(input);
     await this.finishExpiredPublicRooms();
     const roomId = await this.prisma.$transaction(async (tx) => {
-      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('orbit-public-arena'))`;
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('orbit-public-arena'))::text AS locked`;
       const now = new Date();
       const room = await tx.pvpRoom.findFirst({
         where: {

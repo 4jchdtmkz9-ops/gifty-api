@@ -188,6 +188,11 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           const total = toNano(room.stakeGram) - toNano(existingEntry.stakeGram) + toNano(stake);
           await tx.pvpParticipant.update({ where: { roomId_userId: { roomId: room.id, userId: user.id } }, data: { stakeGram: stake } });
           await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
+        } else if (room.status === 'COUNTDOWN') {
+          const addedStake = toNano(existingEntry.stakeGram) + toNano(stake);
+          const total = toNano(room.stakeGram) + toNano(stake);
+          await tx.pvpParticipant.update({ where: { roomId_userId: { roomId: room.id, userId: user.id } }, data: { stakeGram: fromNano(addedStake) } });
+          await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
         }
         return room.id;
       }

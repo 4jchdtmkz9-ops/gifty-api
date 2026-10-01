@@ -201,7 +201,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
             stakeGram: fromNano(total),
             status: 'COUNTDOWN',
             startedAt,
-            countdownEndsAt: new Date(startedAt.getTime() + 15_000),
+            countdownEndsAt: new Date(startedAt.getTime() + 10_000),
           },
         });
       } else {

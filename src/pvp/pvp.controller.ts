@@ -18,7 +18,8 @@ import { TelegramAuthService } from '../auth/telegram-auth.service.js';
 const roomInclude = {
   participants: {
     include: { user: { select: { id: true, username: true, firstName: true, photoUrl: true } } },
-    orderBy: { joinedAt: 'asc' as const },
+    // Stable ties ensure every player's stake-to-sector geometry is identical.
+    orderBy: [{ joinedAt: 'asc' as const }, { id: 'asc' as const }],
   },
   invitations: {
     include: { recipient: { select: { id: true, username: true, firstName: true } } },
@@ -73,6 +74,7 @@ function chooseWeightedParticipant<T extends { stakeGram: { toString(): string }
 export class PvpController implements OnModuleInit, OnModuleDestroy {
   private expiryTimer?: NodeJS.Timeout;
   private expirySweepRunning = false;
+  private botUsername?: string;
 
   constructor(
     private readonly prisma: PrismaService,
@@ -132,6 +134,15 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         viewerStakeGram: viewerEntry?.stakeGram ?? null,
       };
     });
+  }
+
+  @Get('share-link')
+  async shareLink(@Query('code') code: string, @Headers('x-telegram-init-data') initData: string) {
+    await this.getUser(initData);
+    if (!code) throw new BadRequestException('Room code is required');
+    const room = await this.prisma.pvpRoom.findUnique({ where: { code }, select: { code: true } });
+    if (!room) throw new NotFoundException('Arena room not found');
+    return { url: await this.arenaDeepLink(room.code) };
   }
 
   @Post('public-join')
@@ -215,7 +226,8 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     const invitees = inviteeIds.length
       ? await this.prisma.user.findMany({ where: { id: { in: inviteeIds } }, select: { id: true, telegramId: true } })
       : [];
-    const code = randomBytes(5).toString('base64url').toUpperCase();
+    // Private-room codes are unguessable bearer links; do not expose short sequential-looking codes.
+    const code = randomBytes(16).toString('base64url');
 
     const room = await this.prisma.$transaction(async (tx) => {
       const created = await tx.pvpRoom.create({
@@ -231,7 +243,11 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       });
       return tx.pvpRoom.findUniqueOrThrow({ where: { id: created.id }, include: roomInclude });
     });
-    const notificationStats = await this.notifyInvitees(invitees.map(({ telegramId }) => telegramId), code, stake);
+    const notificationStats = await this.notifyInvitees(invitees.map(({ telegramId }) => telegramId), code, stake)
+      .catch((error: unknown) => {
+        console.error('Arena invite delivery failed:', error);
+        return { sent: 0, failed: invitees.length };
+      });
     return { ...room, notificationStats, viewerIsCreator: true, viewerIsParticipant: true };
   }
 
@@ -418,8 +434,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     if (!token || telegramIds.length === 0) return { sent: 0, failed: telegramIds.length };
 
-    const appUrl = (process.env.ORBIT_WEB_APP_URL || 'https://gifty-web-iota.vercel.app').replace(/\/+$/, '');
-    const url = `${appUrl}/arena?room=${encodeURIComponent(code)}`;
+    const url = await this.arenaDeepLink(code);
     const results = await Promise.allSettled(telegramIds.map(async (chatId) => {
       const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
@@ -428,7 +443,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           chat_id: chatId,
           text: `You have an ORBIT Arena invitation. Demo stake: ${stakeGram} GRAM per player. No funds will be charged.`,
           reply_markup: {
-            inline_keyboard: [[{ text: 'Open ORBIT Arena', web_app: { url } }]],
+            inline_keyboard: [[{ text: 'Open ORBIT Arena', url }]],
           },
         }),
         signal: AbortSignal.timeout(5000),
@@ -439,5 +454,32 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     }));
     const sent = results.filter((result) => result.status === 'fulfilled' && result.value).length;
     return { sent, failed: telegramIds.length - sent };
+  }
+
+  private async arenaDeepLink(code: string) {
+    const username = await this.telegramBotUsername();
+    const startParam = `arena_${code}`;
+    return `https://t.me/${username}?startapp=${encodeURIComponent(startParam)}`;
+  }
+
+  private async telegramBotUsername() {
+    if (this.botUsername) return this.botUsername;
+    const configuredUsername = process.env.TELEGRAM_BOT_USERNAME?.replace(/^@/, '').trim();
+    if (configuredUsername) {
+      this.botUsername = configuredUsername;
+      return configuredUsername;
+    }
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    if (!token) {
+      this.botUsername = 'gifty_mrkt_bot';
+      return this.botUsername;
+    }
+    const response = await fetch(`https://api.telegram.org/bot${token}/getMe`, { signal: AbortSignal.timeout(5000) });
+    const result = await response.json() as { ok?: boolean; result?: { username?: string } };
+    if (!response.ok || !result.ok || !result.result?.username) {
+      throw new BadRequestException('Could not resolve the Telegram bot username');
+    }
+    this.botUsername = result.result.username;
+    return this.botUsername;
   }
 }

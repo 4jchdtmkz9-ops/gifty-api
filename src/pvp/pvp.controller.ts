@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  ConflictException,
   Get,
   Headers,
   NotFoundException,
@@ -36,6 +37,9 @@ function canonicalStake(value: string) {
 }
 
 const NANO = 1_000_000_000n;
+// Keep the just-finished public arena reserved until clients can finish the
+// winner sequence, including the 1.5s polling delay and a small safety margin.
+const PUBLIC_RESULT_HOLD_MS = 15_000;
 
 function toNano(value: string | number | { toString(): string }) {
   const [whole = '0', fraction = ''] = String(value).split('.');
@@ -153,10 +157,45 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       throw new BadRequestException('Enter a demo stake from 0.000000001 to 100,000 GRAM');
     }
     const stake = canonicalStake(input);
-    await this.finishExpiredPublicRooms();
-    const roomId = await this.prisma.$transaction(async (tx) => {
+    const roomResult = await this.prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('orbit-public-arena'))::text AS locked`;
       const now = new Date();
+
+      // Expire the previous countdown while holding the same cross-instance
+      // lock used to join/create the public room. Otherwise a request arriving
+      // at the countdown boundary can see no eligible room and create a second
+      // one before the background sweep commits the first result.
+      const expiredRooms = await tx.pvpRoom.findMany({
+        where: { isPublic: true, status: 'COUNTDOWN', OR: [{ countdownEndsAt: null }, { countdownEndsAt: { lte: now } }] },
+        include: { participants: { select: { userId: true, stakeGram: true } } },
+        take: 50,
+      });
+      for (const expiredRoom of expiredRooms) {
+        if (expiredRoom.participants.length < 2) {
+          await tx.pvpRoom.updateMany({
+            where: { id: expiredRoom.id, status: 'COUNTDOWN', OR: [{ countdownEndsAt: null }, { countdownEndsAt: { lte: now } }] },
+            data: { status: 'WAITING', startedAt: null, countdownEndsAt: null },
+          });
+          continue;
+        }
+        const winner = chooseWeightedParticipant(expiredRoom.participants);
+        await tx.pvpRoom.updateMany({
+          where: { id: expiredRoom.id, isPublic: true, status: 'COUNTDOWN', OR: [{ countdownEndsAt: null }, { countdownEndsAt: { lte: now } }] },
+          data: { status: 'COMPLETED', winnerId: winner.userId, completedAt: now },
+        });
+      }
+
+      const finishingRoom = await tx.pvpRoom.findFirst({
+        where: {
+          isPublic: true,
+          status: 'COMPLETED',
+          completedAt: { gte: new Date(now.getTime() - PUBLIC_RESULT_HOLD_MS) },
+        },
+        orderBy: [{ completedAt: 'desc' }, { createdAt: 'desc' }],
+        select: { id: true },
+      });
+      if (finishingRoom) return { roomId: finishingRoom.id, isFinishing: true };
+
       const room = await tx.pvpRoom.findFirst({
         where: {
           isPublic: true,
@@ -179,7 +218,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
             participants: { create: { userId: user.id, stakeGram: stake } },
           },
         });
-        return created.id;
+        return { roomId: created.id, isFinishing: false };
       }
 
       const existingEntry = room.participants.find(({ userId }) => userId === user.id);
@@ -194,7 +233,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           await tx.pvpParticipant.update({ where: { roomId_userId: { roomId: room.id, userId: user.id } }, data: { stakeGram: fromNano(addedStake) } });
           await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
         }
-        return room.id;
+        return { roomId: room.id, isFinishing: false };
       }
       await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: stake } });
       const total = toNano(room.stakeGram) + toNano(stake);
@@ -212,10 +251,13 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       } else {
         await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
       }
-      return room.id;
+      return { roomId: room.id, isFinishing: false };
     });
 
-    return this.getRoomForViewer(roomId, user.id);
+    if (roomResult.isFinishing) {
+      throw new ConflictException('The previous arena is finishing. Wait a moment for the next round.');
+    }
+    return this.getRoomForViewer(roomResult.roomId, user.id);
   }
 
   @Post('rooms')
@@ -290,10 +332,12 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
   async joinRoom(@Body() body: { initData?: string; code?: string }) {
     const user = await this.getUser(body.initData);
     if (!body.code) throw new BadRequestException('Room code is required');
-    const room = await this.prisma.pvpRoom.findUnique({ where: { code: body.code } });
-    if (!room) throw new NotFoundException('Arena room not found');
-    if (room.status !== 'WAITING') throw new BadRequestException('This arena round has already started');
-    await this.prisma.$transaction(async (tx) => {
+    const joinedRoom = await this.prisma.$transaction(async (tx) => {
+      const locked = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "PvpRoom" WHERE "code" = ${body.code} FOR UPDATE`;
+      if (!locked[0]) throw new NotFoundException('Arena room not found');
+      const room = await tx.pvpRoom.findUniqueOrThrow({ where: { id: locked[0].id } });
+      if (room.isPublic) throw new BadRequestException('Join the open arena from the public room entrance');
+      if (room.status !== 'WAITING') throw new BadRequestException('This arena round has already started');
       await tx.pvpParticipant.upsert({
         where: { roomId_userId: { roomId: room.id, userId: user.id } },
         update: {},
@@ -303,8 +347,8 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         where: { roomId: room.id, recipientId: user.id, status: 'PENDING' },
         data: { status: 'ACCEPTED' },
       });
+      return tx.pvpRoom.findUniqueOrThrow({ where: { id: room.id }, include: roomInclude });
     });
-    const joinedRoom = await this.prisma.pvpRoom.findUniqueOrThrow({ where: { id: room.id }, include: roomInclude });
     return { ...joinedRoom, viewerIsCreator: joinedRoom.creatorId === user.id, viewerIsParticipant: true };
   }
 
@@ -326,13 +370,20 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     const user = await this.getUser(body.initData);
     if (!body.invitationId) throw new BadRequestException('Invitation id is required');
     const invitation = await this.prisma.pvpInvitation.findFirst({
-      where: { id: body.invitationId, recipientId: user.id, status: 'PENDING' },
-      include: { room: true },
+      where: { id: body.invitationId, recipientId: user.id },
+      select: { id: true, roomId: true },
     });
     if (!invitation) throw new NotFoundException('Invitation is no longer available');
-    if (invitation.room.status !== 'WAITING') throw new BadRequestException('This round has already started');
 
-    await this.prisma.$transaction(async (tx) => {
+    const answeredRoom = await this.prisma.$transaction(async (tx) => {
+      const locked = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "PvpRoom" WHERE "id" = ${invitation.roomId} FOR UPDATE`;
+      if (!locked[0]) throw new NotFoundException('Arena room not found');
+      const room = await tx.pvpRoom.findUniqueOrThrow({ where: { id: invitation.roomId } });
+      if (room.isPublic || room.status !== 'WAITING') throw new BadRequestException('This round has already started');
+      const pendingInvitation = await tx.pvpInvitation.findFirst({
+        where: { id: invitation.id, recipientId: user.id, status: 'PENDING' },
+      });
+      if (!pendingInvitation) throw new BadRequestException('Invitation has already been answered');
       const changed = await tx.pvpInvitation.updateMany({
         where: { id: invitation.id, recipientId: user.id, status: 'PENDING' },
         data: { status: body.accept ? 'ACCEPTED' : 'DECLINED' },
@@ -342,11 +393,11 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         await tx.pvpParticipant.upsert({
           where: { roomId_userId: { roomId: invitation.roomId, userId: user.id } },
           update: {},
-          create: { roomId: invitation.roomId, userId: user.id, stakeGram: invitation.room.stakeGram },
+          create: { roomId: invitation.roomId, userId: user.id, stakeGram: room.stakeGram },
         });
       }
+      return tx.pvpRoom.findUniqueOrThrow({ where: { id: invitation.roomId }, include: roomInclude });
     });
-    const answeredRoom = await this.prisma.pvpRoom.findUniqueOrThrow({ where: { id: invitation.roomId }, include: roomInclude });
     return {
       ...answeredRoom,
       viewerIsCreator: answeredRoom.creatorId === user.id,
@@ -358,22 +409,26 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
   async startRound(@Body() body: { initData?: string; code?: string }) {
     const user = await this.getUser(body.initData);
     if (!body.code) throw new BadRequestException('Room code is required');
-    const room = await this.prisma.pvpRoom.findUnique({
-      where: { code: body.code },
-      include: { participants: { select: { userId: true } } },
-    });
-    if (!room) throw new NotFoundException('Arena room not found');
-    if (room.creatorId !== user.id) throw new UnauthorizedException('Only the room creator can start this demo round');
-    if (room.status !== 'WAITING') throw new BadRequestException('This round has already started');
-    if (room.participants.length < 2) throw new BadRequestException('Invite or join at least one more player first');
+    const completedRoom = await this.prisma.$transaction(async (tx) => {
+      const locked = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "PvpRoom" WHERE "code" = ${body.code} FOR UPDATE`;
+      if (!locked[0]) throw new NotFoundException('Arena room not found');
+      const room = await tx.pvpRoom.findUniqueOrThrow({
+        where: { id: locked[0].id },
+        include: { participants: { select: { userId: true } } },
+      });
+      if (room.creatorId !== user.id) throw new UnauthorizedException('Only the room creator can start this demo round');
+      if (room.isPublic || room.status !== 'WAITING') throw new BadRequestException('This arena round has already started');
+      if (room.participants.length < 2) throw new BadRequestException('Invite or join at least one more player first');
 
-    const winner = room.participants[randomInt(room.participants.length)];
-    const started = await this.prisma.pvpRoom.updateMany({
-      where: { id: room.id, status: 'WAITING' },
-      data: { status: 'COMPLETED', startedAt: new Date(), completedAt: new Date(), winnerId: winner.userId },
+      const winner = room.participants[randomInt(room.participants.length)];
+      const completedAt = new Date();
+      const started = await tx.pvpRoom.updateMany({
+        where: { id: room.id, status: 'WAITING' },
+        data: { status: 'COMPLETED', startedAt: completedAt, completedAt, winnerId: winner.userId },
+      });
+      if (started.count !== 1) throw new BadRequestException('This round has already started');
+      return tx.pvpRoom.findUniqueOrThrow({ where: { id: room.id }, include: roomInclude });
     });
-    if (started.count !== 1) throw new BadRequestException('This round has already started');
-    const completedRoom = await this.prisma.pvpRoom.findUniqueOrThrow({ where: { id: room.id }, include: roomInclude });
     return { ...completedRoom, viewerIsCreator: completedRoom.creatorId === user.id, viewerIsParticipant: true };
   }
 
@@ -410,26 +465,29 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     if (this.expirySweepRunning) return;
     this.expirySweepRunning = true;
     try {
-      const now = new Date();
-      const expired = await this.prisma.pvpRoom.findMany({
-        where: { isPublic: true, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
-        include: { participants: { select: { userId: true, stakeGram: true } } },
-        take: 50,
-      });
-      for (const room of expired) {
-        if (room.participants.length < 2) {
-          await this.prisma.pvpRoom.updateMany({
-            where: { id: room.id, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
-            data: { status: 'WAITING', startedAt: null, countdownEndsAt: null },
-          });
-          continue;
-        }
-        const winner = chooseWeightedParticipant(room.participants);
-        await this.prisma.pvpRoom.updateMany({
-          where: { id: room.id, isPublic: true, status: 'COUNTDOWN', countdownEndsAt: { lte: now } },
-          data: { status: 'COMPLETED', winnerId: winner.userId, completedAt: now },
+      await this.prisma.$transaction(async (tx) => {
+        await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('orbit-public-arena'))::text AS locked`;
+        const now = new Date();
+        const expired = await tx.pvpRoom.findMany({
+          where: { isPublic: true, status: 'COUNTDOWN', OR: [{ countdownEndsAt: null }, { countdownEndsAt: { lte: now } }] },
+          include: { participants: { select: { userId: true, stakeGram: true } } },
+          take: 50,
         });
-      }
+        for (const room of expired) {
+          if (room.participants.length < 2) {
+            await tx.pvpRoom.updateMany({
+              where: { id: room.id, status: 'COUNTDOWN', OR: [{ countdownEndsAt: null }, { countdownEndsAt: { lte: now } }] },
+              data: { status: 'WAITING', startedAt: null, countdownEndsAt: null },
+            });
+            continue;
+          }
+          const winner = chooseWeightedParticipant(room.participants);
+          await tx.pvpRoom.updateMany({
+            where: { id: room.id, isPublic: true, status: 'COUNTDOWN', OR: [{ countdownEndsAt: null }, { countdownEndsAt: { lte: now } }] },
+            data: { status: 'COMPLETED', winnerId: winner.userId, completedAt: now },
+          });
+        }
+      });
     } finally {
       this.expirySweepRunning = false;
     }

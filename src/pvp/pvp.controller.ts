@@ -118,19 +118,29 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     await this.finishExpiredPublicRooms();
     const arenaMode = requestedMode === 'WHEEL' ? 'WHEEL' : 'CLASSIC';
     const recentCutoff = new Date(Date.now() - 30_000);
-    const rooms = await this.prisma.pvpRoom.findMany({
-      where: {
-        isPublic: true,
-        arenaMode,
-        OR: [
-          { status: { in: ['WAITING', 'COUNTDOWN'] } },
-          { status: 'COMPLETED', completedAt: { gte: recentCutoff } },
-        ],
-      },
-      include: roomInclude,
-      orderBy: { createdAt: 'desc' },
-      take: 30,
-    });
+    const [activeAndRecentRooms, lastCompletedRoom] = await Promise.all([
+      this.prisma.pvpRoom.findMany({
+        where: {
+          isPublic: true,
+          arenaMode,
+          OR: [
+            { status: { in: ['WAITING', 'COUNTDOWN'] } },
+            { status: 'COMPLETED', completedAt: { gte: recentCutoff } },
+          ],
+        },
+        include: roomInclude,
+        orderBy: { createdAt: 'desc' },
+        take: 30,
+      }),
+      this.prisma.pvpRoom.findFirst({
+        where: { isPublic: true, arenaMode, status: 'COMPLETED', winnerId: { not: null } },
+        include: roomInclude,
+        orderBy: [{ completedAt: 'desc' }, { createdAt: 'desc' }],
+      }),
+    ]);
+    const rooms = lastCompletedRoom && !activeAndRecentRooms.some(({ id }) => id === lastCompletedRoom.id)
+      ? [...activeAndRecentRooms, lastCompletedRoom]
+      : activeAndRecentRooms;
     return rooms.map((room) => {
       const viewerEntry = room.participants.find(({ userId }) => userId === user.id);
       return {

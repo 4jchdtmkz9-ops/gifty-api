@@ -15,42 +15,52 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 /**
  * Model User
- *
+ * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model BotDeposit
+ * 
+ */
+export type BotDeposit = $Result.DefaultSelection<Prisma.$BotDepositPayload>
+/**
+ * Model BotWithdrawal
+ * 
+ */
+export type BotWithdrawal = $Result.DefaultSelection<Prisma.$BotWithdrawalPayload>
+/**
  * Model Wallet
- *
+ * 
  */
 export type Wallet = $Result.DefaultSelection<Prisma.$WalletPayload>
 /**
  * Model Gift
- *
+ * 
  */
 export type Gift = $Result.DefaultSelection<Prisma.$GiftPayload>
 /**
  * Model Transaction
- *
+ * 
  */
 export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
 /**
  * Model Offer
- *
+ * 
  */
 export type Offer = $Result.DefaultSelection<Prisma.$OfferPayload>
 /**
  * Model PvpRoom
- *
+ * 
  */
 export type PvpRoom = $Result.DefaultSelection<Prisma.$PvpRoomPayload>
 /**
  * Model PvpParticipant
- *
+ * 
  */
 export type PvpParticipant = $Result.DefaultSelection<Prisma.$PvpParticipantPayload>
 /**
  * Model PvpInvitation
- *
+ * 
  */
 export type PvpInvitation = $Result.DefaultSelection<Prisma.$PvpInvitationPayload>
 
@@ -164,7 +174,7 @@ export class PrismaClient<
    *   prisma.user.create({ data: { name: 'Alice' } }),
    * ])
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
@@ -184,6 +194,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.botDeposit`: Exposes CRUD operations for the **BotDeposit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BotDeposits
+    * const botDeposits = await prisma.botDeposit.findMany()
+    * ```
+    */
+  get botDeposit(): Prisma.BotDepositDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.botWithdrawal`: Exposes CRUD operations for the **BotWithdrawal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BotWithdrawals
+    * const botWithdrawals = await prisma.botWithdrawal.findMany()
+    * ```
+    */
+  get botWithdrawal(): Prisma.BotWithdrawalDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.wallet`: Exposes CRUD operations for the **Wallet** model.
@@ -702,6 +732,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    BotDeposit: 'BotDeposit',
+    BotWithdrawal: 'BotWithdrawal',
     Wallet: 'Wallet',
     Gift: 'Gift',
     Transaction: 'Transaction',
@@ -724,7 +756,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "wallet" | "gift" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpInvitation"
+      modelProps: "user" | "botDeposit" | "botWithdrawal" | "wallet" | "gift" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpInvitation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -799,6 +831,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      BotDeposit: {
+        payload: Prisma.$BotDepositPayload<ExtArgs>
+        fields: Prisma.BotDepositFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BotDepositFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BotDepositFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>
+          }
+          findFirst: {
+            args: Prisma.BotDepositFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BotDepositFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>
+          }
+          findMany: {
+            args: Prisma.BotDepositFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>[]
+          }
+          create: {
+            args: Prisma.BotDepositCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>
+          }
+          createMany: {
+            args: Prisma.BotDepositCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BotDepositCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>[]
+          }
+          delete: {
+            args: Prisma.BotDepositDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>
+          }
+          update: {
+            args: Prisma.BotDepositUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>
+          }
+          deleteMany: {
+            args: Prisma.BotDepositDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BotDepositUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BotDepositUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>[]
+          }
+          upsert: {
+            args: Prisma.BotDepositUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotDepositPayload>
+          }
+          aggregate: {
+            args: Prisma.BotDepositAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBotDeposit>
+          }
+          groupBy: {
+            args: Prisma.BotDepositGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BotDepositGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BotDepositCountArgs<ExtArgs>
+            result: $Utils.Optional<BotDepositCountAggregateOutputType> | number
+          }
+        }
+      }
+      BotWithdrawal: {
+        payload: Prisma.$BotWithdrawalPayload<ExtArgs>
+        fields: Prisma.BotWithdrawalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BotWithdrawalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BotWithdrawalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>
+          }
+          findFirst: {
+            args: Prisma.BotWithdrawalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BotWithdrawalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>
+          }
+          findMany: {
+            args: Prisma.BotWithdrawalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>[]
+          }
+          create: {
+            args: Prisma.BotWithdrawalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>
+          }
+          createMany: {
+            args: Prisma.BotWithdrawalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BotWithdrawalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>[]
+          }
+          delete: {
+            args: Prisma.BotWithdrawalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>
+          }
+          update: {
+            args: Prisma.BotWithdrawalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>
+          }
+          deleteMany: {
+            args: Prisma.BotWithdrawalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BotWithdrawalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BotWithdrawalUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>[]
+          }
+          upsert: {
+            args: Prisma.BotWithdrawalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BotWithdrawalPayload>
+          }
+          aggregate: {
+            args: Prisma.BotWithdrawalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBotWithdrawal>
+          }
+          groupBy: {
+            args: Prisma.BotWithdrawalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BotWithdrawalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BotWithdrawalCountArgs<ExtArgs>
+            result: $Utils.Optional<BotWithdrawalCountAggregateOutputType> | number
           }
         }
       }
@@ -1357,7 +1537,7 @@ export namespace Prisma {
      * ```
      * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
-     *
+     * 
      * // Emit as events only
      * log: [
      *   { emit: 'event', level: 'query' },
@@ -1365,14 +1545,14 @@ export namespace Prisma {
      *   { emit: 'event', level: 'warn' }
      *   { emit: 'event', level: 'error' }
      * ]
-     *
+     * 
      * / Emit as events and log to stdout
      * og: [
      *  { emit: 'stdout', level: 'query' },
      *  { emit: 'stdout', level: 'info' },
      *  { emit: 'stdout', level: 'warn' }
      *  { emit: 'stdout', level: 'error' }
-     *
+     * 
      * ```
      * Read more in our [docs](https://pris.ly/d/logging).
      */
@@ -1389,16 +1569,16 @@ export namespace Prisma {
     }
     /**
      * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
-     *
+     * 
      * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
-     *
+     * 
      * Learn more: https://pris.ly/d/driver-adapters
-     *
+     * 
      * @example
      * ```ts
      * import { PrismaPg } from '@prisma/adapter-pg'
      * import { PrismaClient } from './generated/prisma/client'
-     *
+     * 
      * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
      * const prisma = new PrismaClient({ adapter })
      * ```
@@ -1406,13 +1586,13 @@ export namespace Prisma {
     adapter?: runtime.SqlDriverAdapterFactory
     /**
      * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
-     *
+     * 
      * Learn more: https://pris.ly/d/accelerate
      */
     accelerateUrl?: string
     /**
      * Global configuration for omitting model fields by default.
-     *
+     * 
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -1428,7 +1608,7 @@ export namespace Prisma {
     /**
      * SQL commenter plugins that add metadata to SQL queries as comments.
      * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
-     *
+     * 
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -1444,6 +1624,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    botDeposit?: BotDepositOmit
+    botWithdrawal?: BotWithdrawalOmit
     wallet?: WalletOmit
     gift?: GiftOmit
     transaction?: TransactionOmit
@@ -1542,6 +1724,8 @@ export namespace Prisma {
     pvpParticipations: number
     sentPvpInvitations: number
     receivedPvpInvitations: number
+    botDeposits: number
+    botWithdrawals: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1556,6 +1740,8 @@ export namespace Prisma {
     pvpParticipations?: boolean | UserCountOutputTypeCountPvpParticipationsArgs
     sentPvpInvitations?: boolean | UserCountOutputTypeCountSentPvpInvitationsArgs
     receivedPvpInvitations?: boolean | UserCountOutputTypeCountReceivedPvpInvitationsArgs
+    botDeposits?: boolean | UserCountOutputTypeCountBotDepositsArgs
+    botWithdrawals?: boolean | UserCountOutputTypeCountBotWithdrawalsArgs
   }
 
   // Custom InputTypes
@@ -1644,6 +1830,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReceivedPvpInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PvpInvitationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBotDepositsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BotDepositWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBotWithdrawalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BotWithdrawalWhereInput
   }
 
 
@@ -1737,8 +1937,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    balanceGram: Decimal | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    balanceGram: Decimal | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1748,6 +1958,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     photoUrl: string | null
+    balanceGram: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1759,6 +1970,7 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     photoUrl: string | null
+    balanceGram: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1770,11 +1982,20 @@ export namespace Prisma {
     firstName: number
     lastName: number
     photoUrl: number
+    balanceGram: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    balanceGram?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    balanceGram?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -1783,6 +2004,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     photoUrl?: true
+    balanceGram?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1794,6 +2016,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     photoUrl?: true
+    balanceGram?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1805,6 +2028,7 @@ export namespace Prisma {
     firstName?: true
     lastName?: true
     photoUrl?: true
+    balanceGram?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1817,43 +2041,55 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Users
     **/
     _count?: true | UserCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: UserMaxAggregateInputType
@@ -1878,6 +2114,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -1889,9 +2127,12 @@ export namespace Prisma {
     firstName: string | null
     lastName: string | null
     photoUrl: string | null
+    balanceGram: Decimal
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1917,6 +2158,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     photoUrl?: boolean
+    balanceGram?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     wallets?: boolean | User$walletsArgs<ExtArgs>
@@ -1930,6 +2172,8 @@ export namespace Prisma {
     pvpParticipations?: boolean | User$pvpParticipationsArgs<ExtArgs>
     sentPvpInvitations?: boolean | User$sentPvpInvitationsArgs<ExtArgs>
     receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
+    botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
+    botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1940,6 +2184,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     photoUrl?: boolean
+    balanceGram?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1951,6 +2196,7 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     photoUrl?: boolean
+    balanceGram?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1962,11 +2208,12 @@ export namespace Prisma {
     firstName?: boolean
     lastName?: boolean
     photoUrl?: boolean
+    balanceGram?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "telegramId" | "username" | "firstName" | "lastName" | "photoUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "telegramId" | "username" | "firstName" | "lastName" | "photoUrl" | "balanceGram" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wallets?: boolean | User$walletsArgs<ExtArgs>
     gifts?: boolean | User$giftsArgs<ExtArgs>
@@ -1979,6 +2226,8 @@ export namespace Prisma {
     pvpParticipations?: boolean | User$pvpParticipationsArgs<ExtArgs>
     sentPvpInvitations?: boolean | User$sentPvpInvitationsArgs<ExtArgs>
     receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
+    botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
+    botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1998,6 +2247,8 @@ export namespace Prisma {
       pvpParticipations: Prisma.$PvpParticipantPayload<ExtArgs>[]
       sentPvpInvitations: Prisma.$PvpInvitationPayload<ExtArgs>[]
       receivedPvpInvitations: Prisma.$PvpInvitationPayload<ExtArgs>[]
+      botDeposits: Prisma.$BotDepositPayload<ExtArgs>[]
+      botWithdrawals: Prisma.$BotWithdrawalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2006,6 +2257,7 @@ export namespace Prisma {
       firstName: string | null
       lastName: string | null
       photoUrl: string | null
+      balanceGram: Prisma.Decimal
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2087,13 +2339,13 @@ export namespace Prisma {
      * @example
      * // Get all Users
      * const users = await prisma.user.findMany()
-     *
+     * 
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -2107,7 +2359,7 @@ export namespace Prisma {
      *     // ... data to create a User
      *   }
      * })
-     *
+     * 
      */
     create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2121,7 +2373,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2135,7 +2387,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Users and only return the `id`
      * const userWithIdOnly = await prisma.user.createManyAndReturn({
      *   select: { id: true },
@@ -2145,7 +2397,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -2159,7 +2411,7 @@ export namespace Prisma {
      *     // ... filter to delete one User
      *   }
      * })
-     *
+     * 
      */
     delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2176,7 +2428,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2190,7 +2442,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2209,7 +2461,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2226,7 +2478,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Users and only return the `id`
      * const userWithIdOnly = await prisma.user.updateManyAndReturn({
      *   select: { id: true },
@@ -2239,7 +2491,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -2328,7 +2580,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends UserGroupByArgs,
@@ -2413,6 +2665,8 @@ export namespace Prisma {
     pvpParticipations<T extends User$pvpParticipationsArgs<ExtArgs> = {}>(args?: Subset<T, User$pvpParticipationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sentPvpInvitations<T extends User$sentPvpInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, User$sentPvpInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     receivedPvpInvitations<T extends User$receivedPvpInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedPvpInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    botDeposits<T extends User$botDepositsArgs<ExtArgs> = {}>(args?: Subset<T, User$botDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    botWithdrawals<T extends User$botWithdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$botWithdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2448,10 +2702,11 @@ export namespace Prisma {
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
     readonly photoUrl: FieldRef<"User", 'String'>
+    readonly balanceGram: FieldRef<"User", 'Decimal'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -2520,31 +2775,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -2572,31 +2827,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -2624,31 +2879,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -3107,6 +3362,54 @@ export namespace Prisma {
   }
 
   /**
+   * User.botDeposits
+   */
+  export type User$botDepositsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    where?: BotDepositWhereInput
+    orderBy?: BotDepositOrderByWithRelationInput | BotDepositOrderByWithRelationInput[]
+    cursor?: BotDepositWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BotDepositScalarFieldEnum | BotDepositScalarFieldEnum[]
+  }
+
+  /**
+   * User.botWithdrawals
+   */
+  export type User$botWithdrawalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    where?: BotWithdrawalWhereInput
+    orderBy?: BotWithdrawalOrderByWithRelationInput | BotWithdrawalOrderByWithRelationInput[]
+    cursor?: BotWithdrawalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BotWithdrawalScalarFieldEnum | BotWithdrawalScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3122,6 +3425,2416 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BotDeposit
+   */
+
+  export type AggregateBotDeposit = {
+    _count: BotDepositCountAggregateOutputType | null
+    _avg: BotDepositAvgAggregateOutputType | null
+    _sum: BotDepositSumAggregateOutputType | null
+    _min: BotDepositMinAggregateOutputType | null
+    _max: BotDepositMaxAggregateOutputType | null
+  }
+
+  export type BotDepositAvgAggregateOutputType = {
+    requestedTon: Decimal | null
+    receivedTon: Decimal | null
+  }
+
+  export type BotDepositSumAggregateOutputType = {
+    requestedTon: Decimal | null
+    receivedTon: Decimal | null
+  }
+
+  export type BotDepositMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    requestedTon: Decimal | null
+    receivedTon: Decimal | null
+    depositAddress: string | null
+    walletAddress: string | null
+    comment: string | null
+    txHash: string | null
+    status: string | null
+    expiresAt: Date | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type BotDepositMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    requestedTon: Decimal | null
+    receivedTon: Decimal | null
+    depositAddress: string | null
+    walletAddress: string | null
+    comment: string | null
+    txHash: string | null
+    status: string | null
+    expiresAt: Date | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type BotDepositCountAggregateOutputType = {
+    id: number
+    userId: number
+    requestedTon: number
+    receivedTon: number
+    depositAddress: number
+    walletAddress: number
+    comment: number
+    txHash: number
+    status: number
+    expiresAt: number
+    confirmedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BotDepositAvgAggregateInputType = {
+    requestedTon?: true
+    receivedTon?: true
+  }
+
+  export type BotDepositSumAggregateInputType = {
+    requestedTon?: true
+    receivedTon?: true
+  }
+
+  export type BotDepositMinAggregateInputType = {
+    id?: true
+    userId?: true
+    requestedTon?: true
+    receivedTon?: true
+    depositAddress?: true
+    walletAddress?: true
+    comment?: true
+    txHash?: true
+    status?: true
+    expiresAt?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type BotDepositMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    requestedTon?: true
+    receivedTon?: true
+    depositAddress?: true
+    walletAddress?: true
+    comment?: true
+    txHash?: true
+    status?: true
+    expiresAt?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type BotDepositCountAggregateInputType = {
+    id?: true
+    userId?: true
+    requestedTon?: true
+    receivedTon?: true
+    depositAddress?: true
+    walletAddress?: true
+    comment?: true
+    txHash?: true
+    status?: true
+    expiresAt?: true
+    confirmedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BotDepositAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BotDeposit to aggregate.
+     */
+    where?: BotDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotDeposits to fetch.
+     */
+    orderBy?: BotDepositOrderByWithRelationInput | BotDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BotDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BotDeposits
+    **/
+    _count?: true | BotDepositCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BotDepositAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BotDepositSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BotDepositMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BotDepositMaxAggregateInputType
+  }
+
+  export type GetBotDepositAggregateType<T extends BotDepositAggregateArgs> = {
+        [P in keyof T & keyof AggregateBotDeposit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBotDeposit[P]>
+      : GetScalarType<T[P], AggregateBotDeposit[P]>
+  }
+
+
+
+
+  export type BotDepositGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BotDepositWhereInput
+    orderBy?: BotDepositOrderByWithAggregationInput | BotDepositOrderByWithAggregationInput[]
+    by: BotDepositScalarFieldEnum[] | BotDepositScalarFieldEnum
+    having?: BotDepositScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BotDepositCountAggregateInputType | true
+    _avg?: BotDepositAvgAggregateInputType
+    _sum?: BotDepositSumAggregateInputType
+    _min?: BotDepositMinAggregateInputType
+    _max?: BotDepositMaxAggregateInputType
+  }
+
+  export type BotDepositGroupByOutputType = {
+    id: string
+    userId: string
+    requestedTon: Decimal
+    receivedTon: Decimal | null
+    depositAddress: string
+    walletAddress: string
+    comment: string
+    txHash: string | null
+    status: string
+    expiresAt: Date
+    confirmedAt: Date | null
+    createdAt: Date
+    _count: BotDepositCountAggregateOutputType | null
+    _avg: BotDepositAvgAggregateOutputType | null
+    _sum: BotDepositSumAggregateOutputType | null
+    _min: BotDepositMinAggregateOutputType | null
+    _max: BotDepositMaxAggregateOutputType | null
+  }
+
+  type GetBotDepositGroupByPayload<T extends BotDepositGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BotDepositGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BotDepositGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BotDepositGroupByOutputType[P]>
+            : GetScalarType<T[P], BotDepositGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BotDepositSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    requestedTon?: boolean
+    receivedTon?: boolean
+    depositAddress?: boolean
+    walletAddress?: boolean
+    comment?: boolean
+    txHash?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botDeposit"]>
+
+  export type BotDepositSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    requestedTon?: boolean
+    receivedTon?: boolean
+    depositAddress?: boolean
+    walletAddress?: boolean
+    comment?: boolean
+    txHash?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botDeposit"]>
+
+  export type BotDepositSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    requestedTon?: boolean
+    receivedTon?: boolean
+    depositAddress?: boolean
+    walletAddress?: boolean
+    comment?: boolean
+    txHash?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botDeposit"]>
+
+  export type BotDepositSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    requestedTon?: boolean
+    receivedTon?: boolean
+    depositAddress?: boolean
+    walletAddress?: boolean
+    comment?: boolean
+    txHash?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type BotDepositOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "requestedTon" | "receivedTon" | "depositAddress" | "walletAddress" | "comment" | "txHash" | "status" | "expiresAt" | "confirmedAt" | "createdAt", ExtArgs["result"]["botDeposit"]>
+  export type BotDepositInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BotDepositIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BotDepositIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BotDepositPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BotDeposit"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      requestedTon: Prisma.Decimal
+      receivedTon: Prisma.Decimal | null
+      depositAddress: string
+      walletAddress: string
+      comment: string
+      txHash: string | null
+      status: string
+      expiresAt: Date
+      confirmedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["botDeposit"]>
+    composites: {}
+  }
+
+  type BotDepositGetPayload<S extends boolean | null | undefined | BotDepositDefaultArgs> = $Result.GetResult<Prisma.$BotDepositPayload, S>
+
+  type BotDepositCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BotDepositFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BotDepositCountAggregateInputType | true
+    }
+
+  export interface BotDepositDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BotDeposit'], meta: { name: 'BotDeposit' } }
+    /**
+     * Find zero or one BotDeposit that matches the filter.
+     * @param {BotDepositFindUniqueArgs} args - Arguments to find a BotDeposit
+     * @example
+     * // Get one BotDeposit
+     * const botDeposit = await prisma.botDeposit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BotDepositFindUniqueArgs>(args: SelectSubset<T, BotDepositFindUniqueArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BotDeposit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BotDepositFindUniqueOrThrowArgs} args - Arguments to find a BotDeposit
+     * @example
+     * // Get one BotDeposit
+     * const botDeposit = await prisma.botDeposit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BotDepositFindUniqueOrThrowArgs>(args: SelectSubset<T, BotDepositFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BotDeposit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotDepositFindFirstArgs} args - Arguments to find a BotDeposit
+     * @example
+     * // Get one BotDeposit
+     * const botDeposit = await prisma.botDeposit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BotDepositFindFirstArgs>(args?: SelectSubset<T, BotDepositFindFirstArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BotDeposit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotDepositFindFirstOrThrowArgs} args - Arguments to find a BotDeposit
+     * @example
+     * // Get one BotDeposit
+     * const botDeposit = await prisma.botDeposit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BotDepositFindFirstOrThrowArgs>(args?: SelectSubset<T, BotDepositFindFirstOrThrowArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BotDeposits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotDepositFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BotDeposits
+     * const botDeposits = await prisma.botDeposit.findMany()
+     * 
+     * // Get first 10 BotDeposits
+     * const botDeposits = await prisma.botDeposit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const botDepositWithIdOnly = await prisma.botDeposit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BotDepositFindManyArgs>(args?: SelectSubset<T, BotDepositFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BotDeposit.
+     * @param {BotDepositCreateArgs} args - Arguments to create a BotDeposit.
+     * @example
+     * // Create one BotDeposit
+     * const BotDeposit = await prisma.botDeposit.create({
+     *   data: {
+     *     // ... data to create a BotDeposit
+     *   }
+     * })
+     * 
+     */
+    create<T extends BotDepositCreateArgs>(args: SelectSubset<T, BotDepositCreateArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BotDeposits.
+     * @param {BotDepositCreateManyArgs} args - Arguments to create many BotDeposits.
+     * @example
+     * // Create many BotDeposits
+     * const botDeposit = await prisma.botDeposit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BotDepositCreateManyArgs>(args?: SelectSubset<T, BotDepositCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BotDeposits and returns the data saved in the database.
+     * @param {BotDepositCreateManyAndReturnArgs} args - Arguments to create many BotDeposits.
+     * @example
+     * // Create many BotDeposits
+     * const botDeposit = await prisma.botDeposit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BotDeposits and only return the `id`
+     * const botDepositWithIdOnly = await prisma.botDeposit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BotDepositCreateManyAndReturnArgs>(args?: SelectSubset<T, BotDepositCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BotDeposit.
+     * @param {BotDepositDeleteArgs} args - Arguments to delete one BotDeposit.
+     * @example
+     * // Delete one BotDeposit
+     * const BotDeposit = await prisma.botDeposit.delete({
+     *   where: {
+     *     // ... filter to delete one BotDeposit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BotDepositDeleteArgs>(args: SelectSubset<T, BotDepositDeleteArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BotDeposit.
+     * @param {BotDepositUpdateArgs} args - Arguments to update one BotDeposit.
+     * @example
+     * // Update one BotDeposit
+     * const botDeposit = await prisma.botDeposit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BotDepositUpdateArgs>(args: SelectSubset<T, BotDepositUpdateArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BotDeposits.
+     * @param {BotDepositDeleteManyArgs} args - Arguments to filter BotDeposits to delete.
+     * @example
+     * // Delete a few BotDeposits
+     * const { count } = await prisma.botDeposit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BotDepositDeleteManyArgs>(args?: SelectSubset<T, BotDepositDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BotDeposits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotDepositUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BotDeposits
+     * const botDeposit = await prisma.botDeposit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BotDepositUpdateManyArgs>(args: SelectSubset<T, BotDepositUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BotDeposits and returns the data updated in the database.
+     * @param {BotDepositUpdateManyAndReturnArgs} args - Arguments to update many BotDeposits.
+     * @example
+     * // Update many BotDeposits
+     * const botDeposit = await prisma.botDeposit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BotDeposits and only return the `id`
+     * const botDepositWithIdOnly = await prisma.botDeposit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BotDepositUpdateManyAndReturnArgs>(args: SelectSubset<T, BotDepositUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BotDeposit.
+     * @param {BotDepositUpsertArgs} args - Arguments to update or create a BotDeposit.
+     * @example
+     * // Update or create a BotDeposit
+     * const botDeposit = await prisma.botDeposit.upsert({
+     *   create: {
+     *     // ... data to create a BotDeposit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BotDeposit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BotDepositUpsertArgs>(args: SelectSubset<T, BotDepositUpsertArgs<ExtArgs>>): Prisma__BotDepositClient<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BotDeposits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotDepositCountArgs} args - Arguments to filter BotDeposits to count.
+     * @example
+     * // Count the number of BotDeposits
+     * const count = await prisma.botDeposit.count({
+     *   where: {
+     *     // ... the filter for the BotDeposits we want to count
+     *   }
+     * })
+    **/
+    count<T extends BotDepositCountArgs>(
+      args?: Subset<T, BotDepositCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BotDepositCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BotDeposit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotDepositAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BotDepositAggregateArgs>(args: Subset<T, BotDepositAggregateArgs>): Prisma.PrismaPromise<GetBotDepositAggregateType<T>>
+
+    /**
+     * Group by BotDeposit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotDepositGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BotDepositGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BotDepositGroupByArgs['orderBy'] }
+        : { orderBy?: BotDepositGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BotDepositGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBotDepositGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BotDeposit model
+   */
+  readonly fields: BotDepositFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BotDeposit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BotDepositClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BotDeposit model
+   */
+  interface BotDepositFieldRefs {
+    readonly id: FieldRef<"BotDeposit", 'String'>
+    readonly userId: FieldRef<"BotDeposit", 'String'>
+    readonly requestedTon: FieldRef<"BotDeposit", 'Decimal'>
+    readonly receivedTon: FieldRef<"BotDeposit", 'Decimal'>
+    readonly depositAddress: FieldRef<"BotDeposit", 'String'>
+    readonly walletAddress: FieldRef<"BotDeposit", 'String'>
+    readonly comment: FieldRef<"BotDeposit", 'String'>
+    readonly txHash: FieldRef<"BotDeposit", 'String'>
+    readonly status: FieldRef<"BotDeposit", 'String'>
+    readonly expiresAt: FieldRef<"BotDeposit", 'DateTime'>
+    readonly confirmedAt: FieldRef<"BotDeposit", 'DateTime'>
+    readonly createdAt: FieldRef<"BotDeposit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BotDeposit findUnique
+   */
+  export type BotDepositFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which BotDeposit to fetch.
+     */
+    where: BotDepositWhereUniqueInput
+  }
+
+  /**
+   * BotDeposit findUniqueOrThrow
+   */
+  export type BotDepositFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which BotDeposit to fetch.
+     */
+    where: BotDepositWhereUniqueInput
+  }
+
+  /**
+   * BotDeposit findFirst
+   */
+  export type BotDepositFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which BotDeposit to fetch.
+     */
+    where?: BotDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotDeposits to fetch.
+     */
+    orderBy?: BotDepositOrderByWithRelationInput | BotDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BotDeposits.
+     */
+    cursor?: BotDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotDeposits.
+     */
+    distinct?: BotDepositScalarFieldEnum | BotDepositScalarFieldEnum[]
+  }
+
+  /**
+   * BotDeposit findFirstOrThrow
+   */
+  export type BotDepositFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which BotDeposit to fetch.
+     */
+    where?: BotDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotDeposits to fetch.
+     */
+    orderBy?: BotDepositOrderByWithRelationInput | BotDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BotDeposits.
+     */
+    cursor?: BotDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotDeposits.
+     */
+    distinct?: BotDepositScalarFieldEnum | BotDepositScalarFieldEnum[]
+  }
+
+  /**
+   * BotDeposit findMany
+   */
+  export type BotDepositFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which BotDeposits to fetch.
+     */
+    where?: BotDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotDeposits to fetch.
+     */
+    orderBy?: BotDepositOrderByWithRelationInput | BotDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BotDeposits.
+     */
+    cursor?: BotDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotDeposits.
+     */
+    distinct?: BotDepositScalarFieldEnum | BotDepositScalarFieldEnum[]
+  }
+
+  /**
+   * BotDeposit create
+   */
+  export type BotDepositCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BotDeposit.
+     */
+    data: XOR<BotDepositCreateInput, BotDepositUncheckedCreateInput>
+  }
+
+  /**
+   * BotDeposit createMany
+   */
+  export type BotDepositCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BotDeposits.
+     */
+    data: BotDepositCreateManyInput | BotDepositCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BotDeposit createManyAndReturn
+   */
+  export type BotDepositCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * The data used to create many BotDeposits.
+     */
+    data: BotDepositCreateManyInput | BotDepositCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BotDeposit update
+   */
+  export type BotDepositUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BotDeposit.
+     */
+    data: XOR<BotDepositUpdateInput, BotDepositUncheckedUpdateInput>
+    /**
+     * Choose, which BotDeposit to update.
+     */
+    where: BotDepositWhereUniqueInput
+  }
+
+  /**
+   * BotDeposit updateMany
+   */
+  export type BotDepositUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BotDeposits.
+     */
+    data: XOR<BotDepositUpdateManyMutationInput, BotDepositUncheckedUpdateManyInput>
+    /**
+     * Filter which BotDeposits to update
+     */
+    where?: BotDepositWhereInput
+    /**
+     * Limit how many BotDeposits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BotDeposit updateManyAndReturn
+   */
+  export type BotDepositUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * The data used to update BotDeposits.
+     */
+    data: XOR<BotDepositUpdateManyMutationInput, BotDepositUncheckedUpdateManyInput>
+    /**
+     * Filter which BotDeposits to update
+     */
+    where?: BotDepositWhereInput
+    /**
+     * Limit how many BotDeposits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BotDeposit upsert
+   */
+  export type BotDepositUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BotDeposit to update in case it exists.
+     */
+    where: BotDepositWhereUniqueInput
+    /**
+     * In case the BotDeposit found by the `where` argument doesn't exist, create a new BotDeposit with this data.
+     */
+    create: XOR<BotDepositCreateInput, BotDepositUncheckedCreateInput>
+    /**
+     * In case the BotDeposit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BotDepositUpdateInput, BotDepositUncheckedUpdateInput>
+  }
+
+  /**
+   * BotDeposit delete
+   */
+  export type BotDepositDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+    /**
+     * Filter which BotDeposit to delete.
+     */
+    where: BotDepositWhereUniqueInput
+  }
+
+  /**
+   * BotDeposit deleteMany
+   */
+  export type BotDepositDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BotDeposits to delete
+     */
+    where?: BotDepositWhereInput
+    /**
+     * Limit how many BotDeposits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BotDeposit without action
+   */
+  export type BotDepositDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotDeposit
+     */
+    select?: BotDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotDeposit
+     */
+    omit?: BotDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotDepositInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BotWithdrawal
+   */
+
+  export type AggregateBotWithdrawal = {
+    _count: BotWithdrawalCountAggregateOutputType | null
+    _avg: BotWithdrawalAvgAggregateOutputType | null
+    _sum: BotWithdrawalSumAggregateOutputType | null
+    _min: BotWithdrawalMinAggregateOutputType | null
+    _max: BotWithdrawalMaxAggregateOutputType | null
+  }
+
+  export type BotWithdrawalAvgAggregateOutputType = {
+    amountTon: Decimal | null
+    walletSeqno: number | null
+  }
+
+  export type BotWithdrawalSumAggregateOutputType = {
+    amountTon: Decimal | null
+    walletSeqno: number | null
+  }
+
+  export type BotWithdrawalMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    amountTon: Decimal | null
+    destination: string | null
+    comment: string | null
+    status: string | null
+    walletSeqno: number | null
+    externalHash: string | null
+    txHash: string | null
+    failureReason: string | null
+    submittedAt: Date | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BotWithdrawalMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    amountTon: Decimal | null
+    destination: string | null
+    comment: string | null
+    status: string | null
+    walletSeqno: number | null
+    externalHash: string | null
+    txHash: string | null
+    failureReason: string | null
+    submittedAt: Date | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BotWithdrawalCountAggregateOutputType = {
+    id: number
+    userId: number
+    amountTon: number
+    destination: number
+    comment: number
+    status: number
+    walletSeqno: number
+    externalHash: number
+    txHash: number
+    failureReason: number
+    submittedAt: number
+    confirmedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BotWithdrawalAvgAggregateInputType = {
+    amountTon?: true
+    walletSeqno?: true
+  }
+
+  export type BotWithdrawalSumAggregateInputType = {
+    amountTon?: true
+    walletSeqno?: true
+  }
+
+  export type BotWithdrawalMinAggregateInputType = {
+    id?: true
+    userId?: true
+    amountTon?: true
+    destination?: true
+    comment?: true
+    status?: true
+    walletSeqno?: true
+    externalHash?: true
+    txHash?: true
+    failureReason?: true
+    submittedAt?: true
+    confirmedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BotWithdrawalMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    amountTon?: true
+    destination?: true
+    comment?: true
+    status?: true
+    walletSeqno?: true
+    externalHash?: true
+    txHash?: true
+    failureReason?: true
+    submittedAt?: true
+    confirmedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BotWithdrawalCountAggregateInputType = {
+    id?: true
+    userId?: true
+    amountTon?: true
+    destination?: true
+    comment?: true
+    status?: true
+    walletSeqno?: true
+    externalHash?: true
+    txHash?: true
+    failureReason?: true
+    submittedAt?: true
+    confirmedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BotWithdrawalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BotWithdrawal to aggregate.
+     */
+    where?: BotWithdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotWithdrawals to fetch.
+     */
+    orderBy?: BotWithdrawalOrderByWithRelationInput | BotWithdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BotWithdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotWithdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotWithdrawals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BotWithdrawals
+    **/
+    _count?: true | BotWithdrawalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BotWithdrawalAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BotWithdrawalSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BotWithdrawalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BotWithdrawalMaxAggregateInputType
+  }
+
+  export type GetBotWithdrawalAggregateType<T extends BotWithdrawalAggregateArgs> = {
+        [P in keyof T & keyof AggregateBotWithdrawal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBotWithdrawal[P]>
+      : GetScalarType<T[P], AggregateBotWithdrawal[P]>
+  }
+
+
+
+
+  export type BotWithdrawalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BotWithdrawalWhereInput
+    orderBy?: BotWithdrawalOrderByWithAggregationInput | BotWithdrawalOrderByWithAggregationInput[]
+    by: BotWithdrawalScalarFieldEnum[] | BotWithdrawalScalarFieldEnum
+    having?: BotWithdrawalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BotWithdrawalCountAggregateInputType | true
+    _avg?: BotWithdrawalAvgAggregateInputType
+    _sum?: BotWithdrawalSumAggregateInputType
+    _min?: BotWithdrawalMinAggregateInputType
+    _max?: BotWithdrawalMaxAggregateInputType
+  }
+
+  export type BotWithdrawalGroupByOutputType = {
+    id: string
+    userId: string
+    amountTon: Decimal
+    destination: string
+    comment: string
+    status: string
+    walletSeqno: number | null
+    externalHash: string | null
+    txHash: string | null
+    failureReason: string | null
+    submittedAt: Date | null
+    confirmedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: BotWithdrawalCountAggregateOutputType | null
+    _avg: BotWithdrawalAvgAggregateOutputType | null
+    _sum: BotWithdrawalSumAggregateOutputType | null
+    _min: BotWithdrawalMinAggregateOutputType | null
+    _max: BotWithdrawalMaxAggregateOutputType | null
+  }
+
+  type GetBotWithdrawalGroupByPayload<T extends BotWithdrawalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BotWithdrawalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BotWithdrawalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BotWithdrawalGroupByOutputType[P]>
+            : GetScalarType<T[P], BotWithdrawalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BotWithdrawalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amountTon?: boolean
+    destination?: boolean
+    comment?: boolean
+    status?: boolean
+    walletSeqno?: boolean
+    externalHash?: boolean
+    txHash?: boolean
+    failureReason?: boolean
+    submittedAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botWithdrawal"]>
+
+  export type BotWithdrawalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amountTon?: boolean
+    destination?: boolean
+    comment?: boolean
+    status?: boolean
+    walletSeqno?: boolean
+    externalHash?: boolean
+    txHash?: boolean
+    failureReason?: boolean
+    submittedAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botWithdrawal"]>
+
+  export type BotWithdrawalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amountTon?: boolean
+    destination?: boolean
+    comment?: boolean
+    status?: boolean
+    walletSeqno?: boolean
+    externalHash?: boolean
+    txHash?: boolean
+    failureReason?: boolean
+    submittedAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["botWithdrawal"]>
+
+  export type BotWithdrawalSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    amountTon?: boolean
+    destination?: boolean
+    comment?: boolean
+    status?: boolean
+    walletSeqno?: boolean
+    externalHash?: boolean
+    txHash?: boolean
+    failureReason?: boolean
+    submittedAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BotWithdrawalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amountTon" | "destination" | "comment" | "status" | "walletSeqno" | "externalHash" | "txHash" | "failureReason" | "submittedAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["botWithdrawal"]>
+  export type BotWithdrawalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BotWithdrawalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BotWithdrawalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BotWithdrawalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BotWithdrawal"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      amountTon: Prisma.Decimal
+      destination: string
+      comment: string
+      status: string
+      walletSeqno: number | null
+      externalHash: string | null
+      txHash: string | null
+      failureReason: string | null
+      submittedAt: Date | null
+      confirmedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["botWithdrawal"]>
+    composites: {}
+  }
+
+  type BotWithdrawalGetPayload<S extends boolean | null | undefined | BotWithdrawalDefaultArgs> = $Result.GetResult<Prisma.$BotWithdrawalPayload, S>
+
+  type BotWithdrawalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BotWithdrawalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BotWithdrawalCountAggregateInputType | true
+    }
+
+  export interface BotWithdrawalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BotWithdrawal'], meta: { name: 'BotWithdrawal' } }
+    /**
+     * Find zero or one BotWithdrawal that matches the filter.
+     * @param {BotWithdrawalFindUniqueArgs} args - Arguments to find a BotWithdrawal
+     * @example
+     * // Get one BotWithdrawal
+     * const botWithdrawal = await prisma.botWithdrawal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BotWithdrawalFindUniqueArgs>(args: SelectSubset<T, BotWithdrawalFindUniqueArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BotWithdrawal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BotWithdrawalFindUniqueOrThrowArgs} args - Arguments to find a BotWithdrawal
+     * @example
+     * // Get one BotWithdrawal
+     * const botWithdrawal = await prisma.botWithdrawal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BotWithdrawalFindUniqueOrThrowArgs>(args: SelectSubset<T, BotWithdrawalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BotWithdrawal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotWithdrawalFindFirstArgs} args - Arguments to find a BotWithdrawal
+     * @example
+     * // Get one BotWithdrawal
+     * const botWithdrawal = await prisma.botWithdrawal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BotWithdrawalFindFirstArgs>(args?: SelectSubset<T, BotWithdrawalFindFirstArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BotWithdrawal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotWithdrawalFindFirstOrThrowArgs} args - Arguments to find a BotWithdrawal
+     * @example
+     * // Get one BotWithdrawal
+     * const botWithdrawal = await prisma.botWithdrawal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BotWithdrawalFindFirstOrThrowArgs>(args?: SelectSubset<T, BotWithdrawalFindFirstOrThrowArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BotWithdrawals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotWithdrawalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BotWithdrawals
+     * const botWithdrawals = await prisma.botWithdrawal.findMany()
+     * 
+     * // Get first 10 BotWithdrawals
+     * const botWithdrawals = await prisma.botWithdrawal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const botWithdrawalWithIdOnly = await prisma.botWithdrawal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BotWithdrawalFindManyArgs>(args?: SelectSubset<T, BotWithdrawalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BotWithdrawal.
+     * @param {BotWithdrawalCreateArgs} args - Arguments to create a BotWithdrawal.
+     * @example
+     * // Create one BotWithdrawal
+     * const BotWithdrawal = await prisma.botWithdrawal.create({
+     *   data: {
+     *     // ... data to create a BotWithdrawal
+     *   }
+     * })
+     * 
+     */
+    create<T extends BotWithdrawalCreateArgs>(args: SelectSubset<T, BotWithdrawalCreateArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BotWithdrawals.
+     * @param {BotWithdrawalCreateManyArgs} args - Arguments to create many BotWithdrawals.
+     * @example
+     * // Create many BotWithdrawals
+     * const botWithdrawal = await prisma.botWithdrawal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BotWithdrawalCreateManyArgs>(args?: SelectSubset<T, BotWithdrawalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BotWithdrawals and returns the data saved in the database.
+     * @param {BotWithdrawalCreateManyAndReturnArgs} args - Arguments to create many BotWithdrawals.
+     * @example
+     * // Create many BotWithdrawals
+     * const botWithdrawal = await prisma.botWithdrawal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BotWithdrawals and only return the `id`
+     * const botWithdrawalWithIdOnly = await prisma.botWithdrawal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BotWithdrawalCreateManyAndReturnArgs>(args?: SelectSubset<T, BotWithdrawalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BotWithdrawal.
+     * @param {BotWithdrawalDeleteArgs} args - Arguments to delete one BotWithdrawal.
+     * @example
+     * // Delete one BotWithdrawal
+     * const BotWithdrawal = await prisma.botWithdrawal.delete({
+     *   where: {
+     *     // ... filter to delete one BotWithdrawal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BotWithdrawalDeleteArgs>(args: SelectSubset<T, BotWithdrawalDeleteArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BotWithdrawal.
+     * @param {BotWithdrawalUpdateArgs} args - Arguments to update one BotWithdrawal.
+     * @example
+     * // Update one BotWithdrawal
+     * const botWithdrawal = await prisma.botWithdrawal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BotWithdrawalUpdateArgs>(args: SelectSubset<T, BotWithdrawalUpdateArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BotWithdrawals.
+     * @param {BotWithdrawalDeleteManyArgs} args - Arguments to filter BotWithdrawals to delete.
+     * @example
+     * // Delete a few BotWithdrawals
+     * const { count } = await prisma.botWithdrawal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BotWithdrawalDeleteManyArgs>(args?: SelectSubset<T, BotWithdrawalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BotWithdrawals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotWithdrawalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BotWithdrawals
+     * const botWithdrawal = await prisma.botWithdrawal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BotWithdrawalUpdateManyArgs>(args: SelectSubset<T, BotWithdrawalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BotWithdrawals and returns the data updated in the database.
+     * @param {BotWithdrawalUpdateManyAndReturnArgs} args - Arguments to update many BotWithdrawals.
+     * @example
+     * // Update many BotWithdrawals
+     * const botWithdrawal = await prisma.botWithdrawal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BotWithdrawals and only return the `id`
+     * const botWithdrawalWithIdOnly = await prisma.botWithdrawal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BotWithdrawalUpdateManyAndReturnArgs>(args: SelectSubset<T, BotWithdrawalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BotWithdrawal.
+     * @param {BotWithdrawalUpsertArgs} args - Arguments to update or create a BotWithdrawal.
+     * @example
+     * // Update or create a BotWithdrawal
+     * const botWithdrawal = await prisma.botWithdrawal.upsert({
+     *   create: {
+     *     // ... data to create a BotWithdrawal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BotWithdrawal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BotWithdrawalUpsertArgs>(args: SelectSubset<T, BotWithdrawalUpsertArgs<ExtArgs>>): Prisma__BotWithdrawalClient<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BotWithdrawals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotWithdrawalCountArgs} args - Arguments to filter BotWithdrawals to count.
+     * @example
+     * // Count the number of BotWithdrawals
+     * const count = await prisma.botWithdrawal.count({
+     *   where: {
+     *     // ... the filter for the BotWithdrawals we want to count
+     *   }
+     * })
+    **/
+    count<T extends BotWithdrawalCountArgs>(
+      args?: Subset<T, BotWithdrawalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BotWithdrawalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BotWithdrawal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotWithdrawalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BotWithdrawalAggregateArgs>(args: Subset<T, BotWithdrawalAggregateArgs>): Prisma.PrismaPromise<GetBotWithdrawalAggregateType<T>>
+
+    /**
+     * Group by BotWithdrawal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BotWithdrawalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BotWithdrawalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BotWithdrawalGroupByArgs['orderBy'] }
+        : { orderBy?: BotWithdrawalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BotWithdrawalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBotWithdrawalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BotWithdrawal model
+   */
+  readonly fields: BotWithdrawalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BotWithdrawal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BotWithdrawalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BotWithdrawal model
+   */
+  interface BotWithdrawalFieldRefs {
+    readonly id: FieldRef<"BotWithdrawal", 'String'>
+    readonly userId: FieldRef<"BotWithdrawal", 'String'>
+    readonly amountTon: FieldRef<"BotWithdrawal", 'Decimal'>
+    readonly destination: FieldRef<"BotWithdrawal", 'String'>
+    readonly comment: FieldRef<"BotWithdrawal", 'String'>
+    readonly status: FieldRef<"BotWithdrawal", 'String'>
+    readonly walletSeqno: FieldRef<"BotWithdrawal", 'Int'>
+    readonly externalHash: FieldRef<"BotWithdrawal", 'String'>
+    readonly txHash: FieldRef<"BotWithdrawal", 'String'>
+    readonly failureReason: FieldRef<"BotWithdrawal", 'String'>
+    readonly submittedAt: FieldRef<"BotWithdrawal", 'DateTime'>
+    readonly confirmedAt: FieldRef<"BotWithdrawal", 'DateTime'>
+    readonly createdAt: FieldRef<"BotWithdrawal", 'DateTime'>
+    readonly updatedAt: FieldRef<"BotWithdrawal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BotWithdrawal findUnique
+   */
+  export type BotWithdrawalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * Filter, which BotWithdrawal to fetch.
+     */
+    where: BotWithdrawalWhereUniqueInput
+  }
+
+  /**
+   * BotWithdrawal findUniqueOrThrow
+   */
+  export type BotWithdrawalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * Filter, which BotWithdrawal to fetch.
+     */
+    where: BotWithdrawalWhereUniqueInput
+  }
+
+  /**
+   * BotWithdrawal findFirst
+   */
+  export type BotWithdrawalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * Filter, which BotWithdrawal to fetch.
+     */
+    where?: BotWithdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotWithdrawals to fetch.
+     */
+    orderBy?: BotWithdrawalOrderByWithRelationInput | BotWithdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BotWithdrawals.
+     */
+    cursor?: BotWithdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotWithdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotWithdrawals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotWithdrawals.
+     */
+    distinct?: BotWithdrawalScalarFieldEnum | BotWithdrawalScalarFieldEnum[]
+  }
+
+  /**
+   * BotWithdrawal findFirstOrThrow
+   */
+  export type BotWithdrawalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * Filter, which BotWithdrawal to fetch.
+     */
+    where?: BotWithdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotWithdrawals to fetch.
+     */
+    orderBy?: BotWithdrawalOrderByWithRelationInput | BotWithdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BotWithdrawals.
+     */
+    cursor?: BotWithdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotWithdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotWithdrawals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotWithdrawals.
+     */
+    distinct?: BotWithdrawalScalarFieldEnum | BotWithdrawalScalarFieldEnum[]
+  }
+
+  /**
+   * BotWithdrawal findMany
+   */
+  export type BotWithdrawalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * Filter, which BotWithdrawals to fetch.
+     */
+    where?: BotWithdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BotWithdrawals to fetch.
+     */
+    orderBy?: BotWithdrawalOrderByWithRelationInput | BotWithdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BotWithdrawals.
+     */
+    cursor?: BotWithdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BotWithdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BotWithdrawals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BotWithdrawals.
+     */
+    distinct?: BotWithdrawalScalarFieldEnum | BotWithdrawalScalarFieldEnum[]
+  }
+
+  /**
+   * BotWithdrawal create
+   */
+  export type BotWithdrawalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BotWithdrawal.
+     */
+    data: XOR<BotWithdrawalCreateInput, BotWithdrawalUncheckedCreateInput>
+  }
+
+  /**
+   * BotWithdrawal createMany
+   */
+  export type BotWithdrawalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BotWithdrawals.
+     */
+    data: BotWithdrawalCreateManyInput | BotWithdrawalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BotWithdrawal createManyAndReturn
+   */
+  export type BotWithdrawalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * The data used to create many BotWithdrawals.
+     */
+    data: BotWithdrawalCreateManyInput | BotWithdrawalCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BotWithdrawal update
+   */
+  export type BotWithdrawalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BotWithdrawal.
+     */
+    data: XOR<BotWithdrawalUpdateInput, BotWithdrawalUncheckedUpdateInput>
+    /**
+     * Choose, which BotWithdrawal to update.
+     */
+    where: BotWithdrawalWhereUniqueInput
+  }
+
+  /**
+   * BotWithdrawal updateMany
+   */
+  export type BotWithdrawalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BotWithdrawals.
+     */
+    data: XOR<BotWithdrawalUpdateManyMutationInput, BotWithdrawalUncheckedUpdateManyInput>
+    /**
+     * Filter which BotWithdrawals to update
+     */
+    where?: BotWithdrawalWhereInput
+    /**
+     * Limit how many BotWithdrawals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BotWithdrawal updateManyAndReturn
+   */
+  export type BotWithdrawalUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * The data used to update BotWithdrawals.
+     */
+    data: XOR<BotWithdrawalUpdateManyMutationInput, BotWithdrawalUncheckedUpdateManyInput>
+    /**
+     * Filter which BotWithdrawals to update
+     */
+    where?: BotWithdrawalWhereInput
+    /**
+     * Limit how many BotWithdrawals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BotWithdrawal upsert
+   */
+  export type BotWithdrawalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BotWithdrawal to update in case it exists.
+     */
+    where: BotWithdrawalWhereUniqueInput
+    /**
+     * In case the BotWithdrawal found by the `where` argument doesn't exist, create a new BotWithdrawal with this data.
+     */
+    create: XOR<BotWithdrawalCreateInput, BotWithdrawalUncheckedCreateInput>
+    /**
+     * In case the BotWithdrawal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BotWithdrawalUpdateInput, BotWithdrawalUncheckedUpdateInput>
+  }
+
+  /**
+   * BotWithdrawal delete
+   */
+  export type BotWithdrawalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
+    /**
+     * Filter which BotWithdrawal to delete.
+     */
+    where: BotWithdrawalWhereUniqueInput
+  }
+
+  /**
+   * BotWithdrawal deleteMany
+   */
+  export type BotWithdrawalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BotWithdrawals to delete
+     */
+    where?: BotWithdrawalWhereInput
+    /**
+     * Limit how many BotWithdrawals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BotWithdrawal without action
+   */
+  export type BotWithdrawalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BotWithdrawal
+     */
+    select?: BotWithdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BotWithdrawal
+     */
+    omit?: BotWithdrawalOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BotWithdrawalInclude<ExtArgs> | null
   }
 
 
@@ -3199,43 +5912,43 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Wallets
     **/
     _count?: true | WalletCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: WalletMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: WalletMaxAggregateInputType
@@ -3431,13 +6144,13 @@ export namespace Prisma {
      * @example
      * // Get all Wallets
      * const wallets = await prisma.wallet.findMany()
-     *
+     * 
      * // Get first 10 Wallets
      * const wallets = await prisma.wallet.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const walletWithIdOnly = await prisma.wallet.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends WalletFindManyArgs>(args?: SelectSubset<T, WalletFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -3451,7 +6164,7 @@ export namespace Prisma {
      *     // ... data to create a Wallet
      *   }
      * })
-     *
+     * 
      */
     create<T extends WalletCreateArgs>(args: SelectSubset<T, WalletCreateArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3465,7 +6178,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends WalletCreateManyArgs>(args?: SelectSubset<T, WalletCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3479,7 +6192,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Wallets and only return the `id`
      * const walletWithIdOnly = await prisma.wallet.createManyAndReturn({
      *   select: { id: true },
@@ -3489,7 +6202,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends WalletCreateManyAndReturnArgs>(args?: SelectSubset<T, WalletCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -3503,7 +6216,7 @@ export namespace Prisma {
      *     // ... filter to delete one Wallet
      *   }
      * })
-     *
+     * 
      */
     delete<T extends WalletDeleteArgs>(args: SelectSubset<T, WalletDeleteArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3520,7 +6233,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends WalletUpdateArgs>(args: SelectSubset<T, WalletUpdateArgs<ExtArgs>>): Prisma__WalletClient<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3534,7 +6247,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends WalletDeleteManyArgs>(args?: SelectSubset<T, WalletDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3553,7 +6266,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends WalletUpdateManyArgs>(args: SelectSubset<T, WalletUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3570,7 +6283,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Wallets and only return the `id`
      * const walletWithIdOnly = await prisma.wallet.updateManyAndReturn({
      *   select: { id: true },
@@ -3583,7 +6296,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends WalletUpdateManyAndReturnArgs>(args: SelectSubset<T, WalletUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -3672,7 +6385,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends WalletGroupByArgs,
@@ -3783,7 +6496,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Wallet", 'DateTime'>
     readonly userId: FieldRef<"Wallet", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -3852,31 +6565,31 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Wallets.
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Wallets.
      */
     distinct?: WalletScalarFieldEnum | WalletScalarFieldEnum[]
@@ -3904,31 +6617,31 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Wallets.
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Wallets.
      */
     distinct?: WalletScalarFieldEnum | WalletScalarFieldEnum[]
@@ -3956,31 +6669,31 @@ export namespace Prisma {
     where?: WalletWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Wallets to fetch.
      */
     orderBy?: WalletOrderByWithRelationInput | WalletOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Wallets.
      */
     cursor?: WalletWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Wallets from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Wallets.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Wallets.
      */
     distinct?: WalletScalarFieldEnum | WalletScalarFieldEnum[]
@@ -4335,55 +7048,55 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Gifts
     **/
     _count?: true | GiftCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: GiftAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: GiftSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: GiftMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: GiftMaxAggregateInputType
@@ -4633,13 +7346,13 @@ export namespace Prisma {
      * @example
      * // Get all Gifts
      * const gifts = await prisma.gift.findMany()
-     *
+     * 
      * // Get first 10 Gifts
      * const gifts = await prisma.gift.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const giftWithIdOnly = await prisma.gift.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends GiftFindManyArgs>(args?: SelectSubset<T, GiftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -4653,7 +7366,7 @@ export namespace Prisma {
      *     // ... data to create a Gift
      *   }
      * })
-     *
+     * 
      */
     create<T extends GiftCreateArgs>(args: SelectSubset<T, GiftCreateArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4667,7 +7380,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends GiftCreateManyArgs>(args?: SelectSubset<T, GiftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4681,7 +7394,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Gifts and only return the `id`
      * const giftWithIdOnly = await prisma.gift.createManyAndReturn({
      *   select: { id: true },
@@ -4691,7 +7404,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends GiftCreateManyAndReturnArgs>(args?: SelectSubset<T, GiftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -4705,7 +7418,7 @@ export namespace Prisma {
      *     // ... filter to delete one Gift
      *   }
      * })
-     *
+     * 
      */
     delete<T extends GiftDeleteArgs>(args: SelectSubset<T, GiftDeleteArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4722,7 +7435,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends GiftUpdateArgs>(args: SelectSubset<T, GiftUpdateArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4736,7 +7449,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends GiftDeleteManyArgs>(args?: SelectSubset<T, GiftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4755,7 +7468,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends GiftUpdateManyArgs>(args: SelectSubset<T, GiftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4772,7 +7485,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Gifts and only return the `id`
      * const giftWithIdOnly = await prisma.gift.updateManyAndReturn({
      *   select: { id: true },
@@ -4785,7 +7498,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends GiftUpdateManyAndReturnArgs>(args: SelectSubset<T, GiftUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -4874,7 +7587,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends GiftGroupByArgs,
@@ -4994,7 +7707,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Gift", 'DateTime'>
     readonly updatedAt: FieldRef<"Gift", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -5063,31 +7776,31 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Gifts.
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Gifts.
      */
     distinct?: GiftScalarFieldEnum | GiftScalarFieldEnum[]
@@ -5115,31 +7828,31 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Gifts.
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Gifts.
      */
     distinct?: GiftScalarFieldEnum | GiftScalarFieldEnum[]
@@ -5167,31 +7880,31 @@ export namespace Prisma {
     where?: GiftWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Gifts to fetch.
      */
     orderBy?: GiftOrderByWithRelationInput | GiftOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Gifts.
      */
     cursor?: GiftWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Gifts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Gifts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Gifts.
      */
     distinct?: GiftScalarFieldEnum | GiftScalarFieldEnum[]
@@ -5595,55 +8308,55 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Transactions
     **/
     _count?: true | TransactionCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TransactionAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TransactionSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TransactionMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TransactionMaxAggregateInputType
@@ -5881,13 +8594,13 @@ export namespace Prisma {
      * @example
      * // Get all Transactions
      * const transactions = await prisma.transaction.findMany()
-     *
+     * 
      * // Get first 10 Transactions
      * const transactions = await prisma.transaction.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const transactionWithIdOnly = await prisma.transaction.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TransactionFindManyArgs>(args?: SelectSubset<T, TransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -5901,7 +8614,7 @@ export namespace Prisma {
      *     // ... data to create a Transaction
      *   }
      * })
-     *
+     * 
      */
     create<T extends TransactionCreateArgs>(args: SelectSubset<T, TransactionCreateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5915,7 +8628,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TransactionCreateManyArgs>(args?: SelectSubset<T, TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5929,7 +8642,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Transactions and only return the `id`
      * const transactionWithIdOnly = await prisma.transaction.createManyAndReturn({
      *   select: { id: true },
@@ -5939,7 +8652,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -5953,7 +8666,7 @@ export namespace Prisma {
      *     // ... filter to delete one Transaction
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TransactionDeleteArgs>(args: SelectSubset<T, TransactionDeleteArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5970,7 +8683,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TransactionUpdateArgs>(args: SelectSubset<T, TransactionUpdateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5984,7 +8697,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TransactionDeleteManyArgs>(args?: SelectSubset<T, TransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6003,7 +8716,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TransactionUpdateManyArgs>(args: SelectSubset<T, TransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6020,7 +8733,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Transactions and only return the `id`
      * const transactionWithIdOnly = await prisma.transaction.updateManyAndReturn({
      *   select: { id: true },
@@ -6033,7 +8746,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends TransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, TransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -6122,7 +8835,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TransactionGroupByArgs,
@@ -6239,7 +8952,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -6308,31 +9021,31 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Transactions.
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Transactions.
      */
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
@@ -6360,31 +9073,31 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Transactions.
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Transactions.
      */
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
@@ -6412,31 +9125,31 @@ export namespace Prisma {
     where?: TransactionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Transactions to fetch.
      */
     orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Transactions.
      */
     cursor?: TransactionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Transactions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Transactions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Transactions.
      */
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
@@ -6824,55 +9537,55 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Offers
     **/
     _count?: true | OfferCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: OfferAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: OfferSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: OfferMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: OfferMaxAggregateInputType
@@ -7104,13 +9817,13 @@ export namespace Prisma {
      * @example
      * // Get all Offers
      * const offers = await prisma.offer.findMany()
-     *
+     * 
      * // Get first 10 Offers
      * const offers = await prisma.offer.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const offerWithIdOnly = await prisma.offer.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends OfferFindManyArgs>(args?: SelectSubset<T, OfferFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -7124,7 +9837,7 @@ export namespace Prisma {
      *     // ... data to create a Offer
      *   }
      * })
-     *
+     * 
      */
     create<T extends OfferCreateArgs>(args: SelectSubset<T, OfferCreateArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -7138,7 +9851,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends OfferCreateManyArgs>(args?: SelectSubset<T, OfferCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7152,7 +9865,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Offers and only return the `id`
      * const offerWithIdOnly = await prisma.offer.createManyAndReturn({
      *   select: { id: true },
@@ -7162,7 +9875,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends OfferCreateManyAndReturnArgs>(args?: SelectSubset<T, OfferCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -7176,7 +9889,7 @@ export namespace Prisma {
      *     // ... filter to delete one Offer
      *   }
      * })
-     *
+     * 
      */
     delete<T extends OfferDeleteArgs>(args: SelectSubset<T, OfferDeleteArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -7193,7 +9906,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends OfferUpdateArgs>(args: SelectSubset<T, OfferUpdateArgs<ExtArgs>>): Prisma__OfferClient<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -7207,7 +9920,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends OfferDeleteManyArgs>(args?: SelectSubset<T, OfferDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7226,7 +9939,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends OfferUpdateManyArgs>(args: SelectSubset<T, OfferUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7243,7 +9956,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Offers and only return the `id`
      * const offerWithIdOnly = await prisma.offer.updateManyAndReturn({
      *   select: { id: true },
@@ -7256,7 +9969,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends OfferUpdateManyAndReturnArgs>(args: SelectSubset<T, OfferUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -7345,7 +10058,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends OfferGroupByArgs,
@@ -7461,7 +10174,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Offer", 'DateTime'>
     readonly updatedAt: FieldRef<"Offer", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -7530,31 +10243,31 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Offers.
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Offers.
      */
     distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
@@ -7582,31 +10295,31 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Offers.
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Offers.
      */
     distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
@@ -7634,31 +10347,31 @@ export namespace Prisma {
     where?: OfferWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Offers to fetch.
      */
     orderBy?: OfferOrderByWithRelationInput | OfferOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Offers.
      */
     cursor?: OfferWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Offers from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Offers.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Offers.
      */
     distinct?: OfferScalarFieldEnum | OfferScalarFieldEnum[]
@@ -7924,6 +10637,7 @@ export namespace Prisma {
     stakeGram: Decimal | null
     status: string | null
     isPublic: boolean | null
+    arenaMode: string | null
     winnerId: string | null
     createdAt: Date | null
     startedAt: Date | null
@@ -7938,6 +10652,7 @@ export namespace Prisma {
     stakeGram: Decimal | null
     status: string | null
     isPublic: boolean | null
+    arenaMode: string | null
     winnerId: string | null
     createdAt: Date | null
     startedAt: Date | null
@@ -7952,6 +10667,7 @@ export namespace Prisma {
     stakeGram: number
     status: number
     isPublic: number
+    arenaMode: number
     winnerId: number
     createdAt: number
     startedAt: number
@@ -7976,6 +10692,7 @@ export namespace Prisma {
     stakeGram?: true
     status?: true
     isPublic?: true
+    arenaMode?: true
     winnerId?: true
     createdAt?: true
     startedAt?: true
@@ -7990,6 +10707,7 @@ export namespace Prisma {
     stakeGram?: true
     status?: true
     isPublic?: true
+    arenaMode?: true
     winnerId?: true
     createdAt?: true
     startedAt?: true
@@ -8004,6 +10722,7 @@ export namespace Prisma {
     stakeGram?: true
     status?: true
     isPublic?: true
+    arenaMode?: true
     winnerId?: true
     createdAt?: true
     startedAt?: true
@@ -8020,55 +10739,55 @@ export namespace Prisma {
     where?: PvpRoomWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpRooms to fetch.
      */
     orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: PvpRoomWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpRooms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpRooms.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned PvpRooms
     **/
     _count?: true | PvpRoomCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: PvpRoomAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: PvpRoomSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PvpRoomMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: PvpRoomMaxAggregateInputType
@@ -8105,6 +10824,7 @@ export namespace Prisma {
     stakeGram: Decimal
     status: string
     isPublic: boolean
+    arenaMode: string
     winnerId: string | null
     createdAt: Date
     startedAt: Date | null
@@ -8138,6 +10858,7 @@ export namespace Prisma {
     stakeGram?: boolean
     status?: boolean
     isPublic?: boolean
+    arenaMode?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
@@ -8157,6 +10878,7 @@ export namespace Prisma {
     stakeGram?: boolean
     status?: boolean
     isPublic?: boolean
+    arenaMode?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
@@ -8173,6 +10895,7 @@ export namespace Prisma {
     stakeGram?: boolean
     status?: boolean
     isPublic?: boolean
+    arenaMode?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
@@ -8189,6 +10912,7 @@ export namespace Prisma {
     stakeGram?: boolean
     status?: boolean
     isPublic?: boolean
+    arenaMode?: boolean
     winnerId?: boolean
     createdAt?: boolean
     startedAt?: boolean
@@ -8197,7 +10921,7 @@ export namespace Prisma {
     creatorId?: boolean
   }
 
-  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "isPublic" | "winnerId" | "createdAt" | "startedAt" | "countdownEndsAt" | "completedAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
+  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "isPublic" | "arenaMode" | "winnerId" | "createdAt" | "startedAt" | "countdownEndsAt" | "completedAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
   export type PvpRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
@@ -8228,6 +10952,7 @@ export namespace Prisma {
       stakeGram: Prisma.Decimal
       status: string
       isPublic: boolean
+      arenaMode: string
       winnerId: string | null
       createdAt: Date
       startedAt: Date | null
@@ -8313,13 +11038,13 @@ export namespace Prisma {
      * @example
      * // Get all PvpRooms
      * const pvpRooms = await prisma.pvpRoom.findMany()
-     *
+     * 
      * // Get first 10 PvpRooms
      * const pvpRooms = await prisma.pvpRoom.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const pvpRoomWithIdOnly = await prisma.pvpRoom.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends PvpRoomFindManyArgs>(args?: SelectSubset<T, PvpRoomFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -8333,7 +11058,7 @@ export namespace Prisma {
      *     // ... data to create a PvpRoom
      *   }
      * })
-     *
+     * 
      */
     create<T extends PvpRoomCreateArgs>(args: SelectSubset<T, PvpRoomCreateArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8347,7 +11072,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends PvpRoomCreateManyArgs>(args?: SelectSubset<T, PvpRoomCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8361,7 +11086,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many PvpRooms and only return the `id`
      * const pvpRoomWithIdOnly = await prisma.pvpRoom.createManyAndReturn({
      *   select: { id: true },
@@ -8371,7 +11096,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends PvpRoomCreateManyAndReturnArgs>(args?: SelectSubset<T, PvpRoomCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -8385,7 +11110,7 @@ export namespace Prisma {
      *     // ... filter to delete one PvpRoom
      *   }
      * })
-     *
+     * 
      */
     delete<T extends PvpRoomDeleteArgs>(args: SelectSubset<T, PvpRoomDeleteArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8402,7 +11127,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends PvpRoomUpdateArgs>(args: SelectSubset<T, PvpRoomUpdateArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8416,7 +11141,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends PvpRoomDeleteManyArgs>(args?: SelectSubset<T, PvpRoomDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8435,7 +11160,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends PvpRoomUpdateManyArgs>(args: SelectSubset<T, PvpRoomUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8452,7 +11177,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more PvpRooms and only return the `id`
      * const pvpRoomWithIdOnly = await prisma.pvpRoom.updateManyAndReturn({
      *   select: { id: true },
@@ -8465,7 +11190,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends PvpRoomUpdateManyAndReturnArgs>(args: SelectSubset<T, PvpRoomUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -8554,7 +11279,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends PvpRoomGroupByArgs,
@@ -8666,6 +11391,7 @@ export namespace Prisma {
     readonly stakeGram: FieldRef<"PvpRoom", 'Decimal'>
     readonly status: FieldRef<"PvpRoom", 'String'>
     readonly isPublic: FieldRef<"PvpRoom", 'Boolean'>
+    readonly arenaMode: FieldRef<"PvpRoom", 'String'>
     readonly winnerId: FieldRef<"PvpRoom", 'String'>
     readonly createdAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly startedAt: FieldRef<"PvpRoom", 'DateTime'>
@@ -8673,7 +11399,7 @@ export namespace Prisma {
     readonly completedAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly creatorId: FieldRef<"PvpRoom", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -8742,31 +11468,31 @@ export namespace Prisma {
     where?: PvpRoomWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpRooms to fetch.
      */
     orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PvpRooms.
      */
     cursor?: PvpRoomWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpRooms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpRooms.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpRooms.
      */
     distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
@@ -8794,31 +11520,31 @@ export namespace Prisma {
     where?: PvpRoomWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpRooms to fetch.
      */
     orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PvpRooms.
      */
     cursor?: PvpRoomWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpRooms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpRooms.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpRooms.
      */
     distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
@@ -8846,31 +11572,31 @@ export namespace Prisma {
     where?: PvpRoomWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpRooms to fetch.
      */
     orderBy?: PvpRoomOrderByWithRelationInput | PvpRoomOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing PvpRooms.
      */
     cursor?: PvpRoomWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpRooms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpRooms.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpRooms.
      */
     distinct?: PvpRoomScalarFieldEnum | PvpRoomScalarFieldEnum[]
@@ -9244,55 +11970,55 @@ export namespace Prisma {
     where?: PvpParticipantWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpParticipants to fetch.
      */
     orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: PvpParticipantWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpParticipants from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpParticipants.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned PvpParticipants
     **/
     _count?: true | PvpParticipantCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: PvpParticipantAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: PvpParticipantSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PvpParticipantMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: PvpParticipantMaxAggregateInputType
@@ -9493,13 +12219,13 @@ export namespace Prisma {
      * @example
      * // Get all PvpParticipants
      * const pvpParticipants = await prisma.pvpParticipant.findMany()
-     *
+     * 
      * // Get first 10 PvpParticipants
      * const pvpParticipants = await prisma.pvpParticipant.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const pvpParticipantWithIdOnly = await prisma.pvpParticipant.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends PvpParticipantFindManyArgs>(args?: SelectSubset<T, PvpParticipantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -9513,7 +12239,7 @@ export namespace Prisma {
      *     // ... data to create a PvpParticipant
      *   }
      * })
-     *
+     * 
      */
     create<T extends PvpParticipantCreateArgs>(args: SelectSubset<T, PvpParticipantCreateArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9527,7 +12253,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends PvpParticipantCreateManyArgs>(args?: SelectSubset<T, PvpParticipantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9541,7 +12267,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many PvpParticipants and only return the `id`
      * const pvpParticipantWithIdOnly = await prisma.pvpParticipant.createManyAndReturn({
      *   select: { id: true },
@@ -9551,7 +12277,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends PvpParticipantCreateManyAndReturnArgs>(args?: SelectSubset<T, PvpParticipantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -9565,7 +12291,7 @@ export namespace Prisma {
      *     // ... filter to delete one PvpParticipant
      *   }
      * })
-     *
+     * 
      */
     delete<T extends PvpParticipantDeleteArgs>(args: SelectSubset<T, PvpParticipantDeleteArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9582,7 +12308,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends PvpParticipantUpdateArgs>(args: SelectSubset<T, PvpParticipantUpdateArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9596,7 +12322,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends PvpParticipantDeleteManyArgs>(args?: SelectSubset<T, PvpParticipantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9615,7 +12341,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends PvpParticipantUpdateManyArgs>(args: SelectSubset<T, PvpParticipantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9632,7 +12358,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more PvpParticipants and only return the `id`
      * const pvpParticipantWithIdOnly = await prisma.pvpParticipant.updateManyAndReturn({
      *   select: { id: true },
@@ -9645,7 +12371,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends PvpParticipantUpdateManyAndReturnArgs>(args: SelectSubset<T, PvpParticipantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -9734,7 +12460,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends PvpParticipantGroupByArgs,
@@ -9845,7 +12571,7 @@ export namespace Prisma {
     readonly stakeGram: FieldRef<"PvpParticipant", 'Decimal'>
     readonly joinedAt: FieldRef<"PvpParticipant", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -9914,31 +12640,31 @@ export namespace Prisma {
     where?: PvpParticipantWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpParticipants to fetch.
      */
     orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PvpParticipants.
      */
     cursor?: PvpParticipantWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpParticipants from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpParticipants.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpParticipants.
      */
     distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
@@ -9966,31 +12692,31 @@ export namespace Prisma {
     where?: PvpParticipantWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpParticipants to fetch.
      */
     orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PvpParticipants.
      */
     cursor?: PvpParticipantWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpParticipants from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpParticipants.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpParticipants.
      */
     distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
@@ -10018,31 +12744,31 @@ export namespace Prisma {
     where?: PvpParticipantWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpParticipants to fetch.
      */
     orderBy?: PvpParticipantOrderByWithRelationInput | PvpParticipantOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing PvpParticipants.
      */
     cursor?: PvpParticipantWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpParticipants from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpParticipants.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpParticipants.
      */
     distinct?: PvpParticipantScalarFieldEnum | PvpParticipantScalarFieldEnum[]
@@ -10343,43 +13069,43 @@ export namespace Prisma {
     where?: PvpInvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpInvitations to fetch.
      */
     orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: PvpInvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpInvitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpInvitations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned PvpInvitations
     **/
     _count?: true | PvpInvitationCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PvpInvitationMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: PvpInvitationMaxAggregateInputType
@@ -10595,13 +13321,13 @@ export namespace Prisma {
      * @example
      * // Get all PvpInvitations
      * const pvpInvitations = await prisma.pvpInvitation.findMany()
-     *
+     * 
      * // Get first 10 PvpInvitations
      * const pvpInvitations = await prisma.pvpInvitation.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const pvpInvitationWithIdOnly = await prisma.pvpInvitation.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends PvpInvitationFindManyArgs>(args?: SelectSubset<T, PvpInvitationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -10615,7 +13341,7 @@ export namespace Prisma {
      *     // ... data to create a PvpInvitation
      *   }
      * })
-     *
+     * 
      */
     create<T extends PvpInvitationCreateArgs>(args: SelectSubset<T, PvpInvitationCreateArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10629,7 +13355,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends PvpInvitationCreateManyArgs>(args?: SelectSubset<T, PvpInvitationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10643,7 +13369,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many PvpInvitations and only return the `id`
      * const pvpInvitationWithIdOnly = await prisma.pvpInvitation.createManyAndReturn({
      *   select: { id: true },
@@ -10653,7 +13379,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends PvpInvitationCreateManyAndReturnArgs>(args?: SelectSubset<T, PvpInvitationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -10667,7 +13393,7 @@ export namespace Prisma {
      *     // ... filter to delete one PvpInvitation
      *   }
      * })
-     *
+     * 
      */
     delete<T extends PvpInvitationDeleteArgs>(args: SelectSubset<T, PvpInvitationDeleteArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10684,7 +13410,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends PvpInvitationUpdateArgs>(args: SelectSubset<T, PvpInvitationUpdateArgs<ExtArgs>>): Prisma__PvpInvitationClient<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10698,7 +13424,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends PvpInvitationDeleteManyArgs>(args?: SelectSubset<T, PvpInvitationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10717,7 +13443,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends PvpInvitationUpdateManyArgs>(args: SelectSubset<T, PvpInvitationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10734,7 +13460,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more PvpInvitations and only return the `id`
      * const pvpInvitationWithIdOnly = await prisma.pvpInvitation.updateManyAndReturn({
      *   select: { id: true },
@@ -10747,7 +13473,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends PvpInvitationUpdateManyAndReturnArgs>(args: SelectSubset<T, PvpInvitationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -10836,7 +13562,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends PvpInvitationGroupByArgs,
@@ -10950,7 +13676,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"PvpInvitation", 'DateTime'>
     readonly updatedAt: FieldRef<"PvpInvitation", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -11019,31 +13745,31 @@ export namespace Prisma {
     where?: PvpInvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpInvitations to fetch.
      */
     orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PvpInvitations.
      */
     cursor?: PvpInvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpInvitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpInvitations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpInvitations.
      */
     distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
@@ -11071,31 +13797,31 @@ export namespace Prisma {
     where?: PvpInvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpInvitations to fetch.
      */
     orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PvpInvitations.
      */
     cursor?: PvpInvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpInvitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpInvitations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpInvitations.
      */
     distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
@@ -11123,31 +13849,31 @@ export namespace Prisma {
     where?: PvpInvitationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PvpInvitations to fetch.
      */
     orderBy?: PvpInvitationOrderByWithRelationInput | PvpInvitationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing PvpInvitations.
      */
     cursor?: PvpInvitationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PvpInvitations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PvpInvitations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PvpInvitations.
      */
     distinct?: PvpInvitationScalarFieldEnum | PvpInvitationScalarFieldEnum[]
@@ -11389,11 +14115,50 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     photoUrl: 'photoUrl',
+    balanceGram: 'balanceGram',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const BotDepositScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    requestedTon: 'requestedTon',
+    receivedTon: 'receivedTon',
+    depositAddress: 'depositAddress',
+    walletAddress: 'walletAddress',
+    comment: 'comment',
+    txHash: 'txHash',
+    status: 'status',
+    expiresAt: 'expiresAt',
+    confirmedAt: 'confirmedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type BotDepositScalarFieldEnum = (typeof BotDepositScalarFieldEnum)[keyof typeof BotDepositScalarFieldEnum]
+
+
+  export const BotWithdrawalScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    amountTon: 'amountTon',
+    destination: 'destination',
+    comment: 'comment',
+    status: 'status',
+    walletSeqno: 'walletSeqno',
+    externalHash: 'externalHash',
+    txHash: 'txHash',
+    failureReason: 'failureReason',
+    submittedAt: 'submittedAt',
+    confirmedAt: 'confirmedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BotWithdrawalScalarFieldEnum = (typeof BotWithdrawalScalarFieldEnum)[keyof typeof BotWithdrawalScalarFieldEnum]
 
 
   export const WalletScalarFieldEnum: {
@@ -11464,6 +14229,7 @@ export namespace Prisma {
     stakeGram: 'stakeGram',
     status: 'status',
     isPublic: 'isPublic',
+    arenaMode: 'arenaMode',
     winnerId: 'winnerId',
     createdAt: 'createdAt',
     startedAt: 'startedAt',
@@ -11532,63 +14298,77 @@ export namespace Prisma {
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-
+    
 
 
   /**
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-
-
-
-  /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-
+    
 
 
   /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-
+    
 
 
   /**
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
 
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
 
 
   /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-
+    
 
 
   /**
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
 
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -11604,6 +14384,7 @@ export namespace Prisma {
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     photoUrl?: StringNullableFilter<"User"> | string | null
+    balanceGram?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     wallets?: WalletListRelationFilter
@@ -11617,6 +14398,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantListRelationFilter
     sentPvpInvitations?: PvpInvitationListRelationFilter
     receivedPvpInvitations?: PvpInvitationListRelationFilter
+    botDeposits?: BotDepositListRelationFilter
+    botWithdrawals?: BotWithdrawalListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11626,6 +14409,7 @@ export namespace Prisma {
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
+    balanceGram?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     wallets?: WalletOrderByRelationAggregateInput
@@ -11639,6 +14423,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantOrderByRelationAggregateInput
     sentPvpInvitations?: PvpInvitationOrderByRelationAggregateInput
     receivedPvpInvitations?: PvpInvitationOrderByRelationAggregateInput
+    botDeposits?: BotDepositOrderByRelationAggregateInput
+    botWithdrawals?: BotWithdrawalOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11651,6 +14437,7 @@ export namespace Prisma {
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     photoUrl?: StringNullableFilter<"User"> | string | null
+    balanceGram?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     wallets?: WalletListRelationFilter
@@ -11664,6 +14451,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantListRelationFilter
     sentPvpInvitations?: PvpInvitationListRelationFilter
     receivedPvpInvitations?: PvpInvitationListRelationFilter
+    botDeposits?: BotDepositListRelationFilter
+    botWithdrawals?: BotWithdrawalListRelationFilter
   }, "id" | "telegramId">
 
   export type UserOrderByWithAggregationInput = {
@@ -11673,11 +14462,14 @@ export namespace Prisma {
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
+    balanceGram?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -11690,8 +14482,203 @@ export namespace Prisma {
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     photoUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    balanceGram?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type BotDepositWhereInput = {
+    AND?: BotDepositWhereInput | BotDepositWhereInput[]
+    OR?: BotDepositWhereInput[]
+    NOT?: BotDepositWhereInput | BotDepositWhereInput[]
+    id?: StringFilter<"BotDeposit"> | string
+    userId?: StringFilter<"BotDeposit"> | string
+    requestedTon?: DecimalFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string
+    receivedTon?: DecimalNullableFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFilter<"BotDeposit"> | string
+    walletAddress?: StringFilter<"BotDeposit"> | string
+    comment?: StringFilter<"BotDeposit"> | string
+    txHash?: StringNullableFilter<"BotDeposit"> | string | null
+    status?: StringFilter<"BotDeposit"> | string
+    expiresAt?: DateTimeFilter<"BotDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableFilter<"BotDeposit"> | Date | string | null
+    createdAt?: DateTimeFilter<"BotDeposit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type BotDepositOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedTon?: SortOrder
+    receivedTon?: SortOrderInput | SortOrder
+    depositAddress?: SortOrder
+    walletAddress?: SortOrder
+    comment?: SortOrder
+    txHash?: SortOrderInput | SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type BotDepositWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    comment?: string
+    txHash?: string
+    AND?: BotDepositWhereInput | BotDepositWhereInput[]
+    OR?: BotDepositWhereInput[]
+    NOT?: BotDepositWhereInput | BotDepositWhereInput[]
+    userId?: StringFilter<"BotDeposit"> | string
+    requestedTon?: DecimalFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string
+    receivedTon?: DecimalNullableFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFilter<"BotDeposit"> | string
+    walletAddress?: StringFilter<"BotDeposit"> | string
+    status?: StringFilter<"BotDeposit"> | string
+    expiresAt?: DateTimeFilter<"BotDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableFilter<"BotDeposit"> | Date | string | null
+    createdAt?: DateTimeFilter<"BotDeposit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "comment" | "txHash">
+
+  export type BotDepositOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedTon?: SortOrder
+    receivedTon?: SortOrderInput | SortOrder
+    depositAddress?: SortOrder
+    walletAddress?: SortOrder
+    comment?: SortOrder
+    txHash?: SortOrderInput | SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: BotDepositCountOrderByAggregateInput
+    _avg?: BotDepositAvgOrderByAggregateInput
+    _max?: BotDepositMaxOrderByAggregateInput
+    _min?: BotDepositMinOrderByAggregateInput
+    _sum?: BotDepositSumOrderByAggregateInput
+  }
+
+  export type BotDepositScalarWhereWithAggregatesInput = {
+    AND?: BotDepositScalarWhereWithAggregatesInput | BotDepositScalarWhereWithAggregatesInput[]
+    OR?: BotDepositScalarWhereWithAggregatesInput[]
+    NOT?: BotDepositScalarWhereWithAggregatesInput | BotDepositScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BotDeposit"> | string
+    userId?: StringWithAggregatesFilter<"BotDeposit"> | string
+    requestedTon?: DecimalWithAggregatesFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string
+    receivedTon?: DecimalNullableWithAggregatesFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringWithAggregatesFilter<"BotDeposit"> | string
+    walletAddress?: StringWithAggregatesFilter<"BotDeposit"> | string
+    comment?: StringWithAggregatesFilter<"BotDeposit"> | string
+    txHash?: StringNullableWithAggregatesFilter<"BotDeposit"> | string | null
+    status?: StringWithAggregatesFilter<"BotDeposit"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"BotDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableWithAggregatesFilter<"BotDeposit"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"BotDeposit"> | Date | string
+  }
+
+  export type BotWithdrawalWhereInput = {
+    AND?: BotWithdrawalWhereInput | BotWithdrawalWhereInput[]
+    OR?: BotWithdrawalWhereInput[]
+    NOT?: BotWithdrawalWhereInput | BotWithdrawalWhereInput[]
+    id?: StringFilter<"BotWithdrawal"> | string
+    userId?: StringFilter<"BotWithdrawal"> | string
+    amountTon?: DecimalFilter<"BotWithdrawal"> | Decimal | DecimalJsLike | number | string
+    destination?: StringFilter<"BotWithdrawal"> | string
+    comment?: StringFilter<"BotWithdrawal"> | string
+    status?: StringFilter<"BotWithdrawal"> | string
+    walletSeqno?: IntNullableFilter<"BotWithdrawal"> | number | null
+    externalHash?: StringNullableFilter<"BotWithdrawal"> | string | null
+    txHash?: StringNullableFilter<"BotWithdrawal"> | string | null
+    failureReason?: StringNullableFilter<"BotWithdrawal"> | string | null
+    submittedAt?: DateTimeNullableFilter<"BotWithdrawal"> | Date | string | null
+    confirmedAt?: DateTimeNullableFilter<"BotWithdrawal"> | Date | string | null
+    createdAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
+    updatedAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type BotWithdrawalOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountTon?: SortOrder
+    destination?: SortOrder
+    comment?: SortOrder
+    status?: SortOrder
+    walletSeqno?: SortOrderInput | SortOrder
+    externalHash?: SortOrderInput | SortOrder
+    txHash?: SortOrderInput | SortOrder
+    failureReason?: SortOrderInput | SortOrder
+    submittedAt?: SortOrderInput | SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type BotWithdrawalWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    comment?: string
+    externalHash?: string
+    txHash?: string
+    AND?: BotWithdrawalWhereInput | BotWithdrawalWhereInput[]
+    OR?: BotWithdrawalWhereInput[]
+    NOT?: BotWithdrawalWhereInput | BotWithdrawalWhereInput[]
+    userId?: StringFilter<"BotWithdrawal"> | string
+    amountTon?: DecimalFilter<"BotWithdrawal"> | Decimal | DecimalJsLike | number | string
+    destination?: StringFilter<"BotWithdrawal"> | string
+    status?: StringFilter<"BotWithdrawal"> | string
+    walletSeqno?: IntNullableFilter<"BotWithdrawal"> | number | null
+    failureReason?: StringNullableFilter<"BotWithdrawal"> | string | null
+    submittedAt?: DateTimeNullableFilter<"BotWithdrawal"> | Date | string | null
+    confirmedAt?: DateTimeNullableFilter<"BotWithdrawal"> | Date | string | null
+    createdAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
+    updatedAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "comment" | "externalHash" | "txHash">
+
+  export type BotWithdrawalOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountTon?: SortOrder
+    destination?: SortOrder
+    comment?: SortOrder
+    status?: SortOrder
+    walletSeqno?: SortOrderInput | SortOrder
+    externalHash?: SortOrderInput | SortOrder
+    txHash?: SortOrderInput | SortOrder
+    failureReason?: SortOrderInput | SortOrder
+    submittedAt?: SortOrderInput | SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BotWithdrawalCountOrderByAggregateInput
+    _avg?: BotWithdrawalAvgOrderByAggregateInput
+    _max?: BotWithdrawalMaxOrderByAggregateInput
+    _min?: BotWithdrawalMinOrderByAggregateInput
+    _sum?: BotWithdrawalSumOrderByAggregateInput
+  }
+
+  export type BotWithdrawalScalarWhereWithAggregatesInput = {
+    AND?: BotWithdrawalScalarWhereWithAggregatesInput | BotWithdrawalScalarWhereWithAggregatesInput[]
+    OR?: BotWithdrawalScalarWhereWithAggregatesInput[]
+    NOT?: BotWithdrawalScalarWhereWithAggregatesInput | BotWithdrawalScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BotWithdrawal"> | string
+    userId?: StringWithAggregatesFilter<"BotWithdrawal"> | string
+    amountTon?: DecimalWithAggregatesFilter<"BotWithdrawal"> | Decimal | DecimalJsLike | number | string
+    destination?: StringWithAggregatesFilter<"BotWithdrawal"> | string
+    comment?: StringWithAggregatesFilter<"BotWithdrawal"> | string
+    status?: StringWithAggregatesFilter<"BotWithdrawal"> | string
+    walletSeqno?: IntNullableWithAggregatesFilter<"BotWithdrawal"> | number | null
+    externalHash?: StringNullableWithAggregatesFilter<"BotWithdrawal"> | string | null
+    txHash?: StringNullableWithAggregatesFilter<"BotWithdrawal"> | string | null
+    failureReason?: StringNullableWithAggregatesFilter<"BotWithdrawal"> | string | null
+    submittedAt?: DateTimeNullableWithAggregatesFilter<"BotWithdrawal"> | Date | string | null
+    confirmedAt?: DateTimeNullableWithAggregatesFilter<"BotWithdrawal"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"BotWithdrawal"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BotWithdrawal"> | Date | string
   }
 
   export type WalletWhereInput = {
@@ -12037,6 +15024,7 @@ export namespace Prisma {
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringFilter<"PvpRoom"> | string
     isPublic?: BoolFilter<"PvpRoom"> | boolean
+    arenaMode?: StringFilter<"PvpRoom"> | string
     winnerId?: StringNullableFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
@@ -12055,6 +15043,7 @@ export namespace Prisma {
     stakeGram?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
+    arenaMode?: SortOrder
     winnerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
@@ -12076,6 +15065,7 @@ export namespace Prisma {
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringFilter<"PvpRoom"> | string
     isPublic?: BoolFilter<"PvpRoom"> | boolean
+    arenaMode?: StringFilter<"PvpRoom"> | string
     winnerId?: StringNullableFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
@@ -12094,6 +15084,7 @@ export namespace Prisma {
     stakeGram?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
+    arenaMode?: SortOrder
     winnerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
@@ -12116,6 +15107,7 @@ export namespace Prisma {
     stakeGram?: DecimalWithAggregatesFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringWithAggregatesFilter<"PvpRoom"> | string
     isPublic?: BoolWithAggregatesFilter<"PvpRoom"> | boolean
+    arenaMode?: StringWithAggregatesFilter<"PvpRoom"> | string
     winnerId?: StringNullableWithAggregatesFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
@@ -12264,6 +15256,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -12277,6 +15270,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -12286,6 +15281,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -12299,6 +15295,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -12308,6 +15306,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -12321,6 +15320,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -12330,6 +15331,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -12343,6 +15345,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -12352,6 +15356,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12363,6 +15368,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12374,6 +15380,229 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotDepositCreateInput = {
+    id?: string
+    requestedTon: Decimal | DecimalJsLike | number | string
+    receivedTon?: Decimal | DecimalJsLike | number | string | null
+    depositAddress: string
+    walletAddress: string
+    comment: string
+    txHash?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutBotDepositsInput
+  }
+
+  export type BotDepositUncheckedCreateInput = {
+    id?: string
+    userId: string
+    requestedTon: Decimal | DecimalJsLike | number | string
+    receivedTon?: Decimal | DecimalJsLike | number | string | null
+    depositAddress: string
+    walletAddress: string
+    comment: string
+    txHash?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type BotDepositUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receivedTon?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBotDepositsNestedInput
+  }
+
+  export type BotDepositUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    requestedTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receivedTon?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotDepositCreateManyInput = {
+    id?: string
+    userId: string
+    requestedTon: Decimal | DecimalJsLike | number | string
+    receivedTon?: Decimal | DecimalJsLike | number | string | null
+    depositAddress: string
+    walletAddress: string
+    comment: string
+    txHash?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type BotDepositUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receivedTon?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotDepositUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    requestedTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receivedTon?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotWithdrawalCreateInput = {
+    id?: string
+    amountTon: Decimal | DecimalJsLike | number | string
+    destination: string
+    comment: string
+    status?: string
+    walletSeqno?: number | null
+    externalHash?: string | null
+    txHash?: string | null
+    failureReason?: string | null
+    submittedAt?: Date | string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutBotWithdrawalsInput
+  }
+
+  export type BotWithdrawalUncheckedCreateInput = {
+    id?: string
+    userId: string
+    amountTon: Decimal | DecimalJsLike | number | string
+    destination: string
+    comment: string
+    status?: string
+    walletSeqno?: number | null
+    externalHash?: string | null
+    txHash?: string | null
+    failureReason?: string | null
+    submittedAt?: Date | string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotWithdrawalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    destination?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    walletSeqno?: NullableIntFieldUpdateOperationsInput | number | null
+    externalHash?: NullableStringFieldUpdateOperationsInput | string | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBotWithdrawalsNestedInput
+  }
+
+  export type BotWithdrawalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amountTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    destination?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    walletSeqno?: NullableIntFieldUpdateOperationsInput | number | null
+    externalHash?: NullableStringFieldUpdateOperationsInput | string | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotWithdrawalCreateManyInput = {
+    id?: string
+    userId: string
+    amountTon: Decimal | DecimalJsLike | number | string
+    destination: string
+    comment: string
+    status?: string
+    walletSeqno?: number | null
+    externalHash?: string | null
+    txHash?: string | null
+    failureReason?: string | null
+    submittedAt?: Date | string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotWithdrawalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    destination?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    walletSeqno?: NullableIntFieldUpdateOperationsInput | number | null
+    externalHash?: NullableStringFieldUpdateOperationsInput | string | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotWithdrawalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    amountTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    destination?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    walletSeqno?: NullableIntFieldUpdateOperationsInput | number | null
+    externalHash?: NullableStringFieldUpdateOperationsInput | string | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12734,6 +15963,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     createdAt?: Date | string
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
@@ -12750,6 +15980,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
@@ -12766,6 +15997,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12782,6 +16014,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12798,6 +16031,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
@@ -12812,6 +16046,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12824,6 +16059,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12983,6 +16219,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -13036,6 +16283,18 @@ export namespace Prisma {
     none?: PvpInvitationWhereInput
   }
 
+  export type BotDepositListRelationFilter = {
+    every?: BotDepositWhereInput
+    some?: BotDepositWhereInput
+    none?: BotDepositWhereInput
+  }
+
+  export type BotWithdrawalListRelationFilter = {
+    every?: BotWithdrawalWhereInput
+    some?: BotWithdrawalWhereInput
+    none?: BotWithdrawalWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -13069,6 +16328,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type BotDepositOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BotWithdrawalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     telegramId?: SortOrder
@@ -13076,8 +16343,13 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     photoUrl?: SortOrder
+    balanceGram?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    balanceGram?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -13087,6 +16359,7 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     photoUrl?: SortOrder
+    balanceGram?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13098,8 +16371,13 @@ export namespace Prisma {
     firstName?: SortOrder
     lastName?: SortOrder
     photoUrl?: SortOrder
+    balanceGram?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    balanceGram?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -13138,6 +16416,22 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -13152,14 +16446,209 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type BotDepositCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedTon?: SortOrder
+    receivedTon?: SortOrder
+    depositAddress?: SortOrder
+    walletAddress?: SortOrder
+    comment?: SortOrder
+    txHash?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BotDepositAvgOrderByAggregateInput = {
+    requestedTon?: SortOrder
+    receivedTon?: SortOrder
+  }
+
+  export type BotDepositMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedTon?: SortOrder
+    receivedTon?: SortOrder
+    depositAddress?: SortOrder
+    walletAddress?: SortOrder
+    comment?: SortOrder
+    txHash?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BotDepositMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    requestedTon?: SortOrder
+    receivedTon?: SortOrder
+    depositAddress?: SortOrder
+    walletAddress?: SortOrder
+    comment?: SortOrder
+    txHash?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BotDepositSumOrderByAggregateInput = {
+    requestedTon?: SortOrder
+    receivedTon?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type BotWithdrawalCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountTon?: SortOrder
+    destination?: SortOrder
+    comment?: SortOrder
+    status?: SortOrder
+    walletSeqno?: SortOrder
+    externalHash?: SortOrder
+    txHash?: SortOrder
+    failureReason?: SortOrder
+    submittedAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BotWithdrawalAvgOrderByAggregateInput = {
+    amountTon?: SortOrder
+    walletSeqno?: SortOrder
+  }
+
+  export type BotWithdrawalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountTon?: SortOrder
+    destination?: SortOrder
+    comment?: SortOrder
+    status?: SortOrder
+    walletSeqno?: SortOrder
+    externalHash?: SortOrder
+    txHash?: SortOrder
+    failureReason?: SortOrder
+    submittedAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BotWithdrawalMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amountTon?: SortOrder
+    destination?: SortOrder
+    comment?: SortOrder
+    status?: SortOrder
+    walletSeqno?: SortOrder
+    externalHash?: SortOrder
+    txHash?: SortOrder
+    failureReason?: SortOrder
+    submittedAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BotWithdrawalSumOrderByAggregateInput = {
+    amountTon?: SortOrder
+    walletSeqno?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type WalletCountOrderByAggregateInput = {
@@ -13195,17 +16684,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -13269,22 +16747,6 @@ export namespace Prisma {
     priceTon?: SortOrder
   }
 
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
   export type GiftNullableScalarRelationFilter = {
     is?: GiftWhereInput | null
     isNot?: GiftWhereInput | null
@@ -13337,17 +16799,6 @@ export namespace Prisma {
     amountTon?: SortOrder
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type GiftScalarRelationFilter = {
     is?: GiftWhereInput
     isNot?: GiftWhereInput
@@ -13397,26 +16848,13 @@ export namespace Prisma {
     amountTon?: SortOrder
   }
 
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type PvpRoomCountOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     stakeGram?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
+    arenaMode?: SortOrder
     winnerId?: SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrder
@@ -13435,6 +16873,7 @@ export namespace Prisma {
     stakeGram?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
+    arenaMode?: SortOrder
     winnerId?: SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrder
@@ -13449,6 +16888,7 @@ export namespace Prisma {
     stakeGram?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
+    arenaMode?: SortOrder
     winnerId?: SortOrder
     createdAt?: SortOrder
     startedAt?: SortOrder
@@ -13615,6 +17055,20 @@ export namespace Prisma {
     connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
   }
 
+  export type BotDepositCreateNestedManyWithoutUserInput = {
+    create?: XOR<BotDepositCreateWithoutUserInput, BotDepositUncheckedCreateWithoutUserInput> | BotDepositCreateWithoutUserInput[] | BotDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotDepositCreateOrConnectWithoutUserInput | BotDepositCreateOrConnectWithoutUserInput[]
+    createMany?: BotDepositCreateManyUserInputEnvelope
+    connect?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+  }
+
+  export type BotWithdrawalCreateNestedManyWithoutUserInput = {
+    create?: XOR<BotWithdrawalCreateWithoutUserInput, BotWithdrawalUncheckedCreateWithoutUserInput> | BotWithdrawalCreateWithoutUserInput[] | BotWithdrawalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotWithdrawalCreateOrConnectWithoutUserInput | BotWithdrawalCreateOrConnectWithoutUserInput[]
+    createMany?: BotWithdrawalCreateManyUserInputEnvelope
+    connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+  }
+
   export type WalletUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -13692,12 +17146,34 @@ export namespace Prisma {
     connect?: PvpInvitationWhereUniqueInput | PvpInvitationWhereUniqueInput[]
   }
 
+  export type BotDepositUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BotDepositCreateWithoutUserInput, BotDepositUncheckedCreateWithoutUserInput> | BotDepositCreateWithoutUserInput[] | BotDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotDepositCreateOrConnectWithoutUserInput | BotDepositCreateOrConnectWithoutUserInput[]
+    createMany?: BotDepositCreateManyUserInputEnvelope
+    connect?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+  }
+
+  export type BotWithdrawalUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BotWithdrawalCreateWithoutUserInput, BotWithdrawalUncheckedCreateWithoutUserInput> | BotWithdrawalCreateWithoutUserInput[] | BotWithdrawalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotWithdrawalCreateOrConnectWithoutUserInput | BotWithdrawalCreateOrConnectWithoutUserInput[]
+    createMany?: BotWithdrawalCreateManyUserInputEnvelope
+    connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -13858,6 +17334,34 @@ export namespace Prisma {
     deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
   }
 
+  export type BotDepositUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BotDepositCreateWithoutUserInput, BotDepositUncheckedCreateWithoutUserInput> | BotDepositCreateWithoutUserInput[] | BotDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotDepositCreateOrConnectWithoutUserInput | BotDepositCreateOrConnectWithoutUserInput[]
+    upsert?: BotDepositUpsertWithWhereUniqueWithoutUserInput | BotDepositUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BotDepositCreateManyUserInputEnvelope
+    set?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    disconnect?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    delete?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    connect?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    update?: BotDepositUpdateWithWhereUniqueWithoutUserInput | BotDepositUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BotDepositUpdateManyWithWhereWithoutUserInput | BotDepositUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BotDepositScalarWhereInput | BotDepositScalarWhereInput[]
+  }
+
+  export type BotWithdrawalUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BotWithdrawalCreateWithoutUserInput, BotWithdrawalUncheckedCreateWithoutUserInput> | BotWithdrawalCreateWithoutUserInput[] | BotWithdrawalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotWithdrawalCreateOrConnectWithoutUserInput | BotWithdrawalCreateOrConnectWithoutUserInput[]
+    upsert?: BotWithdrawalUpsertWithWhereUniqueWithoutUserInput | BotWithdrawalUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BotWithdrawalCreateManyUserInputEnvelope
+    set?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    disconnect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    delete?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    update?: BotWithdrawalUpdateWithWhereUniqueWithoutUserInput | BotWithdrawalUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BotWithdrawalUpdateManyWithWhereWithoutUserInput | BotWithdrawalUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
+  }
+
   export type WalletUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -14012,6 +17516,82 @@ export namespace Prisma {
     deleteMany?: PvpInvitationScalarWhereInput | PvpInvitationScalarWhereInput[]
   }
 
+  export type BotDepositUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BotDepositCreateWithoutUserInput, BotDepositUncheckedCreateWithoutUserInput> | BotDepositCreateWithoutUserInput[] | BotDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotDepositCreateOrConnectWithoutUserInput | BotDepositCreateOrConnectWithoutUserInput[]
+    upsert?: BotDepositUpsertWithWhereUniqueWithoutUserInput | BotDepositUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BotDepositCreateManyUserInputEnvelope
+    set?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    disconnect?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    delete?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    connect?: BotDepositWhereUniqueInput | BotDepositWhereUniqueInput[]
+    update?: BotDepositUpdateWithWhereUniqueWithoutUserInput | BotDepositUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BotDepositUpdateManyWithWhereWithoutUserInput | BotDepositUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BotDepositScalarWhereInput | BotDepositScalarWhereInput[]
+  }
+
+  export type BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BotWithdrawalCreateWithoutUserInput, BotWithdrawalUncheckedCreateWithoutUserInput> | BotWithdrawalCreateWithoutUserInput[] | BotWithdrawalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BotWithdrawalCreateOrConnectWithoutUserInput | BotWithdrawalCreateOrConnectWithoutUserInput[]
+    upsert?: BotWithdrawalUpsertWithWhereUniqueWithoutUserInput | BotWithdrawalUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BotWithdrawalCreateManyUserInputEnvelope
+    set?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    disconnect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    delete?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+    update?: BotWithdrawalUpdateWithWhereUniqueWithoutUserInput | BotWithdrawalUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BotWithdrawalUpdateManyWithWhereWithoutUserInput | BotWithdrawalUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutBotDepositsInput = {
+    create?: XOR<UserCreateWithoutBotDepositsInput, UserUncheckedCreateWithoutBotDepositsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBotDepositsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutBotDepositsNestedInput = {
+    create?: XOR<UserCreateWithoutBotDepositsInput, UserUncheckedCreateWithoutBotDepositsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBotDepositsInput
+    upsert?: UserUpsertWithoutBotDepositsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBotDepositsInput, UserUpdateWithoutBotDepositsInput>, UserUncheckedUpdateWithoutBotDepositsInput>
+  }
+
+  export type UserCreateNestedOneWithoutBotWithdrawalsInput = {
+    create?: XOR<UserCreateWithoutBotWithdrawalsInput, UserUncheckedCreateWithoutBotWithdrawalsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBotWithdrawalsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutBotWithdrawalsNestedInput = {
+    create?: XOR<UserCreateWithoutBotWithdrawalsInput, UserUncheckedCreateWithoutBotWithdrawalsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBotWithdrawalsInput
+    upsert?: UserUpsertWithoutBotWithdrawalsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBotWithdrawalsInput, UserUpdateWithoutBotWithdrawalsInput>, UserUncheckedUpdateWithoutBotWithdrawalsInput>
+  }
+
   export type UserCreateNestedOneWithoutWalletsInput = {
     create?: XOR<UserCreateWithoutWalletsInput, UserUncheckedCreateWithoutWalletsInput>
     connectOrCreate?: UserCreateOrConnectWithoutWalletsInput
@@ -14062,14 +17642,6 @@ export namespace Prisma {
     connectOrCreate?: OfferCreateOrConnectWithoutGiftInput | OfferCreateOrConnectWithoutGiftInput[]
     createMany?: OfferCreateManyGiftInputEnvelope
     connect?: OfferWhereUniqueInput | OfferWhereUniqueInput[]
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type UserUpdateOneWithoutGiftsNestedInput = {
@@ -14202,10 +17774,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutSellerOffersInput, UserUncheckedCreateWithoutSellerOffersInput>
     connectOrCreate?: UserCreateOrConnectWithoutSellerOffersInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type GiftUpdateOneRequiredWithoutOffersNestedInput = {
@@ -14446,6 +18014,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -14513,44 +18092,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -14567,6 +18108,31 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -14576,6 +18142,22 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14590,6 +18172,46 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type WalletCreateWithoutUserInput = {
@@ -14800,6 +18422,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     createdAt?: Date | string
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
@@ -14815,6 +18438,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
@@ -14840,6 +18464,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     createdAt?: Date | string
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
@@ -14855,6 +18480,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     createdAt?: Date | string
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
@@ -14951,6 +18577,86 @@ export namespace Prisma {
 
   export type PvpInvitationCreateManyRecipientInputEnvelope = {
     data: PvpInvitationCreateManyRecipientInput | PvpInvitationCreateManyRecipientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BotDepositCreateWithoutUserInput = {
+    id?: string
+    requestedTon: Decimal | DecimalJsLike | number | string
+    receivedTon?: Decimal | DecimalJsLike | number | string | null
+    depositAddress: string
+    walletAddress: string
+    comment: string
+    txHash?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type BotDepositUncheckedCreateWithoutUserInput = {
+    id?: string
+    requestedTon: Decimal | DecimalJsLike | number | string
+    receivedTon?: Decimal | DecimalJsLike | number | string | null
+    depositAddress: string
+    walletAddress: string
+    comment: string
+    txHash?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type BotDepositCreateOrConnectWithoutUserInput = {
+    where: BotDepositWhereUniqueInput
+    create: XOR<BotDepositCreateWithoutUserInput, BotDepositUncheckedCreateWithoutUserInput>
+  }
+
+  export type BotDepositCreateManyUserInputEnvelope = {
+    data: BotDepositCreateManyUserInput | BotDepositCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BotWithdrawalCreateWithoutUserInput = {
+    id?: string
+    amountTon: Decimal | DecimalJsLike | number | string
+    destination: string
+    comment: string
+    status?: string
+    walletSeqno?: number | null
+    externalHash?: string | null
+    txHash?: string | null
+    failureReason?: string | null
+    submittedAt?: Date | string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotWithdrawalUncheckedCreateWithoutUserInput = {
+    id?: string
+    amountTon: Decimal | DecimalJsLike | number | string
+    destination: string
+    comment: string
+    status?: string
+    walletSeqno?: number | null
+    externalHash?: string | null
+    txHash?: string | null
+    failureReason?: string | null
+    submittedAt?: Date | string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotWithdrawalCreateOrConnectWithoutUserInput = {
+    where: BotWithdrawalWhereUniqueInput
+    create: XOR<BotWithdrawalCreateWithoutUserInput, BotWithdrawalUncheckedCreateWithoutUserInput>
+  }
+
+  export type BotWithdrawalCreateManyUserInputEnvelope = {
+    data: BotWithdrawalCreateManyUserInput | BotWithdrawalCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -15137,6 +18843,7 @@ export namespace Prisma {
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
     status?: StringFilter<"PvpRoom"> | string
     isPublic?: BoolFilter<"PvpRoom"> | boolean
+    arenaMode?: StringFilter<"PvpRoom"> | string
     winnerId?: StringNullableFilter<"PvpRoom"> | string | null
     createdAt?: DateTimeFilter<"PvpRoom"> | Date | string
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
@@ -15233,6 +18940,300 @@ export namespace Prisma {
     data: XOR<PvpInvitationUpdateManyMutationInput, PvpInvitationUncheckedUpdateManyWithoutRecipientInput>
   }
 
+  export type BotDepositUpsertWithWhereUniqueWithoutUserInput = {
+    where: BotDepositWhereUniqueInput
+    update: XOR<BotDepositUpdateWithoutUserInput, BotDepositUncheckedUpdateWithoutUserInput>
+    create: XOR<BotDepositCreateWithoutUserInput, BotDepositUncheckedCreateWithoutUserInput>
+  }
+
+  export type BotDepositUpdateWithWhereUniqueWithoutUserInput = {
+    where: BotDepositWhereUniqueInput
+    data: XOR<BotDepositUpdateWithoutUserInput, BotDepositUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BotDepositUpdateManyWithWhereWithoutUserInput = {
+    where: BotDepositScalarWhereInput
+    data: XOR<BotDepositUpdateManyMutationInput, BotDepositUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BotDepositScalarWhereInput = {
+    AND?: BotDepositScalarWhereInput | BotDepositScalarWhereInput[]
+    OR?: BotDepositScalarWhereInput[]
+    NOT?: BotDepositScalarWhereInput | BotDepositScalarWhereInput[]
+    id?: StringFilter<"BotDeposit"> | string
+    userId?: StringFilter<"BotDeposit"> | string
+    requestedTon?: DecimalFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string
+    receivedTon?: DecimalNullableFilter<"BotDeposit"> | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFilter<"BotDeposit"> | string
+    walletAddress?: StringFilter<"BotDeposit"> | string
+    comment?: StringFilter<"BotDeposit"> | string
+    txHash?: StringNullableFilter<"BotDeposit"> | string | null
+    status?: StringFilter<"BotDeposit"> | string
+    expiresAt?: DateTimeFilter<"BotDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableFilter<"BotDeposit"> | Date | string | null
+    createdAt?: DateTimeFilter<"BotDeposit"> | Date | string
+  }
+
+  export type BotWithdrawalUpsertWithWhereUniqueWithoutUserInput = {
+    where: BotWithdrawalWhereUniqueInput
+    update: XOR<BotWithdrawalUpdateWithoutUserInput, BotWithdrawalUncheckedUpdateWithoutUserInput>
+    create: XOR<BotWithdrawalCreateWithoutUserInput, BotWithdrawalUncheckedCreateWithoutUserInput>
+  }
+
+  export type BotWithdrawalUpdateWithWhereUniqueWithoutUserInput = {
+    where: BotWithdrawalWhereUniqueInput
+    data: XOR<BotWithdrawalUpdateWithoutUserInput, BotWithdrawalUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BotWithdrawalUpdateManyWithWhereWithoutUserInput = {
+    where: BotWithdrawalScalarWhereInput
+    data: XOR<BotWithdrawalUpdateManyMutationInput, BotWithdrawalUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BotWithdrawalScalarWhereInput = {
+    AND?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
+    OR?: BotWithdrawalScalarWhereInput[]
+    NOT?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
+    id?: StringFilter<"BotWithdrawal"> | string
+    userId?: StringFilter<"BotWithdrawal"> | string
+    amountTon?: DecimalFilter<"BotWithdrawal"> | Decimal | DecimalJsLike | number | string
+    destination?: StringFilter<"BotWithdrawal"> | string
+    comment?: StringFilter<"BotWithdrawal"> | string
+    status?: StringFilter<"BotWithdrawal"> | string
+    walletSeqno?: IntNullableFilter<"BotWithdrawal"> | number | null
+    externalHash?: StringNullableFilter<"BotWithdrawal"> | string | null
+    txHash?: StringNullableFilter<"BotWithdrawal"> | string | null
+    failureReason?: StringNullableFilter<"BotWithdrawal"> | string | null
+    submittedAt?: DateTimeNullableFilter<"BotWithdrawal"> | Date | string | null
+    confirmedAt?: DateTimeNullableFilter<"BotWithdrawal"> | Date | string | null
+    createdAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
+    updatedAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
+  }
+
+  export type UserCreateWithoutBotDepositsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBotDepositsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBotDepositsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBotDepositsInput, UserUncheckedCreateWithoutBotDepositsInput>
+  }
+
+  export type UserUpsertWithoutBotDepositsInput = {
+    update: XOR<UserUpdateWithoutBotDepositsInput, UserUncheckedUpdateWithoutBotDepositsInput>
+    create: XOR<UserCreateWithoutBotDepositsInput, UserUncheckedCreateWithoutBotDepositsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBotDepositsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBotDepositsInput, UserUncheckedUpdateWithoutBotDepositsInput>
+  }
+
+  export type UserUpdateWithoutBotDepositsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBotDepositsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutBotWithdrawalsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBotWithdrawalsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBotWithdrawalsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBotWithdrawalsInput, UserUncheckedCreateWithoutBotWithdrawalsInput>
+  }
+
+  export type UserUpsertWithoutBotWithdrawalsInput = {
+    update: XOR<UserUpdateWithoutBotWithdrawalsInput, UserUncheckedUpdateWithoutBotWithdrawalsInput>
+    create: XOR<UserCreateWithoutBotWithdrawalsInput, UserUncheckedCreateWithoutBotWithdrawalsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBotWithdrawalsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBotWithdrawalsInput, UserUncheckedUpdateWithoutBotWithdrawalsInput>
+  }
+
+  export type UserUpdateWithoutBotWithdrawalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBotWithdrawalsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutWalletsInput = {
     id?: string
     telegramId: string
@@ -15240,6 +19241,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     gifts?: GiftCreateNestedManyWithoutOwnerInput
@@ -15252,6 +19254,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletsInput = {
@@ -15261,6 +19265,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
@@ -15273,6 +19278,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletsInput = {
@@ -15298,6 +19305,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gifts?: GiftUpdateManyWithoutOwnerNestedInput
@@ -15310,6 +19318,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletsInput = {
@@ -15319,6 +19329,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
@@ -15331,6 +19342,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutGiftsInput = {
@@ -15340,6 +19353,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -15352,6 +19366,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGiftsInput = {
@@ -15361,6 +19377,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -15373,6 +19390,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGiftsInput = {
@@ -15464,6 +19483,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -15476,6 +19496,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGiftsInput = {
@@ -15485,6 +19507,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -15497,6 +19520,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutGiftInput = {
@@ -15577,6 +19602,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -15589,6 +19615,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBuyerTransactionsInput = {
@@ -15598,6 +19626,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -15610,6 +19639,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBuyerTransactionsInput = {
@@ -15624,6 +19655,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -15636,6 +19668,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSellerTransactionsInput = {
@@ -15645,6 +19679,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -15657,6 +19692,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSellerTransactionsInput = {
@@ -15727,6 +19764,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -15739,6 +19777,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerTransactionsInput = {
@@ -15748,6 +19788,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -15760,6 +19801,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSellerTransactionsInput = {
@@ -15780,6 +19823,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -15792,6 +19836,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerTransactionsInput = {
@@ -15801,6 +19847,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -15813,6 +19860,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type GiftCreateWithoutOffersInput = {
@@ -15861,6 +19910,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -15873,6 +19923,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBuyerOffersInput = {
@@ -15882,6 +19934,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -15894,6 +19947,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBuyerOffersInput = {
@@ -15908,6 +19963,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -15920,6 +19976,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSellerOffersInput = {
@@ -15929,6 +19987,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -15941,6 +20000,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSellerOffersInput = {
@@ -16011,6 +20072,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -16023,6 +20085,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerOffersInput = {
@@ -16032,6 +20096,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -16044,6 +20109,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSellerOffersInput = {
@@ -16064,6 +20131,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -16076,6 +20144,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerOffersInput = {
@@ -16085,6 +20155,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -16097,6 +20168,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCreatedPvpRoomsInput = {
@@ -16106,6 +20179,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -16118,6 +20192,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPvpRoomsInput = {
@@ -16127,6 +20203,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -16139,6 +20216,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPvpRoomsInput = {
@@ -16153,6 +20232,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -16165,6 +20245,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWonPvpRoomsInput = {
@@ -16174,6 +20256,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -16186,6 +20269,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWonPvpRoomsInput = {
@@ -16263,6 +20348,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -16275,6 +20361,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPvpRoomsInput = {
@@ -16284,6 +20372,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -16296,6 +20385,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutWonPvpRoomsInput = {
@@ -16316,6 +20407,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -16328,6 +20420,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWonPvpRoomsInput = {
@@ -16337,6 +20431,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -16349,6 +20444,8 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PvpParticipantUpsertWithWhereUniqueWithoutRoomInput = {
@@ -16389,6 +20486,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     createdAt?: Date | string
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
@@ -16404,6 +20502,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
@@ -16425,6 +20524,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -16437,6 +20537,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPvpParticipationsInput = {
@@ -16446,6 +20548,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -16458,6 +20561,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPvpParticipationsInput = {
@@ -16482,6 +20587,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16497,6 +20603,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16524,6 +20631,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -16536,6 +20644,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPvpParticipationsInput = {
@@ -16545,6 +20655,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -16557,6 +20668,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PvpRoomCreateWithoutInvitationsInput = {
@@ -16565,6 +20678,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     createdAt?: Date | string
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
@@ -16580,6 +20694,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
@@ -16601,6 +20716,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -16613,6 +20729,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentPvpInvitationsInput = {
@@ -16622,6 +20740,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -16634,6 +20753,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentPvpInvitationsInput = {
@@ -16648,6 +20769,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -16660,6 +20782,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
     pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReceivedPvpInvitationsInput = {
@@ -16669,6 +20793,7 @@ export namespace Prisma {
     firstName?: string | null
     lastName?: string | null
     photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -16681,6 +20806,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
     pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReceivedPvpInvitationsInput = {
@@ -16705,6 +20832,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16720,6 +20848,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16747,6 +20876,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -16759,6 +20889,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentPvpInvitationsInput = {
@@ -16768,6 +20900,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -16780,6 +20913,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReceivedPvpInvitationsInput = {
@@ -16800,6 +20935,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -16812,6 +20948,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
     pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedPvpInvitationsInput = {
@@ -16821,6 +20959,7 @@ export namespace Prisma {
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -16833,6 +20972,8 @@ export namespace Prisma {
     wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WalletCreateManyUserInput = {
@@ -16910,6 +21051,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     winnerId?: string | null
     createdAt?: Date | string
     startedAt?: Date | string | null
@@ -16923,6 +21065,7 @@ export namespace Prisma {
     stakeGram: Decimal | DecimalJsLike | number | string
     status?: string
     isPublic?: boolean
+    arenaMode?: string
     createdAt?: Date | string
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
@@ -16951,6 +21094,36 @@ export namespace Prisma {
     roomId: string
     senderId: string
     status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BotDepositCreateManyUserInput = {
+    id?: string
+    requestedTon: Decimal | DecimalJsLike | number | string
+    receivedTon?: Decimal | DecimalJsLike | number | string | null
+    depositAddress: string
+    walletAddress: string
+    comment: string
+    txHash?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type BotWithdrawalCreateManyUserInput = {
+    id?: string
+    amountTon: Decimal | DecimalJsLike | number | string
+    destination: string
+    comment: string
+    status?: string
+    walletSeqno?: number | null
+    externalHash?: string | null
+    txHash?: string | null
+    failureReason?: string | null
+    submittedAt?: Date | string | null
+    confirmedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17172,6 +21345,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17187,6 +21361,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17202,6 +21377,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17215,6 +21391,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17230,6 +21407,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17245,6 +21423,7 @@ export namespace Prisma {
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
+    arenaMode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17323,6 +21502,96 @@ export namespace Prisma {
     roomId?: StringFieldUpdateOperationsInput | string
     senderId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotDepositUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receivedTon?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotDepositUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receivedTon?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotDepositUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestedTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    receivedTon?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    depositAddress?: StringFieldUpdateOperationsInput | string
+    walletAddress?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotWithdrawalUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    destination?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    walletSeqno?: NullableIntFieldUpdateOperationsInput | number | null
+    externalHash?: NullableStringFieldUpdateOperationsInput | string | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotWithdrawalUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    destination?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    walletSeqno?: NullableIntFieldUpdateOperationsInput | number | null
+    externalHash?: NullableStringFieldUpdateOperationsInput | string | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BotWithdrawalUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amountTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    destination?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    walletSeqno?: NullableIntFieldUpdateOperationsInput | number | null
+    externalHash?: NullableStringFieldUpdateOperationsInput | string | null
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    failureReason?: NullableStringFieldUpdateOperationsInput | string | null
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

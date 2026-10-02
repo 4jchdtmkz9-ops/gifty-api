@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  telegramId String   @unique
-  username   String?
-  firstName  String?
-  lastName   String?
-  photoUrl   String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String   @id @default(cuid())
+  telegramId  String   @unique
+  username    String?
+  firstName   String?
+  lastName    String?
+  photoUrl    String?
+  balanceGram Decimal  @default(0) @db.Decimal(20, 9)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   wallets                Wallet[]
   gifts                  Gift[]
@@ -28,6 +29,50 @@ model User {
   pvpParticipations      PvpParticipant[]
   sentPvpInvitations     PvpInvitation[]  @relation("PvpInvitationSender")
   receivedPvpInvitations PvpInvitation[]  @relation("PvpInvitationRecipient")
+  botDeposits            BotDeposit[]
+  botWithdrawals         BotWithdrawal[]
+}
+
+model BotDeposit {
+  id             String    @id @default(cuid())
+  userId         String
+  requestedTon   Decimal   @db.Decimal(20, 9)
+  receivedTon    Decimal?  @db.Decimal(20, 9)
+  depositAddress String
+  walletAddress  String
+  comment        String    @unique
+  txHash         String?   @unique
+  status         String    @default("PENDING")
+  expiresAt      DateTime
+  confirmedAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, expiresAt])
+  @@index([userId, createdAt])
+}
+
+model BotWithdrawal {
+  id            String    @id @default(cuid())
+  userId        String
+  amountTon     Decimal   @db.Decimal(20, 9)
+  destination   String
+  comment       String    @unique
+  status        String    @default("PENDING")
+  walletSeqno   Int?
+  externalHash  String?   @unique
+  txHash        String?   @unique
+  failureReason String?
+  submittedAt   DateTime?
+  confirmedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([userId, createdAt])
 }
 
 model Wallet {
@@ -106,6 +151,7 @@ model PvpRoom {
   stakeGram       Decimal   @db.Decimal(20, 9)
   status          String    @default("WAITING")
   isPublic        Boolean   @default(false)
+  arenaMode       String    @default("CLASSIC")
   winnerId        String?
   createdAt       DateTime  @default(now())
   startedAt       DateTime?
@@ -117,6 +163,8 @@ model PvpRoom {
   winner       User?            @relation("PvpRoomWinner", fields: [winnerId], references: [id], onDelete: SetNull)
   participants PvpParticipant[]
   invitations  PvpInvitation[]
+
+  @@index([isPublic, arenaMode, status, createdAt])
 }
 
 model PvpParticipant {

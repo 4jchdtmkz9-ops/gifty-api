@@ -127,6 +127,39 @@ exports.Prisma.UserScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   photoUrl: 'photoUrl',
+  balanceGram: 'balanceGram',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BotDepositScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  requestedTon: 'requestedTon',
+  receivedTon: 'receivedTon',
+  depositAddress: 'depositAddress',
+  walletAddress: 'walletAddress',
+  comment: 'comment',
+  txHash: 'txHash',
+  status: 'status',
+  expiresAt: 'expiresAt',
+  confirmedAt: 'confirmedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BotWithdrawalScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amountTon: 'amountTon',
+  destination: 'destination',
+  comment: 'comment',
+  status: 'status',
+  walletSeqno: 'walletSeqno',
+  externalHash: 'externalHash',
+  txHash: 'txHash',
+  failureReason: 'failureReason',
+  submittedAt: 'submittedAt',
+  confirmedAt: 'confirmedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -187,6 +220,7 @@ exports.Prisma.PvpRoomScalarFieldEnum = {
   stakeGram: 'stakeGram',
   status: 'status',
   isPublic: 'isPublic',
+  arenaMode: 'arenaMode',
   winnerId: 'winnerId',
   createdAt: 'createdAt',
   startedAt: 'startedAt',
@@ -231,6 +265,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  BotDeposit: 'BotDeposit',
+  BotWithdrawal: 'BotWithdrawal',
   Wallet: 'Wallet',
   Gift: 'Gift',
   Transaction: 'Transaction',

@@ -63,6 +63,19 @@ export class UsersController {
     return this.botBalance.getDepositStatus(user.id, id);
   }
 
+  @Post('withdrawals')
+  async createWithdrawal(@Body() body: { initData?: string; amountGram?: string }) {
+    const user = await this.getAuthenticatedUser(body.initData);
+    if (!body.amountGram) throw new BadRequestException('Withdrawal amount is required');
+    return this.botBalance.createWithdrawal(user.id, body.amountGram);
+  }
+
+  @Get('withdrawals/:id')
+  async getWithdrawalStatus(@Param('id') id: string, @Headers('x-telegram-init-data') initData: string) {
+    const user = await this.getAuthenticatedUser(initData);
+    return this.botBalance.getWithdrawalStatus(user.id, id);
+  }
+
   @Post('telegram-auth')
   async telegramAuthUser(@Body() body: { initData?: string }) {
     if (!body.initData) {

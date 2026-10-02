@@ -242,7 +242,7 @@ async getOffers(@Query('initData') initData: string) {
       },
     });
 
-    const [transactions, offers] = await Promise.all([
+    const [transactions, offers, deposits, withdrawals] = await Promise.all([
       this.prisma.transaction.findMany({
         where: {
           type: { not: 'OFFER_ACCEPTED' },
@@ -260,6 +260,14 @@ async getOffers(@Query('initData') initData: string) {
           ],
         },
         include: { gift: true },
+      }),
+      this.prisma.botDeposit.findMany({
+        where: { userId: user.id, status: 'CONFIRMED' },
+        orderBy: { confirmedAt: 'desc' },
+      }),
+      this.prisma.botWithdrawal.findMany({
+        where: { userId: user.id },
+        orderBy: { updatedAt: 'desc' },
       }),
     ]);
 
@@ -281,6 +289,24 @@ async getOffers(@Query('initData') initData: string) {
         amountTon: offer.amountTon,
         gift: offer.gift,
         createdAt: offer.updatedAt,
+      })),
+      ...deposits.map((deposit) => ({
+        id: `deposit:${deposit.id}`,
+        kind: 'BALANCE' as const,
+        event: 'DEPOSIT',
+        status: deposit.status,
+        amountTon: deposit.receivedTon,
+        txHash: deposit.txHash,
+        createdAt: deposit.confirmedAt ?? deposit.createdAt,
+      })),
+      ...withdrawals.map((withdrawal) => ({
+        id: `withdrawal:${withdrawal.id}`,
+        kind: 'BALANCE' as const,
+        event: 'WITHDRAWAL',
+        status: withdrawal.status,
+        amountTon: withdrawal.amountTon,
+        txHash: withdrawal.txHash,
+        createdAt: withdrawal.confirmedAt ?? withdrawal.updatedAt,
       })),
     ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }

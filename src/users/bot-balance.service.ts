@@ -54,6 +54,18 @@ function fromNano(value: bigint) {
   return fraction ? `${whole}.${fraction}` : whole.toString();
 }
 
+function sameHash(left: string | undefined, right: string | undefined) {
+  if (!left || !right) return false;
+  const normalized = (value: string) => {
+    const trimmed = value.trim().replace(/-/g, '+').replace(/_/g, '/').replace(/=+$/, '');
+    try {
+      if (/^[0-9a-f]{64}$/i.test(trimmed)) return Buffer.from(trimmed, 'hex').toString('hex');
+      return Buffer.from(trimmed, 'base64').toString('hex');
+    } catch { return trimmed; }
+  };
+  return normalized(left) === normalized(right);
+}
+
 function readComment(body: string | undefined) {
   if (!body) return null;
   try {
@@ -167,9 +179,20 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
   private async processQueuedWithdrawals() {
     const signer = await this.getSigner();
     if (!signer) return;
+    // TON wallets use one account-wide seqno. Keep payouts strictly serial until
+    // the previous transaction is visible in the indexer to avoid signing two
+    // different transfers with the same seqno across API instances.
+    const inFlight = await this.prisma.botWithdrawal.findFirst({ where: { status: { in: ['PROCESSING', 'BROADCASTING', 'SUBMITTED'] } }, select: { id: true } });
+    if (inFlight) return;
     const pending = await this.prisma.botWithdrawal.findFirst({ where: { status: 'PENDING' }, orderBy: { createdAt: 'asc' } });
     if (!pending) return;
-    const claimed = await this.prisma.botWithdrawal.updateMany({ where: { id: pending.id, status: 'PENDING' }, data: { status: 'PROCESSING' } });
+    let claimed: { count: number };
+    try {
+      claimed = await this.prisma.botWithdrawal.updateMany({ where: { id: pending.id, status: 'PENDING' }, data: { status: 'PROCESSING' } });
+    } catch (error) {
+      if ((error as { code?: string })?.code === 'P2002') return;
+      throw error;
+    }
     if (claimed.count !== 1) return;
     try {
       const opened = signer.client.open(signer.wallet);
@@ -195,7 +218,7 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
 
   private async refundWithdrawal(id: string, reason: string) {
     await this.prisma.$transaction(async (tx) => {
-      const withdrawal = await tx.botWithdrawal.findFirst({ where: { id, status: { in: ['PROCESSING', 'PENDING'] } } });
+      const withdrawal = await tx.botWithdrawal.findFirst({ where: { id, status: { in: ['PROCESSING', 'PENDING', 'BROADCASTING', 'SUBMITTED'] } } });
       if (!withdrawal) return;
       const changed = await tx.botWithdrawal.updateMany({ where: { id, status: withdrawal.status }, data: { status: 'FAILED', failureReason: reason.slice(0, 240) } });
       if (changed.count === 1) await tx.user.update({ where: { id: withdrawal.userId }, data: { balanceGram: { increment: withdrawal.amountTon } } });
@@ -285,6 +308,7 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
         await this.processIncomingTransaction(transaction, rawAddress);
         await this.processOutgoingTransaction(transaction, rawAddress);
       }
+      await this.refundProvablyUnsentWithdrawals();
       await this.prisma.botDeposit.updateMany({
         where: { status: 'PENDING', expiresAt: { lt: new Date(Date.now() - DEPOSIT_INDEXING_GRACE_MS) } },
         data: { status: 'EXPIRED' },
@@ -294,6 +318,28 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
       this.logger.warn(`Deposit scan failed: ${error instanceof Error ? error.message : 'unknown error'}`);
     } finally {
       this.polling = false;
+    }
+  }
+
+  private async refundProvablyUnsentWithdrawals() {
+    const signer = await this.getSigner();
+    if (!signer) return;
+    const cutoff = new Date(Date.now() - 2 * 60_000);
+    const stale = await this.prisma.botWithdrawal.findMany({
+      where: { status: { in: ['BROADCASTING', 'SUBMITTED'] }, updatedAt: { lt: cutoff }, walletSeqno: { not: null } },
+      select: { id: true, comment: true, walletSeqno: true, status: true },
+    });
+    if (stale.length === 0) return;
+    const opened = signer.client.open(signer.wallet);
+    const currentSeqno = await opened.getSeqno();
+    for (const withdrawal of stale) {
+      // The signed external message expires after 60 seconds. If the wallet
+      // still has the exact seqno after a two-minute indexer window, it could
+      // not have executed. A consumed seqno is deliberately left reserved for
+      // transaction reconciliation instead of risking a duplicate payout.
+      if (currentSeqno === withdrawal.walletSeqno) {
+        await this.refundWithdrawal(withdrawal.id, 'TON wallet did not accept the payout before the signed request expired');
+      }
     }
   }
 
@@ -307,7 +353,7 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
       const details = await this.prisma.botWithdrawal.findUnique({ where: { id: withdrawal.id }, select: { amountTon: true, destination: true } });
       if (!details) continue;
       const amountNano = toNano(details.amountTon.toString());
-      const matched = (!!withdrawal.externalHash && transaction.trace_external_hash === withdrawal.externalHash) || messages.some((message) => {
+      const matched = (!!withdrawal.externalHash && sameHash(transaction.trace_external_hash, withdrawal.externalHash)) || messages.some((message) => {
         try {
           return readComment(message.message_content?.body) === withdrawal.comment && !!message.destination && canonicalAddress(message.destination) === canonicalAddress(details.destination) && !!message.value && BigInt(message.value) >= amountNano;
         } catch { return false; }

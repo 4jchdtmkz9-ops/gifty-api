@@ -8,26 +8,48 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  telegramId String   @unique
-  username   String?
-  firstName  String?
-  lastName   String?
-  photoUrl   String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String   @id @default(cuid())
+  telegramId  String   @unique
+  username    String?
+  firstName   String?
+  lastName    String?
+  photoUrl    String?
+  balanceGram Decimal  @default(0) @db.Decimal(20, 9)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  wallets            Wallet[]
-  gifts              Gift[]
-  buyerTransactions  Transaction[] @relation("BuyerTransactions")
-  sellerTransactions Transaction[] @relation("SellerTransactions")
-  buyerOffers        Offer[]       @relation("BuyerOffers")
-  sellerOffers       Offer[]       @relation("SellerOffers")
-  createdPvpRooms    PvpRoom[]     @relation("PvpRoomCreator")
-  wonPvpRooms        PvpRoom[]     @relation("PvpRoomWinner")
-  pvpParticipations  PvpParticipant[]
-  sentPvpInvitations PvpInvitation[] @relation("PvpInvitationSender")
-  receivedPvpInvitations PvpInvitation[] @relation("PvpInvitationRecipient")
+  wallets                Wallet[]
+  gifts                  Gift[]
+  buyerTransactions      Transaction[]    @relation("BuyerTransactions")
+  sellerTransactions     Transaction[]    @relation("SellerTransactions")
+  buyerOffers            Offer[]          @relation("BuyerOffers")
+  sellerOffers           Offer[]          @relation("SellerOffers")
+  createdPvpRooms        PvpRoom[]        @relation("PvpRoomCreator")
+  wonPvpRooms            PvpRoom[]        @relation("PvpRoomWinner")
+  pvpParticipations      PvpParticipant[]
+  sentPvpInvitations     PvpInvitation[]  @relation("PvpInvitationSender")
+  receivedPvpInvitations PvpInvitation[]  @relation("PvpInvitationRecipient")
+  botDeposits            BotDeposit[]
+}
+
+model BotDeposit {
+  id             String    @id @default(cuid())
+  userId         String
+  requestedTon   Decimal   @db.Decimal(20, 9)
+  receivedTon    Decimal?  @db.Decimal(20, 9)
+  depositAddress String
+  walletAddress  String
+  comment        String    @unique
+  txHash         String?   @unique
+  status         String    @default("PENDING")
+  expiresAt      DateTime
+  confirmedAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, expiresAt])
+  @@index([userId, createdAt])
 }
 
 model Wallet {
@@ -42,19 +64,19 @@ model Wallet {
 }
 
 model Gift {
-  id         String   @id @default(cuid())
-  name       String
-  collection String
-  emoji      String?
-  priceTon   Decimal  @db.Decimal(20, 9)
-  backdropName String?
-  backdropColor String?
-  symbolName String?
+  id             String   @id @default(cuid())
+  name           String
+  collection     String
+  emoji          String?
+  priceTon       Decimal  @db.Decimal(20, 9)
+  backdropName   String?
+  backdropColor  String?
+  symbolName     String?
   symbolImageUrl String?
-  status     String   @default("LISTED")
-  ownerId    String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  status         String   @default("LISTED")
+  ownerId        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   owner        User?         @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   transactions Transaction[]
@@ -101,21 +123,21 @@ model Offer {
 }
 
 model PvpRoom {
-  id          String   @id @default(cuid())
-  code        String   @unique
-  stakeGram   Decimal  @db.Decimal(20, 9)
-  status      String   @default("WAITING")
-  isPublic    Boolean  @default(false)
-  arenaMode   String   @default("CLASSIC")
-  winnerId    String?
-  createdAt   DateTime @default(now())
-  startedAt   DateTime?
+  id              String    @id @default(cuid())
+  code            String    @unique
+  stakeGram       Decimal   @db.Decimal(20, 9)
+  status          String    @default("WAITING")
+  isPublic        Boolean   @default(false)
+  arenaMode       String    @default("CLASSIC")
+  winnerId        String?
+  createdAt       DateTime  @default(now())
+  startedAt       DateTime?
   countdownEndsAt DateTime?
-  completedAt DateTime?
+  completedAt     DateTime?
 
-  creatorId String
-  creator   User   @relation("PvpRoomCreator", fields: [creatorId], references: [id], onDelete: Cascade)
-  winner    User?  @relation("PvpRoomWinner", fields: [winnerId], references: [id], onDelete: SetNull)
+  creatorId    String
+  creator      User             @relation("PvpRoomCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  winner       User?            @relation("PvpRoomWinner", fields: [winnerId], references: [id], onDelete: SetNull)
   participants PvpParticipant[]
   invitations  PvpInvitation[]
 
@@ -123,11 +145,11 @@ model PvpRoom {
 }
 
 model PvpParticipant {
-  id       String   @id @default(cuid())
-  roomId   String
-  userId   String
-  stakeGram Decimal @default(0) @db.Decimal(20, 9)
-  joinedAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  roomId    String
+  userId    String
+  stakeGram Decimal  @default(0) @db.Decimal(20, 9)
+  joinedAt  DateTime @default(now())
 
   room PvpRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
   user User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -137,13 +159,13 @@ model PvpParticipant {
 }
 
 model PvpInvitation {
-  id         String   @id @default(cuid())
-  roomId     String
-  senderId   String
+  id          String   @id @default(cuid())
+  roomId      String
+  senderId    String
   recipientId String
-  status     String   @default("PENDING")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   room      PvpRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
   sender    User    @relation("PvpInvitationSender", fields: [senderId], references: [id], onDelete: Cascade)

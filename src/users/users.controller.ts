@@ -1,19 +1,24 @@
 import {
   Body,
+  BadRequestException,
   Controller,
   ConflictException,
   Get,
+  Headers,
+  Param,
   Post,
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
+import { BotBalanceService } from './bot-balance.service.js';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly prisma: PrismaService,
     private readonly telegramAuth: TelegramAuthService,
+    private readonly botBalance: BotBalanceService,
   ) {}
 
   @Get('test')
@@ -37,6 +42,25 @@ export class UsersController {
     return {
       configured: this.telegramAuth.isConfigured(),
     };
+  }
+
+  @Get('balance')
+  async getBotBalance(@Headers('x-telegram-init-data') initData: string) {
+    const user = await this.getAuthenticatedUser(initData);
+    return this.botBalance.getBalance(user.id);
+  }
+
+  @Post('deposit-intents')
+  async createDepositIntent(@Body() body: { initData?: string; amountTon?: string; walletAddress?: string }) {
+    const user = await this.getAuthenticatedUser(body.initData);
+    if (!body.amountTon || !body.walletAddress) throw new BadRequestException('Deposit amount and connected wallet are required');
+    return this.botBalance.createDepositIntent(user.id, body.amountTon, body.walletAddress);
+  }
+
+  @Get('deposits/:id')
+  async getDepositStatus(@Param('id') id: string, @Headers('x-telegram-init-data') initData: string) {
+    const user = await this.getAuthenticatedUser(initData);
+    return this.botBalance.getDepositStatus(user.id, id);
   }
 
   @Post('telegram-auth')
@@ -170,5 +194,11 @@ export class UsersController {
         ...profile,
       },
     });
+  }
+
+  private async getAuthenticatedUser(initData?: string) {
+    if (!initData) throw new UnauthorizedException('initData is required');
+    const telegramUser = this.telegramAuth.validateInitData(initData);
+    return this.upsertTelegramUser(telegramUser);
   }
 }

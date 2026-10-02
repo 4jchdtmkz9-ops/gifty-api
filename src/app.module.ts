@@ -7,6 +7,7 @@ import { PrismaService } from './prisma.service.js';
 import { UsersController } from './users/users.controller.js';
 import { TelegramAuthService } from './auth/telegram-auth.service.js';
 import { PvpController } from './pvp/pvp.controller.js';
+import { BotBalanceService } from './users/bot-balance.service.js';
 
 
 @Module({
@@ -17,6 +18,7 @@ import { PvpController } from './pvp/pvp.controller.js';
   PrismaService,
   TelegramAuthService,
   TonService,
+  BotBalanceService,
 ],
 })
 export class AppModule {}

@@ -14,7 +14,9 @@ import { PrismaService } from '../prisma.service.js';
 const NANO = 1_000_000_000n;
 const MIN_DEPOSIT_NANO = 100_000_000n;
 const DEPOSIT_LIFETIME_MS = 30 * 60 * 1000;
+const DEPOSIT_INDEXING_GRACE_MS = 10 * 60 * 1000;
 const POLL_INTERVAL_MS = 20_000;
+const DEFAULT_DEPOSIT_ADDRESS = 'UQDcJGY-xnJvW7lH_47DAri0aGxiLhtrQHxz2E4Xhn8XL3Jt';
 
 type IndexedTransaction = {
   hash?: string;
@@ -77,10 +79,12 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
     if (this.timer) clearInterval(this.timer);
   }
 
+  private getDepositAddress() {
+    return process.env.TON_DEPOSIT_ADDRESS?.trim() || DEFAULT_DEPOSIT_ADDRESS;
+  }
+
   isDepositConfigured() {
-    const configuredAddress = process.env.TON_DEPOSIT_ADDRESS?.trim();
-    if (!configuredAddress) return false;
-    try { canonicalAddress(configuredAddress); return true; } catch { return false; }
+    try { canonicalAddress(this.getDepositAddress()); return true; } catch { return false; }
   }
 
   async getBalance(userId: string) {
@@ -92,8 +96,8 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
   }
 
   async createDepositIntent(userId: string, amountText: string, walletText: string) {
-    const depositAddress = process.env.TON_DEPOSIT_ADDRESS?.trim();
-    if (!depositAddress || !this.isDepositConfigured()) {
+    const depositAddress = this.getDepositAddress();
+    if (!this.isDepositConfigured()) {
       throw new ServiceUnavailableException('ORBIT deposits are not configured yet');
     }
     const requestedNano = toNano(amountText);
@@ -157,9 +161,9 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
     if (this.polling || !this.isDepositConfigured()) return;
     this.polling = true;
     try {
-      const rawAddress = canonicalAddress(process.env.TON_DEPOSIT_ADDRESS!.trim());
+      const rawAddress = canonicalAddress(this.getDepositAddress());
       const apiKey = process.env.TONCENTER_API_KEY?.trim();
-      const endpoint = `https://toncenter.com/api/v3/transactions?account=${encodeURIComponent(rawAddress)}&limit=100&sort=desc`;
+      const endpoint = `https://toncenter.com/api/v3/transactions?account=${encodeURIComponent(rawAddress)}&limit=1000&sort=desc`;
       const response = await fetch(endpoint, {
         headers: apiKey ? { 'X-API-Key': apiKey } : undefined,
         signal: AbortSignal.timeout(12_000),
@@ -168,7 +172,7 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
       const result = await response.json() as { transactions?: IndexedTransaction[] };
       for (const transaction of result.transactions ?? []) await this.processIncomingTransaction(transaction, rawAddress);
       await this.prisma.botDeposit.updateMany({
-        where: { status: 'PENDING', expiresAt: { lt: new Date(Date.now() - 24 * 60 * 60 * 1000) } },
+        where: { status: 'PENDING', expiresAt: { lt: new Date(Date.now() - DEPOSIT_INDEXING_GRACE_MS) } },
         data: { status: 'EXPIRED' },
       });
     } catch (error) {

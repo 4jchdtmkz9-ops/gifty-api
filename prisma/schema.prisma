@@ -106,6 +106,7 @@ model PvpRoom {
   stakeGram   Decimal  @db.Decimal(20, 9)
   status      String   @default("WAITING")
   isPublic    Boolean  @default(false)
+  arenaMode   String   @default("CLASSIC")
   winnerId    String?
   createdAt   DateTime @default(now())
   startedAt   DateTime?
@@ -117,6 +118,8 @@ model PvpRoom {
   winner    User?  @relation("PvpRoomWinner", fields: [winnerId], references: [id], onDelete: SetNull)
   participants PvpParticipant[]
   invitations  PvpInvitation[]
+
+  @@index([isPublic, arenaMode, status, createdAt])
 }
 
 model PvpParticipant {

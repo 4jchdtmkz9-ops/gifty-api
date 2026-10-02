@@ -113,13 +113,15 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
   }
 
   @Get('public-rooms')
-  async publicRooms(@Headers('x-telegram-init-data') initData: string) {
+  async publicRooms(@Query('mode') requestedMode: string, @Headers('x-telegram-init-data') initData: string) {
     const user = await this.getUser(initData);
     await this.finishExpiredPublicRooms();
+    const arenaMode = requestedMode === 'WHEEL' ? 'WHEEL' : 'CLASSIC';
     const recentCutoff = new Date(Date.now() - 30_000);
     const rooms = await this.prisma.pvpRoom.findMany({
       where: {
         isPublic: true,
+        arenaMode,
         OR: [
           { status: { in: ['WAITING', 'COUNTDOWN'] } },
           { status: 'COMPLETED', completedAt: { gte: recentCutoff } },
@@ -150,8 +152,9 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
   }
 
   @Post('public-join')
-  async joinPublicArena(@Body() body: { initData?: string; stakeGram?: string }) {
+  async joinPublicArena(@Body() body: { initData?: string; stakeGram?: string; arenaMode?: string }) {
     const user = await this.getUser(body.initData);
+    const arenaMode = body.arenaMode === 'WHEEL' ? 'WHEEL' : 'CLASSIC';
     const input = body.stakeGram ?? '';
     if (!/^\d{1,8}(\.\d{1,9})?$/.test(input) || Number(input) <= 0 || Number(input) > 100000) {
       throw new BadRequestException('Enter a demo stake from 0.000000001 to 100,000 GRAM');
@@ -188,6 +191,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       const finishingRoom = await tx.pvpRoom.findFirst({
         where: {
           isPublic: true,
+          arenaMode,
           status: 'COMPLETED',
           completedAt: { gte: new Date(now.getTime() - PUBLIC_RESULT_HOLD_MS) },
         },
@@ -199,6 +203,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       const room = await tx.pvpRoom.findFirst({
         where: {
           isPublic: true,
+          arenaMode,
           OR: [
             { status: 'WAITING' },
             { status: 'COUNTDOWN', countdownEndsAt: { gt: now } },
@@ -215,6 +220,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
             stakeGram: stake,
             creatorId: user.id,
             isPublic: true,
+            arenaMode,
             participants: { create: { userId: user.id, stakeGram: stake } },
           },
         });
@@ -261,8 +267,9 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
   }
 
   @Post('rooms')
-  async createRoom(@Body() body: { initData?: string; stakeGram?: string; inviteeIds?: string[] }) {
+  async createRoom(@Body() body: { initData?: string; stakeGram?: string; inviteeIds?: string[]; arenaMode?: string }) {
     const creator = await this.getUser(body.initData);
+    const arenaMode = body.arenaMode === 'WHEEL' ? 'WHEEL' : 'CLASSIC';
     const stake = body.stakeGram ?? '';
     if (!/^\d{1,8}(\.\d{1,9})?$/.test(stake) || Number(stake) <= 0) {
       throw new BadRequestException('Enter a demo stake greater than zero (up to 9 decimals)');
@@ -282,6 +289,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           code,
           stakeGram: stake,
           creatorId: creator.id,
+          arenaMode,
           participants: { create: { userId: creator.id, stakeGram: stake } },
           invitations: invitees.length ? {
             create: invitees.map(({ id }) => ({ senderId: creator.id, recipientId: id })),

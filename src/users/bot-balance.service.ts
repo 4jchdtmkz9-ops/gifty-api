@@ -14,7 +14,7 @@ import { randomBytes } from 'node:crypto';
 import { PrismaService } from '../prisma.service.js';
 
 const NANO = 1_000_000_000n;
-const MIN_DEPOSIT_NANO = 10_000_000n;
+const MIN_DEPOSIT_NANO = 100_000_000n;
 const MIN_WITHDRAWAL_NANO = 10_000_000n;
 const WITHDRAWAL_FEE_RESERVE_NANO = 50_000_000n;
 const DEPOSIT_LIFETIME_MS = 30 * 60 * 1000;
@@ -231,7 +231,7 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
       throw new ServiceUnavailableException('ORBIT deposits are not configured yet');
     }
     const requestedNano = toNano(amountText);
-    if (requestedNano < MIN_DEPOSIT_NANO) throw new BadRequestException('Minimum deposit is 0.01 TON');
+    if (requestedNano < MIN_DEPOSIT_NANO) throw new BadRequestException('Minimum deposit is 0.1 TON');
     if (requestedNano > 1_000_000n * NANO) throw new BadRequestException('Deposit exceeds the maximum allowed amount');
 
     let walletAddress: string;

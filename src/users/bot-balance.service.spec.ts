@@ -44,22 +44,22 @@ describe('BotBalanceService deposits', () => {
   it('creates a TON Connect payload carrying the unique deposit comment', async () => {
     const { service, prisma } = makeService();
 
-    const intent = await service.createDepositIntent('user-1', '0.01', walletAddress);
+    const intent = await service.createDepositIntent('user-1', '0.1', walletAddress);
     const [payloadCell] = Cell.fromBoc(Buffer.from(intent.payload, 'base64'));
     const payloadSlice = payloadCell.beginParse();
 
     expect(intent.address).toBe(depositAddress);
-    expect(intent.amountTon).toBe('0.01');
+    expect(intent.amountTon).toBe('0.1');
     expect(payloadSlice.loadUint(32)).toBe(0);
     expect(payloadSlice.loadStringTail()).toBe(intent.comment);
     expect(prisma.botDeposit.create).toHaveBeenCalledOnce();
   });
 
-  it('rejects amounts below the 0.01 TON minimum deposit', async () => {
+  it('rejects amounts below the 0.1 TON minimum deposit', async () => {
     const { service } = makeService();
 
-    await expect(service.createDepositIntent('user-1', '0.009', walletAddress))
-      .rejects.toThrow('Minimum deposit is 0.01 TON');
+    await expect(service.createDepositIntent('user-1', '0.099', walletAddress))
+      .rejects.toThrow('Minimum deposit is 0.1 TON');
   });
 
   it('credits only a confirmed transfer from the wallet that created the deposit', async () => {

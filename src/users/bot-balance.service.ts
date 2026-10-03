@@ -15,7 +15,7 @@ import { PrismaService } from '../prisma.service.js';
 
 const NANO = 1_000_000_000n;
 const MIN_DEPOSIT_NANO = 100_000_000n;
-const MIN_WITHDRAWAL_NANO = 10_000_000n;
+const MIN_WITHDRAWAL_NANO = 1_000_000_000n;
 const WITHDRAWAL_FEE_RESERVE_NANO = 50_000_000n;
 const DEPOSIT_LIFETIME_MS = 30 * 60 * 1000;
 const DEPOSIT_INDEXING_GRACE_MS = 10 * 60 * 1000;
@@ -118,7 +118,7 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
   async createWithdrawal(userId: string, amountText: string) {
     if (!(await this.isWithdrawalConfigured())) throw new ServiceUnavailableException('ORBIT withdrawals are not configured');
     const amountNano = toNano(amountText);
-    if (amountNano < MIN_WITHDRAWAL_NANO) throw new BadRequestException('Minimum withdrawal is 0.01 GRAM');
+    if (amountNano < MIN_WITHDRAWAL_NANO) throw new BadRequestException('Minimum withdrawal is 1 TON');
     if (amountNano > 1_000_000n * NANO) throw new BadRequestException('Withdrawal exceeds the maximum allowed amount');
     const wallet = await this.prisma.wallet.findFirst({ where: { userId, isConnected: true }, orderBy: { createdAt: 'desc' } });
     if (!wallet) throw new ConflictException('Connect a TON wallet before withdrawing');

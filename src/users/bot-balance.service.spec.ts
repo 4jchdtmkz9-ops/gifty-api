@@ -139,21 +139,21 @@ describe('BotBalanceService deposits', () => {
     vi.spyOn(service as unknown as { getSigner: () => Promise<unknown> }, 'getSigner').mockResolvedValue({});
     const tx = {
       user: { updateMany: vi.fn().mockResolvedValue({ count: 1 }) },
-      botWithdrawal: { create: vi.fn().mockResolvedValue({ id: 'withdrawal-1', amountTon: { toString: () => '0.25' }, destination: walletAddress, status: 'PENDING', createdAt: new Date() }) },
+      botWithdrawal: { create: vi.fn().mockResolvedValue({ id: 'withdrawal-1', amountTon: { toString: () => '1.25' }, destination: walletAddress, status: 'PENDING', createdAt: new Date() }) },
     };
     prisma.$transaction.mockImplementation((callback: (client: typeof tx) => Promise<unknown>) => callback(tx));
 
-    const result = await service.createWithdrawal('user-1', '0.25');
+    const result = await service.createWithdrawal('user-1', '1.25');
 
-    expect(result.amountTon).toBe('0.25');
-    expect(tx.user.updateMany).toHaveBeenCalledWith({ where: { id: 'user-1', balanceGram: { gte: '0.25' } }, data: { balanceGram: { decrement: '0.25' } } });
-    expect(tx.botWithdrawal.create).toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ userId: 'user-1', amountTon: '0.25', destination: walletAddress, comment: expect.stringMatching(/^ORBIT-WITHDRAW:/) }) }));
+    expect(result.amountTon).toBe('1.25');
+    expect(tx.user.updateMany).toHaveBeenCalledWith({ where: { id: 'user-1', balanceGram: { gte: '1.25' } }, data: { balanceGram: { decrement: '1.25' } } });
+    expect(tx.botWithdrawal.create).toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ userId: 'user-1', amountTon: '1.25', destination: walletAddress, comment: expect.stringMatching(/^ORBIT-WITHDRAW:/) }) }));
   });
 
-  it('rejects withdrawals below 0.01 GRAM before creating a request', async () => {
+  it('rejects withdrawals below 1 TON before creating a request', async () => {
     const { service } = makeService();
     vi.spyOn(service as unknown as { getSigner: () => Promise<unknown> }, 'getSigner').mockResolvedValue({});
-    await expect(service.createWithdrawal('user-1', '0.009')).rejects.toThrow('Minimum withdrawal is 0.01 GRAM');
+    await expect(service.createWithdrawal('user-1', '0.99')).rejects.toThrow('Minimum withdrawal is 1 TON');
   });
 
   it('does not create a withdrawal or debit balance when funds are insufficient', async () => {
@@ -192,12 +192,12 @@ describe('BotBalanceService deposits', () => {
     const wallet = WalletContractV4.create({ workchain: 0, publicKey: keys.publicKey });
     const sentBocs: Buffer[] = [];
     const client = {
-      open: vi.fn(() => ({ getBalance: vi.fn().mockResolvedValue(1_000_000_000n), getSeqno: vi.fn().mockResolvedValue(4) })),
+      open: vi.fn(() => ({ getBalance: vi.fn().mockResolvedValue(2_000_000_000n), getSeqno: vi.fn().mockResolvedValue(4) })),
       sendFile: vi.fn(async (boc: Buffer) => { sentBocs.push(boc); }),
     };
     const signer = { client, wallet, version: 'v4r2' as const, secretKey: keys.secretKey };
     vi.spyOn(service as unknown as { getSigner: () => Promise<unknown> }, 'getSigner').mockResolvedValue(signer);
-    const pending = { id: 'withdrawal-1', amountTon: '0.25', destination: walletAddress, comment: 'ORBIT-WITHDRAW:offline-test' };
+    const pending = { id: 'withdrawal-1', amountTon: '1.25', destination: walletAddress, comment: 'ORBIT-WITHDRAW:offline-test' };
     prisma.botWithdrawal.findFirst.mockResolvedValueOnce(null).mockResolvedValueOnce(pending);
     prisma.botWithdrawal.updateMany.mockResolvedValue({ count: 1 });
     prisma.botWithdrawal.update.mockResolvedValue({});
@@ -217,11 +217,11 @@ describe('BotBalanceService deposits', () => {
     const wallet = WalletContractV5R1.create({ publicKey: keys.publicKey });
     const sentBocs: Buffer[] = [];
     const client = {
-      open: vi.fn(() => ({ getBalance: vi.fn().mockResolvedValue(1_000_000_000n), getSeqno: vi.fn().mockResolvedValue(0) })),
+      open: vi.fn(() => ({ getBalance: vi.fn().mockResolvedValue(2_000_000_000n), getSeqno: vi.fn().mockResolvedValue(0) })),
       sendFile: vi.fn(async (boc: Buffer) => { sentBocs.push(boc); }),
     };
     vi.spyOn(service as unknown as { getSigner: () => Promise<unknown> }, 'getSigner').mockResolvedValue({ client, wallet, version: 'v5r1', secretKey: keys.secretKey });
-    const pending = { id: 'withdrawal-v5', amountTon: '0.25', destination: walletAddress, comment: 'ORBIT-WITHDRAW:v5-test' };
+    const pending = { id: 'withdrawal-v5', amountTon: '1.25', destination: walletAddress, comment: 'ORBIT-WITHDRAW:v5-test' };
     prisma.botWithdrawal.findFirst.mockResolvedValueOnce(null).mockResolvedValueOnce(pending);
     prisma.botWithdrawal.updateMany.mockResolvedValue({ count: 1 });
     prisma.botWithdrawal.update.mockResolvedValue({});

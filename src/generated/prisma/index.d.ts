@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model GameTransaction
+ * 
+ */
+export type GameTransaction = $Result.DefaultSelection<Prisma.$GameTransactionPayload>
+/**
  * Model BotDeposit
  * 
  */
@@ -194,6 +199,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gameTransaction`: Exposes CRUD operations for the **GameTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GameTransactions
+    * const gameTransactions = await prisma.gameTransaction.findMany()
+    * ```
+    */
+  get gameTransaction(): Prisma.GameTransactionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.botDeposit`: Exposes CRUD operations for the **BotDeposit** model.
@@ -732,6 +747,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    GameTransaction: 'GameTransaction',
     BotDeposit: 'BotDeposit',
     BotWithdrawal: 'BotWithdrawal',
     Wallet: 'Wallet',
@@ -756,7 +772,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "botDeposit" | "botWithdrawal" | "wallet" | "gift" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpInvitation"
+      modelProps: "user" | "gameTransaction" | "botDeposit" | "botWithdrawal" | "wallet" | "gift" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpInvitation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -831,6 +847,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      GameTransaction: {
+        payload: Prisma.$GameTransactionPayload<ExtArgs>
+        fields: Prisma.GameTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GameTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GameTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.GameTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GameTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.GameTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.GameTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.GameTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GameTransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.GameTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>
+          }
+          update: {
+            args: Prisma.GameTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.GameTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GameTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GameTransactionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>[]
+          }
+          upsert: {
+            args: Prisma.GameTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GameTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.GameTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGameTransaction>
+          }
+          groupBy: {
+            args: Prisma.GameTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GameTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GameTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<GameTransactionCountAggregateOutputType> | number
           }
         }
       }
@@ -1624,6 +1714,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    gameTransaction?: GameTransactionOmit
     botDeposit?: BotDepositOmit
     botWithdrawal?: BotWithdrawalOmit
     wallet?: WalletOmit
@@ -1726,6 +1817,7 @@ export namespace Prisma {
     receivedPvpInvitations: number
     botDeposits: number
     botWithdrawals: number
+    gameTransactions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1742,6 +1834,7 @@ export namespace Prisma {
     receivedPvpInvitations?: boolean | UserCountOutputTypeCountReceivedPvpInvitationsArgs
     botDeposits?: boolean | UserCountOutputTypeCountBotDepositsArgs
     botWithdrawals?: boolean | UserCountOutputTypeCountBotWithdrawalsArgs
+    gameTransactions?: boolean | UserCountOutputTypeCountGameTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1844,6 +1937,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBotWithdrawalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BotWithdrawalWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGameTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameTransactionWhereInput
   }
 
 
@@ -2174,6 +2274,7 @@ export namespace Prisma {
     receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
+    gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2228,6 +2329,7 @@ export namespace Prisma {
     receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
+    gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2249,6 +2351,7 @@ export namespace Prisma {
       receivedPvpInvitations: Prisma.$PvpInvitationPayload<ExtArgs>[]
       botDeposits: Prisma.$BotDepositPayload<ExtArgs>[]
       botWithdrawals: Prisma.$BotWithdrawalPayload<ExtArgs>[]
+      gameTransactions: Prisma.$GameTransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2667,6 +2770,7 @@ export namespace Prisma {
     receivedPvpInvitations<T extends User$receivedPvpInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedPvpInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     botDeposits<T extends User$botDepositsArgs<ExtArgs> = {}>(args?: Subset<T, User$botDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     botWithdrawals<T extends User$botWithdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$botWithdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gameTransactions<T extends User$gameTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3410,6 +3514,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.gameTransactions
+   */
+  export type User$gameTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    where?: GameTransactionWhereInput
+    orderBy?: GameTransactionOrderByWithRelationInput | GameTransactionOrderByWithRelationInput[]
+    cursor?: GameTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GameTransactionScalarFieldEnum | GameTransactionScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3425,6 +3553,1138 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GameTransaction
+   */
+
+  export type AggregateGameTransaction = {
+    _count: GameTransactionCountAggregateOutputType | null
+    _avg: GameTransactionAvgAggregateOutputType | null
+    _sum: GameTransactionSumAggregateOutputType | null
+    _min: GameTransactionMinAggregateOutputType | null
+    _max: GameTransactionMaxAggregateOutputType | null
+  }
+
+  export type GameTransactionAvgAggregateOutputType = {
+    amountGram: Decimal | null
+  }
+
+  export type GameTransactionSumAggregateOutputType = {
+    amountGram: Decimal | null
+  }
+
+  export type GameTransactionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    game: string | null
+    type: string | null
+    reference: string | null
+    amountGram: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type GameTransactionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    game: string | null
+    type: string | null
+    reference: string | null
+    amountGram: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type GameTransactionCountAggregateOutputType = {
+    id: number
+    userId: number
+    game: number
+    type: number
+    reference: number
+    amountGram: number
+    details: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GameTransactionAvgAggregateInputType = {
+    amountGram?: true
+  }
+
+  export type GameTransactionSumAggregateInputType = {
+    amountGram?: true
+  }
+
+  export type GameTransactionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    game?: true
+    type?: true
+    reference?: true
+    amountGram?: true
+    createdAt?: true
+  }
+
+  export type GameTransactionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    game?: true
+    type?: true
+    reference?: true
+    amountGram?: true
+    createdAt?: true
+  }
+
+  export type GameTransactionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    game?: true
+    type?: true
+    reference?: true
+    amountGram?: true
+    details?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GameTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameTransaction to aggregate.
+     */
+    where?: GameTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: GameTransactionOrderByWithRelationInput | GameTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GameTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GameTransactions
+    **/
+    _count?: true | GameTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GameTransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GameTransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GameTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GameTransactionMaxAggregateInputType
+  }
+
+  export type GetGameTransactionAggregateType<T extends GameTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateGameTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGameTransaction[P]>
+      : GetScalarType<T[P], AggregateGameTransaction[P]>
+  }
+
+
+
+
+  export type GameTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GameTransactionWhereInput
+    orderBy?: GameTransactionOrderByWithAggregationInput | GameTransactionOrderByWithAggregationInput[]
+    by: GameTransactionScalarFieldEnum[] | GameTransactionScalarFieldEnum
+    having?: GameTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GameTransactionCountAggregateInputType | true
+    _avg?: GameTransactionAvgAggregateInputType
+    _sum?: GameTransactionSumAggregateInputType
+    _min?: GameTransactionMinAggregateInputType
+    _max?: GameTransactionMaxAggregateInputType
+  }
+
+  export type GameTransactionGroupByOutputType = {
+    id: string
+    userId: string
+    game: string
+    type: string
+    reference: string
+    amountGram: Decimal
+    details: JsonValue | null
+    createdAt: Date
+    _count: GameTransactionCountAggregateOutputType | null
+    _avg: GameTransactionAvgAggregateOutputType | null
+    _sum: GameTransactionSumAggregateOutputType | null
+    _min: GameTransactionMinAggregateOutputType | null
+    _max: GameTransactionMaxAggregateOutputType | null
+  }
+
+  type GetGameTransactionGroupByPayload<T extends GameTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GameTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GameTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GameTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], GameTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GameTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    game?: boolean
+    type?: boolean
+    reference?: boolean
+    amountGram?: boolean
+    details?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameTransaction"]>
+
+  export type GameTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    game?: boolean
+    type?: boolean
+    reference?: boolean
+    amountGram?: boolean
+    details?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameTransaction"]>
+
+  export type GameTransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    game?: boolean
+    type?: boolean
+    reference?: boolean
+    amountGram?: boolean
+    details?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gameTransaction"]>
+
+  export type GameTransactionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    game?: boolean
+    type?: boolean
+    reference?: boolean
+    amountGram?: boolean
+    details?: boolean
+    createdAt?: boolean
+  }
+
+  export type GameTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "game" | "type" | "reference" | "amountGram" | "details" | "createdAt", ExtArgs["result"]["gameTransaction"]>
+  export type GameTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GameTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GameTransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $GameTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GameTransaction"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      game: string
+      type: string
+      reference: string
+      amountGram: Prisma.Decimal
+      details: Prisma.JsonValue | null
+      createdAt: Date
+    }, ExtArgs["result"]["gameTransaction"]>
+    composites: {}
+  }
+
+  type GameTransactionGetPayload<S extends boolean | null | undefined | GameTransactionDefaultArgs> = $Result.GetResult<Prisma.$GameTransactionPayload, S>
+
+  type GameTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GameTransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GameTransactionCountAggregateInputType | true
+    }
+
+  export interface GameTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GameTransaction'], meta: { name: 'GameTransaction' } }
+    /**
+     * Find zero or one GameTransaction that matches the filter.
+     * @param {GameTransactionFindUniqueArgs} args - Arguments to find a GameTransaction
+     * @example
+     * // Get one GameTransaction
+     * const gameTransaction = await prisma.gameTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GameTransactionFindUniqueArgs>(args: SelectSubset<T, GameTransactionFindUniqueArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GameTransaction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GameTransactionFindUniqueOrThrowArgs} args - Arguments to find a GameTransaction
+     * @example
+     * // Get one GameTransaction
+     * const gameTransaction = await prisma.gameTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GameTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, GameTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionFindFirstArgs} args - Arguments to find a GameTransaction
+     * @example
+     * // Get one GameTransaction
+     * const gameTransaction = await prisma.gameTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GameTransactionFindFirstArgs>(args?: SelectSubset<T, GameTransactionFindFirstArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GameTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionFindFirstOrThrowArgs} args - Arguments to find a GameTransaction
+     * @example
+     * // Get one GameTransaction
+     * const gameTransaction = await prisma.gameTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GameTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, GameTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GameTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GameTransactions
+     * const gameTransactions = await prisma.gameTransaction.findMany()
+     * 
+     * // Get first 10 GameTransactions
+     * const gameTransactions = await prisma.gameTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gameTransactionWithIdOnly = await prisma.gameTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GameTransactionFindManyArgs>(args?: SelectSubset<T, GameTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GameTransaction.
+     * @param {GameTransactionCreateArgs} args - Arguments to create a GameTransaction.
+     * @example
+     * // Create one GameTransaction
+     * const GameTransaction = await prisma.gameTransaction.create({
+     *   data: {
+     *     // ... data to create a GameTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends GameTransactionCreateArgs>(args: SelectSubset<T, GameTransactionCreateArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GameTransactions.
+     * @param {GameTransactionCreateManyArgs} args - Arguments to create many GameTransactions.
+     * @example
+     * // Create many GameTransactions
+     * const gameTransaction = await prisma.gameTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GameTransactionCreateManyArgs>(args?: SelectSubset<T, GameTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GameTransactions and returns the data saved in the database.
+     * @param {GameTransactionCreateManyAndReturnArgs} args - Arguments to create many GameTransactions.
+     * @example
+     * // Create many GameTransactions
+     * const gameTransaction = await prisma.gameTransaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GameTransactions and only return the `id`
+     * const gameTransactionWithIdOnly = await prisma.gameTransaction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GameTransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, GameTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GameTransaction.
+     * @param {GameTransactionDeleteArgs} args - Arguments to delete one GameTransaction.
+     * @example
+     * // Delete one GameTransaction
+     * const GameTransaction = await prisma.gameTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one GameTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GameTransactionDeleteArgs>(args: SelectSubset<T, GameTransactionDeleteArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GameTransaction.
+     * @param {GameTransactionUpdateArgs} args - Arguments to update one GameTransaction.
+     * @example
+     * // Update one GameTransaction
+     * const gameTransaction = await prisma.gameTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GameTransactionUpdateArgs>(args: SelectSubset<T, GameTransactionUpdateArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GameTransactions.
+     * @param {GameTransactionDeleteManyArgs} args - Arguments to filter GameTransactions to delete.
+     * @example
+     * // Delete a few GameTransactions
+     * const { count } = await prisma.gameTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GameTransactionDeleteManyArgs>(args?: SelectSubset<T, GameTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GameTransactions
+     * const gameTransaction = await prisma.gameTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GameTransactionUpdateManyArgs>(args: SelectSubset<T, GameTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GameTransactions and returns the data updated in the database.
+     * @param {GameTransactionUpdateManyAndReturnArgs} args - Arguments to update many GameTransactions.
+     * @example
+     * // Update many GameTransactions
+     * const gameTransaction = await prisma.gameTransaction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GameTransactions and only return the `id`
+     * const gameTransactionWithIdOnly = await prisma.gameTransaction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GameTransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, GameTransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GameTransaction.
+     * @param {GameTransactionUpsertArgs} args - Arguments to update or create a GameTransaction.
+     * @example
+     * // Update or create a GameTransaction
+     * const gameTransaction = await prisma.gameTransaction.upsert({
+     *   create: {
+     *     // ... data to create a GameTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GameTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GameTransactionUpsertArgs>(args: SelectSubset<T, GameTransactionUpsertArgs<ExtArgs>>): Prisma__GameTransactionClient<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GameTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionCountArgs} args - Arguments to filter GameTransactions to count.
+     * @example
+     * // Count the number of GameTransactions
+     * const count = await prisma.gameTransaction.count({
+     *   where: {
+     *     // ... the filter for the GameTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends GameTransactionCountArgs>(
+      args?: Subset<T, GameTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GameTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GameTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GameTransactionAggregateArgs>(args: Subset<T, GameTransactionAggregateArgs>): Prisma.PrismaPromise<GetGameTransactionAggregateType<T>>
+
+    /**
+     * Group by GameTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GameTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GameTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GameTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: GameTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GameTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGameTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GameTransaction model
+   */
+  readonly fields: GameTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GameTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GameTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GameTransaction model
+   */
+  interface GameTransactionFieldRefs {
+    readonly id: FieldRef<"GameTransaction", 'String'>
+    readonly userId: FieldRef<"GameTransaction", 'String'>
+    readonly game: FieldRef<"GameTransaction", 'String'>
+    readonly type: FieldRef<"GameTransaction", 'String'>
+    readonly reference: FieldRef<"GameTransaction", 'String'>
+    readonly amountGram: FieldRef<"GameTransaction", 'Decimal'>
+    readonly details: FieldRef<"GameTransaction", 'Json'>
+    readonly createdAt: FieldRef<"GameTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GameTransaction findUnique
+   */
+  export type GameTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameTransaction to fetch.
+     */
+    where: GameTransactionWhereUniqueInput
+  }
+
+  /**
+   * GameTransaction findUniqueOrThrow
+   */
+  export type GameTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameTransaction to fetch.
+     */
+    where: GameTransactionWhereUniqueInput
+  }
+
+  /**
+   * GameTransaction findFirst
+   */
+  export type GameTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameTransaction to fetch.
+     */
+    where?: GameTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: GameTransactionOrderByWithRelationInput | GameTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameTransactions.
+     */
+    cursor?: GameTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameTransactions.
+     */
+    distinct?: GameTransactionScalarFieldEnum | GameTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * GameTransaction findFirstOrThrow
+   */
+  export type GameTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameTransaction to fetch.
+     */
+    where?: GameTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: GameTransactionOrderByWithRelationInput | GameTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GameTransactions.
+     */
+    cursor?: GameTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameTransactions.
+     */
+    distinct?: GameTransactionScalarFieldEnum | GameTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * GameTransaction findMany
+   */
+  export type GameTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which GameTransactions to fetch.
+     */
+    where?: GameTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GameTransactions to fetch.
+     */
+    orderBy?: GameTransactionOrderByWithRelationInput | GameTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GameTransactions.
+     */
+    cursor?: GameTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GameTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GameTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GameTransactions.
+     */
+    distinct?: GameTransactionScalarFieldEnum | GameTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * GameTransaction create
+   */
+  export type GameTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GameTransaction.
+     */
+    data: XOR<GameTransactionCreateInput, GameTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * GameTransaction createMany
+   */
+  export type GameTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GameTransactions.
+     */
+    data: GameTransactionCreateManyInput | GameTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GameTransaction createManyAndReturn
+   */
+  export type GameTransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to create many GameTransactions.
+     */
+    data: GameTransactionCreateManyInput | GameTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameTransaction update
+   */
+  export type GameTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GameTransaction.
+     */
+    data: XOR<GameTransactionUpdateInput, GameTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which GameTransaction to update.
+     */
+    where: GameTransactionWhereUniqueInput
+  }
+
+  /**
+   * GameTransaction updateMany
+   */
+  export type GameTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GameTransactions.
+     */
+    data: XOR<GameTransactionUpdateManyMutationInput, GameTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which GameTransactions to update
+     */
+    where?: GameTransactionWhereInput
+    /**
+     * Limit how many GameTransactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameTransaction updateManyAndReturn
+   */
+  export type GameTransactionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to update GameTransactions.
+     */
+    data: XOR<GameTransactionUpdateManyMutationInput, GameTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which GameTransactions to update
+     */
+    where?: GameTransactionWhereInput
+    /**
+     * Limit how many GameTransactions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GameTransaction upsert
+   */
+  export type GameTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GameTransaction to update in case it exists.
+     */
+    where: GameTransactionWhereUniqueInput
+    /**
+     * In case the GameTransaction found by the `where` argument doesn't exist, create a new GameTransaction with this data.
+     */
+    create: XOR<GameTransactionCreateInput, GameTransactionUncheckedCreateInput>
+    /**
+     * In case the GameTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GameTransactionUpdateInput, GameTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * GameTransaction delete
+   */
+  export type GameTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
+    /**
+     * Filter which GameTransaction to delete.
+     */
+    where: GameTransactionWhereUniqueInput
+  }
+
+  /**
+   * GameTransaction deleteMany
+   */
+  export type GameTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GameTransactions to delete
+     */
+    where?: GameTransactionWhereInput
+    /**
+     * Limit how many GameTransactions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GameTransaction without action
+   */
+  export type GameTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GameTransaction
+     */
+    select?: GameTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GameTransaction
+     */
+    omit?: GameTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameTransactionInclude<ExtArgs> | null
   }
 
 
@@ -10643,6 +11903,7 @@ export namespace Prisma {
     startedAt: Date | null
     countdownEndsAt: Date | null
     completedAt: Date | null
+    settledAt: Date | null
     creatorId: string | null
   }
 
@@ -10658,6 +11919,7 @@ export namespace Prisma {
     startedAt: Date | null
     countdownEndsAt: Date | null
     completedAt: Date | null
+    settledAt: Date | null
     creatorId: string | null
   }
 
@@ -10673,6 +11935,7 @@ export namespace Prisma {
     startedAt: number
     countdownEndsAt: number
     completedAt: number
+    settledAt: number
     creatorId: number
     _all: number
   }
@@ -10698,6 +11961,7 @@ export namespace Prisma {
     startedAt?: true
     countdownEndsAt?: true
     completedAt?: true
+    settledAt?: true
     creatorId?: true
   }
 
@@ -10713,6 +11977,7 @@ export namespace Prisma {
     startedAt?: true
     countdownEndsAt?: true
     completedAt?: true
+    settledAt?: true
     creatorId?: true
   }
 
@@ -10728,6 +11993,7 @@ export namespace Prisma {
     startedAt?: true
     countdownEndsAt?: true
     completedAt?: true
+    settledAt?: true
     creatorId?: true
     _all?: true
   }
@@ -10830,6 +12096,7 @@ export namespace Prisma {
     startedAt: Date | null
     countdownEndsAt: Date | null
     completedAt: Date | null
+    settledAt: Date | null
     creatorId: string
     _count: PvpRoomCountAggregateOutputType | null
     _avg: PvpRoomAvgAggregateOutputType | null
@@ -10864,6 +12131,7 @@ export namespace Prisma {
     startedAt?: boolean
     countdownEndsAt?: boolean
     completedAt?: boolean
+    settledAt?: boolean
     creatorId?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
     winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
@@ -10884,6 +12152,7 @@ export namespace Prisma {
     startedAt?: boolean
     countdownEndsAt?: boolean
     completedAt?: boolean
+    settledAt?: boolean
     creatorId?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
     winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
@@ -10901,6 +12170,7 @@ export namespace Prisma {
     startedAt?: boolean
     countdownEndsAt?: boolean
     completedAt?: boolean
+    settledAt?: boolean
     creatorId?: boolean
     creator?: boolean | UserDefaultArgs<ExtArgs>
     winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
@@ -10918,10 +12188,11 @@ export namespace Prisma {
     startedAt?: boolean
     countdownEndsAt?: boolean
     completedAt?: boolean
+    settledAt?: boolean
     creatorId?: boolean
   }
 
-  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "isPublic" | "arenaMode" | "winnerId" | "createdAt" | "startedAt" | "countdownEndsAt" | "completedAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
+  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "isPublic" | "arenaMode" | "winnerId" | "createdAt" | "startedAt" | "countdownEndsAt" | "completedAt" | "settledAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
   export type PvpRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
@@ -10958,6 +12229,7 @@ export namespace Prisma {
       startedAt: Date | null
       countdownEndsAt: Date | null
       completedAt: Date | null
+      settledAt: Date | null
       creatorId: string
     }, ExtArgs["result"]["pvpRoom"]>
     composites: {}
@@ -11397,6 +12669,7 @@ export namespace Prisma {
     readonly startedAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly countdownEndsAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly completedAt: FieldRef<"PvpRoom", 'DateTime'>
+    readonly settledAt: FieldRef<"PvpRoom", 'DateTime'>
     readonly creatorId: FieldRef<"PvpRoom", 'String'>
   }
     
@@ -14123,6 +15396,20 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const GameTransactionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    game: 'game',
+    type: 'type',
+    reference: 'reference',
+    amountGram: 'amountGram',
+    details: 'details',
+    createdAt: 'createdAt'
+  };
+
+  export type GameTransactionScalarFieldEnum = (typeof GameTransactionScalarFieldEnum)[keyof typeof GameTransactionScalarFieldEnum]
+
+
   export const BotDepositScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -14235,6 +15522,7 @@ export namespace Prisma {
     startedAt: 'startedAt',
     countdownEndsAt: 'countdownEndsAt',
     completedAt: 'completedAt',
+    settledAt: 'settledAt',
     creatorId: 'creatorId'
   };
 
@@ -14273,6 +15561,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -14287,6 +15583,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -14333,6 +15638,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -14400,6 +15719,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationListRelationFilter
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
+    gameTransactions?: GameTransactionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14425,6 +15745,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationOrderByRelationAggregateInput
     botDeposits?: BotDepositOrderByRelationAggregateInput
     botWithdrawals?: BotWithdrawalOrderByRelationAggregateInput
+    gameTransactions?: GameTransactionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14453,6 +15774,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationListRelationFilter
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
+    gameTransactions?: GameTransactionListRelationFilter
   }, "id" | "telegramId">
 
   export type UserOrderByWithAggregationInput = {
@@ -14485,6 +15807,78 @@ export namespace Prisma {
     balanceGram?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type GameTransactionWhereInput = {
+    AND?: GameTransactionWhereInput | GameTransactionWhereInput[]
+    OR?: GameTransactionWhereInput[]
+    NOT?: GameTransactionWhereInput | GameTransactionWhereInput[]
+    id?: StringFilter<"GameTransaction"> | string
+    userId?: StringFilter<"GameTransaction"> | string
+    game?: StringFilter<"GameTransaction"> | string
+    type?: StringFilter<"GameTransaction"> | string
+    reference?: StringFilter<"GameTransaction"> | string
+    amountGram?: DecimalFilter<"GameTransaction"> | Decimal | DecimalJsLike | number | string
+    details?: JsonNullableFilter<"GameTransaction">
+    createdAt?: DateTimeFilter<"GameTransaction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type GameTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    game?: SortOrder
+    type?: SortOrder
+    reference?: SortOrder
+    amountGram?: SortOrder
+    details?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type GameTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    reference?: string
+    AND?: GameTransactionWhereInput | GameTransactionWhereInput[]
+    OR?: GameTransactionWhereInput[]
+    NOT?: GameTransactionWhereInput | GameTransactionWhereInput[]
+    userId?: StringFilter<"GameTransaction"> | string
+    game?: StringFilter<"GameTransaction"> | string
+    type?: StringFilter<"GameTransaction"> | string
+    amountGram?: DecimalFilter<"GameTransaction"> | Decimal | DecimalJsLike | number | string
+    details?: JsonNullableFilter<"GameTransaction">
+    createdAt?: DateTimeFilter<"GameTransaction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "reference">
+
+  export type GameTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    game?: SortOrder
+    type?: SortOrder
+    reference?: SortOrder
+    amountGram?: SortOrder
+    details?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: GameTransactionCountOrderByAggregateInput
+    _avg?: GameTransactionAvgOrderByAggregateInput
+    _max?: GameTransactionMaxOrderByAggregateInput
+    _min?: GameTransactionMinOrderByAggregateInput
+    _sum?: GameTransactionSumOrderByAggregateInput
+  }
+
+  export type GameTransactionScalarWhereWithAggregatesInput = {
+    AND?: GameTransactionScalarWhereWithAggregatesInput | GameTransactionScalarWhereWithAggregatesInput[]
+    OR?: GameTransactionScalarWhereWithAggregatesInput[]
+    NOT?: GameTransactionScalarWhereWithAggregatesInput | GameTransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GameTransaction"> | string
+    userId?: StringWithAggregatesFilter<"GameTransaction"> | string
+    game?: StringWithAggregatesFilter<"GameTransaction"> | string
+    type?: StringWithAggregatesFilter<"GameTransaction"> | string
+    reference?: StringWithAggregatesFilter<"GameTransaction"> | string
+    amountGram?: DecimalWithAggregatesFilter<"GameTransaction"> | Decimal | DecimalJsLike | number | string
+    details?: JsonNullableWithAggregatesFilter<"GameTransaction">
+    createdAt?: DateTimeWithAggregatesFilter<"GameTransaction"> | Date | string
   }
 
   export type BotDepositWhereInput = {
@@ -15030,6 +16424,7 @@ export namespace Prisma {
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     countdownEndsAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    settledAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringFilter<"PvpRoom"> | string
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
     winner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -15049,6 +16444,7 @@ export namespace Prisma {
     startedAt?: SortOrderInput | SortOrder
     countdownEndsAt?: SortOrderInput | SortOrder
     completedAt?: SortOrderInput | SortOrder
+    settledAt?: SortOrderInput | SortOrder
     creatorId?: SortOrder
     creator?: UserOrderByWithRelationInput
     winner?: UserOrderByWithRelationInput
@@ -15071,6 +16467,7 @@ export namespace Prisma {
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     countdownEndsAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    settledAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringFilter<"PvpRoom"> | string
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
     winner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -15090,6 +16487,7 @@ export namespace Prisma {
     startedAt?: SortOrderInput | SortOrder
     countdownEndsAt?: SortOrderInput | SortOrder
     completedAt?: SortOrderInput | SortOrder
+    settledAt?: SortOrderInput | SortOrder
     creatorId?: SortOrder
     _count?: PvpRoomCountOrderByAggregateInput
     _avg?: PvpRoomAvgOrderByAggregateInput
@@ -15113,6 +16511,7 @@ export namespace Prisma {
     startedAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
     countdownEndsAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
+    settledAt?: DateTimeNullableWithAggregatesFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringWithAggregatesFilter<"PvpRoom"> | string
   }
 
@@ -15272,6 +16671,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15297,6 +16697,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -15322,6 +16723,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15347,6 +16749,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -15383,6 +16786,82 @@ export namespace Prisma {
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionCreateInput = {
+    id?: string
+    game: string
+    type: string
+    reference: string
+    amountGram: Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGameTransactionsInput
+  }
+
+  export type GameTransactionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    game: string
+    type: string
+    reference: string
+    amountGram: Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type GameTransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    amountGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGameTransactionsNestedInput
+  }
+
+  export type GameTransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    amountGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionCreateManyInput = {
+    id?: string
+    userId: string
+    game: string
+    type: string
+    reference: string
+    amountGram: Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type GameTransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    amountGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    amountGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BotDepositCreateInput = {
@@ -15968,6 +17447,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
     participants?: PvpParticipantCreateNestedManyWithoutRoomInput
@@ -15986,6 +17466,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creatorId: string
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
     invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
@@ -16002,6 +17483,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
     participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
@@ -16020,6 +17502,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
     invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
@@ -16037,6 +17520,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creatorId: string
   }
 
@@ -16051,6 +17535,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PvpRoomUncheckedUpdateManyInput = {
@@ -16065,6 +17550,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -16295,6 +17781,12 @@ export namespace Prisma {
     none?: BotWithdrawalWhereInput
   }
 
+  export type GameTransactionListRelationFilter = {
+    every?: GameTransactionWhereInput
+    some?: GameTransactionWhereInput
+    none?: GameTransactionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -16333,6 +17825,10 @@ export namespace Prisma {
   }
 
   export type BotWithdrawalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GameTransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16445,6 +17941,99 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type GameTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    game?: SortOrder
+    type?: SortOrder
+    reference?: SortOrder
+    amountGram?: SortOrder
+    details?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameTransactionAvgOrderByAggregateInput = {
+    amountGram?: SortOrder
+  }
+
+  export type GameTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    game?: SortOrder
+    type?: SortOrder
+    reference?: SortOrder
+    amountGram?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    game?: SortOrder
+    type?: SortOrder
+    reference?: SortOrder
+    amountGram?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GameTransactionSumOrderByAggregateInput = {
+    amountGram?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
 
   export type DecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
@@ -16466,11 +18055,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type BotDepositCountOrderByAggregateInput = {
@@ -16860,6 +18444,7 @@ export namespace Prisma {
     startedAt?: SortOrder
     countdownEndsAt?: SortOrder
     completedAt?: SortOrder
+    settledAt?: SortOrder
     creatorId?: SortOrder
   }
 
@@ -16879,6 +18464,7 @@ export namespace Prisma {
     startedAt?: SortOrder
     countdownEndsAt?: SortOrder
     completedAt?: SortOrder
+    settledAt?: SortOrder
     creatorId?: SortOrder
   }
 
@@ -16894,6 +18480,7 @@ export namespace Prisma {
     startedAt?: SortOrder
     countdownEndsAt?: SortOrder
     completedAt?: SortOrder
+    settledAt?: SortOrder
     creatorId?: SortOrder
   }
 
@@ -17069,6 +18656,13 @@ export namespace Prisma {
     connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
   }
 
+  export type GameTransactionCreateNestedManyWithoutUserInput = {
+    create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
+    createMany?: GameTransactionCreateManyUserInputEnvelope
+    connect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+  }
+
   export type WalletUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -17158,6 +18752,13 @@ export namespace Prisma {
     connectOrCreate?: BotWithdrawalCreateOrConnectWithoutUserInput | BotWithdrawalCreateOrConnectWithoutUserInput[]
     createMany?: BotWithdrawalCreateManyUserInputEnvelope
     connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+  }
+
+  export type GameTransactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
+    createMany?: GameTransactionCreateManyUserInputEnvelope
+    connect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -17362,6 +18963,20 @@ export namespace Prisma {
     deleteMany?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
   }
 
+  export type GameTransactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: GameTransactionUpsertWithWhereUniqueWithoutUserInput | GameTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GameTransactionCreateManyUserInputEnvelope
+    set?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    disconnect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    delete?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    connect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    update?: GameTransactionUpdateWithWhereUniqueWithoutUserInput | GameTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GameTransactionUpdateManyWithWhereWithoutUserInput | GameTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GameTransactionScalarWhereInput | GameTransactionScalarWhereInput[]
+  }
+
   export type WalletUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -17542,6 +19157,34 @@ export namespace Prisma {
     update?: BotWithdrawalUpdateWithWhereUniqueWithoutUserInput | BotWithdrawalUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: BotWithdrawalUpdateManyWithWhereWithoutUserInput | BotWithdrawalUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
+  }
+
+  export type GameTransactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: GameTransactionUpsertWithWhereUniqueWithoutUserInput | GameTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GameTransactionCreateManyUserInputEnvelope
+    set?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    disconnect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    delete?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    connect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+    update?: GameTransactionUpdateWithWhereUniqueWithoutUserInput | GameTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GameTransactionUpdateManyWithWhereWithoutUserInput | GameTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GameTransactionScalarWhereInput | GameTransactionScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutGameTransactionsInput = {
+    create?: XOR<UserCreateWithoutGameTransactionsInput, UserUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGameTransactionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutGameTransactionsNestedInput = {
+    create?: XOR<UserCreateWithoutGameTransactionsInput, UserUncheckedCreateWithoutGameTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGameTransactionsInput
+    upsert?: UserUpsertWithoutGameTransactionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGameTransactionsInput, UserUpdateWithoutGameTransactionsInput>, UserUncheckedUpdateWithoutGameTransactionsInput>
   }
 
   export type UserCreateNestedOneWithoutBotDepositsInput = {
@@ -18121,6 +19764,29 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
@@ -18427,6 +20093,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
     participants?: PvpParticipantCreateNestedManyWithoutRoomInput
     invitations?: PvpInvitationCreateNestedManyWithoutRoomInput
@@ -18444,6 +20111,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
     invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
   }
@@ -18469,6 +20137,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     participants?: PvpParticipantCreateNestedManyWithoutRoomInput
     invitations?: PvpInvitationCreateNestedManyWithoutRoomInput
@@ -18485,6 +20154,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creatorId: string
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
     invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
@@ -18657,6 +20327,36 @@ export namespace Prisma {
 
   export type BotWithdrawalCreateManyUserInputEnvelope = {
     data: BotWithdrawalCreateManyUserInput | BotWithdrawalCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GameTransactionCreateWithoutUserInput = {
+    id?: string
+    game: string
+    type: string
+    reference: string
+    amountGram: Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type GameTransactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    game: string
+    type: string
+    reference: string
+    amountGram: Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type GameTransactionCreateOrConnectWithoutUserInput = {
+    where: GameTransactionWhereUniqueInput
+    create: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type GameTransactionCreateManyUserInputEnvelope = {
+    data: GameTransactionCreateManyUserInput | GameTransactionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -18849,6 +20549,7 @@ export namespace Prisma {
     startedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     countdownEndsAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     completedAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
+    settledAt?: DateTimeNullableFilter<"PvpRoom"> | Date | string | null
     creatorId?: StringFilter<"PvpRoom"> | string
   }
 
@@ -19010,6 +20711,152 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
   }
 
+  export type GameTransactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: GameTransactionWhereUniqueInput
+    update: XOR<GameTransactionUpdateWithoutUserInput, GameTransactionUncheckedUpdateWithoutUserInput>
+    create: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type GameTransactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: GameTransactionWhereUniqueInput
+    data: XOR<GameTransactionUpdateWithoutUserInput, GameTransactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GameTransactionUpdateManyWithWhereWithoutUserInput = {
+    where: GameTransactionScalarWhereInput
+    data: XOR<GameTransactionUpdateManyMutationInput, GameTransactionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GameTransactionScalarWhereInput = {
+    AND?: GameTransactionScalarWhereInput | GameTransactionScalarWhereInput[]
+    OR?: GameTransactionScalarWhereInput[]
+    NOT?: GameTransactionScalarWhereInput | GameTransactionScalarWhereInput[]
+    id?: StringFilter<"GameTransaction"> | string
+    userId?: StringFilter<"GameTransaction"> | string
+    game?: StringFilter<"GameTransaction"> | string
+    type?: StringFilter<"GameTransaction"> | string
+    reference?: StringFilter<"GameTransaction"> | string
+    amountGram?: DecimalFilter<"GameTransaction"> | Decimal | DecimalJsLike | number | string
+    details?: JsonNullableFilter<"GameTransaction">
+    createdAt?: DateTimeFilter<"GameTransaction"> | Date | string
+  }
+
+  export type UserCreateWithoutGameTransactionsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutGameTransactionsInput = {
+    id?: string
+    telegramId: string
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutGameTransactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGameTransactionsInput, UserUncheckedCreateWithoutGameTransactionsInput>
+  }
+
+  export type UserUpsertWithoutGameTransactionsInput = {
+    update: XOR<UserUpdateWithoutGameTransactionsInput, UserUncheckedUpdateWithoutGameTransactionsInput>
+    create: XOR<UserCreateWithoutGameTransactionsInput, UserUncheckedCreateWithoutGameTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGameTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGameTransactionsInput, UserUncheckedUpdateWithoutGameTransactionsInput>
+  }
+
+  export type UserUpdateWithoutGameTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGameTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutBotDepositsInput = {
     id?: string
     telegramId: string
@@ -19032,6 +20879,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBotDepositsInput = {
@@ -19056,6 +20904,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBotDepositsInput = {
@@ -19096,6 +20945,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBotDepositsInput = {
@@ -19120,6 +20970,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBotWithdrawalsInput = {
@@ -19144,6 +20995,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBotWithdrawalsInput = {
@@ -19168,6 +21020,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBotWithdrawalsInput = {
@@ -19208,6 +21061,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBotWithdrawalsInput = {
@@ -19232,6 +21086,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWalletsInput = {
@@ -19256,6 +21111,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWalletsInput = {
@@ -19280,6 +21136,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWalletsInput = {
@@ -19320,6 +21177,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletsInput = {
@@ -19344,6 +21202,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutGiftsInput = {
@@ -19368,6 +21227,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGiftsInput = {
@@ -19392,6 +21252,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGiftsInput = {
@@ -19498,6 +21359,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGiftsInput = {
@@ -19522,6 +21384,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutGiftInput = {
@@ -19617,6 +21480,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBuyerTransactionsInput = {
@@ -19641,6 +21505,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBuyerTransactionsInput = {
@@ -19670,6 +21535,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSellerTransactionsInput = {
@@ -19694,6 +21560,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSellerTransactionsInput = {
@@ -19779,6 +21646,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerTransactionsInput = {
@@ -19803,6 +21671,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSellerTransactionsInput = {
@@ -19838,6 +21707,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerTransactionsInput = {
@@ -19862,6 +21732,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type GiftCreateWithoutOffersInput = {
@@ -19925,6 +21796,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBuyerOffersInput = {
@@ -19949,6 +21821,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBuyerOffersInput = {
@@ -19978,6 +21851,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSellerOffersInput = {
@@ -20002,6 +21876,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSellerOffersInput = {
@@ -20087,6 +21962,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerOffersInput = {
@@ -20111,6 +21987,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutSellerOffersInput = {
@@ -20146,6 +22023,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerOffersInput = {
@@ -20170,6 +22048,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCreatedPvpRoomsInput = {
@@ -20194,6 +22073,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPvpRoomsInput = {
@@ -20218,6 +22098,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPvpRoomsInput = {
@@ -20247,6 +22128,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWonPvpRoomsInput = {
@@ -20271,6 +22153,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWonPvpRoomsInput = {
@@ -20363,6 +22246,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPvpRoomsInput = {
@@ -20387,6 +22271,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutWonPvpRoomsInput = {
@@ -20422,6 +22307,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWonPvpRoomsInput = {
@@ -20446,6 +22332,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PvpParticipantUpsertWithWhereUniqueWithoutRoomInput = {
@@ -20491,6 +22378,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
     invitations?: PvpInvitationCreateNestedManyWithoutRoomInput
@@ -20508,6 +22396,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creatorId: string
     invitations?: PvpInvitationUncheckedCreateNestedManyWithoutRoomInput
   }
@@ -20539,6 +22428,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPvpParticipationsInput = {
@@ -20563,6 +22453,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPvpParticipationsInput = {
@@ -20592,6 +22483,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
     invitations?: PvpInvitationUpdateManyWithoutRoomNestedInput
@@ -20609,6 +22501,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
   }
@@ -20646,6 +22539,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPvpParticipationsInput = {
@@ -20670,6 +22564,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PvpRoomCreateWithoutInvitationsInput = {
@@ -20683,6 +22578,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creator: UserCreateNestedOneWithoutCreatedPvpRoomsInput
     winner?: UserCreateNestedOneWithoutWonPvpRoomsInput
     participants?: PvpParticipantCreateNestedManyWithoutRoomInput
@@ -20700,6 +22596,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creatorId: string
     participants?: PvpParticipantUncheckedCreateNestedManyWithoutRoomInput
   }
@@ -20731,6 +22628,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentPvpInvitationsInput = {
@@ -20755,6 +22653,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentPvpInvitationsInput = {
@@ -20784,6 +22683,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReceivedPvpInvitationsInput = {
@@ -20808,6 +22708,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReceivedPvpInvitationsInput = {
@@ -20837,6 +22738,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
     participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
@@ -20854,6 +22756,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
   }
@@ -20891,6 +22794,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentPvpInvitationsInput = {
@@ -20915,6 +22819,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReceivedPvpInvitationsInput = {
@@ -20950,6 +22855,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedPvpInvitationsInput = {
@@ -20974,6 +22880,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WalletCreateManyUserInput = {
@@ -21057,6 +22964,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
   }
 
   export type PvpRoomCreateManyWinnerInput = {
@@ -21070,6 +22978,7 @@ export namespace Prisma {
     startedAt?: Date | string | null
     countdownEndsAt?: Date | string | null
     completedAt?: Date | string | null
+    settledAt?: Date | string | null
     creatorId: string
   }
 
@@ -21126,6 +23035,16 @@ export namespace Prisma {
     confirmedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type GameTransactionCreateManyUserInput = {
+    id?: string
+    game: string
+    type: string
+    reference: string
+    amountGram: Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
   }
 
   export type WalletUpdateWithoutUserInput = {
@@ -21350,6 +23269,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     winner?: UserUpdateOneWithoutWonPvpRoomsNestedInput
     participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
     invitations?: PvpInvitationUpdateManyWithoutRoomNestedInput
@@ -21367,6 +23287,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
     invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
   }
@@ -21383,6 +23304,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PvpRoomUpdateWithoutWinnerInput = {
@@ -21396,6 +23318,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: UserUpdateOneRequiredWithoutCreatedPvpRoomsNestedInput
     participants?: PvpParticipantUpdateManyWithoutRoomNestedInput
     invitations?: PvpInvitationUpdateManyWithoutRoomNestedInput
@@ -21412,6 +23335,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
     participants?: PvpParticipantUncheckedUpdateManyWithoutRoomNestedInput
     invitations?: PvpInvitationUncheckedUpdateManyWithoutRoomNestedInput
@@ -21428,6 +23352,7 @@ export namespace Prisma {
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     countdownEndsAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creatorId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -21594,6 +23519,36 @@ export namespace Prisma {
     confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    amountGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    amountGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GameTransactionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    game?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    amountGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionCreateManyGiftInput = {

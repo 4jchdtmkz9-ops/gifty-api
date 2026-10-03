@@ -31,6 +31,23 @@ model User {
   receivedPvpInvitations PvpInvitation[]  @relation("PvpInvitationRecipient")
   botDeposits            BotDeposit[]
   botWithdrawals         BotWithdrawal[]
+  gameTransactions      GameTransaction[]
+}
+
+model GameTransaction {
+  id         String   @id @default(cuid())
+  userId     String
+  game       String
+  type       String
+  reference  String   @unique
+  amountGram Decimal  @db.Decimal(20, 9)
+  details    Json?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([game, type, createdAt])
 }
 
 model BotDeposit {
@@ -157,6 +174,7 @@ model PvpRoom {
   startedAt       DateTime?
   countdownEndsAt DateTime?
   completedAt     DateTime?
+  settledAt       DateTime?
 
   creatorId    String
   creator      User             @relation("PvpRoomCreator", fields: [creatorId], references: [id], onDelete: Cascade)

@@ -20,17 +20,34 @@ model User {
 
   wallets                Wallet[]
   gifts                  Gift[]
-  buyerTransactions      Transaction[]    @relation("BuyerTransactions")
-  sellerTransactions     Transaction[]    @relation("SellerTransactions")
-  buyerOffers            Offer[]          @relation("BuyerOffers")
-  sellerOffers           Offer[]          @relation("SellerOffers")
-  createdPvpRooms        PvpRoom[]        @relation("PvpRoomCreator")
-  wonPvpRooms            PvpRoom[]        @relation("PvpRoomWinner")
+  buyerTransactions      Transaction[]     @relation("BuyerTransactions")
+  sellerTransactions     Transaction[]     @relation("SellerTransactions")
+  buyerOffers            Offer[]           @relation("BuyerOffers")
+  sellerOffers           Offer[]           @relation("SellerOffers")
+  createdPvpRooms        PvpRoom[]         @relation("PvpRoomCreator")
+  wonPvpRooms            PvpRoom[]         @relation("PvpRoomWinner")
   pvpParticipations      PvpParticipant[]
-  sentPvpInvitations     PvpInvitation[]  @relation("PvpInvitationSender")
-  receivedPvpInvitations PvpInvitation[]  @relation("PvpInvitationRecipient")
+  sentPvpInvitations     PvpInvitation[]   @relation("PvpInvitationSender")
+  receivedPvpInvitations PvpInvitation[]   @relation("PvpInvitationRecipient")
   botDeposits            BotDeposit[]
   botWithdrawals         BotWithdrawal[]
+  gameTransactions       GameTransaction[]
+}
+
+model GameTransaction {
+  id         String   @id @default(cuid())
+  userId     String
+  game       String
+  type       String
+  reference  String   @unique
+  amountGram Decimal  @db.Decimal(20, 9)
+  details    Json?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([game, type, createdAt])
 }
 
 model BotDeposit {
@@ -157,6 +174,7 @@ model PvpRoom {
   startedAt       DateTime?
   countdownEndsAt DateTime?
   completedAt     DateTime?
+  settledAt       DateTime?
 
   creatorId    String
   creator      User             @relation("PvpRoomCreator", fields: [creatorId], references: [id], onDelete: Cascade)

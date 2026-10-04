@@ -272,24 +272,13 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
 
       const existingEntry = room.participants.find(({ userId }) => userId === user.id);
       if (existingEntry) {
-        if (room.status === 'WAITING') {
-          const total = toNano(room.stakeGram) - toNano(existingEntry.stakeGram) + toNano(stake);
-          const delta = toNano(stake) - toNano(existingEntry.stakeGram);
-          if (delta > 0n) await charge(tx, user.id, fromNano(delta), `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
-          else if (delta < 0n) {
-            const refund = fromNano(-delta);
-            await tx.user.update({ where: { id: user.id }, data: { balanceGram: { increment: refund } } });
-            await tx.gameTransaction.create({ data: { userId: user.id, game: 'PVP', type: 'REFUND', reference: `pvp:${room.id}:refund:${randomBytes(8).toString('hex')}`, amountGram: refund, details: { roomId: room.id } } });
-          }
-          await tx.pvpParticipant.update({ where: { roomId_userId: { roomId: room.id, userId: user.id } }, data: { stakeGram: stake } });
-          await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
-        } else if (room.status === 'COUNTDOWN') {
-          const addedStake = toNano(existingEntry.stakeGram) + toNano(stake);
-          const total = toNano(room.stakeGram) + toNano(stake);
-          await charge(tx, user.id, stake, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
-          await tx.pvpParticipant.update({ where: { roomId_userId: { roomId: room.id, userId: user.id } }, data: { stakeGram: fromNano(addedStake) } });
-          await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
-        }
+        // Re-entering either a waiting or counting-down room always adds the
+        // submitted amount. Never replace the player's stake or refund funds.
+        const addedStake = toNano(existingEntry.stakeGram) + toNano(stake);
+        const total = toNano(room.stakeGram) + toNano(stake);
+        await charge(tx, user.id, stake, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
+        await tx.pvpParticipant.update({ where: { roomId_userId: { roomId: room.id, userId: user.id } }, data: { stakeGram: fromNano(addedStake) } });
+        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
         return { roomId: room.id, isFinishing: false };
       }
       await charge(tx, user.id, stake, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });

@@ -9,7 +9,7 @@ async function bootstrap() {
     origin: [
   'http://localhost:3000',
   'http://localhost:3001',
-  'https://gifty-web-iota.vercel.app',
+  'https://orbitmrktbot.vercel.app',
     ],
     allowedHeaders: ['Content-Type', 'X-Telegram-Init-Data'],
   });

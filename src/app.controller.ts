@@ -84,15 +84,16 @@ export class AppController {
   }
 
   @Post('demo/backdrops/sync')
-  async syncDemoBackdrops(@Body() body: { initData?: string; items?: Array<{ id: string; name: string }> }) {
+  async syncDemoBackdrops(@Body() body: { initData?: string; items?: Array<{ id: string; name: string; packId?: string }> }) {
     const user = await this.getOrCreateTelegramUser(body.initData);
     const items = body.items ?? [];
     if (!Array.isArray(items) || items.length > 100) throw new BadRequestException('Invalid demo backdrop inventory');
     const records = items.flatMap((item) => {
       const color = DEMO_BACKDROP_PALETTE[item.name];
-      if (!color || typeof item.id !== 'string' || item.id.length < 8 || item.id.length > 80) return [];
+      const packId = item.packId ?? 'sweeties';
+      if (!color || !['sweeties', 'orbit-dog'].includes(packId) || typeof item.id !== 'string' || item.id.length < 8 || item.id.length > 80) return [];
       return [{
-        id: item.id, name: item.name, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30',
+        id: item.id, name: item.name, emoji: packId, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30',
         backdropName: item.name, backdropColor: color, status: 'OWNED', ownerId: user.id,
       }];
     });
@@ -102,13 +103,15 @@ export class AppController {
   }
 
   @Post('demo/backdrops/drop')
-  async createDemoBackdropDrop(@Body() body: { initData?: string; name: string }) {
+  async createDemoBackdropDrop(@Body() body: { initData?: string; name: string; packId?: string }) {
     const user = await this.getOrCreateTelegramUser(body.initData);
     const color = DEMO_BACKDROP_PALETTE[body.name];
+    const packId = body.packId ?? 'sweeties';
     if (!color) throw new BadRequestException('Unknown demo backdrop');
+    if (!['sweeties', 'orbit-dog'].includes(packId)) throw new BadRequestException('Unknown demo backdrop pack');
     await this.prisma.gift.create({
       data: {
-        name: body.name, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30', backdropName: body.name,
+        name: body.name, emoji: packId, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30', backdropName: body.name,
         backdropColor: color, status: 'OWNED', ownerId: user.id,
       },
     });
@@ -787,7 +790,7 @@ async getOffers(@Query('initData') initData: string) {
   private async listDemoBackdrops(userId: string) {
     const items = await this.prisma.gift.findMany({
       where: { ownerId: userId, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
-      select: { id: true, name: true, backdropName: true, backdropColor: true, createdAt: true },
+      select: { id: true, name: true, emoji: true, backdropName: true, backdropColor: true, createdAt: true },
       orderBy: { createdAt: 'desc' },
     });
     return items.map((item) => ({
@@ -795,6 +798,7 @@ async getOffers(@Query('initData') initData: string) {
       name: item.backdropName ?? item.name,
       color: item.backdropColor ?? DEMO_BACKDROP_PALETTE[item.name] ?? '#17191d',
       emoji: '',
+      packId: item.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties',
       obtainedAt: item.createdAt.getTime(),
     }));
   }

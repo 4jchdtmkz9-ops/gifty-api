@@ -13,6 +13,13 @@ import { TonService } from './ton.service.js';
 import { PrismaService } from './prisma.service.js';
 import { TelegramAuthService } from './auth/telegram-auth.service.js';
 
+const DEMO_BACKDROP_COLLECTION = '__ORBIT_DEMO_BACKDROP__';
+const DEMO_BACKDROP_PALETTE: Record<string, string> = {
+  'Celtic Blue': '#2877bb', Cappuccino: '#b28a6b', 'Pine Green': '#27634a', Raspberry: '#d82f68',
+  Persimmon: '#e8783f', 'Mystic Pearl': '#b05670', Platinum: '#d5d9df', Rosewood: '#70404e',
+  'Pure Gold': '#e5b83e', Black: '#17191d', 'Onyx Black': '#202329', 'Midnight Blue': '#172c55',
+};
+
 @Controller()
 export class AppController {
   constructor(
@@ -62,12 +69,82 @@ export class AppController {
     where: {
       ownerId: user.id,
       status: 'OWNED',
+      collection: { not: DEMO_BACKDROP_COLLECTION },
     },
     orderBy: {
       updatedAt: 'desc',
     },
   });
 }
+
+  @Get('demo/backdrops')
+  async getDemoBackdrops(@Query('initData') initData: string) {
+    const user = await this.getOrCreateTelegramUser(initData);
+    return this.listDemoBackdrops(user.id);
+  }
+
+  @Post('demo/backdrops/sync')
+  async syncDemoBackdrops(@Body() body: { initData?: string; items?: Array<{ id: string; name: string }> }) {
+    const user = await this.getOrCreateTelegramUser(body.initData);
+    const items = body.items ?? [];
+    if (!Array.isArray(items) || items.length > 100) throw new BadRequestException('Invalid demo backdrop inventory');
+    const records = items.flatMap((item) => {
+      const color = DEMO_BACKDROP_PALETTE[item.name];
+      if (!color || typeof item.id !== 'string' || item.id.length < 8 || item.id.length > 80) return [];
+      return [{
+        id: item.id, name: item.name, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30',
+        backdropName: item.name, backdropColor: color, status: 'OWNED', ownerId: user.id,
+      }];
+    });
+    if (records.length !== items.length) throw new BadRequestException('One or more demo backdrops are invalid');
+    if (records.length) await this.prisma.gift.createMany({ data: records, skipDuplicates: true });
+    return this.listDemoBackdrops(user.id);
+  }
+
+  @Post('demo/backdrops/drop')
+  async createDemoBackdropDrop(@Body() body: { initData?: string; name: string }) {
+    const user = await this.getOrCreateTelegramUser(body.initData);
+    const color = DEMO_BACKDROP_PALETTE[body.name];
+    if (!color) throw new BadRequestException('Unknown demo backdrop');
+    await this.prisma.gift.create({
+      data: {
+        name: body.name, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30', backdropName: body.name,
+        backdropColor: color, status: 'OWNED', ownerId: user.id,
+      },
+    });
+    return this.listDemoBackdrops(user.id);
+  }
+
+  @Post('demo/backdrops/transfer')
+  async transferDemoBackdrop(@Body() body: { initData?: string; itemId: string; recipientUsername: string }) {
+    const sender = await this.getOrCreateTelegramUser(body.initData);
+    if (!body.itemId) throw new BadRequestException('Backdrop id is required');
+    const username = body.recipientUsername?.trim().replace(/^@/, '');
+    if (!username || !/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(username)) throw new BadRequestException('Enter a valid Telegram username');
+    const recipient = await this.prisma.user.findFirst({
+      where: { username: { equals: username, mode: 'insensitive' } },
+      select: { id: true },
+    });
+    if (!recipient) throw new NotFoundException('That user must open ORBIT before you can transfer a demo backdrop');
+    if (recipient.id === sender.id) throw new BadRequestException('You cannot transfer a backdrop to yourself');
+    const updated = await this.prisma.gift.updateMany({
+      where: { id: body.itemId, ownerId: sender.id, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
+      data: { ownerId: recipient.id },
+    });
+    if (updated.count !== 1) throw new BadRequestException('This demo backdrop is no longer available to transfer');
+    return { transferred: true };
+  }
+
+  @Post('demo/backdrops/sell')
+  async sellDemoBackdrop(@Body() body: { initData?: string; itemId: string }) {
+    const user = await this.getOrCreateTelegramUser(body.initData);
+    if (!body.itemId) throw new BadRequestException('Backdrop id is required');
+    const deleted = await this.prisma.gift.deleteMany({
+      where: { id: body.itemId, ownerId: user.id, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
+    });
+    if (deleted.count !== 1) throw new BadRequestException('This demo backdrop is no longer available to sell');
+    return { sold: true, creditedTon: '0' };
+  }
 
   @Get('gifts/listed')
   async getListedGifts(@Query('initData') initData: string) {
@@ -695,5 +772,30 @@ async getOffers(@Query('initData') initData: string) {
       });
       return tx.gift.findUnique({ where: { id: gift.id } });
     });
+  }
+
+  private async getOrCreateTelegramUser(initData?: string) {
+    if (!initData) throw new UnauthorizedException('initData is required');
+    const telegramUser = this.telegramAuth.validateInitData(initData);
+    return this.prisma.user.upsert({
+      where: { telegramId: String(telegramUser.id) },
+      update: { username: telegramUser.username ?? null },
+      create: { telegramId: String(telegramUser.id), username: telegramUser.username ?? null },
+    });
+  }
+
+  private async listDemoBackdrops(userId: string) {
+    const items = await this.prisma.gift.findMany({
+      where: { ownerId: userId, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
+      select: { id: true, name: true, backdropName: true, backdropColor: true, createdAt: true },
+      orderBy: { createdAt: 'desc' },
+    });
+    return items.map((item) => ({
+      id: item.id,
+      name: item.backdropName ?? item.name,
+      color: item.backdropColor ?? DEMO_BACKDROP_PALETTE[item.name] ?? '#17191d',
+      emoji: '',
+      obtainedAt: item.createdAt.getTime(),
+    }));
   }
 }

@@ -91,9 +91,26 @@ async function settleWinner(tx: Prisma.TransactionClient, roomId: string, winner
     await tx.user.update({ where: { id: winnerId }, data: { balanceGram: { increment: pot } } });
     await tx.gameTransaction.create({ data: { userId: winnerId, game: 'PVP', type: 'PAYOUT', reference: `pvp:${roomId}:payout`, amountGram: pot, details: { roomId, winnerId } } });
   }
-  const staked = await tx.pvpParticipantGift.findMany({ where: { participant: { roomId } }, select: { giftId: true } });
+  const staked = await tx.pvpParticipantGift.findMany({
+    where: { participant: { roomId } },
+    select: { giftId: true, gift: { select: { name: true, backdropName: true, emoji: true } } },
+  });
   if (staked.length) {
     await tx.gift.updateMany({ where: { id: { in: staked.map(({ giftId }) => giftId) } }, data: { ownerId: winnerId, status: 'OWNED' } });
+    await tx.gameTransaction.create({ data: {
+      userId: winnerId,
+      game: 'PVP',
+      type: 'NFT_PAYOUT',
+      reference: `pvp:${roomId}:nft-payout`,
+      amountGram: '0',
+      details: {
+        roomId,
+        winnerId,
+        nftCount: staked.length,
+        nftNames: staked.map(({ gift }) => gift.backdropName ?? gift.name),
+        nftPacks: staked.map(({ gift }) => gift.emoji),
+      },
+    } });
   }
 }
 

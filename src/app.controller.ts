@@ -352,7 +352,7 @@ async getOffers(@Query('initData') initData: string) {
       },
     });
 
-    const [transactions, offers, deposits, withdrawals, gameTransactions] = await Promise.all([
+    const [transactions, offers, deposits, withdrawals, gameTransactions, nftWins] = await Promise.all([
       this.prisma.transaction.findMany({
         where: {
           type: { not: 'OFFER_ACCEPTED' },
@@ -384,7 +384,17 @@ async getOffers(@Query('initData') initData: string) {
         orderBy: { createdAt: 'desc' },
         take: 50,
       }),
+      this.prisma.pvpRoom.findMany({
+        where: { winnerId: user.id, status: 'COMPLETED', participants: { some: { gifts: { some: {} } } } },
+        select: { id: true, completedAt: true, participants: { select: { gifts: { select: { giftId: true } } } } },
+        orderBy: { completedAt: 'desc' },
+        take: 50,
+      }),
     ]);
+
+    const loggedNftWinRooms = new Set(gameTransactions
+      .filter((transaction) => transaction.type === 'NFT_PAYOUT')
+      .map((transaction) => transaction.reference));
 
     return [
       ...transactions.map((transaction) => ({
@@ -428,9 +438,21 @@ async getOffers(@Query('initData') initData: string) {
         kind: 'BALANCE' as const,
         event: `${transaction.game}_${transaction.type}`,
         status: 'COMPLETED',
-        amountTon: transaction.amountGram,
+        amountTon: transaction.type === 'NFT_PAYOUT' ? null : transaction.amountGram,
+        details: transaction.details,
         createdAt: transaction.createdAt,
       })),
+      ...nftWins
+        .filter((room) => !loggedNftWinRooms.has(`pvp:${room.id}:nft-payout`))
+        .map((room) => ({
+          id: `pvp-nft-win:${room.id}`,
+          kind: 'BALANCE' as const,
+          event: 'PVP_NFT_PAYOUT',
+          status: 'COMPLETED',
+          amountTon: null,
+          details: { nftCount: room.participants.reduce((total, participant) => total + participant.gifts.length, 0) },
+          createdAt: room.completedAt ?? new Date(0),
+        })),
     ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 

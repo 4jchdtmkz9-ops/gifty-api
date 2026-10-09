@@ -136,7 +136,7 @@ export class AppController {
       return { gift, sold: sold + 1, balanceGram: balance.balanceGram.toString() };
     });
     return {
-      item: { id: result.gift.id, name: result.gift.backdropName, color: result.gift.backdropColor, emoji: '', packId, obtainedAt: result.gift.createdAt.getTime() },
+      item: { id: result.gift.id, name: result.gift.backdropName, color: result.gift.backdropColor, emoji: '', packId, priceTon: result.gift.priceTon.toString(), obtainedAt: result.gift.createdAt.getTime() },
       supply: { limit: 500, sold: result.sold, remaining: 500 - result.sold },
       balanceGram: result.balanceGram,
     };

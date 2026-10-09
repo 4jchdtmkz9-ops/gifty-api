@@ -8,6 +8,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { randomInt } from 'node:crypto';
 import { AppService } from './app.service.js';
 import { TonService } from './ton.service.js';
 import { PrismaService } from './prisma.service.js';
@@ -86,36 +87,64 @@ export class AppController {
   @Post('demo/backdrops/sync')
   async syncDemoBackdrops(@Body() body: { initData?: string; items?: Array<{ id: string; name: string; packId?: string }> }) {
     const user = await this.getOrCreateTelegramUser(body.initData);
-    const items = body.items ?? [];
-    if (!Array.isArray(items) || items.length > 100) throw new BadRequestException('Invalid demo backdrop inventory');
-    const records = items.flatMap((item) => {
-      const color = DEMO_BACKDROP_PALETTE[item.name];
-      const packId = item.packId ?? 'sweeties';
-      if (!color || !['sweeties', 'orbit-dog'].includes(packId) || typeof item.id !== 'string' || item.id.length < 8 || item.id.length > 80) return [];
-      return [{
-        id: item.id, name: item.name, emoji: packId, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30',
-        backdropName: item.name, backdropColor: color, status: 'OWNED', ownerId: user.id,
-      }];
-    });
-    if (records.length !== items.length) throw new BadRequestException('One or more demo backdrops are invalid');
-    if (records.length) await this.prisma.gift.createMany({ data: records, skipDuplicates: true });
+    // Inventory is authoritative on the server; never import client-provided items.
     return this.listDemoBackdrops(user.id);
+  }
+
+  @Get('demo/backdrops/supply')
+  async getBackdropPackSupply() {
+    const packs = ['sweeties', 'orbit-dog'] as const;
+    const purchases = await Promise.all(packs.map((packId) => this.prisma.gameTransaction.count({ where: { game: 'ORBIT_NFT', type: `PURCHASE_${packId.toUpperCase().replace('-', '_')}` } })));
+    return Object.fromEntries(packs.map((packId, index) => [packId, { limit: 500, sold: Math.min(500, purchases[index]), remaining: Math.max(0, 500 - purchases[index]) }]));
+  }
+
+  @Post('demo/backdrops/purchase')
+  async purchaseBackdropPack(@Body() body: { initData?: string; packId?: string; requestId?: string }) {
+    const user = await this.getOrCreateTelegramUser(body.initData);
+    const packId = body.packId;
+    const pack = packId === 'sweeties' ? { price: '0.25', type: 'PURCHASE_SWEETIES' } : packId === 'orbit-dog' ? { price: '0.35', type: 'PURCHASE_ORBIT_DOG' } : null;
+    if (!pack) throw new BadRequestException('Unknown ORBIT NFT pack');
+    if (!body.requestId || !/^[A-Za-z0-9_-]{8,80}$/.test(body.requestId)) throw new BadRequestException('A valid purchase request id is required');
+    const backdrops = Object.entries(DEMO_BACKDROP_PALETTE);
+    const reward = randomInt(100) < 80 ? backdrops.find(([name]) => name === 'Black')! : backdrops.filter(([name]) => name !== 'Black')[randomInt(backdrops.length - 1)];
+    const result = await this.prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${`orbit-nft-pack:${packId}`}))::text AS locked`;
+      const reference = `orbit-nft:${user.id}:${packId}:${body.requestId}`;
+      const previous = await tx.gameTransaction.findUnique({ where: { reference } });
+      if (previous) {
+        const details = previous.details as { giftId?: string } | null;
+        if (!details?.giftId) throw new BadRequestException('Purchase record is incomplete');
+        const gift = await tx.gift.findUniqueOrThrow({ where: { id: details.giftId } });
+        const sold = await tx.gameTransaction.count({ where: { game: 'ORBIT_NFT', type: pack.type } });
+        const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
+        return { gift, sold, balanceGram: balance.balanceGram.toString() };
+      }
+      const sold = await tx.gameTransaction.count({ where: { game: 'ORBIT_NFT', type: pack.type } });
+      if (sold >= 500) throw new BadRequestException('This pack is sold out');
+      const debit = await tx.user.updateMany({ where: { id: user.id, balanceGram: { gte: pack.price } }, data: { balanceGram: { decrement: pack.price } } });
+      if (debit.count !== 1) throw new BadRequestException('Insufficient ORBIT balance');
+      const gift = await tx.gift.create({ data: {
+        name: reward[0], emoji: packId, collection: DEMO_BACKDROP_COLLECTION, priceTon: pack.price,
+        backdropName: reward[0], backdropColor: reward[1], status: 'OWNED', ownerId: user.id,
+      } });
+      await tx.gameTransaction.create({ data: {
+        userId: user.id, game: 'ORBIT_NFT', type: pack.type,
+        reference,
+        amountGram: `-${pack.price}`, details: { packId, giftId: gift.id, backdrop: reward[0] },
+      } });
+      const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
+      return { gift, sold: sold + 1, balanceGram: balance.balanceGram.toString() };
+    });
+    return {
+      item: { id: result.gift.id, name: result.gift.backdropName, color: result.gift.backdropColor, emoji: '', packId, obtainedAt: result.gift.createdAt.getTime() },
+      supply: { limit: 500, sold: result.sold, remaining: 500 - result.sold },
+      balanceGram: result.balanceGram,
+    };
   }
 
   @Post('demo/backdrops/drop')
   async createDemoBackdropDrop(@Body() body: { initData?: string; name: string; packId?: string }) {
-    const user = await this.getOrCreateTelegramUser(body.initData);
-    const color = DEMO_BACKDROP_PALETTE[body.name];
-    const packId = body.packId ?? 'sweeties';
-    if (!color) throw new BadRequestException('Unknown demo backdrop');
-    if (!['sweeties', 'orbit-dog'].includes(packId)) throw new BadRequestException('Unknown demo backdrop pack');
-    await this.prisma.gift.create({
-      data: {
-        name: body.name, emoji: packId, collection: DEMO_BACKDROP_COLLECTION, priceTon: '0.30', backdropName: body.name,
-        backdropColor: color, status: 'OWNED', ownerId: user.id,
-      },
-    });
-    return this.listDemoBackdrops(user.id);
+    throw new BadRequestException('Use the paid ORBIT NFT pack purchase flow');
   }
 
   @Post('demo/backdrops/transfer')
@@ -790,7 +819,7 @@ async getOffers(@Query('initData') initData: string) {
   private async listDemoBackdrops(userId: string) {
     const items = await this.prisma.gift.findMany({
       where: { ownerId: userId, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
-      select: { id: true, name: true, emoji: true, backdropName: true, backdropColor: true, createdAt: true },
+      select: { id: true, name: true, emoji: true, backdropName: true, backdropColor: true, priceTon: true, createdAt: true },
       orderBy: { createdAt: 'desc' },
     });
     return items.map((item) => ({
@@ -799,6 +828,7 @@ async getOffers(@Query('initData') initData: string) {
       color: item.backdropColor ?? DEMO_BACKDROP_PALETTE[item.name] ?? '#17191d',
       emoji: '',
       packId: item.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties',
+      priceTon: item.priceTon.toString(),
       obtainedAt: item.createdAt.getTime(),
     }));
   }

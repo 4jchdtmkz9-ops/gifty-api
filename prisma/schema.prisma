@@ -10,6 +10,7 @@ datasource db {
 model User {
   id          String   @id @default(cuid())
   telegramId  String   @unique
+  telegramAccessHash String?
   username    String?
   firstName   String?
   lastName    String?
@@ -32,6 +33,8 @@ model User {
   botDeposits            BotDeposit[]
   botWithdrawals         BotWithdrawal[]
   gameTransactions      GameTransaction[]
+  giftDepositIntents    GiftDepositIntent[]
+  giftWithdrawalRequests GiftWithdrawalRequest[]
 }
 
 model GameTransaction {
@@ -113,6 +116,10 @@ model Gift {
   backdropColor  String?
   symbolName     String?
   symbolImageUrl String?
+  imageUrl       String?
+  telegramOwnedGiftId String? @unique
+  telegramGiftNumber  String?
+  telegramGiftData    Json?
   status         String   @default("LISTED")
   ownerId        String?
   createdAt      DateTime @default(now())
@@ -121,6 +128,41 @@ model Gift {
   owner        User?         @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   transactions Transaction[]
   offers       Offer[]
+  arenaStakes  PvpParticipantGift[]
+  depositIntent GiftDepositIntent?
+  withdrawalRequests GiftWithdrawalRequest[]
+}
+
+model GiftDepositIntent {
+  id          String   @id @default(cuid())
+  userId      String
+  code        String   @unique
+  status      String   @default("PENDING")
+  giftId      String?  @unique
+  confirmedAt DateTime?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gift        Gift?    @relation(fields: [giftId], references: [id], onDelete: SetNull)
+  @@index([userId, status, createdAt])
+}
+
+model GiftWithdrawalRequest {
+  id          String   @id @default(cuid())
+  userId      String
+  giftId      String
+  code        String   @unique
+  status      String   @default("PENDING")
+  confirmedAt DateTime?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gift        Gift     @relation(fields: [giftId], references: [id], onDelete: Restrict)
+  @@index([userId, status, createdAt])
+}
+
+model TelegramRelayState {
+  id            String   @id @default("orbit-relay")
+  initialSyncAt DateTime
+  updatedAt     DateTime @updatedAt
 }
 
 model Transaction {
@@ -190,13 +232,29 @@ model PvpParticipant {
   roomId    String
   userId    String
   stakeGram Decimal  @default(0) @db.Decimal(20, 9)
+  cashStakeGram Decimal @default(0) @db.Decimal(20, 9)
   joinedAt  DateTime @default(now())
 
   room PvpRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
   user User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gifts PvpParticipantGift[]
 
   @@unique([roomId, userId])
   @@index([userId, joinedAt])
+}
+
+model PvpParticipantGift {
+  id            String   @id @default(cuid())
+  participantId String
+  giftId        String
+  valueGram     Decimal  @db.Decimal(20, 9)
+  createdAt     DateTime @default(now())
+
+  participant PvpParticipant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  gift        Gift           @relation(fields: [giftId], references: [id], onDelete: Cascade)
+
+  @@index([participantId, createdAt])
+  @@index([giftId])
 }
 
 model PvpInvitation {

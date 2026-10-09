@@ -341,7 +341,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       const gifts = await tx.gift.findMany({
         where: {
           id: { in: ids }, ownerId: user.id, status: 'OWNED',
-          OR: [{ telegramOwnedGiftId: { not: null } }, { collection: ORBIT_NFT_COLLECTION }],
+          collection: ORBIT_NFT_COLLECTION,
         },
         select: { id: true, priceTon: true, collection: true, emoji: true, backdropName: true, name: true },
       });
@@ -376,7 +376,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         where: { isPublic: true, arenaMode, OR: [{ status: 'WAITING' }, { status: 'COUNTDOWN', countdownEndsAt: { gt: now } }] },
         include: { participants: true }, orderBy: { createdAt: 'desc' },
       });
-      const gifts = await tx.gift.findMany({ where: { id: { in: ids }, ownerId: user.id, status: 'OWNED', OR: [{ telegramOwnedGiftId: { not: null } }, { collection: ORBIT_NFT_COLLECTION }] }, select: { id: true, priceTon: true, collection: true, emoji: true, backdropName: true, name: true } });
+      const gifts = await tx.gift.findMany({ where: { id: { in: ids }, ownerId: user.id, status: 'OWNED', collection: ORBIT_NFT_COLLECTION }, select: { id: true, priceTon: true, collection: true, emoji: true, backdropName: true, name: true } });
       const giftValues = gifts.map((gift) => ({ ...gift, valueGram: gift.collection === ORBIT_NFT_COLLECTION ? orbitNftResaleValue(gift.backdropName ?? gift.name, gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties') : gift.priceTon }));
       if (giftValues.length !== ids.length || giftValues.some(({ valueGram }) => toNano(valueGram) <= 0n)) throw new ConflictException('One or more NFTs are unavailable for staking');
       const value = giftValues.reduce((sum, gift) => sum + toNano(gift.valueGram), 0n);

@@ -16,6 +16,7 @@ import { randomBytes, randomInt } from 'node:crypto';
 import { PrismaService } from '../prisma.service.js';
 import { Prisma } from '../generated/prisma/client.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
+import { ORBIT_NFT_COLLECTION, orbitNftResaleValue } from '../orbit-nft.config.js';
 
 const roomInclude = {
   participants: {
@@ -340,15 +341,16 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       const gifts = await tx.gift.findMany({
         where: {
           id: { in: ids }, ownerId: user.id, status: 'OWNED',
-          OR: [{ telegramOwnedGiftId: { not: null } }, { collection: '__ORBIT_DEMO_BACKDROP__' }],
+          OR: [{ telegramOwnedGiftId: { not: null } }, { collection: ORBIT_NFT_COLLECTION }],
         },
-        select: { id: true, priceTon: true },
+        select: { id: true, priceTon: true, collection: true, emoji: true, backdropName: true, name: true },
       });
       if (gifts.length !== ids.length) throw new ConflictException('One or more gifts are unavailable for staking');
-      if (gifts.some(({ priceTon }) => toNano(priceTon) <= 0n)) throw new ConflictException('A market value is not configured for one or more gifts');
-      const value = gifts.reduce((sum, gift) => sum + toNano(gift.priceTon), 0n);
-      for (const gift of gifts) {
-        await tx.pvpParticipantGift.create({ data: { participantId: participant.id, giftId: gift.id, valueGram: gift.priceTon } });
+      const giftValues = gifts.map((gift) => ({ ...gift, valueGram: gift.collection === ORBIT_NFT_COLLECTION ? orbitNftResaleValue(gift.backdropName ?? gift.name, gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties') : gift.priceTon }));
+      if (giftValues.some(({ valueGram }) => toNano(valueGram) <= 0n)) throw new ConflictException('A market value is not configured for one or more gifts');
+      const value = giftValues.reduce((sum, gift) => sum + toNano(gift.valueGram), 0n);
+      for (const gift of giftValues) {
+        await tx.pvpParticipantGift.create({ data: { participantId: participant.id, giftId: gift.id, valueGram: gift.valueGram } });
         await tx.gift.update({ where: { id: gift.id }, data: { status: 'PVP_ESCROW' } });
       }
       const participantStake = toNano(participant.stakeGram) + value;
@@ -374,9 +376,10 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         where: { isPublic: true, arenaMode, OR: [{ status: 'WAITING' }, { status: 'COUNTDOWN', countdownEndsAt: { gt: now } }] },
         include: { participants: true }, orderBy: { createdAt: 'desc' },
       });
-      const gifts = await tx.gift.findMany({ where: { id: { in: ids }, ownerId: user.id, status: 'OWNED', OR: [{ telegramOwnedGiftId: { not: null } }, { collection: '__ORBIT_DEMO_BACKDROP__' }] }, select: { id: true, priceTon: true } });
-      if (gifts.length !== ids.length || gifts.some(({ priceTon }) => toNano(priceTon) <= 0n)) throw new ConflictException('One or more NFTs are unavailable for staking');
-      const value = gifts.reduce((sum, gift) => sum + toNano(gift.priceTon), 0n);
+      const gifts = await tx.gift.findMany({ where: { id: { in: ids }, ownerId: user.id, status: 'OWNED', OR: [{ telegramOwnedGiftId: { not: null } }, { collection: ORBIT_NFT_COLLECTION }] }, select: { id: true, priceTon: true, collection: true, emoji: true, backdropName: true, name: true } });
+      const giftValues = gifts.map((gift) => ({ ...gift, valueGram: gift.collection === ORBIT_NFT_COLLECTION ? orbitNftResaleValue(gift.backdropName ?? gift.name, gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties') : gift.priceTon }));
+      if (giftValues.length !== ids.length || giftValues.some(({ valueGram }) => toNano(valueGram) <= 0n)) throw new ConflictException('One or more NFTs are unavailable for staking');
+      const value = giftValues.reduce((sum, gift) => sum + toNano(gift.valueGram), 0n);
       let activeRoom = room;
       if (!activeRoom) {
         activeRoom = await tx.pvpRoom.create({ data: {
@@ -395,10 +398,10 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         } });
       }
       const participant = await tx.pvpParticipant.findUniqueOrThrow({ where: { roomId_userId: { roomId: activeRoom.id, userId: user.id } } });
-      for (const gift of gifts) {
+      for (const gift of giftValues) {
         const reserved = await tx.gift.updateMany({ where: { id: gift.id, ownerId: user.id, status: 'OWNED' }, data: { status: 'PVP_ESCROW' } });
         if (reserved.count !== 1) throw new ConflictException('An NFT was just staked in another room');
-        await tx.pvpParticipantGift.create({ data: { participantId: participant.id, giftId: gift.id, valueGram: gift.priceTon } });
+        await tx.pvpParticipantGift.create({ data: { participantId: participant.id, giftId: gift.id, valueGram: gift.valueGram } });
       }
       return activeRoom.id;
     });

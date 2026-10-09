@@ -8,18 +8,11 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { randomInt } from 'node:crypto';
 import { AppService } from './app.service.js';
 import { TonService } from './ton.service.js';
 import { PrismaService } from './prisma.service.js';
 import { TelegramAuthService } from './auth/telegram-auth.service.js';
-
-const DEMO_BACKDROP_COLLECTION = '__ORBIT_DEMO_BACKDROP__';
-const DEMO_BACKDROP_PALETTE: Record<string, string> = {
-  'Celtic Blue': '#2877bb', Cappuccino: '#b28a6b', 'Pine Green': '#27634a', Raspberry: '#d82f68',
-  Persimmon: '#e8783f', 'Mystic Pearl': '#b05670', Platinum: '#d5d9df', Rosewood: '#70404e',
-  'Pure Gold': '#e5b83e', Black: '#17191d', 'Onyx Black': '#202329', 'Midnight Blue': '#172c55',
-};
+import { chooseOrbitNftBackdrop, ORBIT_NFT_COLLECTION, ORBIT_NFT_PALETTE, orbitNftResaleValue } from './orbit-nft.config.js';
 
 @Controller()
 export class AppController {
@@ -70,7 +63,7 @@ export class AppController {
     where: {
       ownerId: user.id,
       status: 'OWNED',
-      collection: { not: DEMO_BACKDROP_COLLECTION },
+      collection: { not: ORBIT_NFT_COLLECTION },
     },
     orderBy: {
       updatedAt: 'desc',
@@ -78,35 +71,35 @@ export class AppController {
   });
 }
 
-  @Get('demo/backdrops')
-  async getDemoBackdrops(@Query('initData') initData: string) {
+  @Get('orbit-nft/inventory')
+  async getOrbitNftInventory(@Query('initData') initData: string) {
     const user = await this.getOrCreateTelegramUser(initData);
-    return this.listDemoBackdrops(user.id);
+    return this.listOrbitNfts(user.id);
   }
 
-  @Post('demo/backdrops/sync')
-  async syncDemoBackdrops(@Body() body: { initData?: string; items?: Array<{ id: string; name: string; packId?: string }> }) {
+  @Post('orbit-nft/sync')
+  async syncOrbitNftInventory(@Body() body: { initData?: string; items?: Array<{ id: string; name: string; packId?: string }> }) {
     const user = await this.getOrCreateTelegramUser(body.initData);
     // Inventory is authoritative on the server; never import client-provided items.
-    return this.listDemoBackdrops(user.id);
+    return this.listOrbitNfts(user.id);
   }
 
-  @Get('demo/backdrops/supply')
-  async getBackdropPackSupply() {
+  @Get('orbit-nft/supply')
+  async getOrbitNftPackSupply() {
     const packs = ['sweeties', 'orbit-dog'] as const;
     const purchases = await Promise.all(packs.map((packId) => this.prisma.gameTransaction.count({ where: { game: 'ORBIT_NFT', type: `PURCHASE_${packId.toUpperCase().replace('-', '_')}` } })));
     return Object.fromEntries(packs.map((packId, index) => [packId, { limit: 500, sold: Math.min(500, purchases[index]), remaining: Math.max(0, 500 - purchases[index]) }]));
   }
 
-  @Post('demo/backdrops/purchase')
-  async purchaseBackdropPack(@Body() body: { initData?: string; packId?: string; requestId?: string }) {
+  @Post('orbit-nft/purchase')
+  async purchaseOrbitNftPack(@Body() body: { initData?: string; packId?: string; requestId?: string }) {
     const user = await this.getOrCreateTelegramUser(body.initData);
-    const packId = body.packId;
-    const pack = packId === 'sweeties' ? { price: '0.25', type: 'PURCHASE_SWEETIES' } : packId === 'orbit-dog' ? { price: '0.35', type: 'PURCHASE_ORBIT_DOG' } : null;
-    if (!pack) throw new BadRequestException('Unknown ORBIT NFT pack');
+    const packId = body.packId === 'orbit-dog' ? 'orbit-dog' : body.packId === 'sweeties' ? 'sweeties' : null;
+    if (!packId) throw new BadRequestException('Unknown ORBIT NFT pack');
+    const pack = packId === 'sweeties' ? { price: '0.25', type: 'PURCHASE_SWEETIES' } : { price: '0.35', type: 'PURCHASE_ORBIT_DOG' };
     if (!body.requestId || !/^[A-Za-z0-9_-]{8,80}$/.test(body.requestId)) throw new BadRequestException('A valid purchase request id is required');
-    const backdrops = Object.entries(DEMO_BACKDROP_PALETTE);
-    const reward = randomInt(100) < 80 ? backdrops.find(([name]) => name === 'Black')! : backdrops.filter(([name]) => name !== 'Black')[randomInt(backdrops.length - 1)];
+    const reward = chooseOrbitNftBackdrop();
+    const resaleValue = orbitNftResaleValue(reward[0], packId);
     const result = await this.prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${`orbit-nft-pack:${packId}`}))::text AS locked`;
       const reference = `orbit-nft:${user.id}:${packId}:${body.requestId}`;
@@ -124,7 +117,7 @@ export class AppController {
       const debit = await tx.user.updateMany({ where: { id: user.id, balanceGram: { gte: pack.price } }, data: { balanceGram: { decrement: pack.price } } });
       if (debit.count !== 1) throw new BadRequestException('Insufficient ORBIT balance');
       const gift = await tx.gift.create({ data: {
-        name: reward[0], emoji: packId, collection: DEMO_BACKDROP_COLLECTION, priceTon: pack.price,
+        name: reward[0], emoji: packId, collection: ORBIT_NFT_COLLECTION, priceTon: resaleValue,
         backdropName: reward[0], backdropColor: reward[1], status: 'OWNED', ownerId: user.id,
       } });
       await tx.gameTransaction.create({ data: {
@@ -142,13 +135,8 @@ export class AppController {
     };
   }
 
-  @Post('demo/backdrops/drop')
-  async createDemoBackdropDrop(@Body() body: { initData?: string; name: string; packId?: string }) {
-    throw new BadRequestException('Use the paid ORBIT NFT pack purchase flow');
-  }
-
-  @Post('demo/backdrops/transfer')
-  async transferDemoBackdrop(@Body() body: { initData?: string; itemId: string; recipientUsername: string }) {
+  @Post('orbit-nft/transfer')
+  async transferOrbitNft(@Body() body: { initData?: string; itemId: string; recipientUsername: string }) {
     const sender = await this.getOrCreateTelegramUser(body.initData);
     if (!body.itemId) throw new BadRequestException('Backdrop id is required');
     const username = body.recipientUsername?.trim().replace(/^@/, '');
@@ -157,25 +145,38 @@ export class AppController {
       where: { username: { equals: username, mode: 'insensitive' } },
       select: { id: true },
     });
-    if (!recipient) throw new NotFoundException('That user must open ORBIT before you can transfer a demo backdrop');
-    if (recipient.id === sender.id) throw new BadRequestException('You cannot transfer a backdrop to yourself');
+    if (!recipient) throw new NotFoundException('That user must open ORBIT before you can transfer this collectible');
+    if (recipient.id === sender.id) throw new BadRequestException('You cannot transfer a collectible to yourself');
     const updated = await this.prisma.gift.updateMany({
-      where: { id: body.itemId, ownerId: sender.id, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
+      where: { id: body.itemId, ownerId: sender.id, status: 'OWNED', collection: ORBIT_NFT_COLLECTION },
       data: { ownerId: recipient.id },
     });
-    if (updated.count !== 1) throw new BadRequestException('This demo backdrop is no longer available to transfer');
+    if (updated.count !== 1) throw new BadRequestException('This collectible is no longer available to transfer');
     return { transferred: true };
   }
 
-  @Post('demo/backdrops/sell')
-  async sellDemoBackdrop(@Body() body: { initData?: string; itemId: string }) {
+  @Post('orbit-nft/sell')
+  async sellOrbitNft(@Body() body: { initData?: string; itemId: string }) {
     const user = await this.getOrCreateTelegramUser(body.initData);
     if (!body.itemId) throw new BadRequestException('Backdrop id is required');
-    const deleted = await this.prisma.gift.deleteMany({
-      where: { id: body.itemId, ownerId: user.id, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
+    const result = await this.prisma.$transaction(async (tx) => {
+      const locked = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "Gift" WHERE "id" = ${body.itemId} FOR UPDATE`;
+      if (!locked[0]) throw new NotFoundException('Collectible not found');
+      const gift = await tx.gift.findFirst({ where: { id: body.itemId, ownerId: user.id, status: 'OWNED', collection: ORBIT_NFT_COLLECTION } });
+      if (!gift) throw new BadRequestException('This collectible is no longer available to sell');
+      const packId = gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties';
+      const amount = orbitNftResaleValue(gift.backdropName ?? gift.name, packId);
+      const updated = await tx.gift.updateMany({ where: { id: gift.id, ownerId: user.id, status: 'OWNED' }, data: { ownerId: null, status: 'SOLD' } });
+      if (updated.count !== 1) throw new BadRequestException('This collectible is no longer available to sell');
+      await tx.user.update({ where: { id: user.id }, data: { balanceGram: { increment: amount } } });
+      await tx.gameTransaction.create({ data: {
+        userId: user.id, game: 'ORBIT_NFT', type: 'QUICK_SELL', reference: `orbit-nft-sale:${gift.id}`,
+        amountGram: amount, details: { giftId: gift.id, name: gift.backdropName ?? gift.name, packId, creditedGram: amount },
+      } });
+      const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
+      return { amount, balanceGram: balance.balanceGram.toString(), name: gift.backdropName ?? gift.name };
     });
-    if (deleted.count !== 1) throw new BadRequestException('This demo backdrop is no longer available to sell');
-    return { sold: true, creditedTon: '0' };
+    return { sold: true, creditedGram: result.amount, balanceGram: result.balanceGram, name: result.name };
   }
 
   @Get('gifts/listed')
@@ -816,20 +817,24 @@ async getOffers(@Query('initData') initData: string) {
     });
   }
 
-  private async listDemoBackdrops(userId: string) {
+  private async listOrbitNfts(userId: string) {
     const items = await this.prisma.gift.findMany({
-      where: { ownerId: userId, status: 'OWNED', collection: DEMO_BACKDROP_COLLECTION },
+      where: { ownerId: userId, status: 'OWNED', collection: ORBIT_NFT_COLLECTION },
       select: { id: true, name: true, emoji: true, backdropName: true, backdropColor: true, priceTon: true, createdAt: true },
       orderBy: { createdAt: 'desc' },
     });
-    return items.map((item) => ({
-      id: item.id,
-      name: item.backdropName ?? item.name,
-      color: item.backdropColor ?? DEMO_BACKDROP_PALETTE[item.name] ?? '#17191d',
-      emoji: '',
-      packId: item.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties',
-      priceTon: item.priceTon.toString(),
-      obtainedAt: item.createdAt.getTime(),
-    }));
+    return items.map((item) => {
+      const name = item.backdropName ?? item.name;
+      const packId = item.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties';
+      return {
+        id: item.id,
+        name,
+        color: item.backdropColor ?? ORBIT_NFT_PALETTE[item.name] ?? '#17191d',
+        emoji: '',
+        packId,
+        priceTon: orbitNftResaleValue(name, packId),
+        obtainedAt: item.createdAt.getTime(),
+      };
+    });
   }
 }

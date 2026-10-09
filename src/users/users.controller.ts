@@ -12,6 +12,7 @@ import {
 import { PrismaService } from '../prisma.service.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
 import { BotBalanceService } from './bot-balance.service.js';
+import { TelegramRelayService } from '../telegram/telegram-relay.service.js';
 
 @Controller('users')
 export class UsersController {
@@ -19,6 +20,7 @@ export class UsersController {
     private readonly prisma: PrismaService,
     private readonly telegramAuth: TelegramAuthService,
     private readonly botBalance: BotBalanceService,
+    private readonly telegramRelay: TelegramRelayService,
   ) {}
 
   @Get('test')
@@ -68,6 +70,19 @@ export class UsersController {
     const user = await this.getAuthenticatedUser(body.initData);
     if (!body.amountGram) throw new BadRequestException('Withdrawal amount is required');
     return this.botBalance.createWithdrawal(user.id, body.amountGram);
+  }
+
+  @Post('nft-withdrawals')
+  async createNftWithdrawal(@Body() body: { initData?: string; giftId?: string }) {
+    const user = await this.getAuthenticatedUser(body.initData);
+    if (!body.giftId) throw new BadRequestException('Gift is required');
+    return this.telegramRelay.requestNftWithdrawal(user.id, body.giftId);
+  }
+
+  @Post('nft-deposits')
+  async createNftDeposit(@Body() body: { initData?: string }) {
+    const user = await this.getAuthenticatedUser(body.initData);
+    return this.telegramRelay.createDepositIntent(user.id);
   }
 
   @Get('withdrawals/:id')

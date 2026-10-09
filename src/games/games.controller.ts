@@ -12,14 +12,6 @@ const LUCKY_REWARDS = [
   { id: 'gram-7999', name: 'GRAM', valueGram: '7999', chance: 0, kind: 'gram' },
 ] as const;
 
-const CRYPTAN_REWARDS = [
-  { id: 'bigyear-26647', name: 'Big Year', valueGram: '5.5', chance: 2 },
-  { id: 'whipcupcake-180322', name: 'Whip Cupcake', valueGram: '9', chance: 5 },
-  { id: 'inputkey-11258', name: 'Input Key', valueGram: '18', chance: 30 },
-  { id: 'surgeboard-22018', name: 'Surge Board', valueGram: '60', chance: 50 },
-  { id: 'nailbracelet-3267', name: 'Nail Bracelet', valueGram: '250', chance: 13 },
-] as const;
-
 function choose<T extends { chance: number }>(rewards: readonly T[]) {
   const total = rewards.reduce((sum, reward) => sum + reward.chance, 0);
   let ticket = randomInt(total);
@@ -55,45 +47,6 @@ export class GamesController {
       await tx.gameTransaction.create({ data: { userId: user.id, game: 'LUCKY', type: 'SETTLEMENT', reference, amountGram: Number(reward.valueGram) - 1, details: reward } });
       const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
       return { reward, balanceGram: balance.balanceGram.toString() };
-    });
-  }
-
-  @Post('cases/cryptan/purchase')
-  async buyCryptan(@Body() body: { initData?: string; requestId?: string }) {
-    const user = await this.getUser(body.initData);
-    const requestId = validRequestId(body.requestId);
-    const reference = `case:cryptan:${user.id}:${requestId}:purchase`;
-    const previous = await this.prisma.gameTransaction.findUnique({ where: { reference } });
-    if (previous) return { purchaseId: previous.id, balanceGram: (await this.balance(user.id)).toString() };
-    return this.prisma.$transaction(async (tx) => {
-      const debit = await tx.user.updateMany({ where: { id: user.id, balanceGram: { gte: '30' } }, data: { balanceGram: { decrement: '30' } } });
-      if (debit.count !== 1) throw new BadRequestException('Insufficient ORBIT balance for this case');
-      const purchase = await tx.gameTransaction.create({ data: { userId: user.id, game: 'CRYPTAN', type: 'PURCHASE', reference, amountGram: '-30', details: { caseId: 'cryptan', opened: false } } });
-      const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
-      return { purchaseId: purchase.id, balanceGram: balance.balanceGram.toString() };
-    });
-  }
-
-  @Post('cases/cryptan/open')
-  async openCryptan(@Body() body: { initData?: string; purchaseId?: string }) {
-    const user = await this.getUser(body.initData);
-    if (!body.purchaseId) throw new BadRequestException('A case purchase is required');
-    return this.prisma.$transaction(async (tx) => {
-      const rows = await tx.$queryRaw<Array<{ id: string }>>`SELECT "id" FROM "GameTransaction" WHERE "id" = ${body.purchaseId} AND "userId" = ${user.id} FOR UPDATE`;
-      if (!rows[0]) throw new BadRequestException('Case purchase was not found');
-      const purchase = await tx.gameTransaction.findUniqueOrThrow({ where: { id: body.purchaseId } });
-      if (purchase.game !== 'CRYPTAN' || purchase.type !== 'PURCHASE') throw new BadRequestException('This record is not a case purchase');
-      const reference = `case:cryptan:${purchase.id}:payout`;
-      const previous = await tx.gameTransaction.findUnique({ where: { reference } });
-      if (previous?.details) {
-        const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
-        return { reward: previous.details, balanceGram: balance.balanceGram.toString() };
-      }
-      const reward = choose(CRYPTAN_REWARDS);
-      await tx.user.update({ where: { id: user.id }, data: { balanceGram: { increment: reward.valueGram } } });
-      await tx.gameTransaction.create({ data: { userId: user.id, game: 'CRYPTAN', type: 'PAYOUT', reference, amountGram: reward.valueGram, details: { ...reward, kind: 'gram' } } });
-      const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
-      return { reward: { ...reward, kind: 'gram' }, balanceGram: balance.balanceGram.toString() };
     });
   }
 

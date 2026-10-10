@@ -27,6 +27,31 @@ function validRequestId(value: string | undefined) {
   return value;
 }
 
+const CRYPTAN_PRICE_GRAM = '30';
+const CRYPTAN_REWARDS = [
+  { id: 'bigyear-26647', name: 'Big Year', valueGram: '5.5', chance: 50_000 },
+  { id: 'whipcupcake-180322', name: 'Whip Cupcake', valueGram: '9', chance: 45_000 },
+  { id: 'inputkey-11258', name: 'Input Key', valueGram: '18', chance: 4_499 },
+  { id: 'surgeboard-22018', name: 'Surge Board', valueGram: '60', chance: 500 },
+  { id: 'nailbracelet-3267', name: 'Nail Bracelet', valueGram: '250', chance: 1 },
+] as const;
+
+function chooseCryptanReward() {
+  const total = CRYPTAN_REWARDS.reduce((sum, reward) => sum + reward.chance, 0);
+  let ticket = randomInt(total);
+  for (const reward of CRYPTAN_REWARDS) {
+    if (ticket < reward.chance) return reward;
+    ticket -= reward.chance;
+  }
+  return CRYPTAN_REWARDS[CRYPTAN_REWARDS.length - 1];
+}
+
+type CryptanRewardDetails = Pick<typeof CRYPTAN_REWARDS[number], 'id' | 'name' | 'valueGram'>;
+
+function publicCryptanReward(reward: CryptanRewardDetails) {
+  return { id: reward.id, name: reward.name, valueGram: reward.valueGram, kind: 'gram' as const };
+}
+
 @Controller('games')
 export class GamesController {
   constructor(private readonly prisma: PrismaService, private readonly telegramAuth: TelegramAuthService) {}
@@ -48,6 +73,58 @@ export class GamesController {
       const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
       return { reward, balanceGram: balance.balanceGram.toString() };
     });
+  }
+
+  @Post('cryptan/open')
+  async openCryptan(@Body() body: { initData?: string; requestId?: string }) {
+    const user = await this.getUser(body.initData);
+    const requestId = validRequestId(body.requestId);
+    const reference = `cryptan:${user.id}:${requestId}`;
+    const existing = await this.prisma.gameTransaction.findUnique({ where: { reference } });
+    if (existing?.details) {
+      const details = existing.details as { reward: CryptanRewardDetails };
+      return { reward: publicCryptanReward(details.reward), balanceGram: (await this.balance(user.id)).toString() };
+    }
+
+    const reward = chooseCryptanReward();
+    try {
+      return await this.prisma.$transaction(async (tx) => {
+        const debited = await tx.user.updateMany({
+          where: { id: user.id, balanceGram: { gte: CRYPTAN_PRICE_GRAM } },
+          data: { balanceGram: { decrement: CRYPTAN_PRICE_GRAM } },
+        });
+        if (debited.count !== 1) throw new BadRequestException('Insufficient ORBIT balance for a 30 GRAM case');
+
+        // Until ORBIT has a real Telegram-gift treasury, settle each collectible prize
+        // as its displayed GRAM value. The random draw and both balance movements are server-side.
+        await tx.user.update({ where: { id: user.id }, data: { balanceGram: { increment: reward.valueGram } } });
+        await tx.gameTransaction.create({
+          data: {
+            userId: user.id,
+            game: 'CRYPTAN',
+            type: 'SETTLEMENT',
+            reference,
+            amountGram: Number(reward.valueGram) - Number(CRYPTAN_PRICE_GRAM),
+            details: {
+              reward: { id: reward.id, name: reward.name, valueGram: reward.valueGram },
+              priceGram: CRYPTAN_PRICE_GRAM,
+              payoutGram: reward.valueGram,
+            },
+          },
+        });
+        const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
+        return { reward: publicCryptanReward(reward), balanceGram: balance.balanceGram.toString() };
+      });
+    } catch (error) {
+      // A network retry may race with the first request. Return its committed result
+      // instead of charging twice; failed/insufficient-balance requests have no row.
+      const committed = await this.prisma.gameTransaction.findUnique({ where: { reference } });
+      if (committed?.details) {
+        const details = committed.details as { reward: CryptanRewardDetails };
+        return { reward: publicCryptanReward(details.reward), balanceGram: (await this.balance(user.id)).toString() };
+      }
+      throw error;
+    }
   }
 
   @Get('history')

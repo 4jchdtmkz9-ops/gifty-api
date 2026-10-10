@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model GiveawayEntry
+ * 
+ */
+export type GiveawayEntry = $Result.DefaultSelection<Prisma.$GiveawayEntryPayload>
+/**
+ * Model GiveawayReferralLink
+ * 
+ */
+export type GiveawayReferralLink = $Result.DefaultSelection<Prisma.$GiveawayReferralLinkPayload>
+/**
  * Model GameTransaction
  * 
  */
@@ -44,6 +54,21 @@ export type Wallet = $Result.DefaultSelection<Prisma.$WalletPayload>
  */
 export type Gift = $Result.DefaultSelection<Prisma.$GiftPayload>
 /**
+ * Model GiftDepositIntent
+ * 
+ */
+export type GiftDepositIntent = $Result.DefaultSelection<Prisma.$GiftDepositIntentPayload>
+/**
+ * Model GiftWithdrawalRequest
+ * 
+ */
+export type GiftWithdrawalRequest = $Result.DefaultSelection<Prisma.$GiftWithdrawalRequestPayload>
+/**
+ * Model TelegramRelayState
+ * 
+ */
+export type TelegramRelayState = $Result.DefaultSelection<Prisma.$TelegramRelayStatePayload>
+/**
  * Model Transaction
  * 
  */
@@ -63,6 +88,11 @@ export type PvpRoom = $Result.DefaultSelection<Prisma.$PvpRoomPayload>
  * 
  */
 export type PvpParticipant = $Result.DefaultSelection<Prisma.$PvpParticipantPayload>
+/**
+ * Model PvpParticipantGift
+ * 
+ */
+export type PvpParticipantGift = $Result.DefaultSelection<Prisma.$PvpParticipantGiftPayload>
 /**
  * Model PvpInvitation
  * 
@@ -201,6 +231,26 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.giveawayEntry`: Exposes CRUD operations for the **GiveawayEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GiveawayEntries
+    * const giveawayEntries = await prisma.giveawayEntry.findMany()
+    * ```
+    */
+  get giveawayEntry(): Prisma.GiveawayEntryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.giveawayReferralLink`: Exposes CRUD operations for the **GiveawayReferralLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GiveawayReferralLinks
+    * const giveawayReferralLinks = await prisma.giveawayReferralLink.findMany()
+    * ```
+    */
+  get giveawayReferralLink(): Prisma.GiveawayReferralLinkDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.gameTransaction`: Exposes CRUD operations for the **GameTransaction** model.
     * Example usage:
     * ```ts
@@ -251,6 +301,36 @@ export class PrismaClient<
   get gift(): Prisma.GiftDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.giftDepositIntent`: Exposes CRUD operations for the **GiftDepositIntent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GiftDepositIntents
+    * const giftDepositIntents = await prisma.giftDepositIntent.findMany()
+    * ```
+    */
+  get giftDepositIntent(): Prisma.GiftDepositIntentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.giftWithdrawalRequest`: Exposes CRUD operations for the **GiftWithdrawalRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GiftWithdrawalRequests
+    * const giftWithdrawalRequests = await prisma.giftWithdrawalRequest.findMany()
+    * ```
+    */
+  get giftWithdrawalRequest(): Prisma.GiftWithdrawalRequestDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.telegramRelayState`: Exposes CRUD operations for the **TelegramRelayState** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TelegramRelayStates
+    * const telegramRelayStates = await prisma.telegramRelayState.findMany()
+    * ```
+    */
+  get telegramRelayState(): Prisma.TelegramRelayStateDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.transaction`: Exposes CRUD operations for the **Transaction** model.
     * Example usage:
     * ```ts
@@ -289,6 +369,16 @@ export class PrismaClient<
     * ```
     */
   get pvpParticipant(): Prisma.PvpParticipantDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pvpParticipantGift`: Exposes CRUD operations for the **PvpParticipantGift** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PvpParticipantGifts
+    * const pvpParticipantGifts = await prisma.pvpParticipantGift.findMany()
+    * ```
+    */
+  get pvpParticipantGift(): Prisma.PvpParticipantGiftDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.pvpInvitation`: Exposes CRUD operations for the **PvpInvitation** model.
@@ -747,15 +837,21 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    GiveawayEntry: 'GiveawayEntry',
+    GiveawayReferralLink: 'GiveawayReferralLink',
     GameTransaction: 'GameTransaction',
     BotDeposit: 'BotDeposit',
     BotWithdrawal: 'BotWithdrawal',
     Wallet: 'Wallet',
     Gift: 'Gift',
+    GiftDepositIntent: 'GiftDepositIntent',
+    GiftWithdrawalRequest: 'GiftWithdrawalRequest',
+    TelegramRelayState: 'TelegramRelayState',
     Transaction: 'Transaction',
     Offer: 'Offer',
     PvpRoom: 'PvpRoom',
     PvpParticipant: 'PvpParticipant',
+    PvpParticipantGift: 'PvpParticipantGift',
     PvpInvitation: 'PvpInvitation'
   };
 
@@ -772,7 +868,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "gameTransaction" | "botDeposit" | "botWithdrawal" | "wallet" | "gift" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpInvitation"
+      modelProps: "user" | "giveawayEntry" | "giveawayReferralLink" | "gameTransaction" | "botDeposit" | "botWithdrawal" | "wallet" | "gift" | "giftDepositIntent" | "giftWithdrawalRequest" | "telegramRelayState" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpParticipantGift" | "pvpInvitation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -847,6 +943,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      GiveawayEntry: {
+        payload: Prisma.$GiveawayEntryPayload<ExtArgs>
+        fields: Prisma.GiveawayEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GiveawayEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GiveawayEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.GiveawayEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GiveawayEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>
+          }
+          findMany: {
+            args: Prisma.GiveawayEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>[]
+          }
+          create: {
+            args: Prisma.GiveawayEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>
+          }
+          createMany: {
+            args: Prisma.GiveawayEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GiveawayEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.GiveawayEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>
+          }
+          update: {
+            args: Prisma.GiveawayEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.GiveawayEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GiveawayEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GiveawayEntryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>[]
+          }
+          upsert: {
+            args: Prisma.GiveawayEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.GiveawayEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGiveawayEntry>
+          }
+          groupBy: {
+            args: Prisma.GiveawayEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GiveawayEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GiveawayEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<GiveawayEntryCountAggregateOutputType> | number
+          }
+        }
+      }
+      GiveawayReferralLink: {
+        payload: Prisma.$GiveawayReferralLinkPayload<ExtArgs>
+        fields: Prisma.GiveawayReferralLinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GiveawayReferralLinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GiveawayReferralLinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>
+          }
+          findFirst: {
+            args: Prisma.GiveawayReferralLinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GiveawayReferralLinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>
+          }
+          findMany: {
+            args: Prisma.GiveawayReferralLinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>[]
+          }
+          create: {
+            args: Prisma.GiveawayReferralLinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>
+          }
+          createMany: {
+            args: Prisma.GiveawayReferralLinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GiveawayReferralLinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>[]
+          }
+          delete: {
+            args: Prisma.GiveawayReferralLinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>
+          }
+          update: {
+            args: Prisma.GiveawayReferralLinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.GiveawayReferralLinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GiveawayReferralLinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GiveawayReferralLinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.GiveawayReferralLinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiveawayReferralLinkPayload>
+          }
+          aggregate: {
+            args: Prisma.GiveawayReferralLinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGiveawayReferralLink>
+          }
+          groupBy: {
+            args: Prisma.GiveawayReferralLinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GiveawayReferralLinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GiveawayReferralLinkCountArgs<ExtArgs>
+            result: $Utils.Optional<GiveawayReferralLinkCountAggregateOutputType> | number
           }
         }
       }
@@ -1220,6 +1464,228 @@ export namespace Prisma {
           }
         }
       }
+      GiftDepositIntent: {
+        payload: Prisma.$GiftDepositIntentPayload<ExtArgs>
+        fields: Prisma.GiftDepositIntentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GiftDepositIntentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GiftDepositIntentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>
+          }
+          findFirst: {
+            args: Prisma.GiftDepositIntentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GiftDepositIntentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>
+          }
+          findMany: {
+            args: Prisma.GiftDepositIntentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>[]
+          }
+          create: {
+            args: Prisma.GiftDepositIntentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>
+          }
+          createMany: {
+            args: Prisma.GiftDepositIntentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GiftDepositIntentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>[]
+          }
+          delete: {
+            args: Prisma.GiftDepositIntentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>
+          }
+          update: {
+            args: Prisma.GiftDepositIntentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>
+          }
+          deleteMany: {
+            args: Prisma.GiftDepositIntentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GiftDepositIntentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GiftDepositIntentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>[]
+          }
+          upsert: {
+            args: Prisma.GiftDepositIntentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftDepositIntentPayload>
+          }
+          aggregate: {
+            args: Prisma.GiftDepositIntentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGiftDepositIntent>
+          }
+          groupBy: {
+            args: Prisma.GiftDepositIntentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GiftDepositIntentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GiftDepositIntentCountArgs<ExtArgs>
+            result: $Utils.Optional<GiftDepositIntentCountAggregateOutputType> | number
+          }
+        }
+      }
+      GiftWithdrawalRequest: {
+        payload: Prisma.$GiftWithdrawalRequestPayload<ExtArgs>
+        fields: Prisma.GiftWithdrawalRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GiftWithdrawalRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GiftWithdrawalRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.GiftWithdrawalRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GiftWithdrawalRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>
+          }
+          findMany: {
+            args: Prisma.GiftWithdrawalRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>[]
+          }
+          create: {
+            args: Prisma.GiftWithdrawalRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>
+          }
+          createMany: {
+            args: Prisma.GiftWithdrawalRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GiftWithdrawalRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.GiftWithdrawalRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>
+          }
+          update: {
+            args: Prisma.GiftWithdrawalRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.GiftWithdrawalRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GiftWithdrawalRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GiftWithdrawalRequestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>[]
+          }
+          upsert: {
+            args: Prisma.GiftWithdrawalRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GiftWithdrawalRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.GiftWithdrawalRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGiftWithdrawalRequest>
+          }
+          groupBy: {
+            args: Prisma.GiftWithdrawalRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GiftWithdrawalRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GiftWithdrawalRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<GiftWithdrawalRequestCountAggregateOutputType> | number
+          }
+        }
+      }
+      TelegramRelayState: {
+        payload: Prisma.$TelegramRelayStatePayload<ExtArgs>
+        fields: Prisma.TelegramRelayStateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TelegramRelayStateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TelegramRelayStateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>
+          }
+          findFirst: {
+            args: Prisma.TelegramRelayStateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TelegramRelayStateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>
+          }
+          findMany: {
+            args: Prisma.TelegramRelayStateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>[]
+          }
+          create: {
+            args: Prisma.TelegramRelayStateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>
+          }
+          createMany: {
+            args: Prisma.TelegramRelayStateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TelegramRelayStateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>[]
+          }
+          delete: {
+            args: Prisma.TelegramRelayStateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>
+          }
+          update: {
+            args: Prisma.TelegramRelayStateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>
+          }
+          deleteMany: {
+            args: Prisma.TelegramRelayStateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TelegramRelayStateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TelegramRelayStateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>[]
+          }
+          upsert: {
+            args: Prisma.TelegramRelayStateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramRelayStatePayload>
+          }
+          aggregate: {
+            args: Prisma.TelegramRelayStateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTelegramRelayState>
+          }
+          groupBy: {
+            args: Prisma.TelegramRelayStateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TelegramRelayStateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TelegramRelayStateCountArgs<ExtArgs>
+            result: $Utils.Optional<TelegramRelayStateCountAggregateOutputType> | number
+          }
+        }
+      }
       Transaction: {
         payload: Prisma.$TransactionPayload<ExtArgs>
         fields: Prisma.TransactionFieldRefs
@@ -1516,6 +1982,80 @@ export namespace Prisma {
           }
         }
       }
+      PvpParticipantGift: {
+        payload: Prisma.$PvpParticipantGiftPayload<ExtArgs>
+        fields: Prisma.PvpParticipantGiftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PvpParticipantGiftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PvpParticipantGiftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>
+          }
+          findFirst: {
+            args: Prisma.PvpParticipantGiftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PvpParticipantGiftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>
+          }
+          findMany: {
+            args: Prisma.PvpParticipantGiftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>[]
+          }
+          create: {
+            args: Prisma.PvpParticipantGiftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>
+          }
+          createMany: {
+            args: Prisma.PvpParticipantGiftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PvpParticipantGiftCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>[]
+          }
+          delete: {
+            args: Prisma.PvpParticipantGiftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>
+          }
+          update: {
+            args: Prisma.PvpParticipantGiftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>
+          }
+          deleteMany: {
+            args: Prisma.PvpParticipantGiftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PvpParticipantGiftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PvpParticipantGiftUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>[]
+          }
+          upsert: {
+            args: Prisma.PvpParticipantGiftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PvpParticipantGiftPayload>
+          }
+          aggregate: {
+            args: Prisma.PvpParticipantGiftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePvpParticipantGift>
+          }
+          groupBy: {
+            args: Prisma.PvpParticipantGiftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PvpParticipantGiftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PvpParticipantGiftCountArgs<ExtArgs>
+            result: $Utils.Optional<PvpParticipantGiftCountAggregateOutputType> | number
+          }
+        }
+      }
       PvpInvitation: {
         payload: Prisma.$PvpInvitationPayload<ExtArgs>
         fields: Prisma.PvpInvitationFieldRefs
@@ -1714,15 +2254,21 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    giveawayEntry?: GiveawayEntryOmit
+    giveawayReferralLink?: GiveawayReferralLinkOmit
     gameTransaction?: GameTransactionOmit
     botDeposit?: BotDepositOmit
     botWithdrawal?: BotWithdrawalOmit
     wallet?: WalletOmit
     gift?: GiftOmit
+    giftDepositIntent?: GiftDepositIntentOmit
+    giftWithdrawalRequest?: GiftWithdrawalRequestOmit
+    telegramRelayState?: TelegramRelayStateOmit
     transaction?: TransactionOmit
     offer?: OfferOmit
     pvpRoom?: PvpRoomOmit
     pvpParticipant?: PvpParticipantOmit
+    pvpParticipantGift?: PvpParticipantGiftOmit
     pvpInvitation?: PvpInvitationOmit
   }
 
@@ -1818,6 +2364,11 @@ export namespace Prisma {
     botDeposits: number
     botWithdrawals: number
     gameTransactions: number
+    giftDepositIntents: number
+    giftWithdrawalRequests: number
+    giveawayEntries: number
+    giveawayReferralLinks: number
+    referredGiveawayEntries: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1835,6 +2386,11 @@ export namespace Prisma {
     botDeposits?: boolean | UserCountOutputTypeCountBotDepositsArgs
     botWithdrawals?: boolean | UserCountOutputTypeCountBotWithdrawalsArgs
     gameTransactions?: boolean | UserCountOutputTypeCountGameTransactionsArgs
+    giftDepositIntents?: boolean | UserCountOutputTypeCountGiftDepositIntentsArgs
+    giftWithdrawalRequests?: boolean | UserCountOutputTypeCountGiftWithdrawalRequestsArgs
+    giveawayEntries?: boolean | UserCountOutputTypeCountGiveawayEntriesArgs
+    giveawayReferralLinks?: boolean | UserCountOutputTypeCountGiveawayReferralLinksArgs
+    referredGiveawayEntries?: boolean | UserCountOutputTypeCountReferredGiveawayEntriesArgs
   }
 
   // Custom InputTypes
@@ -1946,6 +2502,41 @@ export namespace Prisma {
     where?: GameTransactionWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGiftDepositIntentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftDepositIntentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGiftWithdrawalRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftWithdrawalRequestWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGiveawayEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiveawayEntryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGiveawayReferralLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiveawayReferralLinkWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReferredGiveawayEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiveawayEntryWhereInput
+  }
+
 
   /**
    * Count Type GiftCountOutputType
@@ -1954,11 +2545,15 @@ export namespace Prisma {
   export type GiftCountOutputType = {
     transactions: number
     offers: number
+    arenaStakes: number
+    withdrawalRequests: number
   }
 
   export type GiftCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     transactions?: boolean | GiftCountOutputTypeCountTransactionsArgs
     offers?: boolean | GiftCountOutputTypeCountOffersArgs
+    arenaStakes?: boolean | GiftCountOutputTypeCountArenaStakesArgs
+    withdrawalRequests?: boolean | GiftCountOutputTypeCountWithdrawalRequestsArgs
   }
 
   // Custom InputTypes
@@ -1984,6 +2579,20 @@ export namespace Prisma {
    */
   export type GiftCountOutputTypeCountOffersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OfferWhereInput
+  }
+
+  /**
+   * GiftCountOutputType without action
+   */
+  export type GiftCountOutputTypeCountArenaStakesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpParticipantGiftWhereInput
+  }
+
+  /**
+   * GiftCountOutputType without action
+   */
+  export type GiftCountOutputTypeCountWithdrawalRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftWithdrawalRequestWhereInput
   }
 
 
@@ -2028,6 +2637,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PvpParticipantCountOutputType
+   */
+
+  export type PvpParticipantCountOutputType = {
+    gifts: number
+  }
+
+  export type PvpParticipantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gifts?: boolean | PvpParticipantCountOutputTypeCountGiftsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PvpParticipantCountOutputType without action
+   */
+  export type PvpParticipantCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantCountOutputType
+     */
+    select?: PvpParticipantCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PvpParticipantCountOutputType without action
+   */
+  export type PvpParticipantCountOutputTypeCountGiftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpParticipantGiftWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2054,6 +2694,7 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     telegramId: string | null
+    telegramAccessHash: string | null
     username: string | null
     firstName: string | null
     lastName: string | null
@@ -2066,6 +2707,7 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: string | null
     telegramId: string | null
+    telegramAccessHash: string | null
     username: string | null
     firstName: string | null
     lastName: string | null
@@ -2078,6 +2720,7 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     telegramId: number
+    telegramAccessHash: number
     username: number
     firstName: number
     lastName: number
@@ -2100,6 +2743,7 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     telegramId?: true
+    telegramAccessHash?: true
     username?: true
     firstName?: true
     lastName?: true
@@ -2112,6 +2756,7 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     telegramId?: true
+    telegramAccessHash?: true
     username?: true
     firstName?: true
     lastName?: true
@@ -2124,6 +2769,7 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     telegramId?: true
+    telegramAccessHash?: true
     username?: true
     firstName?: true
     lastName?: true
@@ -2223,6 +2869,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     telegramId: string
+    telegramAccessHash: string | null
     username: string | null
     firstName: string | null
     lastName: string | null
@@ -2254,6 +2901,7 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     telegramId?: boolean
+    telegramAccessHash?: boolean
     username?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -2275,12 +2923,18 @@ export namespace Prisma {
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
     gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
+    giftDepositIntents?: boolean | User$giftDepositIntentsArgs<ExtArgs>
+    giftWithdrawalRequests?: boolean | User$giftWithdrawalRequestsArgs<ExtArgs>
+    giveawayEntries?: boolean | User$giveawayEntriesArgs<ExtArgs>
+    giveawayReferralLinks?: boolean | User$giveawayReferralLinksArgs<ExtArgs>
+    referredGiveawayEntries?: boolean | User$referredGiveawayEntriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     telegramId?: boolean
+    telegramAccessHash?: boolean
     username?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -2293,6 +2947,7 @@ export namespace Prisma {
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     telegramId?: boolean
+    telegramAccessHash?: boolean
     username?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -2305,6 +2960,7 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     telegramId?: boolean
+    telegramAccessHash?: boolean
     username?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -2314,7 +2970,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "telegramId" | "username" | "firstName" | "lastName" | "photoUrl" | "balanceGram" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "telegramId" | "telegramAccessHash" | "username" | "firstName" | "lastName" | "photoUrl" | "balanceGram" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wallets?: boolean | User$walletsArgs<ExtArgs>
     gifts?: boolean | User$giftsArgs<ExtArgs>
@@ -2330,6 +2986,11 @@ export namespace Prisma {
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
     gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
+    giftDepositIntents?: boolean | User$giftDepositIntentsArgs<ExtArgs>
+    giftWithdrawalRequests?: boolean | User$giftWithdrawalRequestsArgs<ExtArgs>
+    giveawayEntries?: boolean | User$giveawayEntriesArgs<ExtArgs>
+    giveawayReferralLinks?: boolean | User$giveawayReferralLinksArgs<ExtArgs>
+    referredGiveawayEntries?: boolean | User$referredGiveawayEntriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2352,10 +3013,16 @@ export namespace Prisma {
       botDeposits: Prisma.$BotDepositPayload<ExtArgs>[]
       botWithdrawals: Prisma.$BotWithdrawalPayload<ExtArgs>[]
       gameTransactions: Prisma.$GameTransactionPayload<ExtArgs>[]
+      giftDepositIntents: Prisma.$GiftDepositIntentPayload<ExtArgs>[]
+      giftWithdrawalRequests: Prisma.$GiftWithdrawalRequestPayload<ExtArgs>[]
+      giveawayEntries: Prisma.$GiveawayEntryPayload<ExtArgs>[]
+      giveawayReferralLinks: Prisma.$GiveawayReferralLinkPayload<ExtArgs>[]
+      referredGiveawayEntries: Prisma.$GiveawayEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       telegramId: string
+      telegramAccessHash: string | null
       username: string | null
       firstName: string | null
       lastName: string | null
@@ -2771,6 +3438,11 @@ export namespace Prisma {
     botDeposits<T extends User$botDepositsArgs<ExtArgs> = {}>(args?: Subset<T, User$botDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     botWithdrawals<T extends User$botWithdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$botWithdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gameTransactions<T extends User$gameTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    giftDepositIntents<T extends User$giftDepositIntentsArgs<ExtArgs> = {}>(args?: Subset<T, User$giftDepositIntentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    giftWithdrawalRequests<T extends User$giftWithdrawalRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$giftWithdrawalRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    giveawayEntries<T extends User$giveawayEntriesArgs<ExtArgs> = {}>(args?: Subset<T, User$giveawayEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    giveawayReferralLinks<T extends User$giveawayReferralLinksArgs<ExtArgs> = {}>(args?: Subset<T, User$giveawayReferralLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    referredGiveawayEntries<T extends User$referredGiveawayEntriesArgs<ExtArgs> = {}>(args?: Subset<T, User$referredGiveawayEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2802,6 +3474,7 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly telegramId: FieldRef<"User", 'String'>
+    readonly telegramAccessHash: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
@@ -3538,6 +4211,126 @@ export namespace Prisma {
   }
 
   /**
+   * User.giftDepositIntents
+   */
+  export type User$giftDepositIntentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    where?: GiftDepositIntentWhereInput
+    orderBy?: GiftDepositIntentOrderByWithRelationInput | GiftDepositIntentOrderByWithRelationInput[]
+    cursor?: GiftDepositIntentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftDepositIntentScalarFieldEnum | GiftDepositIntentScalarFieldEnum[]
+  }
+
+  /**
+   * User.giftWithdrawalRequests
+   */
+  export type User$giftWithdrawalRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    where?: GiftWithdrawalRequestWhereInput
+    orderBy?: GiftWithdrawalRequestOrderByWithRelationInput | GiftWithdrawalRequestOrderByWithRelationInput[]
+    cursor?: GiftWithdrawalRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftWithdrawalRequestScalarFieldEnum | GiftWithdrawalRequestScalarFieldEnum[]
+  }
+
+  /**
+   * User.giveawayEntries
+   */
+  export type User$giveawayEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    where?: GiveawayEntryWhereInput
+    orderBy?: GiveawayEntryOrderByWithRelationInput | GiveawayEntryOrderByWithRelationInput[]
+    cursor?: GiveawayEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiveawayEntryScalarFieldEnum | GiveawayEntryScalarFieldEnum[]
+  }
+
+  /**
+   * User.giveawayReferralLinks
+   */
+  export type User$giveawayReferralLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    where?: GiveawayReferralLinkWhereInput
+    orderBy?: GiveawayReferralLinkOrderByWithRelationInput | GiveawayReferralLinkOrderByWithRelationInput[]
+    cursor?: GiveawayReferralLinkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiveawayReferralLinkScalarFieldEnum | GiveawayReferralLinkScalarFieldEnum[]
+  }
+
+  /**
+   * User.referredGiveawayEntries
+   */
+  export type User$referredGiveawayEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    where?: GiveawayEntryWhereInput
+    orderBy?: GiveawayEntryOrderByWithRelationInput | GiveawayEntryOrderByWithRelationInput[]
+    cursor?: GiveawayEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiveawayEntryScalarFieldEnum | GiveawayEntryScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3553,6 +4346,2185 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GiveawayEntry
+   */
+
+  export type AggregateGiveawayEntry = {
+    _count: GiveawayEntryCountAggregateOutputType | null
+    _min: GiveawayEntryMinAggregateOutputType | null
+    _max: GiveawayEntryMaxAggregateOutputType | null
+  }
+
+  export type GiveawayEntryMinAggregateOutputType = {
+    id: string | null
+    giveaway: string | null
+    userId: string | null
+    referredByUserId: string | null
+    winner: boolean | null
+    reviewStatus: string | null
+    createdAt: Date | null
+  }
+
+  export type GiveawayEntryMaxAggregateOutputType = {
+    id: string | null
+    giveaway: string | null
+    userId: string | null
+    referredByUserId: string | null
+    winner: boolean | null
+    reviewStatus: string | null
+    createdAt: Date | null
+  }
+
+  export type GiveawayEntryCountAggregateOutputType = {
+    id: number
+    giveaway: number
+    userId: number
+    referredByUserId: number
+    winner: number
+    reviewStatus: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GiveawayEntryMinAggregateInputType = {
+    id?: true
+    giveaway?: true
+    userId?: true
+    referredByUserId?: true
+    winner?: true
+    reviewStatus?: true
+    createdAt?: true
+  }
+
+  export type GiveawayEntryMaxAggregateInputType = {
+    id?: true
+    giveaway?: true
+    userId?: true
+    referredByUserId?: true
+    winner?: true
+    reviewStatus?: true
+    createdAt?: true
+  }
+
+  export type GiveawayEntryCountAggregateInputType = {
+    id?: true
+    giveaway?: true
+    userId?: true
+    referredByUserId?: true
+    winner?: true
+    reviewStatus?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GiveawayEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiveawayEntry to aggregate.
+     */
+    where?: GiveawayEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayEntries to fetch.
+     */
+    orderBy?: GiveawayEntryOrderByWithRelationInput | GiveawayEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GiveawayEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GiveawayEntries
+    **/
+    _count?: true | GiveawayEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GiveawayEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GiveawayEntryMaxAggregateInputType
+  }
+
+  export type GetGiveawayEntryAggregateType<T extends GiveawayEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateGiveawayEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGiveawayEntry[P]>
+      : GetScalarType<T[P], AggregateGiveawayEntry[P]>
+  }
+
+
+
+
+  export type GiveawayEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiveawayEntryWhereInput
+    orderBy?: GiveawayEntryOrderByWithAggregationInput | GiveawayEntryOrderByWithAggregationInput[]
+    by: GiveawayEntryScalarFieldEnum[] | GiveawayEntryScalarFieldEnum
+    having?: GiveawayEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GiveawayEntryCountAggregateInputType | true
+    _min?: GiveawayEntryMinAggregateInputType
+    _max?: GiveawayEntryMaxAggregateInputType
+  }
+
+  export type GiveawayEntryGroupByOutputType = {
+    id: string
+    giveaway: string
+    userId: string
+    referredByUserId: string | null
+    winner: boolean
+    reviewStatus: string
+    createdAt: Date
+    _count: GiveawayEntryCountAggregateOutputType | null
+    _min: GiveawayEntryMinAggregateOutputType | null
+    _max: GiveawayEntryMaxAggregateOutputType | null
+  }
+
+  type GetGiveawayEntryGroupByPayload<T extends GiveawayEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GiveawayEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GiveawayEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GiveawayEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], GiveawayEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GiveawayEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    referredByUserId?: boolean
+    winner?: boolean
+    reviewStatus?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    referredBy?: boolean | GiveawayEntry$referredByArgs<ExtArgs>
+  }, ExtArgs["result"]["giveawayEntry"]>
+
+  export type GiveawayEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    referredByUserId?: boolean
+    winner?: boolean
+    reviewStatus?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    referredBy?: boolean | GiveawayEntry$referredByArgs<ExtArgs>
+  }, ExtArgs["result"]["giveawayEntry"]>
+
+  export type GiveawayEntrySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    referredByUserId?: boolean
+    winner?: boolean
+    reviewStatus?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    referredBy?: boolean | GiveawayEntry$referredByArgs<ExtArgs>
+  }, ExtArgs["result"]["giveawayEntry"]>
+
+  export type GiveawayEntrySelectScalar = {
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    referredByUserId?: boolean
+    winner?: boolean
+    reviewStatus?: boolean
+    createdAt?: boolean
+  }
+
+  export type GiveawayEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "giveaway" | "userId" | "referredByUserId" | "winner" | "reviewStatus" | "createdAt", ExtArgs["result"]["giveawayEntry"]>
+  export type GiveawayEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    referredBy?: boolean | GiveawayEntry$referredByArgs<ExtArgs>
+  }
+  export type GiveawayEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    referredBy?: boolean | GiveawayEntry$referredByArgs<ExtArgs>
+  }
+  export type GiveawayEntryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    referredBy?: boolean | GiveawayEntry$referredByArgs<ExtArgs>
+  }
+
+  export type $GiveawayEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GiveawayEntry"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      referredBy: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      giveaway: string
+      userId: string
+      referredByUserId: string | null
+      winner: boolean
+      reviewStatus: string
+      createdAt: Date
+    }, ExtArgs["result"]["giveawayEntry"]>
+    composites: {}
+  }
+
+  type GiveawayEntryGetPayload<S extends boolean | null | undefined | GiveawayEntryDefaultArgs> = $Result.GetResult<Prisma.$GiveawayEntryPayload, S>
+
+  type GiveawayEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GiveawayEntryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GiveawayEntryCountAggregateInputType | true
+    }
+
+  export interface GiveawayEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GiveawayEntry'], meta: { name: 'GiveawayEntry' } }
+    /**
+     * Find zero or one GiveawayEntry that matches the filter.
+     * @param {GiveawayEntryFindUniqueArgs} args - Arguments to find a GiveawayEntry
+     * @example
+     * // Get one GiveawayEntry
+     * const giveawayEntry = await prisma.giveawayEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GiveawayEntryFindUniqueArgs>(args: SelectSubset<T, GiveawayEntryFindUniqueArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GiveawayEntry that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GiveawayEntryFindUniqueOrThrowArgs} args - Arguments to find a GiveawayEntry
+     * @example
+     * // Get one GiveawayEntry
+     * const giveawayEntry = await prisma.giveawayEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GiveawayEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, GiveawayEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiveawayEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayEntryFindFirstArgs} args - Arguments to find a GiveawayEntry
+     * @example
+     * // Get one GiveawayEntry
+     * const giveawayEntry = await prisma.giveawayEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GiveawayEntryFindFirstArgs>(args?: SelectSubset<T, GiveawayEntryFindFirstArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiveawayEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayEntryFindFirstOrThrowArgs} args - Arguments to find a GiveawayEntry
+     * @example
+     * // Get one GiveawayEntry
+     * const giveawayEntry = await prisma.giveawayEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GiveawayEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, GiveawayEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GiveawayEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GiveawayEntries
+     * const giveawayEntries = await prisma.giveawayEntry.findMany()
+     * 
+     * // Get first 10 GiveawayEntries
+     * const giveawayEntries = await prisma.giveawayEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const giveawayEntryWithIdOnly = await prisma.giveawayEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GiveawayEntryFindManyArgs>(args?: SelectSubset<T, GiveawayEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GiveawayEntry.
+     * @param {GiveawayEntryCreateArgs} args - Arguments to create a GiveawayEntry.
+     * @example
+     * // Create one GiveawayEntry
+     * const GiveawayEntry = await prisma.giveawayEntry.create({
+     *   data: {
+     *     // ... data to create a GiveawayEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends GiveawayEntryCreateArgs>(args: SelectSubset<T, GiveawayEntryCreateArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GiveawayEntries.
+     * @param {GiveawayEntryCreateManyArgs} args - Arguments to create many GiveawayEntries.
+     * @example
+     * // Create many GiveawayEntries
+     * const giveawayEntry = await prisma.giveawayEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GiveawayEntryCreateManyArgs>(args?: SelectSubset<T, GiveawayEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GiveawayEntries and returns the data saved in the database.
+     * @param {GiveawayEntryCreateManyAndReturnArgs} args - Arguments to create many GiveawayEntries.
+     * @example
+     * // Create many GiveawayEntries
+     * const giveawayEntry = await prisma.giveawayEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GiveawayEntries and only return the `id`
+     * const giveawayEntryWithIdOnly = await prisma.giveawayEntry.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GiveawayEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, GiveawayEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GiveawayEntry.
+     * @param {GiveawayEntryDeleteArgs} args - Arguments to delete one GiveawayEntry.
+     * @example
+     * // Delete one GiveawayEntry
+     * const GiveawayEntry = await prisma.giveawayEntry.delete({
+     *   where: {
+     *     // ... filter to delete one GiveawayEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GiveawayEntryDeleteArgs>(args: SelectSubset<T, GiveawayEntryDeleteArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GiveawayEntry.
+     * @param {GiveawayEntryUpdateArgs} args - Arguments to update one GiveawayEntry.
+     * @example
+     * // Update one GiveawayEntry
+     * const giveawayEntry = await prisma.giveawayEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GiveawayEntryUpdateArgs>(args: SelectSubset<T, GiveawayEntryUpdateArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GiveawayEntries.
+     * @param {GiveawayEntryDeleteManyArgs} args - Arguments to filter GiveawayEntries to delete.
+     * @example
+     * // Delete a few GiveawayEntries
+     * const { count } = await prisma.giveawayEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GiveawayEntryDeleteManyArgs>(args?: SelectSubset<T, GiveawayEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiveawayEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GiveawayEntries
+     * const giveawayEntry = await prisma.giveawayEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GiveawayEntryUpdateManyArgs>(args: SelectSubset<T, GiveawayEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiveawayEntries and returns the data updated in the database.
+     * @param {GiveawayEntryUpdateManyAndReturnArgs} args - Arguments to update many GiveawayEntries.
+     * @example
+     * // Update many GiveawayEntries
+     * const giveawayEntry = await prisma.giveawayEntry.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GiveawayEntries and only return the `id`
+     * const giveawayEntryWithIdOnly = await prisma.giveawayEntry.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GiveawayEntryUpdateManyAndReturnArgs>(args: SelectSubset<T, GiveawayEntryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GiveawayEntry.
+     * @param {GiveawayEntryUpsertArgs} args - Arguments to update or create a GiveawayEntry.
+     * @example
+     * // Update or create a GiveawayEntry
+     * const giveawayEntry = await prisma.giveawayEntry.upsert({
+     *   create: {
+     *     // ... data to create a GiveawayEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GiveawayEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GiveawayEntryUpsertArgs>(args: SelectSubset<T, GiveawayEntryUpsertArgs<ExtArgs>>): Prisma__GiveawayEntryClient<$Result.GetResult<Prisma.$GiveawayEntryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GiveawayEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayEntryCountArgs} args - Arguments to filter GiveawayEntries to count.
+     * @example
+     * // Count the number of GiveawayEntries
+     * const count = await prisma.giveawayEntry.count({
+     *   where: {
+     *     // ... the filter for the GiveawayEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends GiveawayEntryCountArgs>(
+      args?: Subset<T, GiveawayEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GiveawayEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GiveawayEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GiveawayEntryAggregateArgs>(args: Subset<T, GiveawayEntryAggregateArgs>): Prisma.PrismaPromise<GetGiveawayEntryAggregateType<T>>
+
+    /**
+     * Group by GiveawayEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GiveawayEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GiveawayEntryGroupByArgs['orderBy'] }
+        : { orderBy?: GiveawayEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GiveawayEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGiveawayEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GiveawayEntry model
+   */
+  readonly fields: GiveawayEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GiveawayEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GiveawayEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    referredBy<T extends GiveawayEntry$referredByArgs<ExtArgs> = {}>(args?: Subset<T, GiveawayEntry$referredByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GiveawayEntry model
+   */
+  interface GiveawayEntryFieldRefs {
+    readonly id: FieldRef<"GiveawayEntry", 'String'>
+    readonly giveaway: FieldRef<"GiveawayEntry", 'String'>
+    readonly userId: FieldRef<"GiveawayEntry", 'String'>
+    readonly referredByUserId: FieldRef<"GiveawayEntry", 'String'>
+    readonly winner: FieldRef<"GiveawayEntry", 'Boolean'>
+    readonly reviewStatus: FieldRef<"GiveawayEntry", 'String'>
+    readonly createdAt: FieldRef<"GiveawayEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GiveawayEntry findUnique
+   */
+  export type GiveawayEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayEntry to fetch.
+     */
+    where: GiveawayEntryWhereUniqueInput
+  }
+
+  /**
+   * GiveawayEntry findUniqueOrThrow
+   */
+  export type GiveawayEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayEntry to fetch.
+     */
+    where: GiveawayEntryWhereUniqueInput
+  }
+
+  /**
+   * GiveawayEntry findFirst
+   */
+  export type GiveawayEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayEntry to fetch.
+     */
+    where?: GiveawayEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayEntries to fetch.
+     */
+    orderBy?: GiveawayEntryOrderByWithRelationInput | GiveawayEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiveawayEntries.
+     */
+    cursor?: GiveawayEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiveawayEntries.
+     */
+    distinct?: GiveawayEntryScalarFieldEnum | GiveawayEntryScalarFieldEnum[]
+  }
+
+  /**
+   * GiveawayEntry findFirstOrThrow
+   */
+  export type GiveawayEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayEntry to fetch.
+     */
+    where?: GiveawayEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayEntries to fetch.
+     */
+    orderBy?: GiveawayEntryOrderByWithRelationInput | GiveawayEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiveawayEntries.
+     */
+    cursor?: GiveawayEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiveawayEntries.
+     */
+    distinct?: GiveawayEntryScalarFieldEnum | GiveawayEntryScalarFieldEnum[]
+  }
+
+  /**
+   * GiveawayEntry findMany
+   */
+  export type GiveawayEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayEntries to fetch.
+     */
+    where?: GiveawayEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayEntries to fetch.
+     */
+    orderBy?: GiveawayEntryOrderByWithRelationInput | GiveawayEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GiveawayEntries.
+     */
+    cursor?: GiveawayEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiveawayEntries.
+     */
+    distinct?: GiveawayEntryScalarFieldEnum | GiveawayEntryScalarFieldEnum[]
+  }
+
+  /**
+   * GiveawayEntry create
+   */
+  export type GiveawayEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GiveawayEntry.
+     */
+    data: XOR<GiveawayEntryCreateInput, GiveawayEntryUncheckedCreateInput>
+  }
+
+  /**
+   * GiveawayEntry createMany
+   */
+  export type GiveawayEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GiveawayEntries.
+     */
+    data: GiveawayEntryCreateManyInput | GiveawayEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GiveawayEntry createManyAndReturn
+   */
+  export type GiveawayEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * The data used to create many GiveawayEntries.
+     */
+    data: GiveawayEntryCreateManyInput | GiveawayEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiveawayEntry update
+   */
+  export type GiveawayEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GiveawayEntry.
+     */
+    data: XOR<GiveawayEntryUpdateInput, GiveawayEntryUncheckedUpdateInput>
+    /**
+     * Choose, which GiveawayEntry to update.
+     */
+    where: GiveawayEntryWhereUniqueInput
+  }
+
+  /**
+   * GiveawayEntry updateMany
+   */
+  export type GiveawayEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GiveawayEntries.
+     */
+    data: XOR<GiveawayEntryUpdateManyMutationInput, GiveawayEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which GiveawayEntries to update
+     */
+    where?: GiveawayEntryWhereInput
+    /**
+     * Limit how many GiveawayEntries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiveawayEntry updateManyAndReturn
+   */
+  export type GiveawayEntryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * The data used to update GiveawayEntries.
+     */
+    data: XOR<GiveawayEntryUpdateManyMutationInput, GiveawayEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which GiveawayEntries to update
+     */
+    where?: GiveawayEntryWhereInput
+    /**
+     * Limit how many GiveawayEntries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiveawayEntry upsert
+   */
+  export type GiveawayEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GiveawayEntry to update in case it exists.
+     */
+    where: GiveawayEntryWhereUniqueInput
+    /**
+     * In case the GiveawayEntry found by the `where` argument doesn't exist, create a new GiveawayEntry with this data.
+     */
+    create: XOR<GiveawayEntryCreateInput, GiveawayEntryUncheckedCreateInput>
+    /**
+     * In case the GiveawayEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GiveawayEntryUpdateInput, GiveawayEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * GiveawayEntry delete
+   */
+  export type GiveawayEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+    /**
+     * Filter which GiveawayEntry to delete.
+     */
+    where: GiveawayEntryWhereUniqueInput
+  }
+
+  /**
+   * GiveawayEntry deleteMany
+   */
+  export type GiveawayEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiveawayEntries to delete
+     */
+    where?: GiveawayEntryWhereInput
+    /**
+     * Limit how many GiveawayEntries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiveawayEntry.referredBy
+   */
+  export type GiveawayEntry$referredByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * GiveawayEntry without action
+   */
+  export type GiveawayEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayEntry
+     */
+    select?: GiveawayEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayEntry
+     */
+    omit?: GiveawayEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GiveawayReferralLink
+   */
+
+  export type AggregateGiveawayReferralLink = {
+    _count: GiveawayReferralLinkCountAggregateOutputType | null
+    _min: GiveawayReferralLinkMinAggregateOutputType | null
+    _max: GiveawayReferralLinkMaxAggregateOutputType | null
+  }
+
+  export type GiveawayReferralLinkMinAggregateOutputType = {
+    id: string | null
+    giveaway: string | null
+    userId: string | null
+    code: string | null
+    createdAt: Date | null
+  }
+
+  export type GiveawayReferralLinkMaxAggregateOutputType = {
+    id: string | null
+    giveaway: string | null
+    userId: string | null
+    code: string | null
+    createdAt: Date | null
+  }
+
+  export type GiveawayReferralLinkCountAggregateOutputType = {
+    id: number
+    giveaway: number
+    userId: number
+    code: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GiveawayReferralLinkMinAggregateInputType = {
+    id?: true
+    giveaway?: true
+    userId?: true
+    code?: true
+    createdAt?: true
+  }
+
+  export type GiveawayReferralLinkMaxAggregateInputType = {
+    id?: true
+    giveaway?: true
+    userId?: true
+    code?: true
+    createdAt?: true
+  }
+
+  export type GiveawayReferralLinkCountAggregateInputType = {
+    id?: true
+    giveaway?: true
+    userId?: true
+    code?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GiveawayReferralLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiveawayReferralLink to aggregate.
+     */
+    where?: GiveawayReferralLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayReferralLinks to fetch.
+     */
+    orderBy?: GiveawayReferralLinkOrderByWithRelationInput | GiveawayReferralLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GiveawayReferralLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayReferralLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayReferralLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GiveawayReferralLinks
+    **/
+    _count?: true | GiveawayReferralLinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GiveawayReferralLinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GiveawayReferralLinkMaxAggregateInputType
+  }
+
+  export type GetGiveawayReferralLinkAggregateType<T extends GiveawayReferralLinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateGiveawayReferralLink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGiveawayReferralLink[P]>
+      : GetScalarType<T[P], AggregateGiveawayReferralLink[P]>
+  }
+
+
+
+
+  export type GiveawayReferralLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiveawayReferralLinkWhereInput
+    orderBy?: GiveawayReferralLinkOrderByWithAggregationInput | GiveawayReferralLinkOrderByWithAggregationInput[]
+    by: GiveawayReferralLinkScalarFieldEnum[] | GiveawayReferralLinkScalarFieldEnum
+    having?: GiveawayReferralLinkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GiveawayReferralLinkCountAggregateInputType | true
+    _min?: GiveawayReferralLinkMinAggregateInputType
+    _max?: GiveawayReferralLinkMaxAggregateInputType
+  }
+
+  export type GiveawayReferralLinkGroupByOutputType = {
+    id: string
+    giveaway: string
+    userId: string
+    code: string
+    createdAt: Date
+    _count: GiveawayReferralLinkCountAggregateOutputType | null
+    _min: GiveawayReferralLinkMinAggregateOutputType | null
+    _max: GiveawayReferralLinkMaxAggregateOutputType | null
+  }
+
+  type GetGiveawayReferralLinkGroupByPayload<T extends GiveawayReferralLinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GiveawayReferralLinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GiveawayReferralLinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GiveawayReferralLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], GiveawayReferralLinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GiveawayReferralLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    code?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giveawayReferralLink"]>
+
+  export type GiveawayReferralLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    code?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giveawayReferralLink"]>
+
+  export type GiveawayReferralLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    code?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giveawayReferralLink"]>
+
+  export type GiveawayReferralLinkSelectScalar = {
+    id?: boolean
+    giveaway?: boolean
+    userId?: boolean
+    code?: boolean
+    createdAt?: boolean
+  }
+
+  export type GiveawayReferralLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "giveaway" | "userId" | "code" | "createdAt", ExtArgs["result"]["giveawayReferralLink"]>
+  export type GiveawayReferralLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GiveawayReferralLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GiveawayReferralLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $GiveawayReferralLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GiveawayReferralLink"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      giveaway: string
+      userId: string
+      code: string
+      createdAt: Date
+    }, ExtArgs["result"]["giveawayReferralLink"]>
+    composites: {}
+  }
+
+  type GiveawayReferralLinkGetPayload<S extends boolean | null | undefined | GiveawayReferralLinkDefaultArgs> = $Result.GetResult<Prisma.$GiveawayReferralLinkPayload, S>
+
+  type GiveawayReferralLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GiveawayReferralLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GiveawayReferralLinkCountAggregateInputType | true
+    }
+
+  export interface GiveawayReferralLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GiveawayReferralLink'], meta: { name: 'GiveawayReferralLink' } }
+    /**
+     * Find zero or one GiveawayReferralLink that matches the filter.
+     * @param {GiveawayReferralLinkFindUniqueArgs} args - Arguments to find a GiveawayReferralLink
+     * @example
+     * // Get one GiveawayReferralLink
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GiveawayReferralLinkFindUniqueArgs>(args: SelectSubset<T, GiveawayReferralLinkFindUniqueArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GiveawayReferralLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GiveawayReferralLinkFindUniqueOrThrowArgs} args - Arguments to find a GiveawayReferralLink
+     * @example
+     * // Get one GiveawayReferralLink
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GiveawayReferralLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, GiveawayReferralLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiveawayReferralLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayReferralLinkFindFirstArgs} args - Arguments to find a GiveawayReferralLink
+     * @example
+     * // Get one GiveawayReferralLink
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GiveawayReferralLinkFindFirstArgs>(args?: SelectSubset<T, GiveawayReferralLinkFindFirstArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiveawayReferralLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayReferralLinkFindFirstOrThrowArgs} args - Arguments to find a GiveawayReferralLink
+     * @example
+     * // Get one GiveawayReferralLink
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GiveawayReferralLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, GiveawayReferralLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GiveawayReferralLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayReferralLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GiveawayReferralLinks
+     * const giveawayReferralLinks = await prisma.giveawayReferralLink.findMany()
+     * 
+     * // Get first 10 GiveawayReferralLinks
+     * const giveawayReferralLinks = await prisma.giveawayReferralLink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const giveawayReferralLinkWithIdOnly = await prisma.giveawayReferralLink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GiveawayReferralLinkFindManyArgs>(args?: SelectSubset<T, GiveawayReferralLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GiveawayReferralLink.
+     * @param {GiveawayReferralLinkCreateArgs} args - Arguments to create a GiveawayReferralLink.
+     * @example
+     * // Create one GiveawayReferralLink
+     * const GiveawayReferralLink = await prisma.giveawayReferralLink.create({
+     *   data: {
+     *     // ... data to create a GiveawayReferralLink
+     *   }
+     * })
+     * 
+     */
+    create<T extends GiveawayReferralLinkCreateArgs>(args: SelectSubset<T, GiveawayReferralLinkCreateArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GiveawayReferralLinks.
+     * @param {GiveawayReferralLinkCreateManyArgs} args - Arguments to create many GiveawayReferralLinks.
+     * @example
+     * // Create many GiveawayReferralLinks
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GiveawayReferralLinkCreateManyArgs>(args?: SelectSubset<T, GiveawayReferralLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GiveawayReferralLinks and returns the data saved in the database.
+     * @param {GiveawayReferralLinkCreateManyAndReturnArgs} args - Arguments to create many GiveawayReferralLinks.
+     * @example
+     * // Create many GiveawayReferralLinks
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GiveawayReferralLinks and only return the `id`
+     * const giveawayReferralLinkWithIdOnly = await prisma.giveawayReferralLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GiveawayReferralLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, GiveawayReferralLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GiveawayReferralLink.
+     * @param {GiveawayReferralLinkDeleteArgs} args - Arguments to delete one GiveawayReferralLink.
+     * @example
+     * // Delete one GiveawayReferralLink
+     * const GiveawayReferralLink = await prisma.giveawayReferralLink.delete({
+     *   where: {
+     *     // ... filter to delete one GiveawayReferralLink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GiveawayReferralLinkDeleteArgs>(args: SelectSubset<T, GiveawayReferralLinkDeleteArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GiveawayReferralLink.
+     * @param {GiveawayReferralLinkUpdateArgs} args - Arguments to update one GiveawayReferralLink.
+     * @example
+     * // Update one GiveawayReferralLink
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GiveawayReferralLinkUpdateArgs>(args: SelectSubset<T, GiveawayReferralLinkUpdateArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GiveawayReferralLinks.
+     * @param {GiveawayReferralLinkDeleteManyArgs} args - Arguments to filter GiveawayReferralLinks to delete.
+     * @example
+     * // Delete a few GiveawayReferralLinks
+     * const { count } = await prisma.giveawayReferralLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GiveawayReferralLinkDeleteManyArgs>(args?: SelectSubset<T, GiveawayReferralLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiveawayReferralLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayReferralLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GiveawayReferralLinks
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GiveawayReferralLinkUpdateManyArgs>(args: SelectSubset<T, GiveawayReferralLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiveawayReferralLinks and returns the data updated in the database.
+     * @param {GiveawayReferralLinkUpdateManyAndReturnArgs} args - Arguments to update many GiveawayReferralLinks.
+     * @example
+     * // Update many GiveawayReferralLinks
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GiveawayReferralLinks and only return the `id`
+     * const giveawayReferralLinkWithIdOnly = await prisma.giveawayReferralLink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GiveawayReferralLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, GiveawayReferralLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GiveawayReferralLink.
+     * @param {GiveawayReferralLinkUpsertArgs} args - Arguments to update or create a GiveawayReferralLink.
+     * @example
+     * // Update or create a GiveawayReferralLink
+     * const giveawayReferralLink = await prisma.giveawayReferralLink.upsert({
+     *   create: {
+     *     // ... data to create a GiveawayReferralLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GiveawayReferralLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GiveawayReferralLinkUpsertArgs>(args: SelectSubset<T, GiveawayReferralLinkUpsertArgs<ExtArgs>>): Prisma__GiveawayReferralLinkClient<$Result.GetResult<Prisma.$GiveawayReferralLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GiveawayReferralLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayReferralLinkCountArgs} args - Arguments to filter GiveawayReferralLinks to count.
+     * @example
+     * // Count the number of GiveawayReferralLinks
+     * const count = await prisma.giveawayReferralLink.count({
+     *   where: {
+     *     // ... the filter for the GiveawayReferralLinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends GiveawayReferralLinkCountArgs>(
+      args?: Subset<T, GiveawayReferralLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GiveawayReferralLinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GiveawayReferralLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayReferralLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GiveawayReferralLinkAggregateArgs>(args: Subset<T, GiveawayReferralLinkAggregateArgs>): Prisma.PrismaPromise<GetGiveawayReferralLinkAggregateType<T>>
+
+    /**
+     * Group by GiveawayReferralLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiveawayReferralLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GiveawayReferralLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GiveawayReferralLinkGroupByArgs['orderBy'] }
+        : { orderBy?: GiveawayReferralLinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GiveawayReferralLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGiveawayReferralLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GiveawayReferralLink model
+   */
+  readonly fields: GiveawayReferralLinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GiveawayReferralLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GiveawayReferralLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GiveawayReferralLink model
+   */
+  interface GiveawayReferralLinkFieldRefs {
+    readonly id: FieldRef<"GiveawayReferralLink", 'String'>
+    readonly giveaway: FieldRef<"GiveawayReferralLink", 'String'>
+    readonly userId: FieldRef<"GiveawayReferralLink", 'String'>
+    readonly code: FieldRef<"GiveawayReferralLink", 'String'>
+    readonly createdAt: FieldRef<"GiveawayReferralLink", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GiveawayReferralLink findUnique
+   */
+  export type GiveawayReferralLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayReferralLink to fetch.
+     */
+    where: GiveawayReferralLinkWhereUniqueInput
+  }
+
+  /**
+   * GiveawayReferralLink findUniqueOrThrow
+   */
+  export type GiveawayReferralLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayReferralLink to fetch.
+     */
+    where: GiveawayReferralLinkWhereUniqueInput
+  }
+
+  /**
+   * GiveawayReferralLink findFirst
+   */
+  export type GiveawayReferralLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayReferralLink to fetch.
+     */
+    where?: GiveawayReferralLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayReferralLinks to fetch.
+     */
+    orderBy?: GiveawayReferralLinkOrderByWithRelationInput | GiveawayReferralLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiveawayReferralLinks.
+     */
+    cursor?: GiveawayReferralLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayReferralLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayReferralLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiveawayReferralLinks.
+     */
+    distinct?: GiveawayReferralLinkScalarFieldEnum | GiveawayReferralLinkScalarFieldEnum[]
+  }
+
+  /**
+   * GiveawayReferralLink findFirstOrThrow
+   */
+  export type GiveawayReferralLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayReferralLink to fetch.
+     */
+    where?: GiveawayReferralLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayReferralLinks to fetch.
+     */
+    orderBy?: GiveawayReferralLinkOrderByWithRelationInput | GiveawayReferralLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiveawayReferralLinks.
+     */
+    cursor?: GiveawayReferralLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayReferralLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayReferralLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiveawayReferralLinks.
+     */
+    distinct?: GiveawayReferralLinkScalarFieldEnum | GiveawayReferralLinkScalarFieldEnum[]
+  }
+
+  /**
+   * GiveawayReferralLink findMany
+   */
+  export type GiveawayReferralLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which GiveawayReferralLinks to fetch.
+     */
+    where?: GiveawayReferralLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiveawayReferralLinks to fetch.
+     */
+    orderBy?: GiveawayReferralLinkOrderByWithRelationInput | GiveawayReferralLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GiveawayReferralLinks.
+     */
+    cursor?: GiveawayReferralLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiveawayReferralLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiveawayReferralLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiveawayReferralLinks.
+     */
+    distinct?: GiveawayReferralLinkScalarFieldEnum | GiveawayReferralLinkScalarFieldEnum[]
+  }
+
+  /**
+   * GiveawayReferralLink create
+   */
+  export type GiveawayReferralLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GiveawayReferralLink.
+     */
+    data: XOR<GiveawayReferralLinkCreateInput, GiveawayReferralLinkUncheckedCreateInput>
+  }
+
+  /**
+   * GiveawayReferralLink createMany
+   */
+  export type GiveawayReferralLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GiveawayReferralLinks.
+     */
+    data: GiveawayReferralLinkCreateManyInput | GiveawayReferralLinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GiveawayReferralLink createManyAndReturn
+   */
+  export type GiveawayReferralLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many GiveawayReferralLinks.
+     */
+    data: GiveawayReferralLinkCreateManyInput | GiveawayReferralLinkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiveawayReferralLink update
+   */
+  export type GiveawayReferralLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GiveawayReferralLink.
+     */
+    data: XOR<GiveawayReferralLinkUpdateInput, GiveawayReferralLinkUncheckedUpdateInput>
+    /**
+     * Choose, which GiveawayReferralLink to update.
+     */
+    where: GiveawayReferralLinkWhereUniqueInput
+  }
+
+  /**
+   * GiveawayReferralLink updateMany
+   */
+  export type GiveawayReferralLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GiveawayReferralLinks.
+     */
+    data: XOR<GiveawayReferralLinkUpdateManyMutationInput, GiveawayReferralLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which GiveawayReferralLinks to update
+     */
+    where?: GiveawayReferralLinkWhereInput
+    /**
+     * Limit how many GiveawayReferralLinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiveawayReferralLink updateManyAndReturn
+   */
+  export type GiveawayReferralLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * The data used to update GiveawayReferralLinks.
+     */
+    data: XOR<GiveawayReferralLinkUpdateManyMutationInput, GiveawayReferralLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which GiveawayReferralLinks to update
+     */
+    where?: GiveawayReferralLinkWhereInput
+    /**
+     * Limit how many GiveawayReferralLinks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiveawayReferralLink upsert
+   */
+  export type GiveawayReferralLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GiveawayReferralLink to update in case it exists.
+     */
+    where: GiveawayReferralLinkWhereUniqueInput
+    /**
+     * In case the GiveawayReferralLink found by the `where` argument doesn't exist, create a new GiveawayReferralLink with this data.
+     */
+    create: XOR<GiveawayReferralLinkCreateInput, GiveawayReferralLinkUncheckedCreateInput>
+    /**
+     * In case the GiveawayReferralLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GiveawayReferralLinkUpdateInput, GiveawayReferralLinkUncheckedUpdateInput>
+  }
+
+  /**
+   * GiveawayReferralLink delete
+   */
+  export type GiveawayReferralLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
+    /**
+     * Filter which GiveawayReferralLink to delete.
+     */
+    where: GiveawayReferralLinkWhereUniqueInput
+  }
+
+  /**
+   * GiveawayReferralLink deleteMany
+   */
+  export type GiveawayReferralLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiveawayReferralLinks to delete
+     */
+    where?: GiveawayReferralLinkWhereInput
+    /**
+     * Limit how many GiveawayReferralLinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiveawayReferralLink without action
+   */
+  export type GiveawayReferralLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiveawayReferralLink
+     */
+    select?: GiveawayReferralLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiveawayReferralLink
+     */
+    omit?: GiveawayReferralLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiveawayReferralLinkInclude<ExtArgs> | null
   }
 
 
@@ -8204,6 +11176,9 @@ export namespace Prisma {
     backdropColor: string | null
     symbolName: string | null
     symbolImageUrl: string | null
+    imageUrl: string | null
+    telegramOwnedGiftId: string | null
+    telegramGiftNumber: string | null
     status: string | null
     ownerId: string | null
     createdAt: Date | null
@@ -8220,6 +11195,9 @@ export namespace Prisma {
     backdropColor: string | null
     symbolName: string | null
     symbolImageUrl: string | null
+    imageUrl: string | null
+    telegramOwnedGiftId: string | null
+    telegramGiftNumber: string | null
     status: string | null
     ownerId: string | null
     createdAt: Date | null
@@ -8236,6 +11214,10 @@ export namespace Prisma {
     backdropColor: number
     symbolName: number
     symbolImageUrl: number
+    imageUrl: number
+    telegramOwnedGiftId: number
+    telegramGiftNumber: number
+    telegramGiftData: number
     status: number
     ownerId: number
     createdAt: number
@@ -8262,6 +11244,9 @@ export namespace Prisma {
     backdropColor?: true
     symbolName?: true
     symbolImageUrl?: true
+    imageUrl?: true
+    telegramOwnedGiftId?: true
+    telegramGiftNumber?: true
     status?: true
     ownerId?: true
     createdAt?: true
@@ -8278,6 +11263,9 @@ export namespace Prisma {
     backdropColor?: true
     symbolName?: true
     symbolImageUrl?: true
+    imageUrl?: true
+    telegramOwnedGiftId?: true
+    telegramGiftNumber?: true
     status?: true
     ownerId?: true
     createdAt?: true
@@ -8294,6 +11282,10 @@ export namespace Prisma {
     backdropColor?: true
     symbolName?: true
     symbolImageUrl?: true
+    imageUrl?: true
+    telegramOwnedGiftId?: true
+    telegramGiftNumber?: true
+    telegramGiftData?: true
     status?: true
     ownerId?: true
     createdAt?: true
@@ -8397,6 +11389,10 @@ export namespace Prisma {
     backdropColor: string | null
     symbolName: string | null
     symbolImageUrl: string | null
+    imageUrl: string | null
+    telegramOwnedGiftId: string | null
+    telegramGiftNumber: string | null
+    telegramGiftData: JsonValue | null
     status: string
     ownerId: string | null
     createdAt: Date
@@ -8432,6 +11428,10 @@ export namespace Prisma {
     backdropColor?: boolean
     symbolName?: boolean
     symbolImageUrl?: boolean
+    imageUrl?: boolean
+    telegramOwnedGiftId?: boolean
+    telegramGiftNumber?: boolean
+    telegramGiftData?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -8439,6 +11439,9 @@ export namespace Prisma {
     owner?: boolean | Gift$ownerArgs<ExtArgs>
     transactions?: boolean | Gift$transactionsArgs<ExtArgs>
     offers?: boolean | Gift$offersArgs<ExtArgs>
+    arenaStakes?: boolean | Gift$arenaStakesArgs<ExtArgs>
+    depositIntent?: boolean | Gift$depositIntentArgs<ExtArgs>
+    withdrawalRequests?: boolean | Gift$withdrawalRequestsArgs<ExtArgs>
     _count?: boolean | GiftCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gift"]>
 
@@ -8452,6 +11455,10 @@ export namespace Prisma {
     backdropColor?: boolean
     symbolName?: boolean
     symbolImageUrl?: boolean
+    imageUrl?: boolean
+    telegramOwnedGiftId?: boolean
+    telegramGiftNumber?: boolean
+    telegramGiftData?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -8469,6 +11476,10 @@ export namespace Prisma {
     backdropColor?: boolean
     symbolName?: boolean
     symbolImageUrl?: boolean
+    imageUrl?: boolean
+    telegramOwnedGiftId?: boolean
+    telegramGiftNumber?: boolean
+    telegramGiftData?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
@@ -8486,17 +11497,24 @@ export namespace Prisma {
     backdropColor?: boolean
     symbolName?: boolean
     symbolImageUrl?: boolean
+    imageUrl?: boolean
+    telegramOwnedGiftId?: boolean
+    telegramGiftNumber?: boolean
+    telegramGiftData?: boolean
     status?: boolean
     ownerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type GiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "collection" | "emoji" | "priceTon" | "backdropName" | "backdropColor" | "symbolName" | "symbolImageUrl" | "status" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["gift"]>
+  export type GiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "collection" | "emoji" | "priceTon" | "backdropName" | "backdropColor" | "symbolName" | "symbolImageUrl" | "imageUrl" | "telegramOwnedGiftId" | "telegramGiftNumber" | "telegramGiftData" | "status" | "ownerId" | "createdAt" | "updatedAt", ExtArgs["result"]["gift"]>
   export type GiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | Gift$ownerArgs<ExtArgs>
     transactions?: boolean | Gift$transactionsArgs<ExtArgs>
     offers?: boolean | Gift$offersArgs<ExtArgs>
+    arenaStakes?: boolean | Gift$arenaStakesArgs<ExtArgs>
+    depositIntent?: boolean | Gift$depositIntentArgs<ExtArgs>
+    withdrawalRequests?: boolean | Gift$withdrawalRequestsArgs<ExtArgs>
     _count?: boolean | GiftCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GiftIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8512,6 +11530,9 @@ export namespace Prisma {
       owner: Prisma.$UserPayload<ExtArgs> | null
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
       offers: Prisma.$OfferPayload<ExtArgs>[]
+      arenaStakes: Prisma.$PvpParticipantGiftPayload<ExtArgs>[]
+      depositIntent: Prisma.$GiftDepositIntentPayload<ExtArgs> | null
+      withdrawalRequests: Prisma.$GiftWithdrawalRequestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8523,6 +11544,10 @@ export namespace Prisma {
       backdropColor: string | null
       symbolName: string | null
       symbolImageUrl: string | null
+      imageUrl: string | null
+      telegramOwnedGiftId: string | null
+      telegramGiftNumber: string | null
+      telegramGiftData: Prisma.JsonValue | null
       status: string
       ownerId: string | null
       createdAt: Date
@@ -8924,6 +11949,9 @@ export namespace Prisma {
     owner<T extends Gift$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Gift$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     transactions<T extends Gift$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Gift$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     offers<T extends Gift$offersArgs<ExtArgs> = {}>(args?: Subset<T, Gift$offersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    arenaStakes<T extends Gift$arenaStakesArgs<ExtArgs> = {}>(args?: Subset<T, Gift$arenaStakesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    depositIntent<T extends Gift$depositIntentArgs<ExtArgs> = {}>(args?: Subset<T, Gift$depositIntentArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    withdrawalRequests<T extends Gift$withdrawalRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Gift$withdrawalRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8962,6 +11990,10 @@ export namespace Prisma {
     readonly backdropColor: FieldRef<"Gift", 'String'>
     readonly symbolName: FieldRef<"Gift", 'String'>
     readonly symbolImageUrl: FieldRef<"Gift", 'String'>
+    readonly imageUrl: FieldRef<"Gift", 'String'>
+    readonly telegramOwnedGiftId: FieldRef<"Gift", 'String'>
+    readonly telegramGiftNumber: FieldRef<"Gift", 'String'>
+    readonly telegramGiftData: FieldRef<"Gift", 'Json'>
     readonly status: FieldRef<"Gift", 'String'>
     readonly ownerId: FieldRef<"Gift", 'String'>
     readonly createdAt: FieldRef<"Gift", 'DateTime'>
@@ -9434,6 +12466,73 @@ export namespace Prisma {
   }
 
   /**
+   * Gift.arenaStakes
+   */
+  export type Gift$arenaStakesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    where?: PvpParticipantGiftWhereInput
+    orderBy?: PvpParticipantGiftOrderByWithRelationInput | PvpParticipantGiftOrderByWithRelationInput[]
+    cursor?: PvpParticipantGiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpParticipantGiftScalarFieldEnum | PvpParticipantGiftScalarFieldEnum[]
+  }
+
+  /**
+   * Gift.depositIntent
+   */
+  export type Gift$depositIntentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    where?: GiftDepositIntentWhereInput
+  }
+
+  /**
+   * Gift.withdrawalRequests
+   */
+  export type Gift$withdrawalRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    where?: GiftWithdrawalRequestWhereInput
+    orderBy?: GiftWithdrawalRequestOrderByWithRelationInput | GiftWithdrawalRequestOrderByWithRelationInput[]
+    cursor?: GiftWithdrawalRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GiftWithdrawalRequestScalarFieldEnum | GiftWithdrawalRequestScalarFieldEnum[]
+  }
+
+  /**
    * Gift without action
    */
   export type GiftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9449,6 +12548,3193 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GiftInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GiftDepositIntent
+   */
+
+  export type AggregateGiftDepositIntent = {
+    _count: GiftDepositIntentCountAggregateOutputType | null
+    _min: GiftDepositIntentMinAggregateOutputType | null
+    _max: GiftDepositIntentMaxAggregateOutputType | null
+  }
+
+  export type GiftDepositIntentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    code: string | null
+    status: string | null
+    giftId: string | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type GiftDepositIntentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    code: string | null
+    status: string | null
+    giftId: string | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type GiftDepositIntentCountAggregateOutputType = {
+    id: number
+    userId: number
+    code: number
+    status: number
+    giftId: number
+    confirmedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GiftDepositIntentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+    status?: true
+    giftId?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type GiftDepositIntentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+    status?: true
+    giftId?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type GiftDepositIntentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+    status?: true
+    giftId?: true
+    confirmedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GiftDepositIntentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftDepositIntent to aggregate.
+     */
+    where?: GiftDepositIntentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftDepositIntents to fetch.
+     */
+    orderBy?: GiftDepositIntentOrderByWithRelationInput | GiftDepositIntentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GiftDepositIntentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftDepositIntents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftDepositIntents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GiftDepositIntents
+    **/
+    _count?: true | GiftDepositIntentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GiftDepositIntentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GiftDepositIntentMaxAggregateInputType
+  }
+
+  export type GetGiftDepositIntentAggregateType<T extends GiftDepositIntentAggregateArgs> = {
+        [P in keyof T & keyof AggregateGiftDepositIntent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGiftDepositIntent[P]>
+      : GetScalarType<T[P], AggregateGiftDepositIntent[P]>
+  }
+
+
+
+
+  export type GiftDepositIntentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftDepositIntentWhereInput
+    orderBy?: GiftDepositIntentOrderByWithAggregationInput | GiftDepositIntentOrderByWithAggregationInput[]
+    by: GiftDepositIntentScalarFieldEnum[] | GiftDepositIntentScalarFieldEnum
+    having?: GiftDepositIntentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GiftDepositIntentCountAggregateInputType | true
+    _min?: GiftDepositIntentMinAggregateInputType
+    _max?: GiftDepositIntentMaxAggregateInputType
+  }
+
+  export type GiftDepositIntentGroupByOutputType = {
+    id: string
+    userId: string
+    code: string
+    status: string
+    giftId: string | null
+    confirmedAt: Date | null
+    createdAt: Date
+    _count: GiftDepositIntentCountAggregateOutputType | null
+    _min: GiftDepositIntentMinAggregateOutputType | null
+    _max: GiftDepositIntentMaxAggregateOutputType | null
+  }
+
+  type GetGiftDepositIntentGroupByPayload<T extends GiftDepositIntentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GiftDepositIntentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GiftDepositIntentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GiftDepositIntentGroupByOutputType[P]>
+            : GetScalarType<T[P], GiftDepositIntentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GiftDepositIntentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    status?: boolean
+    giftId?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDepositIntent$giftArgs<ExtArgs>
+  }, ExtArgs["result"]["giftDepositIntent"]>
+
+  export type GiftDepositIntentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    status?: boolean
+    giftId?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDepositIntent$giftArgs<ExtArgs>
+  }, ExtArgs["result"]["giftDepositIntent"]>
+
+  export type GiftDepositIntentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    status?: boolean
+    giftId?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDepositIntent$giftArgs<ExtArgs>
+  }, ExtArgs["result"]["giftDepositIntent"]>
+
+  export type GiftDepositIntentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+    status?: boolean
+    giftId?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type GiftDepositIntentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "code" | "status" | "giftId" | "confirmedAt" | "createdAt", ExtArgs["result"]["giftDepositIntent"]>
+  export type GiftDepositIntentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDepositIntent$giftArgs<ExtArgs>
+  }
+  export type GiftDepositIntentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDepositIntent$giftArgs<ExtArgs>
+  }
+  export type GiftDepositIntentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDepositIntent$giftArgs<ExtArgs>
+  }
+
+  export type $GiftDepositIntentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GiftDepositIntent"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      gift: Prisma.$GiftPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      code: string
+      status: string
+      giftId: string | null
+      confirmedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["giftDepositIntent"]>
+    composites: {}
+  }
+
+  type GiftDepositIntentGetPayload<S extends boolean | null | undefined | GiftDepositIntentDefaultArgs> = $Result.GetResult<Prisma.$GiftDepositIntentPayload, S>
+
+  type GiftDepositIntentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GiftDepositIntentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GiftDepositIntentCountAggregateInputType | true
+    }
+
+  export interface GiftDepositIntentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GiftDepositIntent'], meta: { name: 'GiftDepositIntent' } }
+    /**
+     * Find zero or one GiftDepositIntent that matches the filter.
+     * @param {GiftDepositIntentFindUniqueArgs} args - Arguments to find a GiftDepositIntent
+     * @example
+     * // Get one GiftDepositIntent
+     * const giftDepositIntent = await prisma.giftDepositIntent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GiftDepositIntentFindUniqueArgs>(args: SelectSubset<T, GiftDepositIntentFindUniqueArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GiftDepositIntent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GiftDepositIntentFindUniqueOrThrowArgs} args - Arguments to find a GiftDepositIntent
+     * @example
+     * // Get one GiftDepositIntent
+     * const giftDepositIntent = await prisma.giftDepositIntent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GiftDepositIntentFindUniqueOrThrowArgs>(args: SelectSubset<T, GiftDepositIntentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftDepositIntent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftDepositIntentFindFirstArgs} args - Arguments to find a GiftDepositIntent
+     * @example
+     * // Get one GiftDepositIntent
+     * const giftDepositIntent = await prisma.giftDepositIntent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GiftDepositIntentFindFirstArgs>(args?: SelectSubset<T, GiftDepositIntentFindFirstArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftDepositIntent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftDepositIntentFindFirstOrThrowArgs} args - Arguments to find a GiftDepositIntent
+     * @example
+     * // Get one GiftDepositIntent
+     * const giftDepositIntent = await prisma.giftDepositIntent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GiftDepositIntentFindFirstOrThrowArgs>(args?: SelectSubset<T, GiftDepositIntentFindFirstOrThrowArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GiftDepositIntents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftDepositIntentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GiftDepositIntents
+     * const giftDepositIntents = await prisma.giftDepositIntent.findMany()
+     * 
+     * // Get first 10 GiftDepositIntents
+     * const giftDepositIntents = await prisma.giftDepositIntent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const giftDepositIntentWithIdOnly = await prisma.giftDepositIntent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GiftDepositIntentFindManyArgs>(args?: SelectSubset<T, GiftDepositIntentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GiftDepositIntent.
+     * @param {GiftDepositIntentCreateArgs} args - Arguments to create a GiftDepositIntent.
+     * @example
+     * // Create one GiftDepositIntent
+     * const GiftDepositIntent = await prisma.giftDepositIntent.create({
+     *   data: {
+     *     // ... data to create a GiftDepositIntent
+     *   }
+     * })
+     * 
+     */
+    create<T extends GiftDepositIntentCreateArgs>(args: SelectSubset<T, GiftDepositIntentCreateArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GiftDepositIntents.
+     * @param {GiftDepositIntentCreateManyArgs} args - Arguments to create many GiftDepositIntents.
+     * @example
+     * // Create many GiftDepositIntents
+     * const giftDepositIntent = await prisma.giftDepositIntent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GiftDepositIntentCreateManyArgs>(args?: SelectSubset<T, GiftDepositIntentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GiftDepositIntents and returns the data saved in the database.
+     * @param {GiftDepositIntentCreateManyAndReturnArgs} args - Arguments to create many GiftDepositIntents.
+     * @example
+     * // Create many GiftDepositIntents
+     * const giftDepositIntent = await prisma.giftDepositIntent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GiftDepositIntents and only return the `id`
+     * const giftDepositIntentWithIdOnly = await prisma.giftDepositIntent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GiftDepositIntentCreateManyAndReturnArgs>(args?: SelectSubset<T, GiftDepositIntentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GiftDepositIntent.
+     * @param {GiftDepositIntentDeleteArgs} args - Arguments to delete one GiftDepositIntent.
+     * @example
+     * // Delete one GiftDepositIntent
+     * const GiftDepositIntent = await prisma.giftDepositIntent.delete({
+     *   where: {
+     *     // ... filter to delete one GiftDepositIntent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GiftDepositIntentDeleteArgs>(args: SelectSubset<T, GiftDepositIntentDeleteArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GiftDepositIntent.
+     * @param {GiftDepositIntentUpdateArgs} args - Arguments to update one GiftDepositIntent.
+     * @example
+     * // Update one GiftDepositIntent
+     * const giftDepositIntent = await prisma.giftDepositIntent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GiftDepositIntentUpdateArgs>(args: SelectSubset<T, GiftDepositIntentUpdateArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GiftDepositIntents.
+     * @param {GiftDepositIntentDeleteManyArgs} args - Arguments to filter GiftDepositIntents to delete.
+     * @example
+     * // Delete a few GiftDepositIntents
+     * const { count } = await prisma.giftDepositIntent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GiftDepositIntentDeleteManyArgs>(args?: SelectSubset<T, GiftDepositIntentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftDepositIntents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftDepositIntentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GiftDepositIntents
+     * const giftDepositIntent = await prisma.giftDepositIntent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GiftDepositIntentUpdateManyArgs>(args: SelectSubset<T, GiftDepositIntentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftDepositIntents and returns the data updated in the database.
+     * @param {GiftDepositIntentUpdateManyAndReturnArgs} args - Arguments to update many GiftDepositIntents.
+     * @example
+     * // Update many GiftDepositIntents
+     * const giftDepositIntent = await prisma.giftDepositIntent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GiftDepositIntents and only return the `id`
+     * const giftDepositIntentWithIdOnly = await prisma.giftDepositIntent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GiftDepositIntentUpdateManyAndReturnArgs>(args: SelectSubset<T, GiftDepositIntentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GiftDepositIntent.
+     * @param {GiftDepositIntentUpsertArgs} args - Arguments to update or create a GiftDepositIntent.
+     * @example
+     * // Update or create a GiftDepositIntent
+     * const giftDepositIntent = await prisma.giftDepositIntent.upsert({
+     *   create: {
+     *     // ... data to create a GiftDepositIntent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GiftDepositIntent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GiftDepositIntentUpsertArgs>(args: SelectSubset<T, GiftDepositIntentUpsertArgs<ExtArgs>>): Prisma__GiftDepositIntentClient<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GiftDepositIntents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftDepositIntentCountArgs} args - Arguments to filter GiftDepositIntents to count.
+     * @example
+     * // Count the number of GiftDepositIntents
+     * const count = await prisma.giftDepositIntent.count({
+     *   where: {
+     *     // ... the filter for the GiftDepositIntents we want to count
+     *   }
+     * })
+    **/
+    count<T extends GiftDepositIntentCountArgs>(
+      args?: Subset<T, GiftDepositIntentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GiftDepositIntentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GiftDepositIntent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftDepositIntentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GiftDepositIntentAggregateArgs>(args: Subset<T, GiftDepositIntentAggregateArgs>): Prisma.PrismaPromise<GetGiftDepositIntentAggregateType<T>>
+
+    /**
+     * Group by GiftDepositIntent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftDepositIntentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GiftDepositIntentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GiftDepositIntentGroupByArgs['orderBy'] }
+        : { orderBy?: GiftDepositIntentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GiftDepositIntentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGiftDepositIntentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GiftDepositIntent model
+   */
+  readonly fields: GiftDepositIntentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GiftDepositIntent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GiftDepositIntentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    gift<T extends GiftDepositIntent$giftArgs<ExtArgs> = {}>(args?: Subset<T, GiftDepositIntent$giftArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GiftDepositIntent model
+   */
+  interface GiftDepositIntentFieldRefs {
+    readonly id: FieldRef<"GiftDepositIntent", 'String'>
+    readonly userId: FieldRef<"GiftDepositIntent", 'String'>
+    readonly code: FieldRef<"GiftDepositIntent", 'String'>
+    readonly status: FieldRef<"GiftDepositIntent", 'String'>
+    readonly giftId: FieldRef<"GiftDepositIntent", 'String'>
+    readonly confirmedAt: FieldRef<"GiftDepositIntent", 'DateTime'>
+    readonly createdAt: FieldRef<"GiftDepositIntent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GiftDepositIntent findUnique
+   */
+  export type GiftDepositIntentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftDepositIntent to fetch.
+     */
+    where: GiftDepositIntentWhereUniqueInput
+  }
+
+  /**
+   * GiftDepositIntent findUniqueOrThrow
+   */
+  export type GiftDepositIntentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftDepositIntent to fetch.
+     */
+    where: GiftDepositIntentWhereUniqueInput
+  }
+
+  /**
+   * GiftDepositIntent findFirst
+   */
+  export type GiftDepositIntentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftDepositIntent to fetch.
+     */
+    where?: GiftDepositIntentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftDepositIntents to fetch.
+     */
+    orderBy?: GiftDepositIntentOrderByWithRelationInput | GiftDepositIntentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftDepositIntents.
+     */
+    cursor?: GiftDepositIntentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftDepositIntents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftDepositIntents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftDepositIntents.
+     */
+    distinct?: GiftDepositIntentScalarFieldEnum | GiftDepositIntentScalarFieldEnum[]
+  }
+
+  /**
+   * GiftDepositIntent findFirstOrThrow
+   */
+  export type GiftDepositIntentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftDepositIntent to fetch.
+     */
+    where?: GiftDepositIntentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftDepositIntents to fetch.
+     */
+    orderBy?: GiftDepositIntentOrderByWithRelationInput | GiftDepositIntentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftDepositIntents.
+     */
+    cursor?: GiftDepositIntentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftDepositIntents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftDepositIntents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftDepositIntents.
+     */
+    distinct?: GiftDepositIntentScalarFieldEnum | GiftDepositIntentScalarFieldEnum[]
+  }
+
+  /**
+   * GiftDepositIntent findMany
+   */
+  export type GiftDepositIntentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftDepositIntents to fetch.
+     */
+    where?: GiftDepositIntentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftDepositIntents to fetch.
+     */
+    orderBy?: GiftDepositIntentOrderByWithRelationInput | GiftDepositIntentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GiftDepositIntents.
+     */
+    cursor?: GiftDepositIntentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftDepositIntents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftDepositIntents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftDepositIntents.
+     */
+    distinct?: GiftDepositIntentScalarFieldEnum | GiftDepositIntentScalarFieldEnum[]
+  }
+
+  /**
+   * GiftDepositIntent create
+   */
+  export type GiftDepositIntentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GiftDepositIntent.
+     */
+    data: XOR<GiftDepositIntentCreateInput, GiftDepositIntentUncheckedCreateInput>
+  }
+
+  /**
+   * GiftDepositIntent createMany
+   */
+  export type GiftDepositIntentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GiftDepositIntents.
+     */
+    data: GiftDepositIntentCreateManyInput | GiftDepositIntentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GiftDepositIntent createManyAndReturn
+   */
+  export type GiftDepositIntentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * The data used to create many GiftDepositIntents.
+     */
+    data: GiftDepositIntentCreateManyInput | GiftDepositIntentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftDepositIntent update
+   */
+  export type GiftDepositIntentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GiftDepositIntent.
+     */
+    data: XOR<GiftDepositIntentUpdateInput, GiftDepositIntentUncheckedUpdateInput>
+    /**
+     * Choose, which GiftDepositIntent to update.
+     */
+    where: GiftDepositIntentWhereUniqueInput
+  }
+
+  /**
+   * GiftDepositIntent updateMany
+   */
+  export type GiftDepositIntentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GiftDepositIntents.
+     */
+    data: XOR<GiftDepositIntentUpdateManyMutationInput, GiftDepositIntentUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftDepositIntents to update
+     */
+    where?: GiftDepositIntentWhereInput
+    /**
+     * Limit how many GiftDepositIntents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftDepositIntent updateManyAndReturn
+   */
+  export type GiftDepositIntentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * The data used to update GiftDepositIntents.
+     */
+    data: XOR<GiftDepositIntentUpdateManyMutationInput, GiftDepositIntentUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftDepositIntents to update
+     */
+    where?: GiftDepositIntentWhereInput
+    /**
+     * Limit how many GiftDepositIntents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftDepositIntent upsert
+   */
+  export type GiftDepositIntentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GiftDepositIntent to update in case it exists.
+     */
+    where: GiftDepositIntentWhereUniqueInput
+    /**
+     * In case the GiftDepositIntent found by the `where` argument doesn't exist, create a new GiftDepositIntent with this data.
+     */
+    create: XOR<GiftDepositIntentCreateInput, GiftDepositIntentUncheckedCreateInput>
+    /**
+     * In case the GiftDepositIntent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GiftDepositIntentUpdateInput, GiftDepositIntentUncheckedUpdateInput>
+  }
+
+  /**
+   * GiftDepositIntent delete
+   */
+  export type GiftDepositIntentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+    /**
+     * Filter which GiftDepositIntent to delete.
+     */
+    where: GiftDepositIntentWhereUniqueInput
+  }
+
+  /**
+   * GiftDepositIntent deleteMany
+   */
+  export type GiftDepositIntentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftDepositIntents to delete
+     */
+    where?: GiftDepositIntentWhereInput
+    /**
+     * Limit how many GiftDepositIntents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftDepositIntent.gift
+   */
+  export type GiftDepositIntent$giftArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gift
+     */
+    select?: GiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gift
+     */
+    omit?: GiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftInclude<ExtArgs> | null
+    where?: GiftWhereInput
+  }
+
+  /**
+   * GiftDepositIntent without action
+   */
+  export type GiftDepositIntentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftDepositIntent
+     */
+    select?: GiftDepositIntentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftDepositIntent
+     */
+    omit?: GiftDepositIntentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftDepositIntentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GiftWithdrawalRequest
+   */
+
+  export type AggregateGiftWithdrawalRequest = {
+    _count: GiftWithdrawalRequestCountAggregateOutputType | null
+    _min: GiftWithdrawalRequestMinAggregateOutputType | null
+    _max: GiftWithdrawalRequestMaxAggregateOutputType | null
+  }
+
+  export type GiftWithdrawalRequestMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    giftId: string | null
+    code: string | null
+    status: string | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type GiftWithdrawalRequestMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    giftId: string | null
+    code: string | null
+    status: string | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type GiftWithdrawalRequestCountAggregateOutputType = {
+    id: number
+    userId: number
+    giftId: number
+    code: number
+    status: number
+    confirmedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GiftWithdrawalRequestMinAggregateInputType = {
+    id?: true
+    userId?: true
+    giftId?: true
+    code?: true
+    status?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type GiftWithdrawalRequestMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    giftId?: true
+    code?: true
+    status?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type GiftWithdrawalRequestCountAggregateInputType = {
+    id?: true
+    userId?: true
+    giftId?: true
+    code?: true
+    status?: true
+    confirmedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GiftWithdrawalRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftWithdrawalRequest to aggregate.
+     */
+    where?: GiftWithdrawalRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftWithdrawalRequests to fetch.
+     */
+    orderBy?: GiftWithdrawalRequestOrderByWithRelationInput | GiftWithdrawalRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GiftWithdrawalRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftWithdrawalRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftWithdrawalRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GiftWithdrawalRequests
+    **/
+    _count?: true | GiftWithdrawalRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GiftWithdrawalRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GiftWithdrawalRequestMaxAggregateInputType
+  }
+
+  export type GetGiftWithdrawalRequestAggregateType<T extends GiftWithdrawalRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregateGiftWithdrawalRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGiftWithdrawalRequest[P]>
+      : GetScalarType<T[P], AggregateGiftWithdrawalRequest[P]>
+  }
+
+
+
+
+  export type GiftWithdrawalRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GiftWithdrawalRequestWhereInput
+    orderBy?: GiftWithdrawalRequestOrderByWithAggregationInput | GiftWithdrawalRequestOrderByWithAggregationInput[]
+    by: GiftWithdrawalRequestScalarFieldEnum[] | GiftWithdrawalRequestScalarFieldEnum
+    having?: GiftWithdrawalRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GiftWithdrawalRequestCountAggregateInputType | true
+    _min?: GiftWithdrawalRequestMinAggregateInputType
+    _max?: GiftWithdrawalRequestMaxAggregateInputType
+  }
+
+  export type GiftWithdrawalRequestGroupByOutputType = {
+    id: string
+    userId: string
+    giftId: string
+    code: string
+    status: string
+    confirmedAt: Date | null
+    createdAt: Date
+    _count: GiftWithdrawalRequestCountAggregateOutputType | null
+    _min: GiftWithdrawalRequestMinAggregateOutputType | null
+    _max: GiftWithdrawalRequestMaxAggregateOutputType | null
+  }
+
+  type GetGiftWithdrawalRequestGroupByPayload<T extends GiftWithdrawalRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GiftWithdrawalRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GiftWithdrawalRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GiftWithdrawalRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], GiftWithdrawalRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GiftWithdrawalRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    giftId?: boolean
+    code?: boolean
+    status?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giftWithdrawalRequest"]>
+
+  export type GiftWithdrawalRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    giftId?: boolean
+    code?: boolean
+    status?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giftWithdrawalRequest"]>
+
+  export type GiftWithdrawalRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    giftId?: boolean
+    code?: boolean
+    status?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["giftWithdrawalRequest"]>
+
+  export type GiftWithdrawalRequestSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    giftId?: boolean
+    code?: boolean
+    status?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type GiftWithdrawalRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "giftId" | "code" | "status" | "confirmedAt" | "createdAt", ExtArgs["result"]["giftWithdrawalRequest"]>
+  export type GiftWithdrawalRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }
+  export type GiftWithdrawalRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }
+  export type GiftWithdrawalRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }
+
+  export type $GiftWithdrawalRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GiftWithdrawalRequest"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      gift: Prisma.$GiftPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      giftId: string
+      code: string
+      status: string
+      confirmedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["giftWithdrawalRequest"]>
+    composites: {}
+  }
+
+  type GiftWithdrawalRequestGetPayload<S extends boolean | null | undefined | GiftWithdrawalRequestDefaultArgs> = $Result.GetResult<Prisma.$GiftWithdrawalRequestPayload, S>
+
+  type GiftWithdrawalRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GiftWithdrawalRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GiftWithdrawalRequestCountAggregateInputType | true
+    }
+
+  export interface GiftWithdrawalRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GiftWithdrawalRequest'], meta: { name: 'GiftWithdrawalRequest' } }
+    /**
+     * Find zero or one GiftWithdrawalRequest that matches the filter.
+     * @param {GiftWithdrawalRequestFindUniqueArgs} args - Arguments to find a GiftWithdrawalRequest
+     * @example
+     * // Get one GiftWithdrawalRequest
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GiftWithdrawalRequestFindUniqueArgs>(args: SelectSubset<T, GiftWithdrawalRequestFindUniqueArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GiftWithdrawalRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GiftWithdrawalRequestFindUniqueOrThrowArgs} args - Arguments to find a GiftWithdrawalRequest
+     * @example
+     * // Get one GiftWithdrawalRequest
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GiftWithdrawalRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, GiftWithdrawalRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftWithdrawalRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftWithdrawalRequestFindFirstArgs} args - Arguments to find a GiftWithdrawalRequest
+     * @example
+     * // Get one GiftWithdrawalRequest
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GiftWithdrawalRequestFindFirstArgs>(args?: SelectSubset<T, GiftWithdrawalRequestFindFirstArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GiftWithdrawalRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftWithdrawalRequestFindFirstOrThrowArgs} args - Arguments to find a GiftWithdrawalRequest
+     * @example
+     * // Get one GiftWithdrawalRequest
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GiftWithdrawalRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, GiftWithdrawalRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GiftWithdrawalRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftWithdrawalRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GiftWithdrawalRequests
+     * const giftWithdrawalRequests = await prisma.giftWithdrawalRequest.findMany()
+     * 
+     * // Get first 10 GiftWithdrawalRequests
+     * const giftWithdrawalRequests = await prisma.giftWithdrawalRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const giftWithdrawalRequestWithIdOnly = await prisma.giftWithdrawalRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GiftWithdrawalRequestFindManyArgs>(args?: SelectSubset<T, GiftWithdrawalRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GiftWithdrawalRequest.
+     * @param {GiftWithdrawalRequestCreateArgs} args - Arguments to create a GiftWithdrawalRequest.
+     * @example
+     * // Create one GiftWithdrawalRequest
+     * const GiftWithdrawalRequest = await prisma.giftWithdrawalRequest.create({
+     *   data: {
+     *     // ... data to create a GiftWithdrawalRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends GiftWithdrawalRequestCreateArgs>(args: SelectSubset<T, GiftWithdrawalRequestCreateArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GiftWithdrawalRequests.
+     * @param {GiftWithdrawalRequestCreateManyArgs} args - Arguments to create many GiftWithdrawalRequests.
+     * @example
+     * // Create many GiftWithdrawalRequests
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GiftWithdrawalRequestCreateManyArgs>(args?: SelectSubset<T, GiftWithdrawalRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GiftWithdrawalRequests and returns the data saved in the database.
+     * @param {GiftWithdrawalRequestCreateManyAndReturnArgs} args - Arguments to create many GiftWithdrawalRequests.
+     * @example
+     * // Create many GiftWithdrawalRequests
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GiftWithdrawalRequests and only return the `id`
+     * const giftWithdrawalRequestWithIdOnly = await prisma.giftWithdrawalRequest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GiftWithdrawalRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, GiftWithdrawalRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GiftWithdrawalRequest.
+     * @param {GiftWithdrawalRequestDeleteArgs} args - Arguments to delete one GiftWithdrawalRequest.
+     * @example
+     * // Delete one GiftWithdrawalRequest
+     * const GiftWithdrawalRequest = await prisma.giftWithdrawalRequest.delete({
+     *   where: {
+     *     // ... filter to delete one GiftWithdrawalRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GiftWithdrawalRequestDeleteArgs>(args: SelectSubset<T, GiftWithdrawalRequestDeleteArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GiftWithdrawalRequest.
+     * @param {GiftWithdrawalRequestUpdateArgs} args - Arguments to update one GiftWithdrawalRequest.
+     * @example
+     * // Update one GiftWithdrawalRequest
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GiftWithdrawalRequestUpdateArgs>(args: SelectSubset<T, GiftWithdrawalRequestUpdateArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GiftWithdrawalRequests.
+     * @param {GiftWithdrawalRequestDeleteManyArgs} args - Arguments to filter GiftWithdrawalRequests to delete.
+     * @example
+     * // Delete a few GiftWithdrawalRequests
+     * const { count } = await prisma.giftWithdrawalRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GiftWithdrawalRequestDeleteManyArgs>(args?: SelectSubset<T, GiftWithdrawalRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftWithdrawalRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftWithdrawalRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GiftWithdrawalRequests
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GiftWithdrawalRequestUpdateManyArgs>(args: SelectSubset<T, GiftWithdrawalRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GiftWithdrawalRequests and returns the data updated in the database.
+     * @param {GiftWithdrawalRequestUpdateManyAndReturnArgs} args - Arguments to update many GiftWithdrawalRequests.
+     * @example
+     * // Update many GiftWithdrawalRequests
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GiftWithdrawalRequests and only return the `id`
+     * const giftWithdrawalRequestWithIdOnly = await prisma.giftWithdrawalRequest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GiftWithdrawalRequestUpdateManyAndReturnArgs>(args: SelectSubset<T, GiftWithdrawalRequestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GiftWithdrawalRequest.
+     * @param {GiftWithdrawalRequestUpsertArgs} args - Arguments to update or create a GiftWithdrawalRequest.
+     * @example
+     * // Update or create a GiftWithdrawalRequest
+     * const giftWithdrawalRequest = await prisma.giftWithdrawalRequest.upsert({
+     *   create: {
+     *     // ... data to create a GiftWithdrawalRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GiftWithdrawalRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GiftWithdrawalRequestUpsertArgs>(args: SelectSubset<T, GiftWithdrawalRequestUpsertArgs<ExtArgs>>): Prisma__GiftWithdrawalRequestClient<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GiftWithdrawalRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftWithdrawalRequestCountArgs} args - Arguments to filter GiftWithdrawalRequests to count.
+     * @example
+     * // Count the number of GiftWithdrawalRequests
+     * const count = await prisma.giftWithdrawalRequest.count({
+     *   where: {
+     *     // ... the filter for the GiftWithdrawalRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends GiftWithdrawalRequestCountArgs>(
+      args?: Subset<T, GiftWithdrawalRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GiftWithdrawalRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GiftWithdrawalRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftWithdrawalRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GiftWithdrawalRequestAggregateArgs>(args: Subset<T, GiftWithdrawalRequestAggregateArgs>): Prisma.PrismaPromise<GetGiftWithdrawalRequestAggregateType<T>>
+
+    /**
+     * Group by GiftWithdrawalRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GiftWithdrawalRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GiftWithdrawalRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GiftWithdrawalRequestGroupByArgs['orderBy'] }
+        : { orderBy?: GiftWithdrawalRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GiftWithdrawalRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGiftWithdrawalRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GiftWithdrawalRequest model
+   */
+  readonly fields: GiftWithdrawalRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GiftWithdrawalRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GiftWithdrawalRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    gift<T extends GiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GiftDefaultArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GiftWithdrawalRequest model
+   */
+  interface GiftWithdrawalRequestFieldRefs {
+    readonly id: FieldRef<"GiftWithdrawalRequest", 'String'>
+    readonly userId: FieldRef<"GiftWithdrawalRequest", 'String'>
+    readonly giftId: FieldRef<"GiftWithdrawalRequest", 'String'>
+    readonly code: FieldRef<"GiftWithdrawalRequest", 'String'>
+    readonly status: FieldRef<"GiftWithdrawalRequest", 'String'>
+    readonly confirmedAt: FieldRef<"GiftWithdrawalRequest", 'DateTime'>
+    readonly createdAt: FieldRef<"GiftWithdrawalRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GiftWithdrawalRequest findUnique
+   */
+  export type GiftWithdrawalRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftWithdrawalRequest to fetch.
+     */
+    where: GiftWithdrawalRequestWhereUniqueInput
+  }
+
+  /**
+   * GiftWithdrawalRequest findUniqueOrThrow
+   */
+  export type GiftWithdrawalRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftWithdrawalRequest to fetch.
+     */
+    where: GiftWithdrawalRequestWhereUniqueInput
+  }
+
+  /**
+   * GiftWithdrawalRequest findFirst
+   */
+  export type GiftWithdrawalRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftWithdrawalRequest to fetch.
+     */
+    where?: GiftWithdrawalRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftWithdrawalRequests to fetch.
+     */
+    orderBy?: GiftWithdrawalRequestOrderByWithRelationInput | GiftWithdrawalRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftWithdrawalRequests.
+     */
+    cursor?: GiftWithdrawalRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftWithdrawalRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftWithdrawalRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftWithdrawalRequests.
+     */
+    distinct?: GiftWithdrawalRequestScalarFieldEnum | GiftWithdrawalRequestScalarFieldEnum[]
+  }
+
+  /**
+   * GiftWithdrawalRequest findFirstOrThrow
+   */
+  export type GiftWithdrawalRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftWithdrawalRequest to fetch.
+     */
+    where?: GiftWithdrawalRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftWithdrawalRequests to fetch.
+     */
+    orderBy?: GiftWithdrawalRequestOrderByWithRelationInput | GiftWithdrawalRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GiftWithdrawalRequests.
+     */
+    cursor?: GiftWithdrawalRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftWithdrawalRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftWithdrawalRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftWithdrawalRequests.
+     */
+    distinct?: GiftWithdrawalRequestScalarFieldEnum | GiftWithdrawalRequestScalarFieldEnum[]
+  }
+
+  /**
+   * GiftWithdrawalRequest findMany
+   */
+  export type GiftWithdrawalRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which GiftWithdrawalRequests to fetch.
+     */
+    where?: GiftWithdrawalRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GiftWithdrawalRequests to fetch.
+     */
+    orderBy?: GiftWithdrawalRequestOrderByWithRelationInput | GiftWithdrawalRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GiftWithdrawalRequests.
+     */
+    cursor?: GiftWithdrawalRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GiftWithdrawalRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GiftWithdrawalRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GiftWithdrawalRequests.
+     */
+    distinct?: GiftWithdrawalRequestScalarFieldEnum | GiftWithdrawalRequestScalarFieldEnum[]
+  }
+
+  /**
+   * GiftWithdrawalRequest create
+   */
+  export type GiftWithdrawalRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GiftWithdrawalRequest.
+     */
+    data: XOR<GiftWithdrawalRequestCreateInput, GiftWithdrawalRequestUncheckedCreateInput>
+  }
+
+  /**
+   * GiftWithdrawalRequest createMany
+   */
+  export type GiftWithdrawalRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GiftWithdrawalRequests.
+     */
+    data: GiftWithdrawalRequestCreateManyInput | GiftWithdrawalRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GiftWithdrawalRequest createManyAndReturn
+   */
+  export type GiftWithdrawalRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * The data used to create many GiftWithdrawalRequests.
+     */
+    data: GiftWithdrawalRequestCreateManyInput | GiftWithdrawalRequestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftWithdrawalRequest update
+   */
+  export type GiftWithdrawalRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GiftWithdrawalRequest.
+     */
+    data: XOR<GiftWithdrawalRequestUpdateInput, GiftWithdrawalRequestUncheckedUpdateInput>
+    /**
+     * Choose, which GiftWithdrawalRequest to update.
+     */
+    where: GiftWithdrawalRequestWhereUniqueInput
+  }
+
+  /**
+   * GiftWithdrawalRequest updateMany
+   */
+  export type GiftWithdrawalRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GiftWithdrawalRequests.
+     */
+    data: XOR<GiftWithdrawalRequestUpdateManyMutationInput, GiftWithdrawalRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftWithdrawalRequests to update
+     */
+    where?: GiftWithdrawalRequestWhereInput
+    /**
+     * Limit how many GiftWithdrawalRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftWithdrawalRequest updateManyAndReturn
+   */
+  export type GiftWithdrawalRequestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * The data used to update GiftWithdrawalRequests.
+     */
+    data: XOR<GiftWithdrawalRequestUpdateManyMutationInput, GiftWithdrawalRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which GiftWithdrawalRequests to update
+     */
+    where?: GiftWithdrawalRequestWhereInput
+    /**
+     * Limit how many GiftWithdrawalRequests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GiftWithdrawalRequest upsert
+   */
+  export type GiftWithdrawalRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GiftWithdrawalRequest to update in case it exists.
+     */
+    where: GiftWithdrawalRequestWhereUniqueInput
+    /**
+     * In case the GiftWithdrawalRequest found by the `where` argument doesn't exist, create a new GiftWithdrawalRequest with this data.
+     */
+    create: XOR<GiftWithdrawalRequestCreateInput, GiftWithdrawalRequestUncheckedCreateInput>
+    /**
+     * In case the GiftWithdrawalRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GiftWithdrawalRequestUpdateInput, GiftWithdrawalRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * GiftWithdrawalRequest delete
+   */
+  export type GiftWithdrawalRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+    /**
+     * Filter which GiftWithdrawalRequest to delete.
+     */
+    where: GiftWithdrawalRequestWhereUniqueInput
+  }
+
+  /**
+   * GiftWithdrawalRequest deleteMany
+   */
+  export type GiftWithdrawalRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GiftWithdrawalRequests to delete
+     */
+    where?: GiftWithdrawalRequestWhereInput
+    /**
+     * Limit how many GiftWithdrawalRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GiftWithdrawalRequest without action
+   */
+  export type GiftWithdrawalRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GiftWithdrawalRequest
+     */
+    select?: GiftWithdrawalRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GiftWithdrawalRequest
+     */
+    omit?: GiftWithdrawalRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GiftWithdrawalRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TelegramRelayState
+   */
+
+  export type AggregateTelegramRelayState = {
+    _count: TelegramRelayStateCountAggregateOutputType | null
+    _min: TelegramRelayStateMinAggregateOutputType | null
+    _max: TelegramRelayStateMaxAggregateOutputType | null
+  }
+
+  export type TelegramRelayStateMinAggregateOutputType = {
+    id: string | null
+    initialSyncAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TelegramRelayStateMaxAggregateOutputType = {
+    id: string | null
+    initialSyncAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TelegramRelayStateCountAggregateOutputType = {
+    id: number
+    initialSyncAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TelegramRelayStateMinAggregateInputType = {
+    id?: true
+    initialSyncAt?: true
+    updatedAt?: true
+  }
+
+  export type TelegramRelayStateMaxAggregateInputType = {
+    id?: true
+    initialSyncAt?: true
+    updatedAt?: true
+  }
+
+  export type TelegramRelayStateCountAggregateInputType = {
+    id?: true
+    initialSyncAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TelegramRelayStateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TelegramRelayState to aggregate.
+     */
+    where?: TelegramRelayStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramRelayStates to fetch.
+     */
+    orderBy?: TelegramRelayStateOrderByWithRelationInput | TelegramRelayStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TelegramRelayStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramRelayStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramRelayStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TelegramRelayStates
+    **/
+    _count?: true | TelegramRelayStateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TelegramRelayStateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TelegramRelayStateMaxAggregateInputType
+  }
+
+  export type GetTelegramRelayStateAggregateType<T extends TelegramRelayStateAggregateArgs> = {
+        [P in keyof T & keyof AggregateTelegramRelayState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTelegramRelayState[P]>
+      : GetScalarType<T[P], AggregateTelegramRelayState[P]>
+  }
+
+
+
+
+  export type TelegramRelayStateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TelegramRelayStateWhereInput
+    orderBy?: TelegramRelayStateOrderByWithAggregationInput | TelegramRelayStateOrderByWithAggregationInput[]
+    by: TelegramRelayStateScalarFieldEnum[] | TelegramRelayStateScalarFieldEnum
+    having?: TelegramRelayStateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TelegramRelayStateCountAggregateInputType | true
+    _min?: TelegramRelayStateMinAggregateInputType
+    _max?: TelegramRelayStateMaxAggregateInputType
+  }
+
+  export type TelegramRelayStateGroupByOutputType = {
+    id: string
+    initialSyncAt: Date
+    updatedAt: Date
+    _count: TelegramRelayStateCountAggregateOutputType | null
+    _min: TelegramRelayStateMinAggregateOutputType | null
+    _max: TelegramRelayStateMaxAggregateOutputType | null
+  }
+
+  type GetTelegramRelayStateGroupByPayload<T extends TelegramRelayStateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TelegramRelayStateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TelegramRelayStateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TelegramRelayStateGroupByOutputType[P]>
+            : GetScalarType<T[P], TelegramRelayStateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TelegramRelayStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    initialSyncAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["telegramRelayState"]>
+
+  export type TelegramRelayStateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    initialSyncAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["telegramRelayState"]>
+
+  export type TelegramRelayStateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    initialSyncAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["telegramRelayState"]>
+
+  export type TelegramRelayStateSelectScalar = {
+    id?: boolean
+    initialSyncAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TelegramRelayStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "initialSyncAt" | "updatedAt", ExtArgs["result"]["telegramRelayState"]>
+
+  export type $TelegramRelayStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TelegramRelayState"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      initialSyncAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["telegramRelayState"]>
+    composites: {}
+  }
+
+  type TelegramRelayStateGetPayload<S extends boolean | null | undefined | TelegramRelayStateDefaultArgs> = $Result.GetResult<Prisma.$TelegramRelayStatePayload, S>
+
+  type TelegramRelayStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TelegramRelayStateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TelegramRelayStateCountAggregateInputType | true
+    }
+
+  export interface TelegramRelayStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TelegramRelayState'], meta: { name: 'TelegramRelayState' } }
+    /**
+     * Find zero or one TelegramRelayState that matches the filter.
+     * @param {TelegramRelayStateFindUniqueArgs} args - Arguments to find a TelegramRelayState
+     * @example
+     * // Get one TelegramRelayState
+     * const telegramRelayState = await prisma.telegramRelayState.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TelegramRelayStateFindUniqueArgs>(args: SelectSubset<T, TelegramRelayStateFindUniqueArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TelegramRelayState that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TelegramRelayStateFindUniqueOrThrowArgs} args - Arguments to find a TelegramRelayState
+     * @example
+     * // Get one TelegramRelayState
+     * const telegramRelayState = await prisma.telegramRelayState.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TelegramRelayStateFindUniqueOrThrowArgs>(args: SelectSubset<T, TelegramRelayStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TelegramRelayState that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramRelayStateFindFirstArgs} args - Arguments to find a TelegramRelayState
+     * @example
+     * // Get one TelegramRelayState
+     * const telegramRelayState = await prisma.telegramRelayState.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TelegramRelayStateFindFirstArgs>(args?: SelectSubset<T, TelegramRelayStateFindFirstArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TelegramRelayState that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramRelayStateFindFirstOrThrowArgs} args - Arguments to find a TelegramRelayState
+     * @example
+     * // Get one TelegramRelayState
+     * const telegramRelayState = await prisma.telegramRelayState.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TelegramRelayStateFindFirstOrThrowArgs>(args?: SelectSubset<T, TelegramRelayStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TelegramRelayStates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramRelayStateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TelegramRelayStates
+     * const telegramRelayStates = await prisma.telegramRelayState.findMany()
+     * 
+     * // Get first 10 TelegramRelayStates
+     * const telegramRelayStates = await prisma.telegramRelayState.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const telegramRelayStateWithIdOnly = await prisma.telegramRelayState.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TelegramRelayStateFindManyArgs>(args?: SelectSubset<T, TelegramRelayStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TelegramRelayState.
+     * @param {TelegramRelayStateCreateArgs} args - Arguments to create a TelegramRelayState.
+     * @example
+     * // Create one TelegramRelayState
+     * const TelegramRelayState = await prisma.telegramRelayState.create({
+     *   data: {
+     *     // ... data to create a TelegramRelayState
+     *   }
+     * })
+     * 
+     */
+    create<T extends TelegramRelayStateCreateArgs>(args: SelectSubset<T, TelegramRelayStateCreateArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TelegramRelayStates.
+     * @param {TelegramRelayStateCreateManyArgs} args - Arguments to create many TelegramRelayStates.
+     * @example
+     * // Create many TelegramRelayStates
+     * const telegramRelayState = await prisma.telegramRelayState.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TelegramRelayStateCreateManyArgs>(args?: SelectSubset<T, TelegramRelayStateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TelegramRelayStates and returns the data saved in the database.
+     * @param {TelegramRelayStateCreateManyAndReturnArgs} args - Arguments to create many TelegramRelayStates.
+     * @example
+     * // Create many TelegramRelayStates
+     * const telegramRelayState = await prisma.telegramRelayState.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TelegramRelayStates and only return the `id`
+     * const telegramRelayStateWithIdOnly = await prisma.telegramRelayState.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TelegramRelayStateCreateManyAndReturnArgs>(args?: SelectSubset<T, TelegramRelayStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TelegramRelayState.
+     * @param {TelegramRelayStateDeleteArgs} args - Arguments to delete one TelegramRelayState.
+     * @example
+     * // Delete one TelegramRelayState
+     * const TelegramRelayState = await prisma.telegramRelayState.delete({
+     *   where: {
+     *     // ... filter to delete one TelegramRelayState
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TelegramRelayStateDeleteArgs>(args: SelectSubset<T, TelegramRelayStateDeleteArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TelegramRelayState.
+     * @param {TelegramRelayStateUpdateArgs} args - Arguments to update one TelegramRelayState.
+     * @example
+     * // Update one TelegramRelayState
+     * const telegramRelayState = await prisma.telegramRelayState.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TelegramRelayStateUpdateArgs>(args: SelectSubset<T, TelegramRelayStateUpdateArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TelegramRelayStates.
+     * @param {TelegramRelayStateDeleteManyArgs} args - Arguments to filter TelegramRelayStates to delete.
+     * @example
+     * // Delete a few TelegramRelayStates
+     * const { count } = await prisma.telegramRelayState.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TelegramRelayStateDeleteManyArgs>(args?: SelectSubset<T, TelegramRelayStateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TelegramRelayStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramRelayStateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TelegramRelayStates
+     * const telegramRelayState = await prisma.telegramRelayState.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TelegramRelayStateUpdateManyArgs>(args: SelectSubset<T, TelegramRelayStateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TelegramRelayStates and returns the data updated in the database.
+     * @param {TelegramRelayStateUpdateManyAndReturnArgs} args - Arguments to update many TelegramRelayStates.
+     * @example
+     * // Update many TelegramRelayStates
+     * const telegramRelayState = await prisma.telegramRelayState.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TelegramRelayStates and only return the `id`
+     * const telegramRelayStateWithIdOnly = await prisma.telegramRelayState.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TelegramRelayStateUpdateManyAndReturnArgs>(args: SelectSubset<T, TelegramRelayStateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TelegramRelayState.
+     * @param {TelegramRelayStateUpsertArgs} args - Arguments to update or create a TelegramRelayState.
+     * @example
+     * // Update or create a TelegramRelayState
+     * const telegramRelayState = await prisma.telegramRelayState.upsert({
+     *   create: {
+     *     // ... data to create a TelegramRelayState
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TelegramRelayState we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TelegramRelayStateUpsertArgs>(args: SelectSubset<T, TelegramRelayStateUpsertArgs<ExtArgs>>): Prisma__TelegramRelayStateClient<$Result.GetResult<Prisma.$TelegramRelayStatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TelegramRelayStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramRelayStateCountArgs} args - Arguments to filter TelegramRelayStates to count.
+     * @example
+     * // Count the number of TelegramRelayStates
+     * const count = await prisma.telegramRelayState.count({
+     *   where: {
+     *     // ... the filter for the TelegramRelayStates we want to count
+     *   }
+     * })
+    **/
+    count<T extends TelegramRelayStateCountArgs>(
+      args?: Subset<T, TelegramRelayStateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TelegramRelayStateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TelegramRelayState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramRelayStateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TelegramRelayStateAggregateArgs>(args: Subset<T, TelegramRelayStateAggregateArgs>): Prisma.PrismaPromise<GetTelegramRelayStateAggregateType<T>>
+
+    /**
+     * Group by TelegramRelayState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramRelayStateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TelegramRelayStateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TelegramRelayStateGroupByArgs['orderBy'] }
+        : { orderBy?: TelegramRelayStateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TelegramRelayStateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTelegramRelayStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TelegramRelayState model
+   */
+  readonly fields: TelegramRelayStateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TelegramRelayState.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TelegramRelayStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TelegramRelayState model
+   */
+  interface TelegramRelayStateFieldRefs {
+    readonly id: FieldRef<"TelegramRelayState", 'String'>
+    readonly initialSyncAt: FieldRef<"TelegramRelayState", 'DateTime'>
+    readonly updatedAt: FieldRef<"TelegramRelayState", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TelegramRelayState findUnique
+   */
+  export type TelegramRelayStateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * Filter, which TelegramRelayState to fetch.
+     */
+    where: TelegramRelayStateWhereUniqueInput
+  }
+
+  /**
+   * TelegramRelayState findUniqueOrThrow
+   */
+  export type TelegramRelayStateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * Filter, which TelegramRelayState to fetch.
+     */
+    where: TelegramRelayStateWhereUniqueInput
+  }
+
+  /**
+   * TelegramRelayState findFirst
+   */
+  export type TelegramRelayStateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * Filter, which TelegramRelayState to fetch.
+     */
+    where?: TelegramRelayStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramRelayStates to fetch.
+     */
+    orderBy?: TelegramRelayStateOrderByWithRelationInput | TelegramRelayStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TelegramRelayStates.
+     */
+    cursor?: TelegramRelayStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramRelayStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramRelayStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TelegramRelayStates.
+     */
+    distinct?: TelegramRelayStateScalarFieldEnum | TelegramRelayStateScalarFieldEnum[]
+  }
+
+  /**
+   * TelegramRelayState findFirstOrThrow
+   */
+  export type TelegramRelayStateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * Filter, which TelegramRelayState to fetch.
+     */
+    where?: TelegramRelayStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramRelayStates to fetch.
+     */
+    orderBy?: TelegramRelayStateOrderByWithRelationInput | TelegramRelayStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TelegramRelayStates.
+     */
+    cursor?: TelegramRelayStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramRelayStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramRelayStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TelegramRelayStates.
+     */
+    distinct?: TelegramRelayStateScalarFieldEnum | TelegramRelayStateScalarFieldEnum[]
+  }
+
+  /**
+   * TelegramRelayState findMany
+   */
+  export type TelegramRelayStateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * Filter, which TelegramRelayStates to fetch.
+     */
+    where?: TelegramRelayStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramRelayStates to fetch.
+     */
+    orderBy?: TelegramRelayStateOrderByWithRelationInput | TelegramRelayStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TelegramRelayStates.
+     */
+    cursor?: TelegramRelayStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramRelayStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramRelayStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TelegramRelayStates.
+     */
+    distinct?: TelegramRelayStateScalarFieldEnum | TelegramRelayStateScalarFieldEnum[]
+  }
+
+  /**
+   * TelegramRelayState create
+   */
+  export type TelegramRelayStateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * The data needed to create a TelegramRelayState.
+     */
+    data: XOR<TelegramRelayStateCreateInput, TelegramRelayStateUncheckedCreateInput>
+  }
+
+  /**
+   * TelegramRelayState createMany
+   */
+  export type TelegramRelayStateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TelegramRelayStates.
+     */
+    data: TelegramRelayStateCreateManyInput | TelegramRelayStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TelegramRelayState createManyAndReturn
+   */
+  export type TelegramRelayStateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * The data used to create many TelegramRelayStates.
+     */
+    data: TelegramRelayStateCreateManyInput | TelegramRelayStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TelegramRelayState update
+   */
+  export type TelegramRelayStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * The data needed to update a TelegramRelayState.
+     */
+    data: XOR<TelegramRelayStateUpdateInput, TelegramRelayStateUncheckedUpdateInput>
+    /**
+     * Choose, which TelegramRelayState to update.
+     */
+    where: TelegramRelayStateWhereUniqueInput
+  }
+
+  /**
+   * TelegramRelayState updateMany
+   */
+  export type TelegramRelayStateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TelegramRelayStates.
+     */
+    data: XOR<TelegramRelayStateUpdateManyMutationInput, TelegramRelayStateUncheckedUpdateManyInput>
+    /**
+     * Filter which TelegramRelayStates to update
+     */
+    where?: TelegramRelayStateWhereInput
+    /**
+     * Limit how many TelegramRelayStates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TelegramRelayState updateManyAndReturn
+   */
+  export type TelegramRelayStateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * The data used to update TelegramRelayStates.
+     */
+    data: XOR<TelegramRelayStateUpdateManyMutationInput, TelegramRelayStateUncheckedUpdateManyInput>
+    /**
+     * Filter which TelegramRelayStates to update
+     */
+    where?: TelegramRelayStateWhereInput
+    /**
+     * Limit how many TelegramRelayStates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TelegramRelayState upsert
+   */
+  export type TelegramRelayStateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * The filter to search for the TelegramRelayState to update in case it exists.
+     */
+    where: TelegramRelayStateWhereUniqueInput
+    /**
+     * In case the TelegramRelayState found by the `where` argument doesn't exist, create a new TelegramRelayState with this data.
+     */
+    create: XOR<TelegramRelayStateCreateInput, TelegramRelayStateUncheckedCreateInput>
+    /**
+     * In case the TelegramRelayState was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TelegramRelayStateUpdateInput, TelegramRelayStateUncheckedUpdateInput>
+  }
+
+  /**
+   * TelegramRelayState delete
+   */
+  export type TelegramRelayStateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
+    /**
+     * Filter which TelegramRelayState to delete.
+     */
+    where: TelegramRelayStateWhereUniqueInput
+  }
+
+  /**
+   * TelegramRelayState deleteMany
+   */
+  export type TelegramRelayStateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TelegramRelayStates to delete
+     */
+    where?: TelegramRelayStateWhereInput
+    /**
+     * Limit how many TelegramRelayStates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TelegramRelayState without action
+   */
+  export type TelegramRelayStateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramRelayState
+     */
+    select?: TelegramRelayStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramRelayState
+     */
+    omit?: TelegramRelayStateOmit<ExtArgs> | null
   }
 
 
@@ -13171,10 +19457,12 @@ export namespace Prisma {
 
   export type PvpParticipantAvgAggregateOutputType = {
     stakeGram: Decimal | null
+    cashStakeGram: Decimal | null
   }
 
   export type PvpParticipantSumAggregateOutputType = {
     stakeGram: Decimal | null
+    cashStakeGram: Decimal | null
   }
 
   export type PvpParticipantMinAggregateOutputType = {
@@ -13182,6 +19470,7 @@ export namespace Prisma {
     roomId: string | null
     userId: string | null
     stakeGram: Decimal | null
+    cashStakeGram: Decimal | null
     joinedAt: Date | null
   }
 
@@ -13190,6 +19479,7 @@ export namespace Prisma {
     roomId: string | null
     userId: string | null
     stakeGram: Decimal | null
+    cashStakeGram: Decimal | null
     joinedAt: Date | null
   }
 
@@ -13198,6 +19488,7 @@ export namespace Prisma {
     roomId: number
     userId: number
     stakeGram: number
+    cashStakeGram: number
     joinedAt: number
     _all: number
   }
@@ -13205,10 +19496,12 @@ export namespace Prisma {
 
   export type PvpParticipantAvgAggregateInputType = {
     stakeGram?: true
+    cashStakeGram?: true
   }
 
   export type PvpParticipantSumAggregateInputType = {
     stakeGram?: true
+    cashStakeGram?: true
   }
 
   export type PvpParticipantMinAggregateInputType = {
@@ -13216,6 +19509,7 @@ export namespace Prisma {
     roomId?: true
     userId?: true
     stakeGram?: true
+    cashStakeGram?: true
     joinedAt?: true
   }
 
@@ -13224,6 +19518,7 @@ export namespace Prisma {
     roomId?: true
     userId?: true
     stakeGram?: true
+    cashStakeGram?: true
     joinedAt?: true
   }
 
@@ -13232,6 +19527,7 @@ export namespace Prisma {
     roomId?: true
     userId?: true
     stakeGram?: true
+    cashStakeGram?: true
     joinedAt?: true
     _all?: true
   }
@@ -13327,6 +19623,7 @@ export namespace Prisma {
     roomId: string
     userId: string
     stakeGram: Decimal
+    cashStakeGram: Decimal
     joinedAt: Date
     _count: PvpParticipantCountAggregateOutputType | null
     _avg: PvpParticipantAvgAggregateOutputType | null
@@ -13354,9 +19651,12 @@ export namespace Prisma {
     roomId?: boolean
     userId?: boolean
     stakeGram?: boolean
+    cashStakeGram?: boolean
     joinedAt?: boolean
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    gifts?: boolean | PvpParticipant$giftsArgs<ExtArgs>
+    _count?: boolean | PvpParticipantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pvpParticipant"]>
 
   export type PvpParticipantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13364,6 +19664,7 @@ export namespace Prisma {
     roomId?: boolean
     userId?: boolean
     stakeGram?: boolean
+    cashStakeGram?: boolean
     joinedAt?: boolean
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13374,6 +19675,7 @@ export namespace Prisma {
     roomId?: boolean
     userId?: boolean
     stakeGram?: boolean
+    cashStakeGram?: boolean
     joinedAt?: boolean
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13384,13 +19686,16 @@ export namespace Prisma {
     roomId?: boolean
     userId?: boolean
     stakeGram?: boolean
+    cashStakeGram?: boolean
     joinedAt?: boolean
   }
 
-  export type PvpParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "userId" | "stakeGram" | "joinedAt", ExtArgs["result"]["pvpParticipant"]>
+  export type PvpParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "userId" | "stakeGram" | "cashStakeGram" | "joinedAt", ExtArgs["result"]["pvpParticipant"]>
   export type PvpParticipantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    gifts?: boolean | PvpParticipant$giftsArgs<ExtArgs>
+    _count?: boolean | PvpParticipantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PvpParticipantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
@@ -13406,12 +19711,14 @@ export namespace Prisma {
     objects: {
       room: Prisma.$PvpRoomPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
+      gifts: Prisma.$PvpParticipantGiftPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       roomId: string
       userId: string
       stakeGram: Prisma.Decimal
+      cashStakeGram: Prisma.Decimal
       joinedAt: Date
     }, ExtArgs["result"]["pvpParticipant"]>
     composites: {}
@@ -13809,6 +20116,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     room<T extends PvpRoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PvpRoomDefaultArgs<ExtArgs>>): Prisma__PvpRoomClient<$Result.GetResult<Prisma.$PvpRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    gifts<T extends PvpParticipant$giftsArgs<ExtArgs> = {}>(args?: Subset<T, PvpParticipant$giftsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13842,6 +20150,7 @@ export namespace Prisma {
     readonly roomId: FieldRef<"PvpParticipant", 'String'>
     readonly userId: FieldRef<"PvpParticipant", 'String'>
     readonly stakeGram: FieldRef<"PvpParticipant", 'Decimal'>
+    readonly cashStakeGram: FieldRef<"PvpParticipant", 'Decimal'>
     readonly joinedAt: FieldRef<"PvpParticipant", 'DateTime'>
   }
     
@@ -14244,6 +20553,30 @@ export namespace Prisma {
   }
 
   /**
+   * PvpParticipant.gifts
+   */
+  export type PvpParticipant$giftsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    where?: PvpParticipantGiftWhereInput
+    orderBy?: PvpParticipantGiftOrderByWithRelationInput | PvpParticipantGiftOrderByWithRelationInput[]
+    cursor?: PvpParticipantGiftWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PvpParticipantGiftScalarFieldEnum | PvpParticipantGiftScalarFieldEnum[]
+  }
+
+  /**
    * PvpParticipant without action
    */
   export type PvpParticipantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14259,6 +20592,1111 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PvpParticipantInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PvpParticipantGift
+   */
+
+  export type AggregatePvpParticipantGift = {
+    _count: PvpParticipantGiftCountAggregateOutputType | null
+    _avg: PvpParticipantGiftAvgAggregateOutputType | null
+    _sum: PvpParticipantGiftSumAggregateOutputType | null
+    _min: PvpParticipantGiftMinAggregateOutputType | null
+    _max: PvpParticipantGiftMaxAggregateOutputType | null
+  }
+
+  export type PvpParticipantGiftAvgAggregateOutputType = {
+    valueGram: Decimal | null
+  }
+
+  export type PvpParticipantGiftSumAggregateOutputType = {
+    valueGram: Decimal | null
+  }
+
+  export type PvpParticipantGiftMinAggregateOutputType = {
+    id: string | null
+    participantId: string | null
+    giftId: string | null
+    valueGram: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type PvpParticipantGiftMaxAggregateOutputType = {
+    id: string | null
+    participantId: string | null
+    giftId: string | null
+    valueGram: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type PvpParticipantGiftCountAggregateOutputType = {
+    id: number
+    participantId: number
+    giftId: number
+    valueGram: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PvpParticipantGiftAvgAggregateInputType = {
+    valueGram?: true
+  }
+
+  export type PvpParticipantGiftSumAggregateInputType = {
+    valueGram?: true
+  }
+
+  export type PvpParticipantGiftMinAggregateInputType = {
+    id?: true
+    participantId?: true
+    giftId?: true
+    valueGram?: true
+    createdAt?: true
+  }
+
+  export type PvpParticipantGiftMaxAggregateInputType = {
+    id?: true
+    participantId?: true
+    giftId?: true
+    valueGram?: true
+    createdAt?: true
+  }
+
+  export type PvpParticipantGiftCountAggregateInputType = {
+    id?: true
+    participantId?: true
+    giftId?: true
+    valueGram?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PvpParticipantGiftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpParticipantGift to aggregate.
+     */
+    where?: PvpParticipantGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipantGifts to fetch.
+     */
+    orderBy?: PvpParticipantGiftOrderByWithRelationInput | PvpParticipantGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PvpParticipantGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipantGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipantGifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PvpParticipantGifts
+    **/
+    _count?: true | PvpParticipantGiftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PvpParticipantGiftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PvpParticipantGiftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PvpParticipantGiftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PvpParticipantGiftMaxAggregateInputType
+  }
+
+  export type GetPvpParticipantGiftAggregateType<T extends PvpParticipantGiftAggregateArgs> = {
+        [P in keyof T & keyof AggregatePvpParticipantGift]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePvpParticipantGift[P]>
+      : GetScalarType<T[P], AggregatePvpParticipantGift[P]>
+  }
+
+
+
+
+  export type PvpParticipantGiftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PvpParticipantGiftWhereInput
+    orderBy?: PvpParticipantGiftOrderByWithAggregationInput | PvpParticipantGiftOrderByWithAggregationInput[]
+    by: PvpParticipantGiftScalarFieldEnum[] | PvpParticipantGiftScalarFieldEnum
+    having?: PvpParticipantGiftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PvpParticipantGiftCountAggregateInputType | true
+    _avg?: PvpParticipantGiftAvgAggregateInputType
+    _sum?: PvpParticipantGiftSumAggregateInputType
+    _min?: PvpParticipantGiftMinAggregateInputType
+    _max?: PvpParticipantGiftMaxAggregateInputType
+  }
+
+  export type PvpParticipantGiftGroupByOutputType = {
+    id: string
+    participantId: string
+    giftId: string
+    valueGram: Decimal
+    createdAt: Date
+    _count: PvpParticipantGiftCountAggregateOutputType | null
+    _avg: PvpParticipantGiftAvgAggregateOutputType | null
+    _sum: PvpParticipantGiftSumAggregateOutputType | null
+    _min: PvpParticipantGiftMinAggregateOutputType | null
+    _max: PvpParticipantGiftMaxAggregateOutputType | null
+  }
+
+  type GetPvpParticipantGiftGroupByPayload<T extends PvpParticipantGiftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PvpParticipantGiftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PvpParticipantGiftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PvpParticipantGiftGroupByOutputType[P]>
+            : GetScalarType<T[P], PvpParticipantGiftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PvpParticipantGiftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    participantId?: boolean
+    giftId?: boolean
+    valueGram?: boolean
+    createdAt?: boolean
+    participant?: boolean | PvpParticipantDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpParticipantGift"]>
+
+  export type PvpParticipantGiftSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    participantId?: boolean
+    giftId?: boolean
+    valueGram?: boolean
+    createdAt?: boolean
+    participant?: boolean | PvpParticipantDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpParticipantGift"]>
+
+  export type PvpParticipantGiftSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    participantId?: boolean
+    giftId?: boolean
+    valueGram?: boolean
+    createdAt?: boolean
+    participant?: boolean | PvpParticipantDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pvpParticipantGift"]>
+
+  export type PvpParticipantGiftSelectScalar = {
+    id?: boolean
+    participantId?: boolean
+    giftId?: boolean
+    valueGram?: boolean
+    createdAt?: boolean
+  }
+
+  export type PvpParticipantGiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "participantId" | "giftId" | "valueGram" | "createdAt", ExtArgs["result"]["pvpParticipantGift"]>
+  export type PvpParticipantGiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participant?: boolean | PvpParticipantDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }
+  export type PvpParticipantGiftIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participant?: boolean | PvpParticipantDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }
+  export type PvpParticipantGiftIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participant?: boolean | PvpParticipantDefaultArgs<ExtArgs>
+    gift?: boolean | GiftDefaultArgs<ExtArgs>
+  }
+
+  export type $PvpParticipantGiftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PvpParticipantGift"
+    objects: {
+      participant: Prisma.$PvpParticipantPayload<ExtArgs>
+      gift: Prisma.$GiftPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      participantId: string
+      giftId: string
+      valueGram: Prisma.Decimal
+      createdAt: Date
+    }, ExtArgs["result"]["pvpParticipantGift"]>
+    composites: {}
+  }
+
+  type PvpParticipantGiftGetPayload<S extends boolean | null | undefined | PvpParticipantGiftDefaultArgs> = $Result.GetResult<Prisma.$PvpParticipantGiftPayload, S>
+
+  type PvpParticipantGiftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PvpParticipantGiftFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PvpParticipantGiftCountAggregateInputType | true
+    }
+
+  export interface PvpParticipantGiftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PvpParticipantGift'], meta: { name: 'PvpParticipantGift' } }
+    /**
+     * Find zero or one PvpParticipantGift that matches the filter.
+     * @param {PvpParticipantGiftFindUniqueArgs} args - Arguments to find a PvpParticipantGift
+     * @example
+     * // Get one PvpParticipantGift
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PvpParticipantGiftFindUniqueArgs>(args: SelectSubset<T, PvpParticipantGiftFindUniqueArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PvpParticipantGift that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PvpParticipantGiftFindUniqueOrThrowArgs} args - Arguments to find a PvpParticipantGift
+     * @example
+     * // Get one PvpParticipantGift
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PvpParticipantGiftFindUniqueOrThrowArgs>(args: SelectSubset<T, PvpParticipantGiftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpParticipantGift that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGiftFindFirstArgs} args - Arguments to find a PvpParticipantGift
+     * @example
+     * // Get one PvpParticipantGift
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PvpParticipantGiftFindFirstArgs>(args?: SelectSubset<T, PvpParticipantGiftFindFirstArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PvpParticipantGift that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGiftFindFirstOrThrowArgs} args - Arguments to find a PvpParticipantGift
+     * @example
+     * // Get one PvpParticipantGift
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PvpParticipantGiftFindFirstOrThrowArgs>(args?: SelectSubset<T, PvpParticipantGiftFindFirstOrThrowArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PvpParticipantGifts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGiftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PvpParticipantGifts
+     * const pvpParticipantGifts = await prisma.pvpParticipantGift.findMany()
+     * 
+     * // Get first 10 PvpParticipantGifts
+     * const pvpParticipantGifts = await prisma.pvpParticipantGift.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pvpParticipantGiftWithIdOnly = await prisma.pvpParticipantGift.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PvpParticipantGiftFindManyArgs>(args?: SelectSubset<T, PvpParticipantGiftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PvpParticipantGift.
+     * @param {PvpParticipantGiftCreateArgs} args - Arguments to create a PvpParticipantGift.
+     * @example
+     * // Create one PvpParticipantGift
+     * const PvpParticipantGift = await prisma.pvpParticipantGift.create({
+     *   data: {
+     *     // ... data to create a PvpParticipantGift
+     *   }
+     * })
+     * 
+     */
+    create<T extends PvpParticipantGiftCreateArgs>(args: SelectSubset<T, PvpParticipantGiftCreateArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PvpParticipantGifts.
+     * @param {PvpParticipantGiftCreateManyArgs} args - Arguments to create many PvpParticipantGifts.
+     * @example
+     * // Create many PvpParticipantGifts
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PvpParticipantGiftCreateManyArgs>(args?: SelectSubset<T, PvpParticipantGiftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PvpParticipantGifts and returns the data saved in the database.
+     * @param {PvpParticipantGiftCreateManyAndReturnArgs} args - Arguments to create many PvpParticipantGifts.
+     * @example
+     * // Create many PvpParticipantGifts
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PvpParticipantGifts and only return the `id`
+     * const pvpParticipantGiftWithIdOnly = await prisma.pvpParticipantGift.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PvpParticipantGiftCreateManyAndReturnArgs>(args?: SelectSubset<T, PvpParticipantGiftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PvpParticipantGift.
+     * @param {PvpParticipantGiftDeleteArgs} args - Arguments to delete one PvpParticipantGift.
+     * @example
+     * // Delete one PvpParticipantGift
+     * const PvpParticipantGift = await prisma.pvpParticipantGift.delete({
+     *   where: {
+     *     // ... filter to delete one PvpParticipantGift
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PvpParticipantGiftDeleteArgs>(args: SelectSubset<T, PvpParticipantGiftDeleteArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PvpParticipantGift.
+     * @param {PvpParticipantGiftUpdateArgs} args - Arguments to update one PvpParticipantGift.
+     * @example
+     * // Update one PvpParticipantGift
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PvpParticipantGiftUpdateArgs>(args: SelectSubset<T, PvpParticipantGiftUpdateArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PvpParticipantGifts.
+     * @param {PvpParticipantGiftDeleteManyArgs} args - Arguments to filter PvpParticipantGifts to delete.
+     * @example
+     * // Delete a few PvpParticipantGifts
+     * const { count } = await prisma.pvpParticipantGift.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PvpParticipantGiftDeleteManyArgs>(args?: SelectSubset<T, PvpParticipantGiftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpParticipantGifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGiftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PvpParticipantGifts
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PvpParticipantGiftUpdateManyArgs>(args: SelectSubset<T, PvpParticipantGiftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PvpParticipantGifts and returns the data updated in the database.
+     * @param {PvpParticipantGiftUpdateManyAndReturnArgs} args - Arguments to update many PvpParticipantGifts.
+     * @example
+     * // Update many PvpParticipantGifts
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PvpParticipantGifts and only return the `id`
+     * const pvpParticipantGiftWithIdOnly = await prisma.pvpParticipantGift.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PvpParticipantGiftUpdateManyAndReturnArgs>(args: SelectSubset<T, PvpParticipantGiftUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PvpParticipantGift.
+     * @param {PvpParticipantGiftUpsertArgs} args - Arguments to update or create a PvpParticipantGift.
+     * @example
+     * // Update or create a PvpParticipantGift
+     * const pvpParticipantGift = await prisma.pvpParticipantGift.upsert({
+     *   create: {
+     *     // ... data to create a PvpParticipantGift
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PvpParticipantGift we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PvpParticipantGiftUpsertArgs>(args: SelectSubset<T, PvpParticipantGiftUpsertArgs<ExtArgs>>): Prisma__PvpParticipantGiftClient<$Result.GetResult<Prisma.$PvpParticipantGiftPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PvpParticipantGifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGiftCountArgs} args - Arguments to filter PvpParticipantGifts to count.
+     * @example
+     * // Count the number of PvpParticipantGifts
+     * const count = await prisma.pvpParticipantGift.count({
+     *   where: {
+     *     // ... the filter for the PvpParticipantGifts we want to count
+     *   }
+     * })
+    **/
+    count<T extends PvpParticipantGiftCountArgs>(
+      args?: Subset<T, PvpParticipantGiftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PvpParticipantGiftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PvpParticipantGift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGiftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PvpParticipantGiftAggregateArgs>(args: Subset<T, PvpParticipantGiftAggregateArgs>): Prisma.PrismaPromise<GetPvpParticipantGiftAggregateType<T>>
+
+    /**
+     * Group by PvpParticipantGift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PvpParticipantGiftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PvpParticipantGiftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PvpParticipantGiftGroupByArgs['orderBy'] }
+        : { orderBy?: PvpParticipantGiftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PvpParticipantGiftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPvpParticipantGiftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PvpParticipantGift model
+   */
+  readonly fields: PvpParticipantGiftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PvpParticipantGift.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PvpParticipantGiftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    participant<T extends PvpParticipantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PvpParticipantDefaultArgs<ExtArgs>>): Prisma__PvpParticipantClient<$Result.GetResult<Prisma.$PvpParticipantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    gift<T extends GiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GiftDefaultArgs<ExtArgs>>): Prisma__GiftClient<$Result.GetResult<Prisma.$GiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PvpParticipantGift model
+   */
+  interface PvpParticipantGiftFieldRefs {
+    readonly id: FieldRef<"PvpParticipantGift", 'String'>
+    readonly participantId: FieldRef<"PvpParticipantGift", 'String'>
+    readonly giftId: FieldRef<"PvpParticipantGift", 'String'>
+    readonly valueGram: FieldRef<"PvpParticipantGift", 'Decimal'>
+    readonly createdAt: FieldRef<"PvpParticipantGift", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PvpParticipantGift findUnique
+   */
+  export type PvpParticipantGiftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipantGift to fetch.
+     */
+    where: PvpParticipantGiftWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipantGift findUniqueOrThrow
+   */
+  export type PvpParticipantGiftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipantGift to fetch.
+     */
+    where: PvpParticipantGiftWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipantGift findFirst
+   */
+  export type PvpParticipantGiftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipantGift to fetch.
+     */
+    where?: PvpParticipantGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipantGifts to fetch.
+     */
+    orderBy?: PvpParticipantGiftOrderByWithRelationInput | PvpParticipantGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpParticipantGifts.
+     */
+    cursor?: PvpParticipantGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipantGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipantGifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpParticipantGifts.
+     */
+    distinct?: PvpParticipantGiftScalarFieldEnum | PvpParticipantGiftScalarFieldEnum[]
+  }
+
+  /**
+   * PvpParticipantGift findFirstOrThrow
+   */
+  export type PvpParticipantGiftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipantGift to fetch.
+     */
+    where?: PvpParticipantGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipantGifts to fetch.
+     */
+    orderBy?: PvpParticipantGiftOrderByWithRelationInput | PvpParticipantGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PvpParticipantGifts.
+     */
+    cursor?: PvpParticipantGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipantGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipantGifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpParticipantGifts.
+     */
+    distinct?: PvpParticipantGiftScalarFieldEnum | PvpParticipantGiftScalarFieldEnum[]
+  }
+
+  /**
+   * PvpParticipantGift findMany
+   */
+  export type PvpParticipantGiftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * Filter, which PvpParticipantGifts to fetch.
+     */
+    where?: PvpParticipantGiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PvpParticipantGifts to fetch.
+     */
+    orderBy?: PvpParticipantGiftOrderByWithRelationInput | PvpParticipantGiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PvpParticipantGifts.
+     */
+    cursor?: PvpParticipantGiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PvpParticipantGifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PvpParticipantGifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PvpParticipantGifts.
+     */
+    distinct?: PvpParticipantGiftScalarFieldEnum | PvpParticipantGiftScalarFieldEnum[]
+  }
+
+  /**
+   * PvpParticipantGift create
+   */
+  export type PvpParticipantGiftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PvpParticipantGift.
+     */
+    data: XOR<PvpParticipantGiftCreateInput, PvpParticipantGiftUncheckedCreateInput>
+  }
+
+  /**
+   * PvpParticipantGift createMany
+   */
+  export type PvpParticipantGiftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PvpParticipantGifts.
+     */
+    data: PvpParticipantGiftCreateManyInput | PvpParticipantGiftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PvpParticipantGift createManyAndReturn
+   */
+  export type PvpParticipantGiftCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * The data used to create many PvpParticipantGifts.
+     */
+    data: PvpParticipantGiftCreateManyInput | PvpParticipantGiftCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpParticipantGift update
+   */
+  export type PvpParticipantGiftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PvpParticipantGift.
+     */
+    data: XOR<PvpParticipantGiftUpdateInput, PvpParticipantGiftUncheckedUpdateInput>
+    /**
+     * Choose, which PvpParticipantGift to update.
+     */
+    where: PvpParticipantGiftWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipantGift updateMany
+   */
+  export type PvpParticipantGiftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PvpParticipantGifts.
+     */
+    data: XOR<PvpParticipantGiftUpdateManyMutationInput, PvpParticipantGiftUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpParticipantGifts to update
+     */
+    where?: PvpParticipantGiftWhereInput
+    /**
+     * Limit how many PvpParticipantGifts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpParticipantGift updateManyAndReturn
+   */
+  export type PvpParticipantGiftUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * The data used to update PvpParticipantGifts.
+     */
+    data: XOR<PvpParticipantGiftUpdateManyMutationInput, PvpParticipantGiftUncheckedUpdateManyInput>
+    /**
+     * Filter which PvpParticipantGifts to update
+     */
+    where?: PvpParticipantGiftWhereInput
+    /**
+     * Limit how many PvpParticipantGifts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PvpParticipantGift upsert
+   */
+  export type PvpParticipantGiftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PvpParticipantGift to update in case it exists.
+     */
+    where: PvpParticipantGiftWhereUniqueInput
+    /**
+     * In case the PvpParticipantGift found by the `where` argument doesn't exist, create a new PvpParticipantGift with this data.
+     */
+    create: XOR<PvpParticipantGiftCreateInput, PvpParticipantGiftUncheckedCreateInput>
+    /**
+     * In case the PvpParticipantGift was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PvpParticipantGiftUpdateInput, PvpParticipantGiftUncheckedUpdateInput>
+  }
+
+  /**
+   * PvpParticipantGift delete
+   */
+  export type PvpParticipantGiftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
+    /**
+     * Filter which PvpParticipantGift to delete.
+     */
+    where: PvpParticipantGiftWhereUniqueInput
+  }
+
+  /**
+   * PvpParticipantGift deleteMany
+   */
+  export type PvpParticipantGiftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PvpParticipantGifts to delete
+     */
+    where?: PvpParticipantGiftWhereInput
+    /**
+     * Limit how many PvpParticipantGifts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PvpParticipantGift without action
+   */
+  export type PvpParticipantGiftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PvpParticipantGift
+     */
+    select?: PvpParticipantGiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PvpParticipantGift
+     */
+    omit?: PvpParticipantGiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PvpParticipantGiftInclude<ExtArgs> | null
   }
 
 
@@ -15384,6 +22822,7 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     telegramId: 'telegramId',
+    telegramAccessHash: 'telegramAccessHash',
     username: 'username',
     firstName: 'firstName',
     lastName: 'lastName',
@@ -15394,6 +22833,30 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const GiveawayEntryScalarFieldEnum: {
+    id: 'id',
+    giveaway: 'giveaway',
+    userId: 'userId',
+    referredByUserId: 'referredByUserId',
+    winner: 'winner',
+    reviewStatus: 'reviewStatus',
+    createdAt: 'createdAt'
+  };
+
+  export type GiveawayEntryScalarFieldEnum = (typeof GiveawayEntryScalarFieldEnum)[keyof typeof GiveawayEntryScalarFieldEnum]
+
+
+  export const GiveawayReferralLinkScalarFieldEnum: {
+    id: 'id',
+    giveaway: 'giveaway',
+    userId: 'userId',
+    code: 'code',
+    createdAt: 'createdAt'
+  };
+
+  export type GiveawayReferralLinkScalarFieldEnum = (typeof GiveawayReferralLinkScalarFieldEnum)[keyof typeof GiveawayReferralLinkScalarFieldEnum]
 
 
   export const GameTransactionScalarFieldEnum: {
@@ -15470,6 +22933,10 @@ export namespace Prisma {
     backdropColor: 'backdropColor',
     symbolName: 'symbolName',
     symbolImageUrl: 'symbolImageUrl',
+    imageUrl: 'imageUrl',
+    telegramOwnedGiftId: 'telegramOwnedGiftId',
+    telegramGiftNumber: 'telegramGiftNumber',
+    telegramGiftData: 'telegramGiftData',
     status: 'status',
     ownerId: 'ownerId',
     createdAt: 'createdAt',
@@ -15477,6 +22944,41 @@ export namespace Prisma {
   };
 
   export type GiftScalarFieldEnum = (typeof GiftScalarFieldEnum)[keyof typeof GiftScalarFieldEnum]
+
+
+  export const GiftDepositIntentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    code: 'code',
+    status: 'status',
+    giftId: 'giftId',
+    confirmedAt: 'confirmedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type GiftDepositIntentScalarFieldEnum = (typeof GiftDepositIntentScalarFieldEnum)[keyof typeof GiftDepositIntentScalarFieldEnum]
+
+
+  export const GiftWithdrawalRequestScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    giftId: 'giftId',
+    code: 'code',
+    status: 'status',
+    confirmedAt: 'confirmedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type GiftWithdrawalRequestScalarFieldEnum = (typeof GiftWithdrawalRequestScalarFieldEnum)[keyof typeof GiftWithdrawalRequestScalarFieldEnum]
+
+
+  export const TelegramRelayStateScalarFieldEnum: {
+    id: 'id',
+    initialSyncAt: 'initialSyncAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TelegramRelayStateScalarFieldEnum = (typeof TelegramRelayStateScalarFieldEnum)[keyof typeof TelegramRelayStateScalarFieldEnum]
 
 
   export const TransactionScalarFieldEnum: {
@@ -15534,10 +23036,22 @@ export namespace Prisma {
     roomId: 'roomId',
     userId: 'userId',
     stakeGram: 'stakeGram',
+    cashStakeGram: 'cashStakeGram',
     joinedAt: 'joinedAt'
   };
 
   export type PvpParticipantScalarFieldEnum = (typeof PvpParticipantScalarFieldEnum)[keyof typeof PvpParticipantScalarFieldEnum]
+
+
+  export const PvpParticipantGiftScalarFieldEnum: {
+    id: 'id',
+    participantId: 'participantId',
+    giftId: 'giftId',
+    valueGram: 'valueGram',
+    createdAt: 'createdAt'
+  };
+
+  export type PvpParticipantGiftScalarFieldEnum = (typeof PvpParticipantGiftScalarFieldEnum)[keyof typeof PvpParticipantGiftScalarFieldEnum]
 
 
   export const PvpInvitationScalarFieldEnum: {
@@ -15642,6 +23156,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -15670,13 +23191,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -15699,6 +23213,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     telegramId?: StringFilter<"User"> | string
+    telegramAccessHash?: StringNullableFilter<"User"> | string | null
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
@@ -15720,11 +23235,17 @@ export namespace Prisma {
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
     gameTransactions?: GameTransactionListRelationFilter
+    giftDepositIntents?: GiftDepositIntentListRelationFilter
+    giftWithdrawalRequests?: GiftWithdrawalRequestListRelationFilter
+    giveawayEntries?: GiveawayEntryListRelationFilter
+    giveawayReferralLinks?: GiveawayReferralLinkListRelationFilter
+    referredGiveawayEntries?: GiveawayEntryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     telegramId?: SortOrder
+    telegramAccessHash?: SortOrderInput | SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
@@ -15746,6 +23267,11 @@ export namespace Prisma {
     botDeposits?: BotDepositOrderByRelationAggregateInput
     botWithdrawals?: BotWithdrawalOrderByRelationAggregateInput
     gameTransactions?: GameTransactionOrderByRelationAggregateInput
+    giftDepositIntents?: GiftDepositIntentOrderByRelationAggregateInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestOrderByRelationAggregateInput
+    giveawayEntries?: GiveawayEntryOrderByRelationAggregateInput
+    giveawayReferralLinks?: GiveawayReferralLinkOrderByRelationAggregateInput
+    referredGiveawayEntries?: GiveawayEntryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15754,6 +23280,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    telegramAccessHash?: StringNullableFilter<"User"> | string | null
     username?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
@@ -15775,11 +23302,17 @@ export namespace Prisma {
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
     gameTransactions?: GameTransactionListRelationFilter
+    giftDepositIntents?: GiftDepositIntentListRelationFilter
+    giftWithdrawalRequests?: GiftWithdrawalRequestListRelationFilter
+    giveawayEntries?: GiveawayEntryListRelationFilter
+    giveawayReferralLinks?: GiveawayReferralLinkListRelationFilter
+    referredGiveawayEntries?: GiveawayEntryListRelationFilter
   }, "id" | "telegramId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     telegramId?: SortOrder
+    telegramAccessHash?: SortOrderInput | SortOrder
     username?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
@@ -15800,6 +23333,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     telegramId?: StringWithAggregatesFilter<"User"> | string
+    telegramAccessHash?: StringNullableWithAggregatesFilter<"User"> | string | null
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -15807,6 +23341,131 @@ export namespace Prisma {
     balanceGram?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type GiveawayEntryWhereInput = {
+    AND?: GiveawayEntryWhereInput | GiveawayEntryWhereInput[]
+    OR?: GiveawayEntryWhereInput[]
+    NOT?: GiveawayEntryWhereInput | GiveawayEntryWhereInput[]
+    id?: StringFilter<"GiveawayEntry"> | string
+    giveaway?: StringFilter<"GiveawayEntry"> | string
+    userId?: StringFilter<"GiveawayEntry"> | string
+    referredByUserId?: StringNullableFilter<"GiveawayEntry"> | string | null
+    winner?: BoolFilter<"GiveawayEntry"> | boolean
+    reviewStatus?: StringFilter<"GiveawayEntry"> | string
+    createdAt?: DateTimeFilter<"GiveawayEntry"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referredBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type GiveawayEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    referredByUserId?: SortOrderInput | SortOrder
+    winner?: SortOrder
+    reviewStatus?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    referredBy?: UserOrderByWithRelationInput
+  }
+
+  export type GiveawayEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    giveaway_userId?: GiveawayEntryGiveawayUserIdCompoundUniqueInput
+    AND?: GiveawayEntryWhereInput | GiveawayEntryWhereInput[]
+    OR?: GiveawayEntryWhereInput[]
+    NOT?: GiveawayEntryWhereInput | GiveawayEntryWhereInput[]
+    giveaway?: StringFilter<"GiveawayEntry"> | string
+    userId?: StringFilter<"GiveawayEntry"> | string
+    referredByUserId?: StringNullableFilter<"GiveawayEntry"> | string | null
+    winner?: BoolFilter<"GiveawayEntry"> | boolean
+    reviewStatus?: StringFilter<"GiveawayEntry"> | string
+    createdAt?: DateTimeFilter<"GiveawayEntry"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    referredBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id" | "giveaway_userId">
+
+  export type GiveawayEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    referredByUserId?: SortOrderInput | SortOrder
+    winner?: SortOrder
+    reviewStatus?: SortOrder
+    createdAt?: SortOrder
+    _count?: GiveawayEntryCountOrderByAggregateInput
+    _max?: GiveawayEntryMaxOrderByAggregateInput
+    _min?: GiveawayEntryMinOrderByAggregateInput
+  }
+
+  export type GiveawayEntryScalarWhereWithAggregatesInput = {
+    AND?: GiveawayEntryScalarWhereWithAggregatesInput | GiveawayEntryScalarWhereWithAggregatesInput[]
+    OR?: GiveawayEntryScalarWhereWithAggregatesInput[]
+    NOT?: GiveawayEntryScalarWhereWithAggregatesInput | GiveawayEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GiveawayEntry"> | string
+    giveaway?: StringWithAggregatesFilter<"GiveawayEntry"> | string
+    userId?: StringWithAggregatesFilter<"GiveawayEntry"> | string
+    referredByUserId?: StringNullableWithAggregatesFilter<"GiveawayEntry"> | string | null
+    winner?: BoolWithAggregatesFilter<"GiveawayEntry"> | boolean
+    reviewStatus?: StringWithAggregatesFilter<"GiveawayEntry"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"GiveawayEntry"> | Date | string
+  }
+
+  export type GiveawayReferralLinkWhereInput = {
+    AND?: GiveawayReferralLinkWhereInput | GiveawayReferralLinkWhereInput[]
+    OR?: GiveawayReferralLinkWhereInput[]
+    NOT?: GiveawayReferralLinkWhereInput | GiveawayReferralLinkWhereInput[]
+    id?: StringFilter<"GiveawayReferralLink"> | string
+    giveaway?: StringFilter<"GiveawayReferralLink"> | string
+    userId?: StringFilter<"GiveawayReferralLink"> | string
+    code?: StringFilter<"GiveawayReferralLink"> | string
+    createdAt?: DateTimeFilter<"GiveawayReferralLink"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type GiveawayReferralLinkOrderByWithRelationInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type GiveawayReferralLinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    giveaway_userId?: GiveawayReferralLinkGiveawayUserIdCompoundUniqueInput
+    AND?: GiveawayReferralLinkWhereInput | GiveawayReferralLinkWhereInput[]
+    OR?: GiveawayReferralLinkWhereInput[]
+    NOT?: GiveawayReferralLinkWhereInput | GiveawayReferralLinkWhereInput[]
+    giveaway?: StringFilter<"GiveawayReferralLink"> | string
+    userId?: StringFilter<"GiveawayReferralLink"> | string
+    createdAt?: DateTimeFilter<"GiveawayReferralLink"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "code" | "giveaway_userId">
+
+  export type GiveawayReferralLinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+    _count?: GiveawayReferralLinkCountOrderByAggregateInput
+    _max?: GiveawayReferralLinkMaxOrderByAggregateInput
+    _min?: GiveawayReferralLinkMinOrderByAggregateInput
+  }
+
+  export type GiveawayReferralLinkScalarWhereWithAggregatesInput = {
+    AND?: GiveawayReferralLinkScalarWhereWithAggregatesInput | GiveawayReferralLinkScalarWhereWithAggregatesInput[]
+    OR?: GiveawayReferralLinkScalarWhereWithAggregatesInput[]
+    NOT?: GiveawayReferralLinkScalarWhereWithAggregatesInput | GiveawayReferralLinkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GiveawayReferralLink"> | string
+    giveaway?: StringWithAggregatesFilter<"GiveawayReferralLink"> | string
+    userId?: StringWithAggregatesFilter<"GiveawayReferralLink"> | string
+    code?: StringWithAggregatesFilter<"GiveawayReferralLink"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"GiveawayReferralLink"> | Date | string
   }
 
   export type GameTransactionWhereInput = {
@@ -16148,6 +23807,10 @@ export namespace Prisma {
     backdropColor?: StringNullableFilter<"Gift"> | string | null
     symbolName?: StringNullableFilter<"Gift"> | string | null
     symbolImageUrl?: StringNullableFilter<"Gift"> | string | null
+    imageUrl?: StringNullableFilter<"Gift"> | string | null
+    telegramOwnedGiftId?: StringNullableFilter<"Gift"> | string | null
+    telegramGiftNumber?: StringNullableFilter<"Gift"> | string | null
+    telegramGiftData?: JsonNullableFilter<"Gift">
     status?: StringFilter<"Gift"> | string
     ownerId?: StringNullableFilter<"Gift"> | string | null
     createdAt?: DateTimeFilter<"Gift"> | Date | string
@@ -16155,6 +23818,9 @@ export namespace Prisma {
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     transactions?: TransactionListRelationFilter
     offers?: OfferListRelationFilter
+    arenaStakes?: PvpParticipantGiftListRelationFilter
+    depositIntent?: XOR<GiftDepositIntentNullableScalarRelationFilter, GiftDepositIntentWhereInput> | null
+    withdrawalRequests?: GiftWithdrawalRequestListRelationFilter
   }
 
   export type GiftOrderByWithRelationInput = {
@@ -16167,6 +23833,10 @@ export namespace Prisma {
     backdropColor?: SortOrderInput | SortOrder
     symbolName?: SortOrderInput | SortOrder
     symbolImageUrl?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    telegramOwnedGiftId?: SortOrderInput | SortOrder
+    telegramGiftNumber?: SortOrderInput | SortOrder
+    telegramGiftData?: SortOrderInput | SortOrder
     status?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -16174,10 +23844,14 @@ export namespace Prisma {
     owner?: UserOrderByWithRelationInput
     transactions?: TransactionOrderByRelationAggregateInput
     offers?: OfferOrderByRelationAggregateInput
+    arenaStakes?: PvpParticipantGiftOrderByRelationAggregateInput
+    depositIntent?: GiftDepositIntentOrderByWithRelationInput
+    withdrawalRequests?: GiftWithdrawalRequestOrderByRelationAggregateInput
   }
 
   export type GiftWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    telegramOwnedGiftId?: string
     AND?: GiftWhereInput | GiftWhereInput[]
     OR?: GiftWhereInput[]
     NOT?: GiftWhereInput | GiftWhereInput[]
@@ -16189,6 +23863,9 @@ export namespace Prisma {
     backdropColor?: StringNullableFilter<"Gift"> | string | null
     symbolName?: StringNullableFilter<"Gift"> | string | null
     symbolImageUrl?: StringNullableFilter<"Gift"> | string | null
+    imageUrl?: StringNullableFilter<"Gift"> | string | null
+    telegramGiftNumber?: StringNullableFilter<"Gift"> | string | null
+    telegramGiftData?: JsonNullableFilter<"Gift">
     status?: StringFilter<"Gift"> | string
     ownerId?: StringNullableFilter<"Gift"> | string | null
     createdAt?: DateTimeFilter<"Gift"> | Date | string
@@ -16196,7 +23873,10 @@ export namespace Prisma {
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     transactions?: TransactionListRelationFilter
     offers?: OfferListRelationFilter
-  }, "id">
+    arenaStakes?: PvpParticipantGiftListRelationFilter
+    depositIntent?: XOR<GiftDepositIntentNullableScalarRelationFilter, GiftDepositIntentWhereInput> | null
+    withdrawalRequests?: GiftWithdrawalRequestListRelationFilter
+  }, "id" | "telegramOwnedGiftId">
 
   export type GiftOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16208,6 +23888,10 @@ export namespace Prisma {
     backdropColor?: SortOrderInput | SortOrder
     symbolName?: SortOrderInput | SortOrder
     symbolImageUrl?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    telegramOwnedGiftId?: SortOrderInput | SortOrder
+    telegramGiftNumber?: SortOrderInput | SortOrder
+    telegramGiftData?: SortOrderInput | SortOrder
     status?: SortOrder
     ownerId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -16232,10 +23916,192 @@ export namespace Prisma {
     backdropColor?: StringNullableWithAggregatesFilter<"Gift"> | string | null
     symbolName?: StringNullableWithAggregatesFilter<"Gift"> | string | null
     symbolImageUrl?: StringNullableWithAggregatesFilter<"Gift"> | string | null
+    imageUrl?: StringNullableWithAggregatesFilter<"Gift"> | string | null
+    telegramOwnedGiftId?: StringNullableWithAggregatesFilter<"Gift"> | string | null
+    telegramGiftNumber?: StringNullableWithAggregatesFilter<"Gift"> | string | null
+    telegramGiftData?: JsonNullableWithAggregatesFilter<"Gift">
     status?: StringWithAggregatesFilter<"Gift"> | string
     ownerId?: StringNullableWithAggregatesFilter<"Gift"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Gift"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Gift"> | Date | string
+  }
+
+  export type GiftDepositIntentWhereInput = {
+    AND?: GiftDepositIntentWhereInput | GiftDepositIntentWhereInput[]
+    OR?: GiftDepositIntentWhereInput[]
+    NOT?: GiftDepositIntentWhereInput | GiftDepositIntentWhereInput[]
+    id?: StringFilter<"GiftDepositIntent"> | string
+    userId?: StringFilter<"GiftDepositIntent"> | string
+    code?: StringFilter<"GiftDepositIntent"> | string
+    status?: StringFilter<"GiftDepositIntent"> | string
+    giftId?: StringNullableFilter<"GiftDepositIntent"> | string | null
+    confirmedAt?: DateTimeNullableFilter<"GiftDepositIntent"> | Date | string | null
+    createdAt?: DateTimeFilter<"GiftDepositIntent"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gift?: XOR<GiftNullableScalarRelationFilter, GiftWhereInput> | null
+  }
+
+  export type GiftDepositIntentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    giftId?: SortOrderInput | SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    gift?: GiftOrderByWithRelationInput
+  }
+
+  export type GiftDepositIntentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    giftId?: string
+    AND?: GiftDepositIntentWhereInput | GiftDepositIntentWhereInput[]
+    OR?: GiftDepositIntentWhereInput[]
+    NOT?: GiftDepositIntentWhereInput | GiftDepositIntentWhereInput[]
+    userId?: StringFilter<"GiftDepositIntent"> | string
+    status?: StringFilter<"GiftDepositIntent"> | string
+    confirmedAt?: DateTimeNullableFilter<"GiftDepositIntent"> | Date | string | null
+    createdAt?: DateTimeFilter<"GiftDepositIntent"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gift?: XOR<GiftNullableScalarRelationFilter, GiftWhereInput> | null
+  }, "id" | "code" | "giftId">
+
+  export type GiftDepositIntentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    giftId?: SortOrderInput | SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: GiftDepositIntentCountOrderByAggregateInput
+    _max?: GiftDepositIntentMaxOrderByAggregateInput
+    _min?: GiftDepositIntentMinOrderByAggregateInput
+  }
+
+  export type GiftDepositIntentScalarWhereWithAggregatesInput = {
+    AND?: GiftDepositIntentScalarWhereWithAggregatesInput | GiftDepositIntentScalarWhereWithAggregatesInput[]
+    OR?: GiftDepositIntentScalarWhereWithAggregatesInput[]
+    NOT?: GiftDepositIntentScalarWhereWithAggregatesInput | GiftDepositIntentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GiftDepositIntent"> | string
+    userId?: StringWithAggregatesFilter<"GiftDepositIntent"> | string
+    code?: StringWithAggregatesFilter<"GiftDepositIntent"> | string
+    status?: StringWithAggregatesFilter<"GiftDepositIntent"> | string
+    giftId?: StringNullableWithAggregatesFilter<"GiftDepositIntent"> | string | null
+    confirmedAt?: DateTimeNullableWithAggregatesFilter<"GiftDepositIntent"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GiftDepositIntent"> | Date | string
+  }
+
+  export type GiftWithdrawalRequestWhereInput = {
+    AND?: GiftWithdrawalRequestWhereInput | GiftWithdrawalRequestWhereInput[]
+    OR?: GiftWithdrawalRequestWhereInput[]
+    NOT?: GiftWithdrawalRequestWhereInput | GiftWithdrawalRequestWhereInput[]
+    id?: StringFilter<"GiftWithdrawalRequest"> | string
+    userId?: StringFilter<"GiftWithdrawalRequest"> | string
+    giftId?: StringFilter<"GiftWithdrawalRequest"> | string
+    code?: StringFilter<"GiftWithdrawalRequest"> | string
+    status?: StringFilter<"GiftWithdrawalRequest"> | string
+    confirmedAt?: DateTimeNullableFilter<"GiftWithdrawalRequest"> | Date | string | null
+    createdAt?: DateTimeFilter<"GiftWithdrawalRequest"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gift?: XOR<GiftScalarRelationFilter, GiftWhereInput>
+  }
+
+  export type GiftWithdrawalRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    giftId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    gift?: GiftOrderByWithRelationInput
+  }
+
+  export type GiftWithdrawalRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: GiftWithdrawalRequestWhereInput | GiftWithdrawalRequestWhereInput[]
+    OR?: GiftWithdrawalRequestWhereInput[]
+    NOT?: GiftWithdrawalRequestWhereInput | GiftWithdrawalRequestWhereInput[]
+    userId?: StringFilter<"GiftWithdrawalRequest"> | string
+    giftId?: StringFilter<"GiftWithdrawalRequest"> | string
+    status?: StringFilter<"GiftWithdrawalRequest"> | string
+    confirmedAt?: DateTimeNullableFilter<"GiftWithdrawalRequest"> | Date | string | null
+    createdAt?: DateTimeFilter<"GiftWithdrawalRequest"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gift?: XOR<GiftScalarRelationFilter, GiftWhereInput>
+  }, "id" | "code">
+
+  export type GiftWithdrawalRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    giftId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: GiftWithdrawalRequestCountOrderByAggregateInput
+    _max?: GiftWithdrawalRequestMaxOrderByAggregateInput
+    _min?: GiftWithdrawalRequestMinOrderByAggregateInput
+  }
+
+  export type GiftWithdrawalRequestScalarWhereWithAggregatesInput = {
+    AND?: GiftWithdrawalRequestScalarWhereWithAggregatesInput | GiftWithdrawalRequestScalarWhereWithAggregatesInput[]
+    OR?: GiftWithdrawalRequestScalarWhereWithAggregatesInput[]
+    NOT?: GiftWithdrawalRequestScalarWhereWithAggregatesInput | GiftWithdrawalRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GiftWithdrawalRequest"> | string
+    userId?: StringWithAggregatesFilter<"GiftWithdrawalRequest"> | string
+    giftId?: StringWithAggregatesFilter<"GiftWithdrawalRequest"> | string
+    code?: StringWithAggregatesFilter<"GiftWithdrawalRequest"> | string
+    status?: StringWithAggregatesFilter<"GiftWithdrawalRequest"> | string
+    confirmedAt?: DateTimeNullableWithAggregatesFilter<"GiftWithdrawalRequest"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GiftWithdrawalRequest"> | Date | string
+  }
+
+  export type TelegramRelayStateWhereInput = {
+    AND?: TelegramRelayStateWhereInput | TelegramRelayStateWhereInput[]
+    OR?: TelegramRelayStateWhereInput[]
+    NOT?: TelegramRelayStateWhereInput | TelegramRelayStateWhereInput[]
+    id?: StringFilter<"TelegramRelayState"> | string
+    initialSyncAt?: DateTimeFilter<"TelegramRelayState"> | Date | string
+    updatedAt?: DateTimeFilter<"TelegramRelayState"> | Date | string
+  }
+
+  export type TelegramRelayStateOrderByWithRelationInput = {
+    id?: SortOrder
+    initialSyncAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TelegramRelayStateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TelegramRelayStateWhereInput | TelegramRelayStateWhereInput[]
+    OR?: TelegramRelayStateWhereInput[]
+    NOT?: TelegramRelayStateWhereInput | TelegramRelayStateWhereInput[]
+    initialSyncAt?: DateTimeFilter<"TelegramRelayState"> | Date | string
+    updatedAt?: DateTimeFilter<"TelegramRelayState"> | Date | string
+  }, "id">
+
+  export type TelegramRelayStateOrderByWithAggregationInput = {
+    id?: SortOrder
+    initialSyncAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TelegramRelayStateCountOrderByAggregateInput
+    _max?: TelegramRelayStateMaxOrderByAggregateInput
+    _min?: TelegramRelayStateMinOrderByAggregateInput
+  }
+
+  export type TelegramRelayStateScalarWhereWithAggregatesInput = {
+    AND?: TelegramRelayStateScalarWhereWithAggregatesInput | TelegramRelayStateScalarWhereWithAggregatesInput[]
+    OR?: TelegramRelayStateScalarWhereWithAggregatesInput[]
+    NOT?: TelegramRelayStateScalarWhereWithAggregatesInput | TelegramRelayStateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TelegramRelayState"> | string
+    initialSyncAt?: DateTimeWithAggregatesFilter<"TelegramRelayState"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TelegramRelayState"> | Date | string
   }
 
   export type TransactionWhereInput = {
@@ -16523,9 +24389,11 @@ export namespace Prisma {
     roomId?: StringFilter<"PvpParticipant"> | string
     userId?: StringFilter<"PvpParticipant"> | string
     stakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
     room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gifts?: PvpParticipantGiftListRelationFilter
   }
 
   export type PvpParticipantOrderByWithRelationInput = {
@@ -16533,9 +24401,11 @@ export namespace Prisma {
     roomId?: SortOrder
     userId?: SortOrder
     stakeGram?: SortOrder
+    cashStakeGram?: SortOrder
     joinedAt?: SortOrder
     room?: PvpRoomOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    gifts?: PvpParticipantGiftOrderByRelationAggregateInput
   }
 
   export type PvpParticipantWhereUniqueInput = Prisma.AtLeast<{
@@ -16547,9 +24417,11 @@ export namespace Prisma {
     roomId?: StringFilter<"PvpParticipant"> | string
     userId?: StringFilter<"PvpParticipant"> | string
     stakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
     room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gifts?: PvpParticipantGiftListRelationFilter
   }, "id" | "roomId_userId">
 
   export type PvpParticipantOrderByWithAggregationInput = {
@@ -16557,6 +24429,7 @@ export namespace Prisma {
     roomId?: SortOrder
     userId?: SortOrder
     stakeGram?: SortOrder
+    cashStakeGram?: SortOrder
     joinedAt?: SortOrder
     _count?: PvpParticipantCountOrderByAggregateInput
     _avg?: PvpParticipantAvgOrderByAggregateInput
@@ -16573,7 +24446,68 @@ export namespace Prisma {
     roomId?: StringWithAggregatesFilter<"PvpParticipant"> | string
     userId?: StringWithAggregatesFilter<"PvpParticipant"> | string
     stakeGram?: DecimalWithAggregatesFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalWithAggregatesFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeWithAggregatesFilter<"PvpParticipant"> | Date | string
+  }
+
+  export type PvpParticipantGiftWhereInput = {
+    AND?: PvpParticipantGiftWhereInput | PvpParticipantGiftWhereInput[]
+    OR?: PvpParticipantGiftWhereInput[]
+    NOT?: PvpParticipantGiftWhereInput | PvpParticipantGiftWhereInput[]
+    id?: StringFilter<"PvpParticipantGift"> | string
+    participantId?: StringFilter<"PvpParticipantGift"> | string
+    giftId?: StringFilter<"PvpParticipantGift"> | string
+    valueGram?: DecimalFilter<"PvpParticipantGift"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"PvpParticipantGift"> | Date | string
+    participant?: XOR<PvpParticipantScalarRelationFilter, PvpParticipantWhereInput>
+    gift?: XOR<GiftScalarRelationFilter, GiftWhereInput>
+  }
+
+  export type PvpParticipantGiftOrderByWithRelationInput = {
+    id?: SortOrder
+    participantId?: SortOrder
+    giftId?: SortOrder
+    valueGram?: SortOrder
+    createdAt?: SortOrder
+    participant?: PvpParticipantOrderByWithRelationInput
+    gift?: GiftOrderByWithRelationInput
+  }
+
+  export type PvpParticipantGiftWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PvpParticipantGiftWhereInput | PvpParticipantGiftWhereInput[]
+    OR?: PvpParticipantGiftWhereInput[]
+    NOT?: PvpParticipantGiftWhereInput | PvpParticipantGiftWhereInput[]
+    participantId?: StringFilter<"PvpParticipantGift"> | string
+    giftId?: StringFilter<"PvpParticipantGift"> | string
+    valueGram?: DecimalFilter<"PvpParticipantGift"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"PvpParticipantGift"> | Date | string
+    participant?: XOR<PvpParticipantScalarRelationFilter, PvpParticipantWhereInput>
+    gift?: XOR<GiftScalarRelationFilter, GiftWhereInput>
+  }, "id">
+
+  export type PvpParticipantGiftOrderByWithAggregationInput = {
+    id?: SortOrder
+    participantId?: SortOrder
+    giftId?: SortOrder
+    valueGram?: SortOrder
+    createdAt?: SortOrder
+    _count?: PvpParticipantGiftCountOrderByAggregateInput
+    _avg?: PvpParticipantGiftAvgOrderByAggregateInput
+    _max?: PvpParticipantGiftMaxOrderByAggregateInput
+    _min?: PvpParticipantGiftMinOrderByAggregateInput
+    _sum?: PvpParticipantGiftSumOrderByAggregateInput
+  }
+
+  export type PvpParticipantGiftScalarWhereWithAggregatesInput = {
+    AND?: PvpParticipantGiftScalarWhereWithAggregatesInput | PvpParticipantGiftScalarWhereWithAggregatesInput[]
+    OR?: PvpParticipantGiftScalarWhereWithAggregatesInput[]
+    NOT?: PvpParticipantGiftScalarWhereWithAggregatesInput | PvpParticipantGiftScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PvpParticipantGift"> | string
+    participantId?: StringWithAggregatesFilter<"PvpParticipantGift"> | string
+    giftId?: StringWithAggregatesFilter<"PvpParticipantGift"> | string
+    valueGram?: DecimalWithAggregatesFilter<"PvpParticipantGift"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter<"PvpParticipantGift"> | Date | string
   }
 
   export type PvpInvitationWhereInput = {
@@ -16651,6 +24585,7 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -16672,11 +24607,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -16698,11 +24639,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16724,11 +24671,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16750,11 +24703,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -16767,6 +24726,7 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16779,6 +24739,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16786,6 +24747,129 @@ export namespace Prisma {
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayEntryCreateInput = {
+    id?: string
+    giveaway: string
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGiveawayEntriesInput
+    referredBy?: UserCreateNestedOneWithoutReferredGiveawayEntriesInput
+  }
+
+  export type GiveawayEntryUncheckedCreateInput = {
+    id?: string
+    giveaway: string
+    userId: string
+    referredByUserId?: string | null
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGiveawayEntriesNestedInput
+    referredBy?: UserUpdateOneWithoutReferredGiveawayEntriesNestedInput
+  }
+
+  export type GiveawayEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    referredByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayEntryCreateManyInput = {
+    id?: string
+    giveaway: string
+    userId: string
+    referredByUserId?: string | null
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    referredByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayReferralLinkCreateInput = {
+    id?: string
+    giveaway: string
+    code: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGiveawayReferralLinksInput
+  }
+
+  export type GiveawayReferralLinkUncheckedCreateInput = {
+    id?: string
+    giveaway: string
+    userId: string
+    code: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayReferralLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGiveawayReferralLinksNestedInput
+  }
+
+  export type GiveawayReferralLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayReferralLinkCreateManyInput = {
+    id?: string
+    giveaway: string
+    userId: string
+    code: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayReferralLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayReferralLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GameTransactionCreateInput = {
@@ -17158,12 +25242,19 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutGiftsInput
     transactions?: TransactionCreateNestedManyWithoutGiftInput
     offers?: OfferCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutGiftInput
   }
 
   export type GiftUncheckedCreateInput = {
@@ -17176,12 +25267,19 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGiftInput
     offers?: OfferUncheckedCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftUncheckedCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentUncheckedCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutGiftInput
   }
 
   export type GiftUpdateInput = {
@@ -17194,12 +25292,19 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutGiftsNestedInput
     transactions?: TransactionUpdateManyWithoutGiftNestedInput
     offers?: OfferUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutGiftNestedInput
   }
 
   export type GiftUncheckedUpdateInput = {
@@ -17212,12 +25317,19 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGiftNestedInput
     offers?: OfferUncheckedUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUncheckedUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUncheckedUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftNestedInput
   }
 
   export type GiftCreateManyInput = {
@@ -17230,6 +25342,10 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
@@ -17246,6 +25362,10 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17261,9 +25381,191 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftDepositIntentCreateInput = {
+    id?: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGiftDepositIntentsInput
+    gift?: GiftCreateNestedOneWithoutDepositIntentInput
+  }
+
+  export type GiftDepositIntentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    code: string
+    status?: string
+    giftId?: string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftDepositIntentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGiftDepositIntentsNestedInput
+    gift?: GiftUpdateOneWithoutDepositIntentNestedInput
+  }
+
+  export type GiftDepositIntentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    giftId?: NullableStringFieldUpdateOperationsInput | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftDepositIntentCreateManyInput = {
+    id?: string
+    userId: string
+    code: string
+    status?: string
+    giftId?: string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftDepositIntentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftDepositIntentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    giftId?: NullableStringFieldUpdateOperationsInput | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestCreateInput = {
+    id?: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGiftWithdrawalRequestsInput
+    gift: GiftCreateNestedOneWithoutWithdrawalRequestsInput
+  }
+
+  export type GiftWithdrawalRequestUncheckedCreateInput = {
+    id?: string
+    userId: string
+    giftId: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftWithdrawalRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGiftWithdrawalRequestsNestedInput
+    gift?: GiftUpdateOneRequiredWithoutWithdrawalRequestsNestedInput
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestCreateManyInput = {
+    id?: string
+    userId: string
+    giftId: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftWithdrawalRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TelegramRelayStateCreateInput = {
+    id?: string
+    initialSyncAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TelegramRelayStateUncheckedCreateInput = {
+    id?: string
+    initialSyncAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TelegramRelayStateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initialSyncAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TelegramRelayStateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initialSyncAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TelegramRelayStateCreateManyInput = {
+    id?: string
+    initialSyncAt: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TelegramRelayStateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initialSyncAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TelegramRelayStateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    initialSyncAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17557,9 +25859,11 @@ export namespace Prisma {
   export type PvpParticipantCreateInput = {
     id?: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
     room: PvpRoomCreateNestedOneWithoutParticipantsInput
     user: UserCreateNestedOneWithoutPvpParticipationsInput
+    gifts?: PvpParticipantGiftCreateNestedManyWithoutParticipantInput
   }
 
   export type PvpParticipantUncheckedCreateInput = {
@@ -17567,15 +25871,19 @@ export namespace Prisma {
     roomId: string
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
+    gifts?: PvpParticipantGiftUncheckedCreateNestedManyWithoutParticipantInput
   }
 
   export type PvpParticipantUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
     user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
+    gifts?: PvpParticipantGiftUpdateManyWithoutParticipantNestedInput
   }
 
   export type PvpParticipantUncheckedUpdateInput = {
@@ -17583,7 +25891,9 @@ export namespace Prisma {
     roomId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gifts?: PvpParticipantGiftUncheckedUpdateManyWithoutParticipantNestedInput
   }
 
   export type PvpParticipantCreateManyInput = {
@@ -17591,12 +25901,14 @@ export namespace Prisma {
     roomId: string
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
   }
 
   export type PvpParticipantUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17605,7 +25917,62 @@ export namespace Prisma {
     roomId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantGiftCreateInput = {
+    id?: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    participant: PvpParticipantCreateNestedOneWithoutGiftsInput
+    gift: GiftCreateNestedOneWithoutArenaStakesInput
+  }
+
+  export type PvpParticipantGiftUncheckedCreateInput = {
+    id?: string
+    participantId: string
+    giftId: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type PvpParticipantGiftUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participant?: PvpParticipantUpdateOneRequiredWithoutGiftsNestedInput
+    gift?: GiftUpdateOneRequiredWithoutArenaStakesNestedInput
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    participantId?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantGiftCreateManyInput = {
+    id?: string
+    participantId: string
+    giftId: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type PvpParticipantGiftUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    participantId?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PvpInvitationCreateInput = {
@@ -17787,6 +26154,30 @@ export namespace Prisma {
     none?: GameTransactionWhereInput
   }
 
+  export type GiftDepositIntentListRelationFilter = {
+    every?: GiftDepositIntentWhereInput
+    some?: GiftDepositIntentWhereInput
+    none?: GiftDepositIntentWhereInput
+  }
+
+  export type GiftWithdrawalRequestListRelationFilter = {
+    every?: GiftWithdrawalRequestWhereInput
+    some?: GiftWithdrawalRequestWhereInput
+    none?: GiftWithdrawalRequestWhereInput
+  }
+
+  export type GiveawayEntryListRelationFilter = {
+    every?: GiveawayEntryWhereInput
+    some?: GiveawayEntryWhereInput
+    none?: GiveawayEntryWhereInput
+  }
+
+  export type GiveawayReferralLinkListRelationFilter = {
+    every?: GiveawayReferralLinkWhereInput
+    some?: GiveawayReferralLinkWhereInput
+    none?: GiveawayReferralLinkWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17832,9 +26223,26 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type GiftDepositIntentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GiftWithdrawalRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GiveawayEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GiveawayReferralLinkOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     telegramId?: SortOrder
+    telegramAccessHash?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -17851,6 +26259,7 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     telegramId?: SortOrder
+    telegramAccessHash?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -17863,6 +26272,7 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     telegramId?: SortOrder
+    telegramAccessHash?: SortOrder
     username?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -17941,6 +26351,93 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type GiveawayEntryGiveawayUserIdCompoundUniqueInput = {
+    giveaway: string
+    userId: string
+  }
+
+  export type GiveawayEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    referredByUserId?: SortOrder
+    winner?: SortOrder
+    reviewStatus?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiveawayEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    referredByUserId?: SortOrder
+    winner?: SortOrder
+    reviewStatus?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiveawayEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    referredByUserId?: SortOrder
+    winner?: SortOrder
+    reviewStatus?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type GiveawayReferralLinkGiveawayUserIdCompoundUniqueInput = {
+    giveaway: string
+    userId: string
+  }
+
+  export type GiveawayReferralLinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiveawayReferralLinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiveawayReferralLinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    giveaway?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    createdAt?: SortOrder
+  }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -17963,11 +26460,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type GameTransactionCountOrderByAggregateInput = {
@@ -18230,11 +26722,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type WalletCountOrderByAggregateInput = {
     id?: SortOrder
     address?: SortOrder
@@ -18262,17 +26749,19 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type PvpParticipantGiftListRelationFilter = {
+    every?: PvpParticipantGiftWhereInput
+    some?: PvpParticipantGiftWhereInput
+    none?: PvpParticipantGiftWhereInput
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
+  export type GiftDepositIntentNullableScalarRelationFilter = {
+    is?: GiftDepositIntentWhereInput | null
+    isNot?: GiftDepositIntentWhereInput | null
+  }
+
+  export type PvpParticipantGiftOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type GiftCountOrderByAggregateInput = {
@@ -18285,6 +26774,10 @@ export namespace Prisma {
     backdropColor?: SortOrder
     symbolName?: SortOrder
     symbolImageUrl?: SortOrder
+    imageUrl?: SortOrder
+    telegramOwnedGiftId?: SortOrder
+    telegramGiftNumber?: SortOrder
+    telegramGiftData?: SortOrder
     status?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -18305,6 +26798,9 @@ export namespace Prisma {
     backdropColor?: SortOrder
     symbolName?: SortOrder
     symbolImageUrl?: SortOrder
+    imageUrl?: SortOrder
+    telegramOwnedGiftId?: SortOrder
+    telegramGiftNumber?: SortOrder
     status?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -18321,6 +26817,9 @@ export namespace Prisma {
     backdropColor?: SortOrder
     symbolName?: SortOrder
     symbolImageUrl?: SortOrder
+    imageUrl?: SortOrder
+    telegramOwnedGiftId?: SortOrder
+    telegramGiftNumber?: SortOrder
     status?: SortOrder
     ownerId?: SortOrder
     createdAt?: SortOrder
@@ -18334,6 +26833,89 @@ export namespace Prisma {
   export type GiftNullableScalarRelationFilter = {
     is?: GiftWhereInput | null
     isNot?: GiftWhereInput | null
+  }
+
+  export type GiftDepositIntentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    giftId?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiftDepositIntentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    giftId?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiftDepositIntentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    giftId?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiftScalarRelationFilter = {
+    is?: GiftWhereInput
+    isNot?: GiftWhereInput
+  }
+
+  export type GiftWithdrawalRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    giftId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiftWithdrawalRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    giftId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GiftWithdrawalRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    giftId?: SortOrder
+    code?: SortOrder
+    status?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TelegramRelayStateCountOrderByAggregateInput = {
+    id?: SortOrder
+    initialSyncAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TelegramRelayStateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    initialSyncAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TelegramRelayStateMinOrderByAggregateInput = {
+    id?: SortOrder
+    initialSyncAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type TransactionCountOrderByAggregateInput = {
@@ -18381,11 +26963,6 @@ export namespace Prisma {
 
   export type TransactionSumOrderByAggregateInput = {
     amountTon?: SortOrder
-  }
-
-  export type GiftScalarRelationFilter = {
-    is?: GiftWhereInput
-    isNot?: GiftWhereInput
   }
 
   export type OfferCountOrderByAggregateInput = {
@@ -18503,11 +27080,13 @@ export namespace Prisma {
     roomId?: SortOrder
     userId?: SortOrder
     stakeGram?: SortOrder
+    cashStakeGram?: SortOrder
     joinedAt?: SortOrder
   }
 
   export type PvpParticipantAvgOrderByAggregateInput = {
     stakeGram?: SortOrder
+    cashStakeGram?: SortOrder
   }
 
   export type PvpParticipantMaxOrderByAggregateInput = {
@@ -18515,6 +27094,7 @@ export namespace Prisma {
     roomId?: SortOrder
     userId?: SortOrder
     stakeGram?: SortOrder
+    cashStakeGram?: SortOrder
     joinedAt?: SortOrder
   }
 
@@ -18523,11 +27103,50 @@ export namespace Prisma {
     roomId?: SortOrder
     userId?: SortOrder
     stakeGram?: SortOrder
+    cashStakeGram?: SortOrder
     joinedAt?: SortOrder
   }
 
   export type PvpParticipantSumOrderByAggregateInput = {
     stakeGram?: SortOrder
+    cashStakeGram?: SortOrder
+  }
+
+  export type PvpParticipantScalarRelationFilter = {
+    is?: PvpParticipantWhereInput
+    isNot?: PvpParticipantWhereInput
+  }
+
+  export type PvpParticipantGiftCountOrderByAggregateInput = {
+    id?: SortOrder
+    participantId?: SortOrder
+    giftId?: SortOrder
+    valueGram?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PvpParticipantGiftAvgOrderByAggregateInput = {
+    valueGram?: SortOrder
+  }
+
+  export type PvpParticipantGiftMaxOrderByAggregateInput = {
+    id?: SortOrder
+    participantId?: SortOrder
+    giftId?: SortOrder
+    valueGram?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PvpParticipantGiftMinOrderByAggregateInput = {
+    id?: SortOrder
+    participantId?: SortOrder
+    giftId?: SortOrder
+    valueGram?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PvpParticipantGiftSumOrderByAggregateInput = {
+    valueGram?: SortOrder
   }
 
   export type PvpInvitationRoomIdRecipientIdCompoundUniqueInput = {
@@ -18663,6 +27282,41 @@ export namespace Prisma {
     connect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
   }
 
+  export type GiftDepositIntentCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutUserInput, GiftDepositIntentUncheckedCreateWithoutUserInput> | GiftDepositIntentCreateWithoutUserInput[] | GiftDepositIntentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutUserInput | GiftDepositIntentCreateOrConnectWithoutUserInput[]
+    createMany?: GiftDepositIntentCreateManyUserInputEnvelope
+    connect?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+  }
+
+  export type GiftWithdrawalRequestCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutUserInput, GiftWithdrawalRequestUncheckedCreateWithoutUserInput> | GiftWithdrawalRequestCreateWithoutUserInput[] | GiftWithdrawalRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutUserInput | GiftWithdrawalRequestCreateOrConnectWithoutUserInput[]
+    createMany?: GiftWithdrawalRequestCreateManyUserInputEnvelope
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+  }
+
+  export type GiveawayEntryCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiveawayEntryCreateWithoutUserInput, GiveawayEntryUncheckedCreateWithoutUserInput> | GiveawayEntryCreateWithoutUserInput[] | GiveawayEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutUserInput | GiveawayEntryCreateOrConnectWithoutUserInput[]
+    createMany?: GiveawayEntryCreateManyUserInputEnvelope
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+  }
+
+  export type GiveawayReferralLinkCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiveawayReferralLinkCreateWithoutUserInput, GiveawayReferralLinkUncheckedCreateWithoutUserInput> | GiveawayReferralLinkCreateWithoutUserInput[] | GiveawayReferralLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayReferralLinkCreateOrConnectWithoutUserInput | GiveawayReferralLinkCreateOrConnectWithoutUserInput[]
+    createMany?: GiveawayReferralLinkCreateManyUserInputEnvelope
+    connect?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+  }
+
+  export type GiveawayEntryCreateNestedManyWithoutReferredByInput = {
+    create?: XOR<GiveawayEntryCreateWithoutReferredByInput, GiveawayEntryUncheckedCreateWithoutReferredByInput> | GiveawayEntryCreateWithoutReferredByInput[] | GiveawayEntryUncheckedCreateWithoutReferredByInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutReferredByInput | GiveawayEntryCreateOrConnectWithoutReferredByInput[]
+    createMany?: GiveawayEntryCreateManyReferredByInputEnvelope
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+  }
+
   export type WalletUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -18759,6 +27413,41 @@ export namespace Prisma {
     connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
     createMany?: GameTransactionCreateManyUserInputEnvelope
     connect?: GameTransactionWhereUniqueInput | GameTransactionWhereUniqueInput[]
+  }
+
+  export type GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutUserInput, GiftDepositIntentUncheckedCreateWithoutUserInput> | GiftDepositIntentCreateWithoutUserInput[] | GiftDepositIntentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutUserInput | GiftDepositIntentCreateOrConnectWithoutUserInput[]
+    createMany?: GiftDepositIntentCreateManyUserInputEnvelope
+    connect?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+  }
+
+  export type GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutUserInput, GiftWithdrawalRequestUncheckedCreateWithoutUserInput> | GiftWithdrawalRequestCreateWithoutUserInput[] | GiftWithdrawalRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutUserInput | GiftWithdrawalRequestCreateOrConnectWithoutUserInput[]
+    createMany?: GiftWithdrawalRequestCreateManyUserInputEnvelope
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+  }
+
+  export type GiveawayEntryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiveawayEntryCreateWithoutUserInput, GiveawayEntryUncheckedCreateWithoutUserInput> | GiveawayEntryCreateWithoutUserInput[] | GiveawayEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutUserInput | GiveawayEntryCreateOrConnectWithoutUserInput[]
+    createMany?: GiveawayEntryCreateManyUserInputEnvelope
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+  }
+
+  export type GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GiveawayReferralLinkCreateWithoutUserInput, GiveawayReferralLinkUncheckedCreateWithoutUserInput> | GiveawayReferralLinkCreateWithoutUserInput[] | GiveawayReferralLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayReferralLinkCreateOrConnectWithoutUserInput | GiveawayReferralLinkCreateOrConnectWithoutUserInput[]
+    createMany?: GiveawayReferralLinkCreateManyUserInputEnvelope
+    connect?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+  }
+
+  export type GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput = {
+    create?: XOR<GiveawayEntryCreateWithoutReferredByInput, GiveawayEntryUncheckedCreateWithoutReferredByInput> | GiveawayEntryCreateWithoutReferredByInput[] | GiveawayEntryUncheckedCreateWithoutReferredByInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutReferredByInput | GiveawayEntryCreateOrConnectWithoutReferredByInput[]
+    createMany?: GiveawayEntryCreateManyReferredByInputEnvelope
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18977,6 +27666,76 @@ export namespace Prisma {
     deleteMany?: GameTransactionScalarWhereInput | GameTransactionScalarWhereInput[]
   }
 
+  export type GiftDepositIntentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutUserInput, GiftDepositIntentUncheckedCreateWithoutUserInput> | GiftDepositIntentCreateWithoutUserInput[] | GiftDepositIntentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutUserInput | GiftDepositIntentCreateOrConnectWithoutUserInput[]
+    upsert?: GiftDepositIntentUpsertWithWhereUniqueWithoutUserInput | GiftDepositIntentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiftDepositIntentCreateManyUserInputEnvelope
+    set?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    disconnect?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    delete?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    connect?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    update?: GiftDepositIntentUpdateWithWhereUniqueWithoutUserInput | GiftDepositIntentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiftDepositIntentUpdateManyWithWhereWithoutUserInput | GiftDepositIntentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiftDepositIntentScalarWhereInput | GiftDepositIntentScalarWhereInput[]
+  }
+
+  export type GiftWithdrawalRequestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutUserInput, GiftWithdrawalRequestUncheckedCreateWithoutUserInput> | GiftWithdrawalRequestCreateWithoutUserInput[] | GiftWithdrawalRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutUserInput | GiftWithdrawalRequestCreateOrConnectWithoutUserInput[]
+    upsert?: GiftWithdrawalRequestUpsertWithWhereUniqueWithoutUserInput | GiftWithdrawalRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiftWithdrawalRequestCreateManyUserInputEnvelope
+    set?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    disconnect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    delete?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    update?: GiftWithdrawalRequestUpdateWithWhereUniqueWithoutUserInput | GiftWithdrawalRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiftWithdrawalRequestUpdateManyWithWhereWithoutUserInput | GiftWithdrawalRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiftWithdrawalRequestScalarWhereInput | GiftWithdrawalRequestScalarWhereInput[]
+  }
+
+  export type GiveawayEntryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiveawayEntryCreateWithoutUserInput, GiveawayEntryUncheckedCreateWithoutUserInput> | GiveawayEntryCreateWithoutUserInput[] | GiveawayEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutUserInput | GiveawayEntryCreateOrConnectWithoutUserInput[]
+    upsert?: GiveawayEntryUpsertWithWhereUniqueWithoutUserInput | GiveawayEntryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiveawayEntryCreateManyUserInputEnvelope
+    set?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    disconnect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    delete?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    update?: GiveawayEntryUpdateWithWhereUniqueWithoutUserInput | GiveawayEntryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiveawayEntryUpdateManyWithWhereWithoutUserInput | GiveawayEntryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiveawayEntryScalarWhereInput | GiveawayEntryScalarWhereInput[]
+  }
+
+  export type GiveawayReferralLinkUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiveawayReferralLinkCreateWithoutUserInput, GiveawayReferralLinkUncheckedCreateWithoutUserInput> | GiveawayReferralLinkCreateWithoutUserInput[] | GiveawayReferralLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayReferralLinkCreateOrConnectWithoutUserInput | GiveawayReferralLinkCreateOrConnectWithoutUserInput[]
+    upsert?: GiveawayReferralLinkUpsertWithWhereUniqueWithoutUserInput | GiveawayReferralLinkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiveawayReferralLinkCreateManyUserInputEnvelope
+    set?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    disconnect?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    delete?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    connect?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    update?: GiveawayReferralLinkUpdateWithWhereUniqueWithoutUserInput | GiveawayReferralLinkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiveawayReferralLinkUpdateManyWithWhereWithoutUserInput | GiveawayReferralLinkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiveawayReferralLinkScalarWhereInput | GiveawayReferralLinkScalarWhereInput[]
+  }
+
+  export type GiveawayEntryUpdateManyWithoutReferredByNestedInput = {
+    create?: XOR<GiveawayEntryCreateWithoutReferredByInput, GiveawayEntryUncheckedCreateWithoutReferredByInput> | GiveawayEntryCreateWithoutReferredByInput[] | GiveawayEntryUncheckedCreateWithoutReferredByInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutReferredByInput | GiveawayEntryCreateOrConnectWithoutReferredByInput[]
+    upsert?: GiveawayEntryUpsertWithWhereUniqueWithoutReferredByInput | GiveawayEntryUpsertWithWhereUniqueWithoutReferredByInput[]
+    createMany?: GiveawayEntryCreateManyReferredByInputEnvelope
+    set?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    disconnect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    delete?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    update?: GiveawayEntryUpdateWithWhereUniqueWithoutReferredByInput | GiveawayEntryUpdateWithWhereUniqueWithoutReferredByInput[]
+    updateMany?: GiveawayEntryUpdateManyWithWhereWithoutReferredByInput | GiveawayEntryUpdateManyWithWhereWithoutReferredByInput[]
+    deleteMany?: GiveawayEntryScalarWhereInput | GiveawayEntryScalarWhereInput[]
+  }
+
   export type WalletUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<WalletCreateWithoutUserInput, WalletUncheckedCreateWithoutUserInput> | WalletCreateWithoutUserInput[] | WalletUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WalletCreateOrConnectWithoutUserInput | WalletCreateOrConnectWithoutUserInput[]
@@ -19173,6 +27932,124 @@ export namespace Prisma {
     deleteMany?: GameTransactionScalarWhereInput | GameTransactionScalarWhereInput[]
   }
 
+  export type GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutUserInput, GiftDepositIntentUncheckedCreateWithoutUserInput> | GiftDepositIntentCreateWithoutUserInput[] | GiftDepositIntentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutUserInput | GiftDepositIntentCreateOrConnectWithoutUserInput[]
+    upsert?: GiftDepositIntentUpsertWithWhereUniqueWithoutUserInput | GiftDepositIntentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiftDepositIntentCreateManyUserInputEnvelope
+    set?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    disconnect?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    delete?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    connect?: GiftDepositIntentWhereUniqueInput | GiftDepositIntentWhereUniqueInput[]
+    update?: GiftDepositIntentUpdateWithWhereUniqueWithoutUserInput | GiftDepositIntentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiftDepositIntentUpdateManyWithWhereWithoutUserInput | GiftDepositIntentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiftDepositIntentScalarWhereInput | GiftDepositIntentScalarWhereInput[]
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutUserInput, GiftWithdrawalRequestUncheckedCreateWithoutUserInput> | GiftWithdrawalRequestCreateWithoutUserInput[] | GiftWithdrawalRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutUserInput | GiftWithdrawalRequestCreateOrConnectWithoutUserInput[]
+    upsert?: GiftWithdrawalRequestUpsertWithWhereUniqueWithoutUserInput | GiftWithdrawalRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiftWithdrawalRequestCreateManyUserInputEnvelope
+    set?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    disconnect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    delete?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    update?: GiftWithdrawalRequestUpdateWithWhereUniqueWithoutUserInput | GiftWithdrawalRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiftWithdrawalRequestUpdateManyWithWhereWithoutUserInput | GiftWithdrawalRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiftWithdrawalRequestScalarWhereInput | GiftWithdrawalRequestScalarWhereInput[]
+  }
+
+  export type GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiveawayEntryCreateWithoutUserInput, GiveawayEntryUncheckedCreateWithoutUserInput> | GiveawayEntryCreateWithoutUserInput[] | GiveawayEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutUserInput | GiveawayEntryCreateOrConnectWithoutUserInput[]
+    upsert?: GiveawayEntryUpsertWithWhereUniqueWithoutUserInput | GiveawayEntryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiveawayEntryCreateManyUserInputEnvelope
+    set?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    disconnect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    delete?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    update?: GiveawayEntryUpdateWithWhereUniqueWithoutUserInput | GiveawayEntryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiveawayEntryUpdateManyWithWhereWithoutUserInput | GiveawayEntryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiveawayEntryScalarWhereInput | GiveawayEntryScalarWhereInput[]
+  }
+
+  export type GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GiveawayReferralLinkCreateWithoutUserInput, GiveawayReferralLinkUncheckedCreateWithoutUserInput> | GiveawayReferralLinkCreateWithoutUserInput[] | GiveawayReferralLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GiveawayReferralLinkCreateOrConnectWithoutUserInput | GiveawayReferralLinkCreateOrConnectWithoutUserInput[]
+    upsert?: GiveawayReferralLinkUpsertWithWhereUniqueWithoutUserInput | GiveawayReferralLinkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GiveawayReferralLinkCreateManyUserInputEnvelope
+    set?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    disconnect?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    delete?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    connect?: GiveawayReferralLinkWhereUniqueInput | GiveawayReferralLinkWhereUniqueInput[]
+    update?: GiveawayReferralLinkUpdateWithWhereUniqueWithoutUserInput | GiveawayReferralLinkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GiveawayReferralLinkUpdateManyWithWhereWithoutUserInput | GiveawayReferralLinkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GiveawayReferralLinkScalarWhereInput | GiveawayReferralLinkScalarWhereInput[]
+  }
+
+  export type GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput = {
+    create?: XOR<GiveawayEntryCreateWithoutReferredByInput, GiveawayEntryUncheckedCreateWithoutReferredByInput> | GiveawayEntryCreateWithoutReferredByInput[] | GiveawayEntryUncheckedCreateWithoutReferredByInput[]
+    connectOrCreate?: GiveawayEntryCreateOrConnectWithoutReferredByInput | GiveawayEntryCreateOrConnectWithoutReferredByInput[]
+    upsert?: GiveawayEntryUpsertWithWhereUniqueWithoutReferredByInput | GiveawayEntryUpsertWithWhereUniqueWithoutReferredByInput[]
+    createMany?: GiveawayEntryCreateManyReferredByInputEnvelope
+    set?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    disconnect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    delete?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    connect?: GiveawayEntryWhereUniqueInput | GiveawayEntryWhereUniqueInput[]
+    update?: GiveawayEntryUpdateWithWhereUniqueWithoutReferredByInput | GiveawayEntryUpdateWithWhereUniqueWithoutReferredByInput[]
+    updateMany?: GiveawayEntryUpdateManyWithWhereWithoutReferredByInput | GiveawayEntryUpdateManyWithWhereWithoutReferredByInput[]
+    deleteMany?: GiveawayEntryScalarWhereInput | GiveawayEntryScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutGiveawayEntriesInput = {
+    create?: XOR<UserCreateWithoutGiveawayEntriesInput, UserUncheckedCreateWithoutGiveawayEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiveawayEntriesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReferredGiveawayEntriesInput = {
+    create?: XOR<UserCreateWithoutReferredGiveawayEntriesInput, UserUncheckedCreateWithoutReferredGiveawayEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferredGiveawayEntriesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutGiveawayEntriesNestedInput = {
+    create?: XOR<UserCreateWithoutGiveawayEntriesInput, UserUncheckedCreateWithoutGiveawayEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiveawayEntriesInput
+    upsert?: UserUpsertWithoutGiveawayEntriesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGiveawayEntriesInput, UserUpdateWithoutGiveawayEntriesInput>, UserUncheckedUpdateWithoutGiveawayEntriesInput>
+  }
+
+  export type UserUpdateOneWithoutReferredGiveawayEntriesNestedInput = {
+    create?: XOR<UserCreateWithoutReferredGiveawayEntriesInput, UserUncheckedCreateWithoutReferredGiveawayEntriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReferredGiveawayEntriesInput
+    upsert?: UserUpsertWithoutReferredGiveawayEntriesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReferredGiveawayEntriesInput, UserUpdateWithoutReferredGiveawayEntriesInput>, UserUncheckedUpdateWithoutReferredGiveawayEntriesInput>
+  }
+
+  export type UserCreateNestedOneWithoutGiveawayReferralLinksInput = {
+    create?: XOR<UserCreateWithoutGiveawayReferralLinksInput, UserUncheckedCreateWithoutGiveawayReferralLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiveawayReferralLinksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutGiveawayReferralLinksNestedInput = {
+    create?: XOR<UserCreateWithoutGiveawayReferralLinksInput, UserUncheckedCreateWithoutGiveawayReferralLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiveawayReferralLinksInput
+    upsert?: UserUpsertWithoutGiveawayReferralLinksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGiveawayReferralLinksInput, UserUpdateWithoutGiveawayReferralLinksInput>, UserUncheckedUpdateWithoutGiveawayReferralLinksInput>
+  }
+
   export type UserCreateNestedOneWithoutGameTransactionsInput = {
     create?: XOR<UserCreateWithoutGameTransactionsInput, UserUncheckedCreateWithoutGameTransactionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutGameTransactionsInput
@@ -19241,10 +28118,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type UserUpdateOneRequiredWithoutWalletsNestedInput = {
     create?: XOR<UserCreateWithoutWalletsInput, UserUncheckedCreateWithoutWalletsInput>
     connectOrCreate?: UserCreateOrConnectWithoutWalletsInput
@@ -19273,6 +28146,26 @@ export namespace Prisma {
     connect?: OfferWhereUniqueInput | OfferWhereUniqueInput[]
   }
 
+  export type PvpParticipantGiftCreateNestedManyWithoutGiftInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutGiftInput, PvpParticipantGiftUncheckedCreateWithoutGiftInput> | PvpParticipantGiftCreateWithoutGiftInput[] | PvpParticipantGiftUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutGiftInput | PvpParticipantGiftCreateOrConnectWithoutGiftInput[]
+    createMany?: PvpParticipantGiftCreateManyGiftInputEnvelope
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+  }
+
+  export type GiftDepositIntentCreateNestedOneWithoutGiftInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutGiftInput, GiftDepositIntentUncheckedCreateWithoutGiftInput>
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutGiftInput
+    connect?: GiftDepositIntentWhereUniqueInput
+  }
+
+  export type GiftWithdrawalRequestCreateNestedManyWithoutGiftInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutGiftInput, GiftWithdrawalRequestUncheckedCreateWithoutGiftInput> | GiftWithdrawalRequestCreateWithoutGiftInput[] | GiftWithdrawalRequestUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutGiftInput | GiftWithdrawalRequestCreateOrConnectWithoutGiftInput[]
+    createMany?: GiftWithdrawalRequestCreateManyGiftInputEnvelope
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+  }
+
   export type TransactionUncheckedCreateNestedManyWithoutGiftInput = {
     create?: XOR<TransactionCreateWithoutGiftInput, TransactionUncheckedCreateWithoutGiftInput> | TransactionCreateWithoutGiftInput[] | TransactionUncheckedCreateWithoutGiftInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutGiftInput | TransactionCreateOrConnectWithoutGiftInput[]
@@ -19285,6 +28178,26 @@ export namespace Prisma {
     connectOrCreate?: OfferCreateOrConnectWithoutGiftInput | OfferCreateOrConnectWithoutGiftInput[]
     createMany?: OfferCreateManyGiftInputEnvelope
     connect?: OfferWhereUniqueInput | OfferWhereUniqueInput[]
+  }
+
+  export type PvpParticipantGiftUncheckedCreateNestedManyWithoutGiftInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutGiftInput, PvpParticipantGiftUncheckedCreateWithoutGiftInput> | PvpParticipantGiftCreateWithoutGiftInput[] | PvpParticipantGiftUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutGiftInput | PvpParticipantGiftCreateOrConnectWithoutGiftInput[]
+    createMany?: PvpParticipantGiftCreateManyGiftInputEnvelope
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+  }
+
+  export type GiftDepositIntentUncheckedCreateNestedOneWithoutGiftInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutGiftInput, GiftDepositIntentUncheckedCreateWithoutGiftInput>
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutGiftInput
+    connect?: GiftDepositIntentWhereUniqueInput
+  }
+
+  export type GiftWithdrawalRequestUncheckedCreateNestedManyWithoutGiftInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutGiftInput, GiftWithdrawalRequestUncheckedCreateWithoutGiftInput> | GiftWithdrawalRequestCreateWithoutGiftInput[] | GiftWithdrawalRequestUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutGiftInput | GiftWithdrawalRequestCreateOrConnectWithoutGiftInput[]
+    createMany?: GiftWithdrawalRequestCreateManyGiftInputEnvelope
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
   }
 
   export type UserUpdateOneWithoutGiftsNestedInput = {
@@ -19325,6 +28238,44 @@ export namespace Prisma {
     deleteMany?: OfferScalarWhereInput | OfferScalarWhereInput[]
   }
 
+  export type PvpParticipantGiftUpdateManyWithoutGiftNestedInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutGiftInput, PvpParticipantGiftUncheckedCreateWithoutGiftInput> | PvpParticipantGiftCreateWithoutGiftInput[] | PvpParticipantGiftUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutGiftInput | PvpParticipantGiftCreateOrConnectWithoutGiftInput[]
+    upsert?: PvpParticipantGiftUpsertWithWhereUniqueWithoutGiftInput | PvpParticipantGiftUpsertWithWhereUniqueWithoutGiftInput[]
+    createMany?: PvpParticipantGiftCreateManyGiftInputEnvelope
+    set?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    disconnect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    delete?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    update?: PvpParticipantGiftUpdateWithWhereUniqueWithoutGiftInput | PvpParticipantGiftUpdateWithWhereUniqueWithoutGiftInput[]
+    updateMany?: PvpParticipantGiftUpdateManyWithWhereWithoutGiftInput | PvpParticipantGiftUpdateManyWithWhereWithoutGiftInput[]
+    deleteMany?: PvpParticipantGiftScalarWhereInput | PvpParticipantGiftScalarWhereInput[]
+  }
+
+  export type GiftDepositIntentUpdateOneWithoutGiftNestedInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutGiftInput, GiftDepositIntentUncheckedCreateWithoutGiftInput>
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutGiftInput
+    upsert?: GiftDepositIntentUpsertWithoutGiftInput
+    disconnect?: GiftDepositIntentWhereInput | boolean
+    delete?: GiftDepositIntentWhereInput | boolean
+    connect?: GiftDepositIntentWhereUniqueInput
+    update?: XOR<XOR<GiftDepositIntentUpdateToOneWithWhereWithoutGiftInput, GiftDepositIntentUpdateWithoutGiftInput>, GiftDepositIntentUncheckedUpdateWithoutGiftInput>
+  }
+
+  export type GiftWithdrawalRequestUpdateManyWithoutGiftNestedInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutGiftInput, GiftWithdrawalRequestUncheckedCreateWithoutGiftInput> | GiftWithdrawalRequestCreateWithoutGiftInput[] | GiftWithdrawalRequestUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutGiftInput | GiftWithdrawalRequestCreateOrConnectWithoutGiftInput[]
+    upsert?: GiftWithdrawalRequestUpsertWithWhereUniqueWithoutGiftInput | GiftWithdrawalRequestUpsertWithWhereUniqueWithoutGiftInput[]
+    createMany?: GiftWithdrawalRequestCreateManyGiftInputEnvelope
+    set?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    disconnect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    delete?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    update?: GiftWithdrawalRequestUpdateWithWhereUniqueWithoutGiftInput | GiftWithdrawalRequestUpdateWithWhereUniqueWithoutGiftInput[]
+    updateMany?: GiftWithdrawalRequestUpdateManyWithWhereWithoutGiftInput | GiftWithdrawalRequestUpdateManyWithWhereWithoutGiftInput[]
+    deleteMany?: GiftWithdrawalRequestScalarWhereInput | GiftWithdrawalRequestScalarWhereInput[]
+  }
+
   export type TransactionUncheckedUpdateManyWithoutGiftNestedInput = {
     create?: XOR<TransactionCreateWithoutGiftInput, TransactionUncheckedCreateWithoutGiftInput> | TransactionCreateWithoutGiftInput[] | TransactionUncheckedCreateWithoutGiftInput[]
     connectOrCreate?: TransactionCreateOrConnectWithoutGiftInput | TransactionCreateOrConnectWithoutGiftInput[]
@@ -19351,6 +28302,102 @@ export namespace Prisma {
     update?: OfferUpdateWithWhereUniqueWithoutGiftInput | OfferUpdateWithWhereUniqueWithoutGiftInput[]
     updateMany?: OfferUpdateManyWithWhereWithoutGiftInput | OfferUpdateManyWithWhereWithoutGiftInput[]
     deleteMany?: OfferScalarWhereInput | OfferScalarWhereInput[]
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateManyWithoutGiftNestedInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutGiftInput, PvpParticipantGiftUncheckedCreateWithoutGiftInput> | PvpParticipantGiftCreateWithoutGiftInput[] | PvpParticipantGiftUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutGiftInput | PvpParticipantGiftCreateOrConnectWithoutGiftInput[]
+    upsert?: PvpParticipantGiftUpsertWithWhereUniqueWithoutGiftInput | PvpParticipantGiftUpsertWithWhereUniqueWithoutGiftInput[]
+    createMany?: PvpParticipantGiftCreateManyGiftInputEnvelope
+    set?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    disconnect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    delete?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    update?: PvpParticipantGiftUpdateWithWhereUniqueWithoutGiftInput | PvpParticipantGiftUpdateWithWhereUniqueWithoutGiftInput[]
+    updateMany?: PvpParticipantGiftUpdateManyWithWhereWithoutGiftInput | PvpParticipantGiftUpdateManyWithWhereWithoutGiftInput[]
+    deleteMany?: PvpParticipantGiftScalarWhereInput | PvpParticipantGiftScalarWhereInput[]
+  }
+
+  export type GiftDepositIntentUncheckedUpdateOneWithoutGiftNestedInput = {
+    create?: XOR<GiftDepositIntentCreateWithoutGiftInput, GiftDepositIntentUncheckedCreateWithoutGiftInput>
+    connectOrCreate?: GiftDepositIntentCreateOrConnectWithoutGiftInput
+    upsert?: GiftDepositIntentUpsertWithoutGiftInput
+    disconnect?: GiftDepositIntentWhereInput | boolean
+    delete?: GiftDepositIntentWhereInput | boolean
+    connect?: GiftDepositIntentWhereUniqueInput
+    update?: XOR<XOR<GiftDepositIntentUpdateToOneWithWhereWithoutGiftInput, GiftDepositIntentUpdateWithoutGiftInput>, GiftDepositIntentUncheckedUpdateWithoutGiftInput>
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftNestedInput = {
+    create?: XOR<GiftWithdrawalRequestCreateWithoutGiftInput, GiftWithdrawalRequestUncheckedCreateWithoutGiftInput> | GiftWithdrawalRequestCreateWithoutGiftInput[] | GiftWithdrawalRequestUncheckedCreateWithoutGiftInput[]
+    connectOrCreate?: GiftWithdrawalRequestCreateOrConnectWithoutGiftInput | GiftWithdrawalRequestCreateOrConnectWithoutGiftInput[]
+    upsert?: GiftWithdrawalRequestUpsertWithWhereUniqueWithoutGiftInput | GiftWithdrawalRequestUpsertWithWhereUniqueWithoutGiftInput[]
+    createMany?: GiftWithdrawalRequestCreateManyGiftInputEnvelope
+    set?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    disconnect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    delete?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    connect?: GiftWithdrawalRequestWhereUniqueInput | GiftWithdrawalRequestWhereUniqueInput[]
+    update?: GiftWithdrawalRequestUpdateWithWhereUniqueWithoutGiftInput | GiftWithdrawalRequestUpdateWithWhereUniqueWithoutGiftInput[]
+    updateMany?: GiftWithdrawalRequestUpdateManyWithWhereWithoutGiftInput | GiftWithdrawalRequestUpdateManyWithWhereWithoutGiftInput[]
+    deleteMany?: GiftWithdrawalRequestScalarWhereInput | GiftWithdrawalRequestScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutGiftDepositIntentsInput = {
+    create?: XOR<UserCreateWithoutGiftDepositIntentsInput, UserUncheckedCreateWithoutGiftDepositIntentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftDepositIntentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GiftCreateNestedOneWithoutDepositIntentInput = {
+    create?: XOR<GiftCreateWithoutDepositIntentInput, GiftUncheckedCreateWithoutDepositIntentInput>
+    connectOrCreate?: GiftCreateOrConnectWithoutDepositIntentInput
+    connect?: GiftWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutGiftDepositIntentsNestedInput = {
+    create?: XOR<UserCreateWithoutGiftDepositIntentsInput, UserUncheckedCreateWithoutGiftDepositIntentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftDepositIntentsInput
+    upsert?: UserUpsertWithoutGiftDepositIntentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGiftDepositIntentsInput, UserUpdateWithoutGiftDepositIntentsInput>, UserUncheckedUpdateWithoutGiftDepositIntentsInput>
+  }
+
+  export type GiftUpdateOneWithoutDepositIntentNestedInput = {
+    create?: XOR<GiftCreateWithoutDepositIntentInput, GiftUncheckedCreateWithoutDepositIntentInput>
+    connectOrCreate?: GiftCreateOrConnectWithoutDepositIntentInput
+    upsert?: GiftUpsertWithoutDepositIntentInput
+    disconnect?: GiftWhereInput | boolean
+    delete?: GiftWhereInput | boolean
+    connect?: GiftWhereUniqueInput
+    update?: XOR<XOR<GiftUpdateToOneWithWhereWithoutDepositIntentInput, GiftUpdateWithoutDepositIntentInput>, GiftUncheckedUpdateWithoutDepositIntentInput>
+  }
+
+  export type UserCreateNestedOneWithoutGiftWithdrawalRequestsInput = {
+    create?: XOR<UserCreateWithoutGiftWithdrawalRequestsInput, UserUncheckedCreateWithoutGiftWithdrawalRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftWithdrawalRequestsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GiftCreateNestedOneWithoutWithdrawalRequestsInput = {
+    create?: XOR<GiftCreateWithoutWithdrawalRequestsInput, GiftUncheckedCreateWithoutWithdrawalRequestsInput>
+    connectOrCreate?: GiftCreateOrConnectWithoutWithdrawalRequestsInput
+    connect?: GiftWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutGiftWithdrawalRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutGiftWithdrawalRequestsInput, UserUncheckedCreateWithoutGiftWithdrawalRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGiftWithdrawalRequestsInput
+    upsert?: UserUpsertWithoutGiftWithdrawalRequestsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGiftWithdrawalRequestsInput, UserUpdateWithoutGiftWithdrawalRequestsInput>, UserUncheckedUpdateWithoutGiftWithdrawalRequestsInput>
+  }
+
+  export type GiftUpdateOneRequiredWithoutWithdrawalRequestsNestedInput = {
+    create?: XOR<GiftCreateWithoutWithdrawalRequestsInput, GiftUncheckedCreateWithoutWithdrawalRequestsInput>
+    connectOrCreate?: GiftCreateOrConnectWithoutWithdrawalRequestsInput
+    upsert?: GiftUpsertWithoutWithdrawalRequestsInput
+    connect?: GiftWhereUniqueInput
+    update?: XOR<XOR<GiftUpdateToOneWithWhereWithoutWithdrawalRequestsInput, GiftUpdateWithoutWithdrawalRequestsInput>, GiftUncheckedUpdateWithoutWithdrawalRequestsInput>
   }
 
   export type GiftCreateNestedOneWithoutTransactionsInput = {
@@ -19571,6 +28618,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PvpParticipantGiftCreateNestedManyWithoutParticipantInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutParticipantInput, PvpParticipantGiftUncheckedCreateWithoutParticipantInput> | PvpParticipantGiftCreateWithoutParticipantInput[] | PvpParticipantGiftUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutParticipantInput | PvpParticipantGiftCreateOrConnectWithoutParticipantInput[]
+    createMany?: PvpParticipantGiftCreateManyParticipantInputEnvelope
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+  }
+
+  export type PvpParticipantGiftUncheckedCreateNestedManyWithoutParticipantInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutParticipantInput, PvpParticipantGiftUncheckedCreateWithoutParticipantInput> | PvpParticipantGiftCreateWithoutParticipantInput[] | PvpParticipantGiftUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutParticipantInput | PvpParticipantGiftCreateOrConnectWithoutParticipantInput[]
+    createMany?: PvpParticipantGiftCreateManyParticipantInputEnvelope
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+  }
+
   export type PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput = {
     create?: XOR<PvpRoomCreateWithoutParticipantsInput, PvpRoomUncheckedCreateWithoutParticipantsInput>
     connectOrCreate?: PvpRoomCreateOrConnectWithoutParticipantsInput
@@ -19585,6 +28646,62 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutPvpParticipationsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPvpParticipationsInput, UserUpdateWithoutPvpParticipationsInput>, UserUncheckedUpdateWithoutPvpParticipationsInput>
+  }
+
+  export type PvpParticipantGiftUpdateManyWithoutParticipantNestedInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutParticipantInput, PvpParticipantGiftUncheckedCreateWithoutParticipantInput> | PvpParticipantGiftCreateWithoutParticipantInput[] | PvpParticipantGiftUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutParticipantInput | PvpParticipantGiftCreateOrConnectWithoutParticipantInput[]
+    upsert?: PvpParticipantGiftUpsertWithWhereUniqueWithoutParticipantInput | PvpParticipantGiftUpsertWithWhereUniqueWithoutParticipantInput[]
+    createMany?: PvpParticipantGiftCreateManyParticipantInputEnvelope
+    set?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    disconnect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    delete?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    update?: PvpParticipantGiftUpdateWithWhereUniqueWithoutParticipantInput | PvpParticipantGiftUpdateWithWhereUniqueWithoutParticipantInput[]
+    updateMany?: PvpParticipantGiftUpdateManyWithWhereWithoutParticipantInput | PvpParticipantGiftUpdateManyWithWhereWithoutParticipantInput[]
+    deleteMany?: PvpParticipantGiftScalarWhereInput | PvpParticipantGiftScalarWhereInput[]
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateManyWithoutParticipantNestedInput = {
+    create?: XOR<PvpParticipantGiftCreateWithoutParticipantInput, PvpParticipantGiftUncheckedCreateWithoutParticipantInput> | PvpParticipantGiftCreateWithoutParticipantInput[] | PvpParticipantGiftUncheckedCreateWithoutParticipantInput[]
+    connectOrCreate?: PvpParticipantGiftCreateOrConnectWithoutParticipantInput | PvpParticipantGiftCreateOrConnectWithoutParticipantInput[]
+    upsert?: PvpParticipantGiftUpsertWithWhereUniqueWithoutParticipantInput | PvpParticipantGiftUpsertWithWhereUniqueWithoutParticipantInput[]
+    createMany?: PvpParticipantGiftCreateManyParticipantInputEnvelope
+    set?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    disconnect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    delete?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    connect?: PvpParticipantGiftWhereUniqueInput | PvpParticipantGiftWhereUniqueInput[]
+    update?: PvpParticipantGiftUpdateWithWhereUniqueWithoutParticipantInput | PvpParticipantGiftUpdateWithWhereUniqueWithoutParticipantInput[]
+    updateMany?: PvpParticipantGiftUpdateManyWithWhereWithoutParticipantInput | PvpParticipantGiftUpdateManyWithWhereWithoutParticipantInput[]
+    deleteMany?: PvpParticipantGiftScalarWhereInput | PvpParticipantGiftScalarWhereInput[]
+  }
+
+  export type PvpParticipantCreateNestedOneWithoutGiftsInput = {
+    create?: XOR<PvpParticipantCreateWithoutGiftsInput, PvpParticipantUncheckedCreateWithoutGiftsInput>
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutGiftsInput
+    connect?: PvpParticipantWhereUniqueInput
+  }
+
+  export type GiftCreateNestedOneWithoutArenaStakesInput = {
+    create?: XOR<GiftCreateWithoutArenaStakesInput, GiftUncheckedCreateWithoutArenaStakesInput>
+    connectOrCreate?: GiftCreateOrConnectWithoutArenaStakesInput
+    connect?: GiftWhereUniqueInput
+  }
+
+  export type PvpParticipantUpdateOneRequiredWithoutGiftsNestedInput = {
+    create?: XOR<PvpParticipantCreateWithoutGiftsInput, PvpParticipantUncheckedCreateWithoutGiftsInput>
+    connectOrCreate?: PvpParticipantCreateOrConnectWithoutGiftsInput
+    upsert?: PvpParticipantUpsertWithoutGiftsInput
+    connect?: PvpParticipantWhereUniqueInput
+    update?: XOR<XOR<PvpParticipantUpdateToOneWithWhereWithoutGiftsInput, PvpParticipantUpdateWithoutGiftsInput>, PvpParticipantUncheckedUpdateWithoutGiftsInput>
+  }
+
+  export type GiftUpdateOneRequiredWithoutArenaStakesNestedInput = {
+    create?: XOR<GiftCreateWithoutArenaStakesInput, GiftUncheckedCreateWithoutArenaStakesInput>
+    connectOrCreate?: GiftCreateOrConnectWithoutArenaStakesInput
+    upsert?: GiftUpsertWithoutArenaStakesInput
+    connect?: GiftWhereUniqueInput
+    update?: XOR<XOR<GiftUpdateToOneWithWhereWithoutArenaStakesInput, GiftUpdateWithoutArenaStakesInput>, GiftUncheckedUpdateWithoutArenaStakesInput>
   }
 
   export type PvpRoomCreateNestedOneWithoutInvitationsInput = {
@@ -19764,6 +28881,19 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -19867,19 +28997,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type WalletCreateWithoutUserInput = {
     id?: string
     address: string
@@ -19916,11 +29033,18 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactions?: TransactionCreateNestedManyWithoutGiftInput
     offers?: OfferCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutGiftInput
   }
 
   export type GiftUncheckedCreateWithoutOwnerInput = {
@@ -19933,11 +29057,18 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGiftInput
     offers?: OfferUncheckedCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftUncheckedCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentUncheckedCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutGiftInput
   }
 
   export type GiftCreateOrConnectWithoutOwnerInput = {
@@ -20173,15 +29304,19 @@ export namespace Prisma {
   export type PvpParticipantCreateWithoutUserInput = {
     id?: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
     room: PvpRoomCreateNestedOneWithoutParticipantsInput
+    gifts?: PvpParticipantGiftCreateNestedManyWithoutParticipantInput
   }
 
   export type PvpParticipantUncheckedCreateWithoutUserInput = {
     id?: string
     roomId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
+    gifts?: PvpParticipantGiftUncheckedCreateNestedManyWithoutParticipantInput
   }
 
   export type PvpParticipantCreateOrConnectWithoutUserInput = {
@@ -20360,6 +29495,142 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GiftDepositIntentCreateWithoutUserInput = {
+    id?: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    gift?: GiftCreateNestedOneWithoutDepositIntentInput
+  }
+
+  export type GiftDepositIntentUncheckedCreateWithoutUserInput = {
+    id?: string
+    code: string
+    status?: string
+    giftId?: string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftDepositIntentCreateOrConnectWithoutUserInput = {
+    where: GiftDepositIntentWhereUniqueInput
+    create: XOR<GiftDepositIntentCreateWithoutUserInput, GiftDepositIntentUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiftDepositIntentCreateManyUserInputEnvelope = {
+    data: GiftDepositIntentCreateManyUserInput | GiftDepositIntentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiftWithdrawalRequestCreateWithoutUserInput = {
+    id?: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    gift: GiftCreateNestedOneWithoutWithdrawalRequestsInput
+  }
+
+  export type GiftWithdrawalRequestUncheckedCreateWithoutUserInput = {
+    id?: string
+    giftId: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftWithdrawalRequestCreateOrConnectWithoutUserInput = {
+    where: GiftWithdrawalRequestWhereUniqueInput
+    create: XOR<GiftWithdrawalRequestCreateWithoutUserInput, GiftWithdrawalRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiftWithdrawalRequestCreateManyUserInputEnvelope = {
+    data: GiftWithdrawalRequestCreateManyUserInput | GiftWithdrawalRequestCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiveawayEntryCreateWithoutUserInput = {
+    id?: string
+    giveaway: string
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+    referredBy?: UserCreateNestedOneWithoutReferredGiveawayEntriesInput
+  }
+
+  export type GiveawayEntryUncheckedCreateWithoutUserInput = {
+    id?: string
+    giveaway: string
+    referredByUserId?: string | null
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayEntryCreateOrConnectWithoutUserInput = {
+    where: GiveawayEntryWhereUniqueInput
+    create: XOR<GiveawayEntryCreateWithoutUserInput, GiveawayEntryUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiveawayEntryCreateManyUserInputEnvelope = {
+    data: GiveawayEntryCreateManyUserInput | GiveawayEntryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiveawayReferralLinkCreateWithoutUserInput = {
+    id?: string
+    giveaway: string
+    code: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayReferralLinkUncheckedCreateWithoutUserInput = {
+    id?: string
+    giveaway: string
+    code: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayReferralLinkCreateOrConnectWithoutUserInput = {
+    where: GiveawayReferralLinkWhereUniqueInput
+    create: XOR<GiveawayReferralLinkCreateWithoutUserInput, GiveawayReferralLinkUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiveawayReferralLinkCreateManyUserInputEnvelope = {
+    data: GiveawayReferralLinkCreateManyUserInput | GiveawayReferralLinkCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiveawayEntryCreateWithoutReferredByInput = {
+    id?: string
+    giveaway: string
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGiveawayEntriesInput
+  }
+
+  export type GiveawayEntryUncheckedCreateWithoutReferredByInput = {
+    id?: string
+    giveaway: string
+    userId: string
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayEntryCreateOrConnectWithoutReferredByInput = {
+    where: GiveawayEntryWhereUniqueInput
+    create: XOR<GiveawayEntryCreateWithoutReferredByInput, GiveawayEntryUncheckedCreateWithoutReferredByInput>
+  }
+
+  export type GiveawayEntryCreateManyReferredByInputEnvelope = {
+    data: GiveawayEntryCreateManyReferredByInput | GiveawayEntryCreateManyReferredByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WalletUpsertWithWhereUniqueWithoutUserInput = {
     where: WalletWhereUniqueInput
     update: XOR<WalletUpdateWithoutUserInput, WalletUncheckedUpdateWithoutUserInput>
@@ -20417,6 +29688,10 @@ export namespace Prisma {
     backdropColor?: StringNullableFilter<"Gift"> | string | null
     symbolName?: StringNullableFilter<"Gift"> | string | null
     symbolImageUrl?: StringNullableFilter<"Gift"> | string | null
+    imageUrl?: StringNullableFilter<"Gift"> | string | null
+    telegramOwnedGiftId?: StringNullableFilter<"Gift"> | string | null
+    telegramGiftNumber?: StringNullableFilter<"Gift"> | string | null
+    telegramGiftData?: JsonNullableFilter<"Gift">
     status?: StringFilter<"Gift"> | string
     ownerId?: StringNullableFilter<"Gift"> | string | null
     createdAt?: DateTimeFilter<"Gift"> | Date | string
@@ -20593,6 +29868,7 @@ export namespace Prisma {
     roomId?: StringFilter<"PvpParticipant"> | string
     userId?: StringFilter<"PvpParticipant"> | string
     stakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
   }
 
@@ -20741,9 +30017,140 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"GameTransaction"> | Date | string
   }
 
-  export type UserCreateWithoutGameTransactionsInput = {
+  export type GiftDepositIntentUpsertWithWhereUniqueWithoutUserInput = {
+    where: GiftDepositIntentWhereUniqueInput
+    update: XOR<GiftDepositIntentUpdateWithoutUserInput, GiftDepositIntentUncheckedUpdateWithoutUserInput>
+    create: XOR<GiftDepositIntentCreateWithoutUserInput, GiftDepositIntentUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiftDepositIntentUpdateWithWhereUniqueWithoutUserInput = {
+    where: GiftDepositIntentWhereUniqueInput
+    data: XOR<GiftDepositIntentUpdateWithoutUserInput, GiftDepositIntentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GiftDepositIntentUpdateManyWithWhereWithoutUserInput = {
+    where: GiftDepositIntentScalarWhereInput
+    data: XOR<GiftDepositIntentUpdateManyMutationInput, GiftDepositIntentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GiftDepositIntentScalarWhereInput = {
+    AND?: GiftDepositIntentScalarWhereInput | GiftDepositIntentScalarWhereInput[]
+    OR?: GiftDepositIntentScalarWhereInput[]
+    NOT?: GiftDepositIntentScalarWhereInput | GiftDepositIntentScalarWhereInput[]
+    id?: StringFilter<"GiftDepositIntent"> | string
+    userId?: StringFilter<"GiftDepositIntent"> | string
+    code?: StringFilter<"GiftDepositIntent"> | string
+    status?: StringFilter<"GiftDepositIntent"> | string
+    giftId?: StringNullableFilter<"GiftDepositIntent"> | string | null
+    confirmedAt?: DateTimeNullableFilter<"GiftDepositIntent"> | Date | string | null
+    createdAt?: DateTimeFilter<"GiftDepositIntent"> | Date | string
+  }
+
+  export type GiftWithdrawalRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: GiftWithdrawalRequestWhereUniqueInput
+    update: XOR<GiftWithdrawalRequestUpdateWithoutUserInput, GiftWithdrawalRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<GiftWithdrawalRequestCreateWithoutUserInput, GiftWithdrawalRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiftWithdrawalRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: GiftWithdrawalRequestWhereUniqueInput
+    data: XOR<GiftWithdrawalRequestUpdateWithoutUserInput, GiftWithdrawalRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GiftWithdrawalRequestUpdateManyWithWhereWithoutUserInput = {
+    where: GiftWithdrawalRequestScalarWhereInput
+    data: XOR<GiftWithdrawalRequestUpdateManyMutationInput, GiftWithdrawalRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GiftWithdrawalRequestScalarWhereInput = {
+    AND?: GiftWithdrawalRequestScalarWhereInput | GiftWithdrawalRequestScalarWhereInput[]
+    OR?: GiftWithdrawalRequestScalarWhereInput[]
+    NOT?: GiftWithdrawalRequestScalarWhereInput | GiftWithdrawalRequestScalarWhereInput[]
+    id?: StringFilter<"GiftWithdrawalRequest"> | string
+    userId?: StringFilter<"GiftWithdrawalRequest"> | string
+    giftId?: StringFilter<"GiftWithdrawalRequest"> | string
+    code?: StringFilter<"GiftWithdrawalRequest"> | string
+    status?: StringFilter<"GiftWithdrawalRequest"> | string
+    confirmedAt?: DateTimeNullableFilter<"GiftWithdrawalRequest"> | Date | string | null
+    createdAt?: DateTimeFilter<"GiftWithdrawalRequest"> | Date | string
+  }
+
+  export type GiveawayEntryUpsertWithWhereUniqueWithoutUserInput = {
+    where: GiveawayEntryWhereUniqueInput
+    update: XOR<GiveawayEntryUpdateWithoutUserInput, GiveawayEntryUncheckedUpdateWithoutUserInput>
+    create: XOR<GiveawayEntryCreateWithoutUserInput, GiveawayEntryUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiveawayEntryUpdateWithWhereUniqueWithoutUserInput = {
+    where: GiveawayEntryWhereUniqueInput
+    data: XOR<GiveawayEntryUpdateWithoutUserInput, GiveawayEntryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GiveawayEntryUpdateManyWithWhereWithoutUserInput = {
+    where: GiveawayEntryScalarWhereInput
+    data: XOR<GiveawayEntryUpdateManyMutationInput, GiveawayEntryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GiveawayEntryScalarWhereInput = {
+    AND?: GiveawayEntryScalarWhereInput | GiveawayEntryScalarWhereInput[]
+    OR?: GiveawayEntryScalarWhereInput[]
+    NOT?: GiveawayEntryScalarWhereInput | GiveawayEntryScalarWhereInput[]
+    id?: StringFilter<"GiveawayEntry"> | string
+    giveaway?: StringFilter<"GiveawayEntry"> | string
+    userId?: StringFilter<"GiveawayEntry"> | string
+    referredByUserId?: StringNullableFilter<"GiveawayEntry"> | string | null
+    winner?: BoolFilter<"GiveawayEntry"> | boolean
+    reviewStatus?: StringFilter<"GiveawayEntry"> | string
+    createdAt?: DateTimeFilter<"GiveawayEntry"> | Date | string
+  }
+
+  export type GiveawayReferralLinkUpsertWithWhereUniqueWithoutUserInput = {
+    where: GiveawayReferralLinkWhereUniqueInput
+    update: XOR<GiveawayReferralLinkUpdateWithoutUserInput, GiveawayReferralLinkUncheckedUpdateWithoutUserInput>
+    create: XOR<GiveawayReferralLinkCreateWithoutUserInput, GiveawayReferralLinkUncheckedCreateWithoutUserInput>
+  }
+
+  export type GiveawayReferralLinkUpdateWithWhereUniqueWithoutUserInput = {
+    where: GiveawayReferralLinkWhereUniqueInput
+    data: XOR<GiveawayReferralLinkUpdateWithoutUserInput, GiveawayReferralLinkUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GiveawayReferralLinkUpdateManyWithWhereWithoutUserInput = {
+    where: GiveawayReferralLinkScalarWhereInput
+    data: XOR<GiveawayReferralLinkUpdateManyMutationInput, GiveawayReferralLinkUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GiveawayReferralLinkScalarWhereInput = {
+    AND?: GiveawayReferralLinkScalarWhereInput | GiveawayReferralLinkScalarWhereInput[]
+    OR?: GiveawayReferralLinkScalarWhereInput[]
+    NOT?: GiveawayReferralLinkScalarWhereInput | GiveawayReferralLinkScalarWhereInput[]
+    id?: StringFilter<"GiveawayReferralLink"> | string
+    giveaway?: StringFilter<"GiveawayReferralLink"> | string
+    userId?: StringFilter<"GiveawayReferralLink"> | string
+    code?: StringFilter<"GiveawayReferralLink"> | string
+    createdAt?: DateTimeFilter<"GiveawayReferralLink"> | Date | string
+  }
+
+  export type GiveawayEntryUpsertWithWhereUniqueWithoutReferredByInput = {
+    where: GiveawayEntryWhereUniqueInput
+    update: XOR<GiveawayEntryUpdateWithoutReferredByInput, GiveawayEntryUncheckedUpdateWithoutReferredByInput>
+    create: XOR<GiveawayEntryCreateWithoutReferredByInput, GiveawayEntryUncheckedCreateWithoutReferredByInput>
+  }
+
+  export type GiveawayEntryUpdateWithWhereUniqueWithoutReferredByInput = {
+    where: GiveawayEntryWhereUniqueInput
+    data: XOR<GiveawayEntryUpdateWithoutReferredByInput, GiveawayEntryUncheckedUpdateWithoutReferredByInput>
+  }
+
+  export type GiveawayEntryUpdateManyWithWhereWithoutReferredByInput = {
+    where: GiveawayEntryScalarWhereInput
+    data: XOR<GiveawayEntryUpdateManyMutationInput, GiveawayEntryUncheckedUpdateManyWithoutReferredByInput>
+  }
+
+  export type UserCreateWithoutGiveawayEntriesInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -20764,11 +30171,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
-  export type UserUncheckedCreateWithoutGameTransactionsInput = {
+  export type UserUncheckedCreateWithoutGiveawayEntriesInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -20789,6 +30202,431 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserCreateOrConnectWithoutGiveawayEntriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGiveawayEntriesInput, UserUncheckedCreateWithoutGiveawayEntriesInput>
+  }
+
+  export type UserCreateWithoutReferredGiveawayEntriesInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReferredGiveawayEntriesInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReferredGiveawayEntriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReferredGiveawayEntriesInput, UserUncheckedCreateWithoutReferredGiveawayEntriesInput>
+  }
+
+  export type UserUpsertWithoutGiveawayEntriesInput = {
+    update: XOR<UserUpdateWithoutGiveawayEntriesInput, UserUncheckedUpdateWithoutGiveawayEntriesInput>
+    create: XOR<UserCreateWithoutGiveawayEntriesInput, UserUncheckedCreateWithoutGiveawayEntriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGiveawayEntriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGiveawayEntriesInput, UserUncheckedUpdateWithoutGiveawayEntriesInput>
+  }
+
+  export type UserUpdateWithoutGiveawayEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGiveawayEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserUpsertWithoutReferredGiveawayEntriesInput = {
+    update: XOR<UserUpdateWithoutReferredGiveawayEntriesInput, UserUncheckedUpdateWithoutReferredGiveawayEntriesInput>
+    create: XOR<UserCreateWithoutReferredGiveawayEntriesInput, UserUncheckedCreateWithoutReferredGiveawayEntriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReferredGiveawayEntriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReferredGiveawayEntriesInput, UserUncheckedUpdateWithoutReferredGiveawayEntriesInput>
+  }
+
+  export type UserUpdateWithoutReferredGiveawayEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReferredGiveawayEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutGiveawayReferralLinksInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserUncheckedCreateWithoutGiveawayReferralLinksInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserCreateOrConnectWithoutGiveawayReferralLinksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGiveawayReferralLinksInput, UserUncheckedCreateWithoutGiveawayReferralLinksInput>
+  }
+
+  export type UserUpsertWithoutGiveawayReferralLinksInput = {
+    update: XOR<UserUpdateWithoutGiveawayReferralLinksInput, UserUncheckedUpdateWithoutGiveawayReferralLinksInput>
+    create: XOR<UserCreateWithoutGiveawayReferralLinksInput, UserUncheckedCreateWithoutGiveawayReferralLinksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGiveawayReferralLinksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGiveawayReferralLinksInput, UserUncheckedUpdateWithoutGiveawayReferralLinksInput>
+  }
+
+  export type UserUpdateWithoutGiveawayReferralLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGiveawayReferralLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserCreateWithoutGameTransactionsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserUncheckedCreateWithoutGameTransactionsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutGameTransactionsInput = {
@@ -20810,6 +30648,7 @@ export namespace Prisma {
   export type UserUpdateWithoutGameTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20830,11 +30669,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGameTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20855,11 +30700,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserCreateWithoutBotDepositsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -20880,11 +30731,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutBotDepositsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -20905,6 +30762,11 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutBotDepositsInput = {
@@ -20926,6 +30788,7 @@ export namespace Prisma {
   export type UserUpdateWithoutBotDepositsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20946,11 +30809,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBotDepositsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20971,11 +30840,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserCreateWithoutBotWithdrawalsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -20996,11 +30871,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutBotWithdrawalsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21021,6 +30902,11 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutBotWithdrawalsInput = {
@@ -21042,6 +30928,7 @@ export namespace Prisma {
   export type UserUpdateWithoutBotWithdrawalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21062,11 +30949,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBotWithdrawalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21087,11 +30980,17 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserCreateWithoutWalletsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21112,11 +31011,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutWalletsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21137,6 +31042,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutWalletsInput = {
@@ -21158,6 +31068,7 @@ export namespace Prisma {
   export type UserUpdateWithoutWalletsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21178,11 +31089,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWalletsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21203,11 +31120,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserCreateWithoutGiftsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21228,11 +31151,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutGiftsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21253,6 +31182,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutGiftsInput = {
@@ -21326,6 +31260,81 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PvpParticipantGiftCreateWithoutGiftInput = {
+    id?: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    participant: PvpParticipantCreateNestedOneWithoutGiftsInput
+  }
+
+  export type PvpParticipantGiftUncheckedCreateWithoutGiftInput = {
+    id?: string
+    participantId: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type PvpParticipantGiftCreateOrConnectWithoutGiftInput = {
+    where: PvpParticipantGiftWhereUniqueInput
+    create: XOR<PvpParticipantGiftCreateWithoutGiftInput, PvpParticipantGiftUncheckedCreateWithoutGiftInput>
+  }
+
+  export type PvpParticipantGiftCreateManyGiftInputEnvelope = {
+    data: PvpParticipantGiftCreateManyGiftInput | PvpParticipantGiftCreateManyGiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GiftDepositIntentCreateWithoutGiftInput = {
+    id?: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGiftDepositIntentsInput
+  }
+
+  export type GiftDepositIntentUncheckedCreateWithoutGiftInput = {
+    id?: string
+    userId: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftDepositIntentCreateOrConnectWithoutGiftInput = {
+    where: GiftDepositIntentWhereUniqueInput
+    create: XOR<GiftDepositIntentCreateWithoutGiftInput, GiftDepositIntentUncheckedCreateWithoutGiftInput>
+  }
+
+  export type GiftWithdrawalRequestCreateWithoutGiftInput = {
+    id?: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutGiftWithdrawalRequestsInput
+  }
+
+  export type GiftWithdrawalRequestUncheckedCreateWithoutGiftInput = {
+    id?: string
+    userId: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftWithdrawalRequestCreateOrConnectWithoutGiftInput = {
+    where: GiftWithdrawalRequestWhereUniqueInput
+    create: XOR<GiftWithdrawalRequestCreateWithoutGiftInput, GiftWithdrawalRequestUncheckedCreateWithoutGiftInput>
+  }
+
+  export type GiftWithdrawalRequestCreateManyGiftInputEnvelope = {
+    data: GiftWithdrawalRequestCreateManyGiftInput | GiftWithdrawalRequestCreateManyGiftInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutGiftsInput = {
     update: XOR<UserUpdateWithoutGiftsInput, UserUncheckedUpdateWithoutGiftsInput>
     create: XOR<UserCreateWithoutGiftsInput, UserUncheckedCreateWithoutGiftsInput>
@@ -21340,6 +31349,7 @@ export namespace Prisma {
   export type UserUpdateWithoutGiftsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21360,11 +31370,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGiftsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21385,6 +31401,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutGiftInput = {
@@ -21419,6 +31440,582 @@ export namespace Prisma {
     data: XOR<OfferUpdateManyMutationInput, OfferUncheckedUpdateManyWithoutGiftInput>
   }
 
+  export type PvpParticipantGiftUpsertWithWhereUniqueWithoutGiftInput = {
+    where: PvpParticipantGiftWhereUniqueInput
+    update: XOR<PvpParticipantGiftUpdateWithoutGiftInput, PvpParticipantGiftUncheckedUpdateWithoutGiftInput>
+    create: XOR<PvpParticipantGiftCreateWithoutGiftInput, PvpParticipantGiftUncheckedCreateWithoutGiftInput>
+  }
+
+  export type PvpParticipantGiftUpdateWithWhereUniqueWithoutGiftInput = {
+    where: PvpParticipantGiftWhereUniqueInput
+    data: XOR<PvpParticipantGiftUpdateWithoutGiftInput, PvpParticipantGiftUncheckedUpdateWithoutGiftInput>
+  }
+
+  export type PvpParticipantGiftUpdateManyWithWhereWithoutGiftInput = {
+    where: PvpParticipantGiftScalarWhereInput
+    data: XOR<PvpParticipantGiftUpdateManyMutationInput, PvpParticipantGiftUncheckedUpdateManyWithoutGiftInput>
+  }
+
+  export type PvpParticipantGiftScalarWhereInput = {
+    AND?: PvpParticipantGiftScalarWhereInput | PvpParticipantGiftScalarWhereInput[]
+    OR?: PvpParticipantGiftScalarWhereInput[]
+    NOT?: PvpParticipantGiftScalarWhereInput | PvpParticipantGiftScalarWhereInput[]
+    id?: StringFilter<"PvpParticipantGift"> | string
+    participantId?: StringFilter<"PvpParticipantGift"> | string
+    giftId?: StringFilter<"PvpParticipantGift"> | string
+    valueGram?: DecimalFilter<"PvpParticipantGift"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"PvpParticipantGift"> | Date | string
+  }
+
+  export type GiftDepositIntentUpsertWithoutGiftInput = {
+    update: XOR<GiftDepositIntentUpdateWithoutGiftInput, GiftDepositIntentUncheckedUpdateWithoutGiftInput>
+    create: XOR<GiftDepositIntentCreateWithoutGiftInput, GiftDepositIntentUncheckedCreateWithoutGiftInput>
+    where?: GiftDepositIntentWhereInput
+  }
+
+  export type GiftDepositIntentUpdateToOneWithWhereWithoutGiftInput = {
+    where?: GiftDepositIntentWhereInput
+    data: XOR<GiftDepositIntentUpdateWithoutGiftInput, GiftDepositIntentUncheckedUpdateWithoutGiftInput>
+  }
+
+  export type GiftDepositIntentUpdateWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGiftDepositIntentsNestedInput
+  }
+
+  export type GiftDepositIntentUncheckedUpdateWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestUpsertWithWhereUniqueWithoutGiftInput = {
+    where: GiftWithdrawalRequestWhereUniqueInput
+    update: XOR<GiftWithdrawalRequestUpdateWithoutGiftInput, GiftWithdrawalRequestUncheckedUpdateWithoutGiftInput>
+    create: XOR<GiftWithdrawalRequestCreateWithoutGiftInput, GiftWithdrawalRequestUncheckedCreateWithoutGiftInput>
+  }
+
+  export type GiftWithdrawalRequestUpdateWithWhereUniqueWithoutGiftInput = {
+    where: GiftWithdrawalRequestWhereUniqueInput
+    data: XOR<GiftWithdrawalRequestUpdateWithoutGiftInput, GiftWithdrawalRequestUncheckedUpdateWithoutGiftInput>
+  }
+
+  export type GiftWithdrawalRequestUpdateManyWithWhereWithoutGiftInput = {
+    where: GiftWithdrawalRequestScalarWhereInput
+    data: XOR<GiftWithdrawalRequestUpdateManyMutationInput, GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftInput>
+  }
+
+  export type UserCreateWithoutGiftDepositIntentsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserUncheckedCreateWithoutGiftDepositIntentsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserCreateOrConnectWithoutGiftDepositIntentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGiftDepositIntentsInput, UserUncheckedCreateWithoutGiftDepositIntentsInput>
+  }
+
+  export type GiftCreateWithoutDepositIntentInput = {
+    id?: string
+    name: string
+    collection: string
+    emoji?: string | null
+    priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutGiftsInput
+    transactions?: TransactionCreateNestedManyWithoutGiftInput
+    offers?: OfferCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftCreateNestedManyWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutGiftInput
+  }
+
+  export type GiftUncheckedCreateWithoutDepositIntentInput = {
+    id?: string
+    name: string
+    collection: string
+    emoji?: string | null
+    priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ownerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutGiftInput
+    offers?: OfferUncheckedCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftUncheckedCreateNestedManyWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutGiftInput
+  }
+
+  export type GiftCreateOrConnectWithoutDepositIntentInput = {
+    where: GiftWhereUniqueInput
+    create: XOR<GiftCreateWithoutDepositIntentInput, GiftUncheckedCreateWithoutDepositIntentInput>
+  }
+
+  export type UserUpsertWithoutGiftDepositIntentsInput = {
+    update: XOR<UserUpdateWithoutGiftDepositIntentsInput, UserUncheckedUpdateWithoutGiftDepositIntentsInput>
+    create: XOR<UserCreateWithoutGiftDepositIntentsInput, UserUncheckedCreateWithoutGiftDepositIntentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGiftDepositIntentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGiftDepositIntentsInput, UserUncheckedUpdateWithoutGiftDepositIntentsInput>
+  }
+
+  export type UserUpdateWithoutGiftDepositIntentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGiftDepositIntentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type GiftUpsertWithoutDepositIntentInput = {
+    update: XOR<GiftUpdateWithoutDepositIntentInput, GiftUncheckedUpdateWithoutDepositIntentInput>
+    create: XOR<GiftCreateWithoutDepositIntentInput, GiftUncheckedCreateWithoutDepositIntentInput>
+    where?: GiftWhereInput
+  }
+
+  export type GiftUpdateToOneWithWhereWithoutDepositIntentInput = {
+    where?: GiftWhereInput
+    data: XOR<GiftUpdateWithoutDepositIntentInput, GiftUncheckedUpdateWithoutDepositIntentInput>
+  }
+
+  export type GiftUpdateWithoutDepositIntentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    collection?: StringFieldUpdateOperationsInput | string
+    emoji?: NullableStringFieldUpdateOperationsInput | string | null
+    priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutGiftsNestedInput
+    transactions?: TransactionUpdateManyWithoutGiftNestedInput
+    offers?: OfferUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUpdateManyWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutGiftNestedInput
+  }
+
+  export type GiftUncheckedUpdateWithoutDepositIntentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    collection?: StringFieldUpdateOperationsInput | string
+    emoji?: NullableStringFieldUpdateOperationsInput | string | null
+    priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutGiftNestedInput
+    offers?: OfferUncheckedUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUncheckedUpdateManyWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftNestedInput
+  }
+
+  export type UserCreateWithoutGiftWithdrawalRequestsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserUncheckedCreateWithoutGiftWithdrawalRequestsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserCreateOrConnectWithoutGiftWithdrawalRequestsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGiftWithdrawalRequestsInput, UserUncheckedCreateWithoutGiftWithdrawalRequestsInput>
+  }
+
+  export type GiftCreateWithoutWithdrawalRequestsInput = {
+    id?: string
+    name: string
+    collection: string
+    emoji?: string | null
+    priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutGiftsInput
+    transactions?: TransactionCreateNestedManyWithoutGiftInput
+    offers?: OfferCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentCreateNestedOneWithoutGiftInput
+  }
+
+  export type GiftUncheckedCreateWithoutWithdrawalRequestsInput = {
+    id?: string
+    name: string
+    collection: string
+    emoji?: string | null
+    priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ownerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutGiftInput
+    offers?: OfferUncheckedCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftUncheckedCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentUncheckedCreateNestedOneWithoutGiftInput
+  }
+
+  export type GiftCreateOrConnectWithoutWithdrawalRequestsInput = {
+    where: GiftWhereUniqueInput
+    create: XOR<GiftCreateWithoutWithdrawalRequestsInput, GiftUncheckedCreateWithoutWithdrawalRequestsInput>
+  }
+
+  export type UserUpsertWithoutGiftWithdrawalRequestsInput = {
+    update: XOR<UserUpdateWithoutGiftWithdrawalRequestsInput, UserUncheckedUpdateWithoutGiftWithdrawalRequestsInput>
+    create: XOR<UserCreateWithoutGiftWithdrawalRequestsInput, UserUncheckedCreateWithoutGiftWithdrawalRequestsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGiftWithdrawalRequestsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGiftWithdrawalRequestsInput, UserUncheckedUpdateWithoutGiftWithdrawalRequestsInput>
+  }
+
+  export type UserUpdateWithoutGiftWithdrawalRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGiftWithdrawalRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type GiftUpsertWithoutWithdrawalRequestsInput = {
+    update: XOR<GiftUpdateWithoutWithdrawalRequestsInput, GiftUncheckedUpdateWithoutWithdrawalRequestsInput>
+    create: XOR<GiftCreateWithoutWithdrawalRequestsInput, GiftUncheckedCreateWithoutWithdrawalRequestsInput>
+    where?: GiftWhereInput
+  }
+
+  export type GiftUpdateToOneWithWhereWithoutWithdrawalRequestsInput = {
+    where?: GiftWhereInput
+    data: XOR<GiftUpdateWithoutWithdrawalRequestsInput, GiftUncheckedUpdateWithoutWithdrawalRequestsInput>
+  }
+
+  export type GiftUpdateWithoutWithdrawalRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    collection?: StringFieldUpdateOperationsInput | string
+    emoji?: NullableStringFieldUpdateOperationsInput | string | null
+    priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutGiftsNestedInput
+    transactions?: TransactionUpdateManyWithoutGiftNestedInput
+    offers?: OfferUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUpdateOneWithoutGiftNestedInput
+  }
+
+  export type GiftUncheckedUpdateWithoutWithdrawalRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    collection?: StringFieldUpdateOperationsInput | string
+    emoji?: NullableStringFieldUpdateOperationsInput | string | null
+    priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutGiftNestedInput
+    offers?: OfferUncheckedUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUncheckedUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUncheckedUpdateOneWithoutGiftNestedInput
+  }
+
   export type GiftCreateWithoutTransactionsInput = {
     id?: string
     name: string
@@ -21429,11 +32026,18 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutGiftsInput
     offers?: OfferCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutGiftInput
   }
 
   export type GiftUncheckedCreateWithoutTransactionsInput = {
@@ -21446,11 +32050,18 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     offers?: OfferUncheckedCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftUncheckedCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentUncheckedCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutGiftInput
   }
 
   export type GiftCreateOrConnectWithoutTransactionsInput = {
@@ -21461,6 +32072,7 @@ export namespace Prisma {
   export type UserCreateWithoutBuyerTransactionsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21481,11 +32093,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutBuyerTransactionsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21506,6 +32124,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutBuyerTransactionsInput = {
@@ -21516,6 +32139,7 @@ export namespace Prisma {
   export type UserCreateWithoutSellerTransactionsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21536,11 +32160,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutSellerTransactionsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21561,6 +32191,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutSellerTransactionsInput = {
@@ -21589,11 +32224,18 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutGiftsNestedInput
     offers?: OfferUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutGiftNestedInput
   }
 
   export type GiftUncheckedUpdateWithoutTransactionsInput = {
@@ -21606,11 +32248,18 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     offers?: OfferUncheckedUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUncheckedUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUncheckedUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftNestedInput
   }
 
   export type UserUpsertWithoutBuyerTransactionsInput = {
@@ -21627,6 +32276,7 @@ export namespace Prisma {
   export type UserUpdateWithoutBuyerTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21647,11 +32297,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21672,6 +32328,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUpsertWithoutSellerTransactionsInput = {
@@ -21688,6 +32349,7 @@ export namespace Prisma {
   export type UserUpdateWithoutSellerTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21708,11 +32370,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerTransactionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21733,6 +32401,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type GiftCreateWithoutOffersInput = {
@@ -21745,11 +32418,18 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutGiftsInput
     transactions?: TransactionCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutGiftInput
   }
 
   export type GiftUncheckedCreateWithoutOffersInput = {
@@ -21762,11 +32442,18 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     ownerId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     transactions?: TransactionUncheckedCreateNestedManyWithoutGiftInput
+    arenaStakes?: PvpParticipantGiftUncheckedCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentUncheckedCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutGiftInput
   }
 
   export type GiftCreateOrConnectWithoutOffersInput = {
@@ -21777,6 +32464,7 @@ export namespace Prisma {
   export type UserCreateWithoutBuyerOffersInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21797,11 +32485,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutBuyerOffersInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21822,6 +32516,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutBuyerOffersInput = {
@@ -21832,6 +32531,7 @@ export namespace Prisma {
   export type UserCreateWithoutSellerOffersInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21852,11 +32552,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutSellerOffersInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -21877,6 +32583,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutSellerOffersInput = {
@@ -21905,11 +32616,18 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutGiftsNestedInput
     transactions?: TransactionUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutGiftNestedInput
   }
 
   export type GiftUncheckedUpdateWithoutOffersInput = {
@@ -21922,11 +32640,18 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUncheckedUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUncheckedUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftNestedInput
   }
 
   export type UserUpsertWithoutBuyerOffersInput = {
@@ -21943,6 +32668,7 @@ export namespace Prisma {
   export type UserUpdateWithoutBuyerOffersInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21963,11 +32689,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBuyerOffersInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21988,6 +32720,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUpsertWithoutSellerOffersInput = {
@@ -22004,6 +32741,7 @@ export namespace Prisma {
   export type UserUpdateWithoutSellerOffersInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22024,11 +32762,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSellerOffersInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22049,11 +32793,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserCreateWithoutCreatedPvpRoomsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22074,11 +32824,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPvpRoomsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22099,6 +32855,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPvpRoomsInput = {
@@ -22109,6 +32870,7 @@ export namespace Prisma {
   export type UserCreateWithoutWonPvpRoomsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22129,11 +32891,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutWonPvpRoomsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22154,6 +32922,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutWonPvpRoomsInput = {
@@ -22164,15 +32937,19 @@ export namespace Prisma {
   export type PvpParticipantCreateWithoutRoomInput = {
     id?: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
     user: UserCreateNestedOneWithoutPvpParticipationsInput
+    gifts?: PvpParticipantGiftCreateNestedManyWithoutParticipantInput
   }
 
   export type PvpParticipantUncheckedCreateWithoutRoomInput = {
     id?: string
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
+    gifts?: PvpParticipantGiftUncheckedCreateNestedManyWithoutParticipantInput
   }
 
   export type PvpParticipantCreateOrConnectWithoutRoomInput = {
@@ -22227,6 +33004,7 @@ export namespace Prisma {
   export type UserUpdateWithoutCreatedPvpRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22247,11 +33025,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPvpRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22272,6 +33056,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUpsertWithoutWonPvpRoomsInput = {
@@ -22288,6 +33077,7 @@ export namespace Prisma {
   export type UserUpdateWithoutWonPvpRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22308,11 +33098,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWonPvpRoomsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22333,6 +33129,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type PvpParticipantUpsertWithWhereUniqueWithoutRoomInput = {
@@ -22409,6 +33210,7 @@ export namespace Prisma {
   export type UserCreateWithoutPvpParticipationsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22429,11 +33231,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutPvpParticipationsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22454,11 +33262,40 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutPvpParticipationsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutPvpParticipationsInput, UserUncheckedCreateWithoutPvpParticipationsInput>
+  }
+
+  export type PvpParticipantGiftCreateWithoutParticipantInput = {
+    id?: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    gift: GiftCreateNestedOneWithoutArenaStakesInput
+  }
+
+  export type PvpParticipantGiftUncheckedCreateWithoutParticipantInput = {
+    id?: string
+    giftId: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type PvpParticipantGiftCreateOrConnectWithoutParticipantInput = {
+    where: PvpParticipantGiftWhereUniqueInput
+    create: XOR<PvpParticipantGiftCreateWithoutParticipantInput, PvpParticipantGiftUncheckedCreateWithoutParticipantInput>
+  }
+
+  export type PvpParticipantGiftCreateManyParticipantInputEnvelope = {
+    data: PvpParticipantGiftCreateManyParticipantInput | PvpParticipantGiftCreateManyParticipantInput[]
+    skipDuplicates?: boolean
   }
 
   export type PvpRoomUpsertWithoutParticipantsInput = {
@@ -22520,6 +33357,7 @@ export namespace Prisma {
   export type UserUpdateWithoutPvpParticipationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22540,11 +33378,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPvpParticipationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22565,6 +33409,191 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type PvpParticipantGiftUpsertWithWhereUniqueWithoutParticipantInput = {
+    where: PvpParticipantGiftWhereUniqueInput
+    update: XOR<PvpParticipantGiftUpdateWithoutParticipantInput, PvpParticipantGiftUncheckedUpdateWithoutParticipantInput>
+    create: XOR<PvpParticipantGiftCreateWithoutParticipantInput, PvpParticipantGiftUncheckedCreateWithoutParticipantInput>
+  }
+
+  export type PvpParticipantGiftUpdateWithWhereUniqueWithoutParticipantInput = {
+    where: PvpParticipantGiftWhereUniqueInput
+    data: XOR<PvpParticipantGiftUpdateWithoutParticipantInput, PvpParticipantGiftUncheckedUpdateWithoutParticipantInput>
+  }
+
+  export type PvpParticipantGiftUpdateManyWithWhereWithoutParticipantInput = {
+    where: PvpParticipantGiftScalarWhereInput
+    data: XOR<PvpParticipantGiftUpdateManyMutationInput, PvpParticipantGiftUncheckedUpdateManyWithoutParticipantInput>
+  }
+
+  export type PvpParticipantCreateWithoutGiftsInput = {
+    id?: string
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
+    joinedAt?: Date | string
+    room: PvpRoomCreateNestedOneWithoutParticipantsInput
+    user: UserCreateNestedOneWithoutPvpParticipationsInput
+  }
+
+  export type PvpParticipantUncheckedCreateWithoutGiftsInput = {
+    id?: string
+    roomId: string
+    userId: string
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
+    joinedAt?: Date | string
+  }
+
+  export type PvpParticipantCreateOrConnectWithoutGiftsInput = {
+    where: PvpParticipantWhereUniqueInput
+    create: XOR<PvpParticipantCreateWithoutGiftsInput, PvpParticipantUncheckedCreateWithoutGiftsInput>
+  }
+
+  export type GiftCreateWithoutArenaStakesInput = {
+    id?: string
+    name: string
+    collection: string
+    emoji?: string | null
+    priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutGiftsInput
+    transactions?: TransactionCreateNestedManyWithoutGiftInput
+    offers?: OfferCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutGiftInput
+  }
+
+  export type GiftUncheckedCreateWithoutArenaStakesInput = {
+    id?: string
+    name: string
+    collection: string
+    emoji?: string | null
+    priceTon: Decimal | DecimalJsLike | number | string
+    backdropName?: string | null
+    backdropColor?: string | null
+    symbolName?: string | null
+    symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    ownerId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutGiftInput
+    offers?: OfferUncheckedCreateNestedManyWithoutGiftInput
+    depositIntent?: GiftDepositIntentUncheckedCreateNestedOneWithoutGiftInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutGiftInput
+  }
+
+  export type GiftCreateOrConnectWithoutArenaStakesInput = {
+    where: GiftWhereUniqueInput
+    create: XOR<GiftCreateWithoutArenaStakesInput, GiftUncheckedCreateWithoutArenaStakesInput>
+  }
+
+  export type PvpParticipantUpsertWithoutGiftsInput = {
+    update: XOR<PvpParticipantUpdateWithoutGiftsInput, PvpParticipantUncheckedUpdateWithoutGiftsInput>
+    create: XOR<PvpParticipantCreateWithoutGiftsInput, PvpParticipantUncheckedCreateWithoutGiftsInput>
+    where?: PvpParticipantWhereInput
+  }
+
+  export type PvpParticipantUpdateToOneWithWhereWithoutGiftsInput = {
+    where?: PvpParticipantWhereInput
+    data: XOR<PvpParticipantUpdateWithoutGiftsInput, PvpParticipantUncheckedUpdateWithoutGiftsInput>
+  }
+
+  export type PvpParticipantUpdateWithoutGiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
+    user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
+  }
+
+  export type PvpParticipantUncheckedUpdateWithoutGiftsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftUpsertWithoutArenaStakesInput = {
+    update: XOR<GiftUpdateWithoutArenaStakesInput, GiftUncheckedUpdateWithoutArenaStakesInput>
+    create: XOR<GiftCreateWithoutArenaStakesInput, GiftUncheckedCreateWithoutArenaStakesInput>
+    where?: GiftWhereInput
+  }
+
+  export type GiftUpdateToOneWithWhereWithoutArenaStakesInput = {
+    where?: GiftWhereInput
+    data: XOR<GiftUpdateWithoutArenaStakesInput, GiftUncheckedUpdateWithoutArenaStakesInput>
+  }
+
+  export type GiftUpdateWithoutArenaStakesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    collection?: StringFieldUpdateOperationsInput | string
+    emoji?: NullableStringFieldUpdateOperationsInput | string | null
+    priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutGiftsNestedInput
+    transactions?: TransactionUpdateManyWithoutGiftNestedInput
+    offers?: OfferUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutGiftNestedInput
+  }
+
+  export type GiftUncheckedUpdateWithoutArenaStakesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    collection?: StringFieldUpdateOperationsInput | string
+    emoji?: NullableStringFieldUpdateOperationsInput | string | null
+    priceTon?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    backdropName?: NullableStringFieldUpdateOperationsInput | string | null
+    backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolName?: NullableStringFieldUpdateOperationsInput | string | null
+    symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionUncheckedUpdateManyWithoutGiftNestedInput
+    offers?: OfferUncheckedUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUncheckedUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftNestedInput
   }
 
   export type PvpRoomCreateWithoutInvitationsInput = {
@@ -22609,6 +33638,7 @@ export namespace Prisma {
   export type UserCreateWithoutSentPvpInvitationsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22629,11 +33659,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutSentPvpInvitationsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22654,6 +33690,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutSentPvpInvitationsInput = {
@@ -22664,6 +33705,7 @@ export namespace Prisma {
   export type UserCreateWithoutReceivedPvpInvitationsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22684,11 +33726,17 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
   }
 
   export type UserUncheckedCreateWithoutReceivedPvpInvitationsInput = {
     id?: string
     telegramId: string
+    telegramAccessHash?: string | null
     username?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -22709,6 +33757,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
   }
 
   export type UserCreateOrConnectWithoutReceivedPvpInvitationsInput = {
@@ -22775,6 +33828,7 @@ export namespace Prisma {
   export type UserUpdateWithoutSentPvpInvitationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22795,11 +33849,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentPvpInvitationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22820,6 +33880,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUpsertWithoutReceivedPvpInvitationsInput = {
@@ -22836,6 +33901,7 @@ export namespace Prisma {
   export type UserUpdateWithoutReceivedPvpInvitationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22856,11 +33922,17 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedPvpInvitationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22881,6 +33953,11 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
   }
 
   export type WalletCreateManyUserInput = {
@@ -22901,6 +33978,10 @@ export namespace Prisma {
     backdropColor?: string | null
     symbolName?: string | null
     symbolImageUrl?: string | null
+    imageUrl?: string | null
+    telegramOwnedGiftId?: string | null
+    telegramGiftNumber?: string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22986,6 +34067,7 @@ export namespace Prisma {
     id?: string
     roomId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
   }
 
@@ -23047,6 +34129,49 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type GiftDepositIntentCreateManyUserInput = {
+    id?: string
+    code: string
+    status?: string
+    giftId?: string | null
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiftWithdrawalRequestCreateManyUserInput = {
+    id?: string
+    giftId: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type GiveawayEntryCreateManyUserInput = {
+    id?: string
+    giveaway: string
+    referredByUserId?: string | null
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayReferralLinkCreateManyUserInput = {
+    id?: string
+    giveaway: string
+    code: string
+    createdAt?: Date | string
+  }
+
+  export type GiveawayEntryCreateManyReferredByInput = {
+    id?: string
+    giveaway: string
+    userId: string
+    winner?: boolean
+    reviewStatus?: string
+    createdAt?: Date | string
+  }
+
   export type WalletUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
@@ -23081,11 +34206,18 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUpdateManyWithoutGiftNestedInput
     offers?: OfferUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutGiftNestedInput
   }
 
   export type GiftUncheckedUpdateWithoutOwnerInput = {
@@ -23098,11 +34230,18 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     transactions?: TransactionUncheckedUpdateManyWithoutGiftNestedInput
     offers?: OfferUncheckedUpdateManyWithoutGiftNestedInput
+    arenaStakes?: PvpParticipantGiftUncheckedUpdateManyWithoutGiftNestedInput
+    depositIntent?: GiftDepositIntentUncheckedUpdateOneWithoutGiftNestedInput
+    withdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftNestedInput
   }
 
   export type GiftUncheckedUpdateManyWithoutOwnerInput = {
@@ -23115,6 +34254,10 @@ export namespace Prisma {
     backdropColor?: NullableStringFieldUpdateOperationsInput | string | null
     symbolName?: NullableStringFieldUpdateOperationsInput | string | null
     symbolImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramOwnedGiftId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramGiftData?: NullableJsonNullValueInput | InputJsonValue
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23359,21 +34502,26 @@ export namespace Prisma {
   export type PvpParticipantUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
+    gifts?: PvpParticipantGiftUpdateManyWithoutParticipantNestedInput
   }
 
   export type PvpParticipantUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     roomId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gifts?: PvpParticipantGiftUncheckedUpdateManyWithoutParticipantNestedInput
   }
 
   export type PvpParticipantUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     roomId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -23551,6 +34699,135 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GiftDepositIntentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gift?: GiftUpdateOneWithoutDepositIntentNestedInput
+  }
+
+  export type GiftDepositIntentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    giftId?: NullableStringFieldUpdateOperationsInput | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftDepositIntentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    giftId?: NullableStringFieldUpdateOperationsInput | string | null
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gift?: GiftUpdateOneRequiredWithoutWithdrawalRequestsNestedInput
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayEntryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referredBy?: UserUpdateOneWithoutReferredGiveawayEntriesNestedInput
+  }
+
+  export type GiveawayEntryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    referredByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayEntryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    referredByUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayReferralLinkUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayReferralLinkUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayReferralLinkUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayEntryUpdateWithoutReferredByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGiveawayEntriesNestedInput
+  }
+
+  export type GiveawayEntryUncheckedUpdateWithoutReferredByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiveawayEntryUncheckedUpdateManyWithoutReferredByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giveaway?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    winner?: BoolFieldUpdateOperationsInput | boolean
+    reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TransactionCreateManyGiftInput = {
     id?: string
     type: string
@@ -23572,6 +34849,22 @@ export namespace Prisma {
     expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type PvpParticipantGiftCreateManyGiftInput = {
+    id?: string
+    participantId: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type GiftWithdrawalRequestCreateManyGiftInput = {
+    id?: string
+    userId: string
+    code: string
+    status?: string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type TransactionUpdateWithoutGiftInput = {
@@ -23643,10 +34936,59 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PvpParticipantGiftUpdateWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participant?: PvpParticipantUpdateOneRequiredWithoutGiftsNestedInput
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    participantId?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateManyWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    participantId?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestUpdateWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGiftWithdrawalRequestsNestedInput
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GiftWithdrawalRequestUncheckedUpdateManyWithoutGiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PvpParticipantCreateManyRoomInput = {
     id?: string
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeGram?: Decimal | DecimalJsLike | number | string
     joinedAt?: Date | string
   }
 
@@ -23662,21 +35004,26 @@ export namespace Prisma {
   export type PvpParticipantUpdateWithoutRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
+    gifts?: PvpParticipantGiftUpdateManyWithoutParticipantNestedInput
   }
 
   export type PvpParticipantUncheckedUpdateWithoutRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gifts?: PvpParticipantGiftUncheckedUpdateManyWithoutParticipantNestedInput
   }
 
   export type PvpParticipantUncheckedUpdateManyWithoutRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -23705,6 +35052,34 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantGiftCreateManyParticipantInput = {
+    id?: string
+    giftId: string
+    valueGram: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type PvpParticipantGiftUpdateWithoutParticipantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    gift?: GiftUpdateOneRequiredWithoutArenaStakesNestedInput
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateWithoutParticipantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PvpParticipantGiftUncheckedUpdateManyWithoutParticipantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    giftId?: StringFieldUpdateOperationsInput | string
+    valueGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

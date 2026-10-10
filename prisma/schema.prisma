@@ -46,6 +46,7 @@ model GiveawayEntry {
   userId            String
   referredByUserId  String?
   winner            Boolean  @default(false)
+  reviewStatus      String   @default("APPROVED")
   createdAt         DateTime @default(now())
 
   user       User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -54,6 +55,7 @@ model GiveawayEntry {
   @@unique([giveaway, userId])
   @@index([giveaway, createdAt])
   @@index([giveaway, referredByUserId])
+  @@index([giveaway, reviewStatus])
 }
 
 model GiveawayReferralLink {

@@ -123,6 +123,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   telegramId: 'telegramId',
+  telegramAccessHash: 'telegramAccessHash',
   username: 'username',
   firstName: 'firstName',
   lastName: 'lastName',
@@ -130,6 +131,24 @@ exports.Prisma.UserScalarFieldEnum = {
   balanceGram: 'balanceGram',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GiveawayEntryScalarFieldEnum = {
+  id: 'id',
+  giveaway: 'giveaway',
+  userId: 'userId',
+  referredByUserId: 'referredByUserId',
+  winner: 'winner',
+  reviewStatus: 'reviewStatus',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GiveawayReferralLinkScalarFieldEnum = {
+  id: 'id',
+  giveaway: 'giveaway',
+  userId: 'userId',
+  code: 'code',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.GameTransactionScalarFieldEnum = {
@@ -194,9 +213,39 @@ exports.Prisma.GiftScalarFieldEnum = {
   backdropColor: 'backdropColor',
   symbolName: 'symbolName',
   symbolImageUrl: 'symbolImageUrl',
+  imageUrl: 'imageUrl',
+  telegramOwnedGiftId: 'telegramOwnedGiftId',
+  telegramGiftNumber: 'telegramGiftNumber',
+  telegramGiftData: 'telegramGiftData',
   status: 'status',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GiftDepositIntentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  code: 'code',
+  status: 'status',
+  giftId: 'giftId',
+  confirmedAt: 'confirmedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.GiftWithdrawalRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  giftId: 'giftId',
+  code: 'code',
+  status: 'status',
+  confirmedAt: 'confirmedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TelegramRelayStateScalarFieldEnum = {
+  id: 'id',
+  initialSyncAt: 'initialSyncAt',
   updatedAt: 'updatedAt'
 };
 
@@ -246,7 +295,16 @@ exports.Prisma.PvpParticipantScalarFieldEnum = {
   roomId: 'roomId',
   userId: 'userId',
   stakeGram: 'stakeGram',
+  cashStakeGram: 'cashStakeGram',
   joinedAt: 'joinedAt'
+};
+
+exports.Prisma.PvpParticipantGiftScalarFieldEnum = {
+  id: 'id',
+  participantId: 'participantId',
+  giftId: 'giftId',
+  valueGram: 'valueGram',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.PvpInvitationScalarFieldEnum = {
@@ -288,15 +346,21 @@ exports.Prisma.JsonNullValueFilter = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  GiveawayEntry: 'GiveawayEntry',
+  GiveawayReferralLink: 'GiveawayReferralLink',
   GameTransaction: 'GameTransaction',
   BotDeposit: 'BotDeposit',
   BotWithdrawal: 'BotWithdrawal',
   Wallet: 'Wallet',
   Gift: 'Gift',
+  GiftDepositIntent: 'GiftDepositIntent',
+  GiftWithdrawalRequest: 'GiftWithdrawalRequest',
+  TelegramRelayState: 'TelegramRelayState',
   Transaction: 'Transaction',
   Offer: 'Offer',
   PvpRoom: 'PvpRoom',
   PvpParticipant: 'PvpParticipant',
+  PvpParticipantGift: 'PvpParticipantGift',
   PvpInvitation: 'PvpInvitation'
 };
 

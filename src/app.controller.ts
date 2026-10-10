@@ -97,17 +97,25 @@ export class AppController {
 
   @Get('orbit-nft/supply')
   async getOrbitNftPackSupply() {
-    const packs = ['sweeties', 'orbit-dog'] as const;
-    const purchases = await Promise.all(packs.map((packId) => this.prisma.gameTransaction.count({ where: { game: 'ORBIT_NFT', type: `PURCHASE_${packId.toUpperCase().replace('-', '_')}` } })));
-    return Object.fromEntries(packs.map((packId, index) => [packId, { limit: 500, sold: Math.min(500, purchases[index]), remaining: Math.max(0, 500 - purchases[index]) }]));
+    const packs = [
+      { id: 'sweeties', limit: 500 },
+      { id: 'orbit-dog', limit: 500 },
+      { id: 'durov', limit: 42 },
+    ] as const;
+    const purchases = await Promise.all(packs.map((pack) => this.prisma.gameTransaction.count({ where: { game: 'ORBIT_NFT', type: `PURCHASE_${pack.id.toUpperCase().replace('-', '_')}` } })));
+    return Object.fromEntries(packs.map((pack, index) => [pack.id, { limit: pack.limit, sold: Math.min(pack.limit, purchases[index]), remaining: Math.max(0, pack.limit - purchases[index]) }]));
   }
 
   @Post('orbit-nft/purchase')
   async purchaseOrbitNftPack(@Body() body: { initData?: string; packId?: string; requestId?: string }) {
     const user = await this.getOrCreateTelegramUser(body.initData);
-    const packId = body.packId === 'orbit-dog' ? 'orbit-dog' : body.packId === 'sweeties' ? 'sweeties' : null;
+    const packId = body.packId === 'orbit-dog' || body.packId === 'sweeties' || body.packId === 'durov' ? body.packId : null;
     if (!packId) throw new BadRequestException('Unknown ORBIT NFT pack');
-    const pack = packId === 'sweeties' ? { price: '0.25', type: 'PURCHASE_SWEETIES' } : { price: '0.35', type: 'PURCHASE_ORBIT_DOG' };
+    const pack = packId === 'sweeties'
+      ? { price: '0.25', type: 'PURCHASE_SWEETIES', limit: 500 }
+      : packId === 'orbit-dog'
+        ? { price: '0.35', type: 'PURCHASE_ORBIT_DOG', limit: 500 }
+        : { price: '5', type: 'PURCHASE_DUROV', limit: 42 };
     if (!body.requestId || !/^[A-Za-z0-9_-]{8,80}$/.test(body.requestId)) throw new BadRequestException('A valid purchase request id is required');
     const reward = chooseOrbitNftBackdrop();
     const resaleValue = orbitNftResaleValue(reward[0], packId);
@@ -124,7 +132,7 @@ export class AppController {
         return { gift, sold, balanceGram: balance.balanceGram.toString() };
       }
       const sold = await tx.gameTransaction.count({ where: { game: 'ORBIT_NFT', type: pack.type } });
-      if (sold >= 500) throw new BadRequestException('This pack is sold out');
+      if (sold >= pack.limit) throw new BadRequestException('This pack is sold out');
       const debit = await tx.user.updateMany({ where: { id: user.id, balanceGram: { gte: pack.price } }, data: { balanceGram: { decrement: pack.price } } });
       if (debit.count !== 1) throw new BadRequestException('Insufficient ORBIT balance');
       const gift = await tx.gift.create({ data: {
@@ -141,7 +149,7 @@ export class AppController {
     });
     return {
       item: { id: result.gift.id, name: result.gift.backdropName, color: result.gift.backdropColor, emoji: '', packId, priceTon: result.gift.priceTon.toString(), obtainedAt: result.gift.createdAt.getTime() },
-      supply: { limit: 500, sold: result.sold, remaining: 500 - result.sold },
+      supply: { limit: pack.limit, sold: result.sold, remaining: pack.limit - result.sold },
       balanceGram: result.balanceGram,
     };
   }
@@ -175,7 +183,7 @@ export class AppController {
       if (!locked[0]) throw new NotFoundException('Collectible not found');
       const gift = await tx.gift.findFirst({ where: { id: body.itemId, ownerId: user.id, status: 'OWNED', collection: ORBIT_NFT_COLLECTION } });
       if (!gift) throw new BadRequestException('This collectible is no longer available to sell');
-      const packId = gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties';
+      const packId = gift.emoji === 'durov' ? 'durov' : gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties';
       const amount = orbitNftResaleValue(gift.backdropName ?? gift.name, packId);
       const updated = await tx.gift.updateMany({ where: { id: gift.id, ownerId: user.id, status: 'OWNED' }, data: { ownerId: null, status: 'SOLD' } });
       if (updated.count !== 1) throw new BadRequestException('This collectible is no longer available to sell');
@@ -860,7 +868,7 @@ async getOffers(@Query('initData') initData: string) {
     });
     return items.map((item) => {
       const name = item.backdropName ?? item.name;
-      const packId = item.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties';
+      const packId = item.emoji === 'durov' ? 'durov' : item.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties';
       return {
         id: item.id,
         name,

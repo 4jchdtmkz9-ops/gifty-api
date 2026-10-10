@@ -9,6 +9,12 @@ export const ORBIT_NFT_PALETTE: Record<string, string> = {
 };
 
 export function orbitNftResaleValue(backdropName: string, packId: string) {
+  if (packId === 'durov') {
+    if (backdropName === 'Black') return '15';
+    if (backdropName === 'Onyx Black') return '7.5';
+    if (backdropName === 'Midnight Blue') return '6';
+    return '2.25';
+  }
   if (backdropName === 'Black') return '1';
   if (backdropName === 'Onyx Black') return '0.5';
   if (backdropName === 'Midnight Blue') return packId === 'orbit-dog' ? '0.4' : '0.3';

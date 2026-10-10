@@ -363,7 +363,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         select: { id: true, priceTon: true, collection: true, emoji: true, backdropName: true, name: true },
       });
       if (gifts.length !== ids.length) throw new ConflictException('One or more gifts are unavailable for staking');
-      const giftValues = gifts.map((gift) => ({ ...gift, valueGram: gift.collection === ORBIT_NFT_COLLECTION ? orbitNftResaleValue(gift.backdropName ?? gift.name, gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties') : gift.priceTon }));
+      const giftValues = gifts.map((gift) => ({ ...gift, valueGram: gift.collection === ORBIT_NFT_COLLECTION ? orbitNftResaleValue(gift.backdropName ?? gift.name, gift.emoji === 'durov' ? 'durov' : gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties') : gift.priceTon }));
       if (giftValues.some(({ valueGram }) => toNano(valueGram) <= 0n)) throw new ConflictException('A market value is not configured for one or more gifts');
       const value = giftValues.reduce((sum, gift) => sum + toNano(gift.valueGram), 0n);
       for (const gift of giftValues) {
@@ -394,7 +394,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         include: { participants: true }, orderBy: { createdAt: 'desc' },
       });
       const gifts = await tx.gift.findMany({ where: { id: { in: ids }, ownerId: user.id, status: 'OWNED', collection: ORBIT_NFT_COLLECTION }, select: { id: true, priceTon: true, collection: true, emoji: true, backdropName: true, name: true } });
-      const giftValues = gifts.map((gift) => ({ ...gift, valueGram: gift.collection === ORBIT_NFT_COLLECTION ? orbitNftResaleValue(gift.backdropName ?? gift.name, gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties') : gift.priceTon }));
+      const giftValues = gifts.map((gift) => ({ ...gift, valueGram: gift.collection === ORBIT_NFT_COLLECTION ? orbitNftResaleValue(gift.backdropName ?? gift.name, gift.emoji === 'durov' ? 'durov' : gift.emoji === 'orbit-dog' ? 'orbit-dog' : 'sweeties') : gift.priceTon }));
       if (giftValues.length !== ids.length || giftValues.some(({ valueGram }) => toNano(valueGram) <= 0n)) throw new ConflictException('One or more NFTs are unavailable for staking');
       const value = giftValues.reduce((sum, gift) => sum + toNano(gift.valueGram), 0n);
       let activeRoom = room;

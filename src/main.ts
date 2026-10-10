@@ -11,7 +11,7 @@ async function bootstrap() {
   'http://localhost:3001',
   'https://orbitmrktbot.vercel.app',
     ],
-    allowedHeaders: ['Content-Type', 'X-Telegram-Init-Data'],
+    allowedHeaders: ['Content-Type', 'X-Telegram-Init-Data', 'X-Rose-Referral-Code'],
   });
 
   await app.listen(process.env.PORT ?? 3001);

@@ -36,19 +36,37 @@ model User {
   giftDepositIntents    GiftDepositIntent[]
   giftWithdrawalRequests GiftWithdrawalRequest[]
   giveawayEntries       GiveawayEntry[]
+  giveawayReferralLinks GiveawayReferralLink[]
+  referredGiveawayEntries GiveawayEntry[] @relation("GiveawayReferrals")
 }
 
 model GiveawayEntry {
+  id                String   @id @default(cuid())
+  giveaway          String
+  userId            String
+  referredByUserId  String?
+  winner            Boolean  @default(false)
+  createdAt         DateTime @default(now())
+
+  user       User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  referredBy User? @relation("GiveawayReferrals", fields: [referredByUserId], references: [id], onDelete: SetNull)
+
+  @@unique([giveaway, userId])
+  @@index([giveaway, createdAt])
+  @@index([giveaway, referredByUserId])
+}
+
+model GiveawayReferralLink {
   id        String   @id @default(cuid())
   giveaway  String
   userId    String
-  winner    Boolean  @default(false)
+  code      String   @unique
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([giveaway, userId])
-  @@index([giveaway, createdAt])
+  @@index([giveaway])
 }
 
 model GameTransaction {

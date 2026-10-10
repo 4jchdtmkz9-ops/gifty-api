@@ -8,16 +8,19 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { randomInt } from 'node:crypto';
+import { randomBytes, randomInt } from 'node:crypto';
 import { PrismaService } from '../prisma.service.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
 
 const GIVEAWAY_ID = 'eternal-rose-2026-10';
 const CHANNEL_USERNAME = '@orbit_market_official';
 const PARTICIPANT_LIMIT = 10;
+const REFERRAL_WEIGHT_BONUS = 10;
 
 @Controller('giveaways')
 export class GiveawaysController {
+  private cachedBotUsername: string | null = null;
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly telegramAuth: TelegramAuthService,
@@ -27,19 +30,32 @@ export class GiveawaysController {
   @Get('rose/status')
   async status(@Headers('x-telegram-init-data') initData?: string) {
     const user = await this.getUser(initData);
-    const [entry, participants] = await Promise.all([
+    const [entry, participants, referralCount, winner, referralLink] = await Promise.all([
       this.prisma.giveawayEntry.findUnique({ where: { giveaway_userId: { giveaway: GIVEAWAY_ID, userId: user.id } } }),
       this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID } }),
+      this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, referredByUserId: user.id } }),
+      this.getWinner(),
+      this.getReferralLink(user.id),
     ]);
-    const winner = await this.getWinner();
-    return { entered: Boolean(entry), participants, winner, full: Boolean(winner) || participants >= PARTICIPANT_LIMIT };
+    return {
+      entered: Boolean(entry), participants, winner,
+      full: Boolean(winner) || participants >= PARTICIPANT_LIMIT,
+      referralLink, referralCount, referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS,
+    };
   }
 
   @Post('rose/enter')
-  async enter(@Headers('x-telegram-init-data') initData?: string) {
+  async enter(
+    @Headers('x-telegram-init-data') initData?: string,
+    @Headers('x-rose-referral-code') referralCode?: string,
+  ) {
     const user = await this.getUser(initData);
     const isMember = await this.isSubscribed(user.telegramId);
     if (!isMember) throw new BadRequestException(`Subscribe to ${CHANNEL_USERNAME} before entering`);
+    const referralLink = referralCode
+      ? await this.prisma.giveawayReferralLink.findUnique({ where: { code: referralCode } })
+      : null;
+    const referrerId = referralLink?.userId && referralLink.userId !== user.id ? referralLink.userId : null;
 
     const result = await this.prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${GIVEAWAY_ID}))::text AS locked`;
@@ -64,15 +80,27 @@ export class GiveawaysController {
         return { entered: false, participants: count, winner: this.publicWinner(winnerEntry), full: true };
       }
 
-      await tx.giveawayEntry.create({ data: { giveaway: GIVEAWAY_ID, userId: user.id } });
+      await tx.giveawayEntry.create({ data: { giveaway: GIVEAWAY_ID, userId: user.id, referredByUserId: referrerId } });
       const participants = count + 1;
       if (participants === PARTICIPANT_LIMIT) {
         const entries = await tx.giveawayEntry.findMany({
           where: { giveaway: GIVEAWAY_ID },
-          select: { id: true },
+          select: { id: true, userId: true },
           orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
         });
-        const selected = entries[randomInt(entries.length)];
+        const weights = await Promise.all(entries.map(async (entry) => ({
+          ...entry,
+          weight: REFERRAL_WEIGHT_BONUS + await tx.giveawayEntry.count({
+            where: { giveaway: GIVEAWAY_ID, referredByUserId: entry.userId },
+          }),
+        })));
+        const totalWeight = weights.reduce((sum, entry) => sum + entry.weight, 0);
+        let draw = randomInt(totalWeight);
+        let selected = weights[0];
+        for (const entry of weights) {
+          if (draw < entry.weight) { selected = entry; break; }
+          draw -= entry.weight;
+        }
         await tx.giveawayEntry.update({ where: { id: selected.id }, data: { winner: true } });
       }
 
@@ -83,7 +111,42 @@ export class GiveawaysController {
       return { entered: true, participants, winner: this.publicWinner(winnerEntry), full: participants >= PARTICIPANT_LIMIT };
     });
     if (!result.entered) throw new BadRequestException('The rose giveaway is full');
-    return result;
+    const [referralCount, ownReferralLink] = await Promise.all([
+      this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, referredByUserId: user.id } }),
+      this.getReferralLink(user.id),
+    ]);
+    return { ...result, referralLink: ownReferralLink, referralCount, referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS };
+  }
+
+  private async getReferralLink(userId: string) {
+    const saved = await this.prisma.giveawayReferralLink.upsert({
+      where: { giveaway_userId: { giveaway: GIVEAWAY_ID, userId } },
+      update: {},
+      create: { giveaway: GIVEAWAY_ID, userId, code: randomBytes(12).toString('base64url') },
+      select: { code: true },
+    });
+    const username = await this.telegramBotUsername();
+    return username ? `https://t.me/${username}?startapp=rose_${saved.code}` : null;
+  }
+
+  private async telegramBotUsername() {
+    if (this.cachedBotUsername) return this.cachedBotUsername;
+    const configured = this.config.get<string>('TELEGRAM_BOT_USERNAME')?.replace(/^@/, '').trim();
+    if (configured) {
+      this.cachedBotUsername = configured;
+      return configured;
+    }
+    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN')?.trim();
+    if (!token) return null;
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${token}/getMe`, { signal: AbortSignal.timeout(5_000) });
+      const result = await response.json() as { ok?: boolean; result?: { username?: string } };
+      if (!response.ok || !result.ok || !result.result?.username) return null;
+      this.cachedBotUsername = result.result.username;
+      return this.cachedBotUsername;
+    } catch {
+      return null;
+    }
   }
 
   private async getWinner() {

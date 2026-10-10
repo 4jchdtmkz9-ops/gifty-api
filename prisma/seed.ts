@@ -11,58 +11,24 @@ const prisma = new PrismaClient({
 });
 
 async function main() {
-  const gifts = [
-    {
-      name: 'Diamond Ring',
-      collection: 'Telegram Gifts',
-      emoji: '💎',
-      priceTon: '24.5',
-      status: 'LISTED',
-    },
-    {
-      name: 'Astral Shard',
-      collection: 'Limited Gifts',
-      emoji: '🔮',
-      priceTon: '18.2',
-      status: 'LISTED',
-    },
-    {
-      name: 'Golden Bear',
-      collection: 'Rare Gifts',
-      emoji: '🐻',
-      priceTon: '42',
-      status: 'LISTED',
-    },
-    {
-      name: 'Crystal Heart',
-      collection: 'Premium Gifts',
-      emoji: '💜',
-      priceTon: '31.8',
-      status: 'LISTED',
-    },
+  const sampleGifts = [
+    { name: 'Diamond Ring', collection: 'Telegram Gifts' },
+    { name: 'Astral Shard', collection: 'Limited Gifts' },
+    { name: 'Golden Bear', collection: 'Rare Gifts' },
+    { name: 'Crystal Heart', collection: 'Premium Gifts' },
   ];
 
-  for (const gift of gifts) {
-    const existing = await prisma.gift.findFirst({
+  // Keep old preview records in the database as drafts, but never publish them as marketplace stock.
+  for (const gift of sampleGifts) {
+    await prisma.gift.updateMany({
       where: {
-        name: gift.name,
-        collection: gift.collection,
+        ...gift,
+        ownerId: null,
+        telegramOwnedGiftId: null,
+        status: 'LISTED',
       },
+      data: { status: 'DRAFT' },
     });
-
-    if (existing) {
-      await prisma.gift.update({
-        where: { id: existing.id },
-        data: {
-          name: gift.name,
-          collection: gift.collection,
-          emoji: gift.emoji,
-          priceTon: gift.priceTon,
-        },
-      });
-    } else {
-      await prisma.gift.create({ data: gift });
-    }
   }
 
   console.log('ORBIT seed completed successfully');

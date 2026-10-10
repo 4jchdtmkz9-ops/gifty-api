@@ -36,7 +36,16 @@ export class AppController {
   @Get('gifts')
   async getGifts() {
     return this.prisma.gift.findMany({
-      where: { status: 'LISTED', ownerId: null },
+      where: {
+        status: 'LISTED',
+        ownerId: null,
+        NOT: [
+          { name: 'Diamond Ring', collection: 'Telegram Gifts' },
+          { name: 'Astral Shard', collection: 'Limited Gifts' },
+          { name: 'Golden Bear', collection: 'Rare Gifts' },
+          { name: 'Crystal Heart', collection: 'Premium Gifts' },
+        ],
+      },
       orderBy: {
         createdAt: 'desc',
       },

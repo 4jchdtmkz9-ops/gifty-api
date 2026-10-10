@@ -28,19 +28,25 @@ export class GiveawaysController {
   ) {}
 
   @Get('rose/status')
-  async status(@Headers('x-telegram-init-data') initData?: string) {
+  async status(
+    @Headers('x-telegram-init-data') initData?: string,
+    @Headers('x-rose-referral-code') referralCode?: string,
+  ) {
     const user = await this.getUser(initData);
-    const [entry, participants, referralCount, winner, referralLink] = await Promise.all([
+    if (referralCode) await this.recordReferralVisit(user.id, referralCode);
+    const [entry, participants, referralCount, referralVisitCount, winner, referralLink] = await Promise.all([
       this.prisma.giveawayEntry.findUnique({ where: { giveaway_userId: { giveaway: GIVEAWAY_ID, userId: user.id } } }),
       this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID } }),
       this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, referredByUserId: user.id } }),
+      this.countReferralVisits(user.id),
       this.getWinner(),
       this.getReferralLink(user.id),
     ]);
     return {
       entered: Boolean(entry), participants, winner,
       full: Boolean(winner) || participants >= PARTICIPANT_LIMIT,
-      referralLink, referralCount, referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS,
+      referralLink, referralCount, referralVisitCount,
+      referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS,
     };
   }
 
@@ -52,10 +58,9 @@ export class GiveawaysController {
     const user = await this.getUser(initData);
     const isMember = await this.isSubscribed(user.telegramId);
     if (!isMember) throw new BadRequestException(`Subscribe to ${CHANNEL_USERNAME} before entering`);
-    const referralLink = referralCode
-      ? await this.prisma.giveawayReferralLink.findUnique({ where: { code: referralCode } })
-      : null;
-    const referrerId = referralLink?.userId && referralLink.userId !== user.id ? referralLink.userId : null;
+    const referrerId = referralCode
+      ? await this.recordReferralVisit(user.id, referralCode)
+      : await this.getRecordedReferrerId(user.id);
 
     const result = await this.prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${GIVEAWAY_ID}))::text AS locked`;
@@ -111,11 +116,46 @@ export class GiveawaysController {
       return { entered: true, participants, winner: this.publicWinner(winnerEntry), full: participants >= PARTICIPANT_LIMIT };
     });
     if (!result.entered) throw new BadRequestException('The rose giveaway is full');
-    const [referralCount, ownReferralLink] = await Promise.all([
+    const [referralCount, referralVisitCount, ownReferralLink] = await Promise.all([
       this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, referredByUserId: user.id } }),
+      this.countReferralVisits(user.id),
       this.getReferralLink(user.id),
     ]);
-    return { ...result, referralLink: ownReferralLink, referralCount, referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS };
+    return {
+      ...result, referralLink: ownReferralLink, referralCount, referralVisitCount,
+      referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS,
+    };
+  }
+
+  private async recordReferralVisit(inviteeUserId: string, referralCode?: string) {
+    if (referralCode) {
+      const link = await this.prisma.giveawayReferralLink.findUnique({ where: { code: referralCode }, select: { userId: true } });
+      if (link && link.userId !== inviteeUserId) {
+        await this.prisma.$executeRaw`
+          INSERT INTO "GiveawayReferralVisit" ("giveaway", "inviteeUserId", "referrerUserId")
+          VALUES (${GIVEAWAY_ID}, ${inviteeUserId}, ${link.userId})
+          ON CONFLICT ("giveaway", "inviteeUserId") DO NOTHING
+        `;
+      }
+    }
+    return this.getRecordedReferrerId(inviteeUserId);
+  }
+
+  private async getRecordedReferrerId(inviteeUserId: string) {
+    const visit = await this.prisma.$queryRaw<Array<{ referrerUserId: string }>>`
+      SELECT "referrerUserId" FROM "GiveawayReferralVisit"
+      WHERE "giveaway" = ${GIVEAWAY_ID} AND "inviteeUserId" = ${inviteeUserId}
+      LIMIT 1
+    `;
+    return visit[0]?.referrerUserId ?? null;
+  }
+
+  private async countReferralVisits(referrerUserId: string) {
+    const rows = await this.prisma.$queryRaw<Array<{ count: number }>>`
+      SELECT COUNT(*)::int AS count FROM "GiveawayReferralVisit"
+      WHERE "giveaway" = ${GIVEAWAY_ID} AND "referrerUserId" = ${referrerUserId}
+    `;
+    return rows[0]?.count ?? 0;
   }
 
   private async getReferralLink(userId: string) {

@@ -14,6 +14,13 @@ import { PrismaService } from './prisma.service.js';
 import { TelegramAuthService } from './auth/telegram-auth.service.js';
 import { chooseOrbitNftBackdrop, ORBIT_NFT_COLLECTION, ORBIT_NFT_PALETTE, orbitNftResaleValue } from './orbit-nft.config.js';
 
+const HIDDEN_SAMPLE_GIFTS = [
+  { name: 'Diamond Ring', collection: 'Telegram Gifts' },
+  { name: 'Astral Shard', collection: 'Limited Gifts' },
+  { name: 'Golden Bear', collection: 'Rare Gifts' },
+  { name: 'Crystal Heart', collection: 'Premium Gifts' },
+];
+
 @Controller()
 export class AppController {
   constructor(
@@ -39,12 +46,7 @@ export class AppController {
       where: {
         status: 'LISTED',
         ownerId: null,
-        NOT: [
-          { name: 'Diamond Ring', collection: 'Telegram Gifts' },
-          { name: 'Astral Shard', collection: 'Limited Gifts' },
-          { name: 'Golden Bear', collection: 'Rare Gifts' },
-          { name: 'Crystal Heart', collection: 'Premium Gifts' },
-        ],
+        NOT: HIDDEN_SAMPLE_GIFTS,
       },
       orderBy: {
         createdAt: 'desc',
@@ -202,7 +204,7 @@ export class AppController {
     });
 
     return this.prisma.gift.findMany({
-      where: { ownerId: user.id, status: { in: ['LISTED', 'RESERVED'] } },
+      where: { ownerId: user.id, status: { in: ['LISTED', 'RESERVED'] }, NOT: HIDDEN_SAMPLE_GIFTS },
       orderBy: { updatedAt: 'desc' },
     });
   }
@@ -306,6 +308,7 @@ async getOffers(@Query('initData') initData: string) {
   return this.prisma.offer.findMany({
     where: {
       buyerId: user.id,
+      gift: { NOT: HIDDEN_SAMPLE_GIFTS },
     },
     include: {
       gift: true,
@@ -336,6 +339,7 @@ async getOffers(@Query('initData') initData: string) {
       where: {
         gift: {
           ownerId: user.id,
+          NOT: HIDDEN_SAMPLE_GIFTS,
         },
       },
       include: {

@@ -23,7 +23,6 @@ async function main() {
     await prisma.gift.updateMany({
       where: {
         ...gift,
-        ownerId: null,
         telegramOwnedGiftId: null,
         status: 'LISTED',
       },

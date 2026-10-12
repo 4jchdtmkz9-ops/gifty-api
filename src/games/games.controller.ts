@@ -1,7 +1,9 @@
-import { BadRequestException, Body, Controller, Get, Headers, Post, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, Get, Headers, Post, ServiceUnavailableException, UnauthorizedException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { randomBytes, randomInt } from 'node:crypto';
 import { PrismaService } from '../prisma.service.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
+import { FREE_CASE_COLLECTION, FREE_CASE_NFT_ID } from './free-case.constants.js';
 
 const LUCKY_REWARDS = [
   { id: 'gram-01', name: 'GRAM', valueGram: '0.1', chance: 22, kind: 'gram' },
@@ -54,7 +56,11 @@ function publicCryptanReward(reward: CryptanRewardDetails) {
 
 @Controller('games')
 export class GamesController {
-  constructor(private readonly prisma: PrismaService, private readonly telegramAuth: TelegramAuthService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly telegramAuth: TelegramAuthService,
+    private readonly config: ConfigService,
+  ) {}
 
   @Post('lucky/spin')
   async spinLucky(@Body() body: { initData?: string; requestId?: string }) {
@@ -132,6 +138,203 @@ export class GamesController {
     const user = await this.getUser(initData);
     const rows = await this.prisma.gameTransaction.findMany({ where: { userId: user.id }, orderBy: { createdAt: 'desc' }, take: 50 });
     return rows.map(({ amountGram, ...row }) => ({ ...row, amountGram: amountGram.toString() }));
+  }
+
+  // ── FREE CASE (24-hour cooldown, no cost) ────────────────────────
+  private static readonly FREE_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+  private static readonly FREE_CHANNEL_USERNAME = '@orbit_market_official';
+  private static readonly FREE_REWARDS = [
+    { id: 'gram-0001', name: '0.001 GRAM', valueGram: '0.001', chance: 50_000, kind: 'gram' },
+    { id: 'gram-001', name: '0.01 GRAM', valueGram: '0.01', chance: 40_000, kind: 'gram' },
+    { id: 'gram-01', name: '0.1 GRAM', valueGram: '0.1', chance: 4_500, kind: 'gram' },
+    { id: 'gram-1', name: '1 GRAM', valueGram: '1', chance: 500, kind: 'gram' },
+    { id: 'bear', name: 'Telegram Bear', valueGram: '20', chance: 4_800, kind: 'gram' },
+    { id: FREE_CASE_NFT_ID, name: 'Candy Cane NFT', valueGram: '20', chance: 200, kind: 'nft' },
+  ] as const;
+
+  @Get('free/cooldown')
+  async freeCooldown(@Headers('x-telegram-init-data') initData: string) {
+    return this.freeStatus(initData);
+  }
+
+  @Get('free/status')
+  async freeStatus(@Headers('x-telegram-init-data') initData: string) {
+    const user = await this.getUser(initData);
+    const [lastFree, connectedWallet, pendingNftTransaction] = await Promise.all([
+      this.prisma.gameTransaction.findFirst({
+        where: { userId: user.id, game: 'FREE' },
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.wallet.findFirst({ where: { userId: user.id, isConnected: true }, select: { id: true } }),
+      this.prisma.gameTransaction.findFirst({
+        where: { userId: user.id, game: 'FREE', type: 'NFT_PENDING' },
+        orderBy: { createdAt: 'desc' },
+      }),
+    ]);
+    const endsAt = lastFree ? new Date(lastFree.createdAt.getTime() + GamesController.FREE_COOLDOWN_MS) : null;
+    const pendingDetails = pendingNftTransaction?.details as { reward?: { id: string; name: string; valueGram: string }; resolution?: string | null } | null;
+    return {
+      cooldownEndsAt: endsAt && endsAt > new Date() ? endsAt.toISOString() : null,
+      walletConnected: Boolean(connectedWallet),
+      subscribed: await this.isFreeSubscribed(user.telegramId).catch(() => false),
+      pendingNft: pendingNftTransaction && pendingDetails?.reward && !pendingDetails.resolution
+        ? { requestId: pendingNftTransaction.reference.slice(`free:${user.id}:`.length), reward: pendingDetails.reward }
+        : null,
+    };
+  }
+
+  @Post('free/open')
+  async openFree(@Body() body: { initData?: string; requestId?: string }) {
+    const user = await this.getUser(body.initData);
+    const requestId = validRequestId(body.requestId);
+    const reference = `free:${user.id}:${requestId}`;
+    const existing = await this.prisma.gameTransaction.findUnique({ where: { reference } });
+    if (existing?.details) return this.publicFreeSettlement(existing, user.id);
+
+    const connectedWallet = await this.prisma.wallet.findFirst({ where: { userId: user.id, isConnected: true }, select: { id: true } });
+    if (!connectedWallet) throw new ConflictException('Connect your TON wallet to open the FREE case');
+    if (!(await this.isFreeSubscribed(user.telegramId))) {
+      throw new ConflictException(`Subscribe to ${GamesController.FREE_CHANNEL_USERNAME} to open the FREE case`);
+    }
+
+    // Check 24h cooldown
+    const lastFree = await this.prisma.gameTransaction.findFirst({
+      where: { userId: user.id, game: 'FREE' },
+      orderBy: { createdAt: 'desc' },
+    });
+    if (lastFree) {
+      const cooldownEnd = new Date(lastFree.createdAt.getTime() + GamesController.FREE_COOLDOWN_MS);
+      if (cooldownEnd > new Date()) {
+        throw new BadRequestException('Free case is on cooldown. Come back later!');
+      }
+    }
+
+    const reward = choose(GamesController.FREE_REWARDS);
+    try {
+      return await this.prisma.$transaction(async (tx) => {
+        if (reward.kind === 'nft') {
+          // The collectible is not converted to GRAM automatically: the player
+          // picks a quick sale or claims it into the inventory first.
+          await tx.gameTransaction.create({
+            data: {
+              userId: user.id,
+              game: 'FREE',
+              type: 'NFT_PENDING',
+              reference,
+              amountGram: 0,
+              details: { reward: { id: reward.id, name: reward.name, valueGram: reward.valueGram }, resolution: null },
+            },
+          });
+        } else {
+          await tx.user.update({ where: { id: user.id }, data: { balanceGram: { increment: reward.valueGram } } });
+          await tx.gameTransaction.create({
+            data: {
+              userId: user.id,
+              game: 'FREE',
+              type: 'SETTLEMENT',
+              reference,
+              amountGram: Number(reward.valueGram),
+              details: { reward: { id: reward.id, name: reward.name, valueGram: reward.valueGram } },
+            },
+          });
+        }
+        const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
+        return { reward: { id: reward.id, name: reward.name, valueGram: reward.valueGram, kind: reward.kind }, balanceGram: balance.balanceGram.toString() };
+      });
+    } catch (error) {
+      const committed = await this.prisma.gameTransaction.findUnique({ where: { reference } });
+      if (committed?.details) return this.publicFreeSettlement(committed, user.id);
+      throw error;
+    }
+  }
+
+  @Post('free/nft-resolve')
+  async resolveFreeNft(@Body() body: { initData?: string; requestId?: string; action?: string }) {
+    const user = await this.getUser(body.initData);
+    const requestId = validRequestId(body.requestId);
+    const action = body.action;
+    if (action !== 'sell' && action !== 'claim') throw new BadRequestException('Choose a quick sale or claim for the NFT');
+    const reference = `free:${user.id}:${requestId}`;
+    const transaction = await this.prisma.gameTransaction.findUnique({ where: { reference } });
+    const details = transaction?.details as { reward?: { id: string; name: string; valueGram: string }; resolution?: string | null; giftId?: string | null } | null;
+    if (!transaction || transaction.type !== 'NFT_PENDING' || details?.reward?.id !== FREE_CASE_NFT_ID) {
+      throw new BadRequestException('This FREE case NFT win was not found');
+    }
+    if (details.resolution) return this.publicFreeSettlement(transaction, user.id);
+
+    if (action === 'sell') {
+      return this.prisma.$transaction(async (tx) => {
+        const claimed = await tx.gameTransaction.updateMany({
+          where: { reference, type: 'NFT_PENDING' },
+          data: {
+            type: 'SETTLEMENT',
+            amountGram: Number(details.reward!.valueGram),
+            details: { reward: details.reward, resolution: 'SOLD' },
+          },
+        });
+        if (claimed.count !== 1) return this.publicFreeSettlement(await tx.gameTransaction.findUniqueOrThrow({ where: { reference } }), user.id);
+        await tx.user.update({ where: { id: user.id }, data: { balanceGram: { increment: details.reward!.valueGram } } });
+        const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
+        return { resolution: 'SOLD', balanceGram: balance.balanceGram.toString() };
+      });
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      const claimed = await tx.gameTransaction.updateMany({
+        where: { reference, type: 'NFT_PENDING' },
+        data: { details: { reward: details.reward, resolution: 'CLAIMED' } },
+      });
+      if (claimed.count !== 1) return this.publicFreeSettlement(await tx.gameTransaction.findUniqueOrThrow({ where: { reference } }), user.id);
+      const gift = await tx.gift.create({
+        data: {
+          name: 'Candy Cane',
+          collection: FREE_CASE_COLLECTION,
+          emoji: '🍬',
+          priceTon: details.reward!.valueGram,
+          status: 'OWNED',
+          ownerId: user.id,
+        },
+      });
+      const balance = await tx.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true } });
+      return { resolution: 'CLAIMED', gift, balanceGram: balance.balanceGram.toString() };
+    });
+  }
+
+  private async publicFreeSettlement(transaction: { details: unknown }, userId: string) {
+    const details = transaction.details as { reward: { id: string; name: string; valueGram: string }; resolution?: string | null; giftId?: string | null };
+    return {
+      reward: { ...details.reward, kind: details.reward.id === FREE_CASE_NFT_ID ? ('nft' as const) : ('gram' as const) },
+      resolution: details.resolution ?? null,
+      balanceGram: (await this.balance(userId)).toString(),
+    };
+  }
+
+  private async isFreeSubscribed(telegramId: string) {
+    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN')?.trim();
+    if (!token) throw new ServiceUnavailableException('Subscription verification is not configured');
+
+    let response: Response;
+    try {
+      response = await fetch(`https://api.telegram.org/bot${token}/getChatMember`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: GamesController.FREE_CHANNEL_USERNAME, user_id: telegramId }),
+        signal: AbortSignal.timeout(8_000),
+      });
+    } catch {
+      throw new ServiceUnavailableException('Could not verify channel membership. Please try again.');
+    }
+
+    const result = await response.json().catch(() => null) as {
+      ok?: boolean;
+      result?: { status?: string; is_member?: boolean };
+    } | null;
+    if (!response.ok || !result?.ok || !result.result) {
+      throw new ServiceUnavailableException('The ORBIT bot must be an administrator of the channel to verify subscriptions.');
+    }
+
+    const { status, is_member: isMember } = result.result;
+    return status === 'creator' || status === 'administrator' || status === 'member' || (status === 'restricted' && isMember === true);
   }
 
   private async balance(userId: string) {

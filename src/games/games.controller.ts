@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { randomBytes, randomInt } from 'node:crypto';
 import { PrismaService } from '../prisma.service.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
-import { FREE_CASE_COLLECTION, FREE_CASE_NFT_ID } from './free-case.constants.js';
+import { FREE_CASE_COLLECTION, FREE_CASE_COLLECTIBLES, isFreeCaseCollectible } from './free-case.constants.js';
 
 const LUCKY_REWARDS = [
   { id: 'gram-01', name: 'GRAM', valueGram: '0.1', chance: 22, kind: 'gram' },
@@ -148,8 +148,8 @@ export class GamesController {
     { id: 'gram-001', name: '0.01 GRAM', valueGram: '0.01', chance: 40_000, kind: 'gram' },
     { id: 'gram-01', name: '0.1 GRAM', valueGram: '0.1', chance: 4_500, kind: 'gram' },
     { id: 'gram-1', name: '1 GRAM', valueGram: '1', chance: 500, kind: 'gram' },
-    { id: 'bear', name: 'Telegram Bear', valueGram: '20', chance: 4_800, kind: 'gram' },
-    { id: FREE_CASE_NFT_ID, name: 'Candy Cane NFT', valueGram: '20', chance: 200, kind: 'nft' },
+    { id: 'bear', name: 'Telegram Bear', valueGram: '20', chance: 4_800, kind: 'nft' },
+    { id: 'candycane-nft', name: 'Candy Cane NFT', valueGram: '20', chance: 200, kind: 'nft' },
   ] as const;
 
   @Get('free/cooldown')
@@ -257,8 +257,8 @@ export class GamesController {
     const reference = `free:${user.id}:${requestId}`;
     const transaction = await this.prisma.gameTransaction.findUnique({ where: { reference } });
     const details = transaction?.details as { reward?: { id: string; name: string; valueGram: string }; resolution?: string | null; giftId?: string | null } | null;
-    if (!transaction || transaction.type !== 'NFT_PENDING' || details?.reward?.id !== FREE_CASE_NFT_ID) {
-      throw new BadRequestException('This FREE case NFT win was not found');
+    if (!transaction || transaction.type !== 'NFT_PENDING' || !details?.reward || !isFreeCaseCollectible(details.reward.id)) {
+      throw new BadRequestException('This FREE case collectible win was not found');
     }
     if (details.resolution) return this.publicFreeSettlement(transaction, user.id);
 
@@ -285,11 +285,12 @@ export class GamesController {
         data: { details: { reward: details.reward, resolution: 'CLAIMED' } },
       });
       if (claimed.count !== 1) return this.publicFreeSettlement(await tx.gameTransaction.findUniqueOrThrow({ where: { reference } }), user.id);
+      const collectible = FREE_CASE_COLLECTIBLES[details.reward!.id as keyof typeof FREE_CASE_COLLECTIBLES];
       const gift = await tx.gift.create({
         data: {
-          name: 'Candy Cane',
+          name: collectible.name,
           collection: FREE_CASE_COLLECTION,
-          emoji: '🍬',
+          emoji: collectible.emoji,
           priceTon: details.reward!.valueGram,
           status: 'OWNED',
           ownerId: user.id,
@@ -303,7 +304,7 @@ export class GamesController {
   private async publicFreeSettlement(transaction: { details: unknown }, userId: string) {
     const details = transaction.details as { reward: { id: string; name: string; valueGram: string }; resolution?: string | null; giftId?: string | null };
     return {
-      reward: { ...details.reward, kind: details.reward.id === FREE_CASE_NFT_ID ? ('nft' as const) : ('gram' as const) },
+      reward: { ...details.reward, kind: isFreeCaseCollectible(details.reward.id) ? ('nft' as const) : ('gram' as const) },
       resolution: details.resolution ?? null,
       balanceGram: (await this.balance(userId)).toString(),
     };

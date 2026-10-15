@@ -177,6 +177,20 @@ exports.Prisma.BotDepositScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.StarDepositScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  starAmount: 'starAmount',
+  gramAmount: 'gramAmount',
+  payload: 'payload',
+  chargeId: 'chargeId',
+  providerChargeId: 'providerChargeId',
+  status: 'status',
+  expiresAt: 'expiresAt',
+  confirmedAt: 'confirmedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.BotWithdrawalScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -350,6 +364,7 @@ exports.Prisma.ModelName = {
   GiveawayReferralLink: 'GiveawayReferralLink',
   GameTransaction: 'GameTransaction',
   BotDeposit: 'BotDeposit',
+  StarDeposit: 'StarDeposit',
   BotWithdrawal: 'BotWithdrawal',
   Wallet: 'Wallet',
   Gift: 'Gift',

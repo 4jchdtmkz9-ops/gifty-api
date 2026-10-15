@@ -13,6 +13,7 @@ import { ConfigService } from '@nestjs/config';
 import { randomBytes, randomInt } from 'node:crypto';
 import { PrismaService } from '../prisma.service.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
+import { StarPaymentsService } from '../payments/star-payments.service.js';
 
 const GIVEAWAY_ID = 'eternal-rose-2026-10';
 const CHANNEL_USERNAME = '@orbit_market_official';
@@ -29,6 +30,24 @@ type TelegramUpdate = {
     from: { id: number };
     message?: { chat: { id: number }; message_id: number };
   };
+  pre_checkout_query?: {
+    id: string;
+    from: { id: number };
+    currency?: string;
+    total_amount?: number;
+    invoice_payload?: string;
+  };
+  message?: {
+    message_id: number;
+    from?: { id: number };
+    successful_payment?: {
+      currency?: string;
+      total_amount?: number;
+      invoice_payload?: string;
+      telegram_payment_charge_id?: string;
+      provider_payment_charge_id?: string;
+    };
+  };
 };
 
 @Controller('giveaways')
@@ -39,6 +58,7 @@ export class GiveawaysController {
     private readonly prisma: PrismaService,
     private readonly telegramAuth: TelegramAuthService,
     private readonly config: ConfigService,
+    private readonly stars: StarPaymentsService,
   ) {}
 
   @Get('rose/status')
@@ -136,6 +156,14 @@ export class GiveawaysController {
   ) {
     const expectedSecret = this.config.get<string>('TELEGRAM_WEBHOOK_SECRET')?.trim();
     if (!expectedSecret || secret !== expectedSecret) throw new UnauthorizedException();
+    if (update?.pre_checkout_query) {
+      await this.stars.answerPreCheckout(update.pre_checkout_query);
+      return { ok: true };
+    }
+    if (update?.message?.successful_payment) {
+      await this.stars.confirmSuccessfulPayment(update.message.successful_payment);
+      return { ok: true };
+    }
     const callback = update?.callback_query;
     if (!callback?.data?.startsWith('rose:')) return { ok: true };
 

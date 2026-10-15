@@ -32,6 +32,7 @@ model User {
   receivedPvpInvitations  PvpInvitation[]         @relation("PvpInvitationRecipient")
   botDeposits             BotDeposit[]
   botWithdrawals          BotWithdrawal[]
+  starDeposits            StarDeposit[]
   gameTransactions        GameTransaction[]
   giftDepositIntents      GiftDepositIntent[]
   giftWithdrawalRequests  GiftWithdrawalRequest[]
@@ -100,6 +101,25 @@ model BotDeposit {
   expiresAt      DateTime
   confirmedAt    DateTime?
   createdAt      DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, expiresAt])
+  @@index([userId, createdAt])
+}
+
+model StarDeposit {
+  id               String    @id @default(cuid())
+  userId           String
+  starAmount       Int
+  gramAmount       Decimal   @db.Decimal(20, 9)
+  payload          String    @unique
+  chargeId         String?   @unique
+  providerChargeId String?
+  status           String    @default("PENDING")
+  expiresAt        DateTime
+  confirmedAt      DateTime?
+  createdAt        DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

@@ -12,11 +12,13 @@ import { GamesController } from './games/games.controller.js';
 import { TelegramRelayController } from './telegram/telegram-relay.controller.js';
 import { TelegramRelayService } from './telegram/telegram-relay.service.js';
 import { GiveawaysController } from './giveaways/giveaways.controller.js';
+import { PaymentsController } from './payments/payments.controller.js';
+import { StarPaymentsService } from './payments/star-payments.service.js';
 
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true })],
-  controllers: [AppController, UsersController, PvpController, GamesController, TelegramRelayController, GiveawaysController],
+  controllers: [AppController, UsersController, PvpController, GamesController, TelegramRelayController, GiveawaysController, PaymentsController],
   providers: [
   AppService,
   PrismaService,
@@ -24,6 +26,7 @@ import { GiveawaysController } from './giveaways/giveaways.controller.js';
   TonService,
   BotBalanceService,
   TelegramRelayService,
+  StarPaymentsService,
 ],
 })
 export class AppModule {}

@@ -39,6 +39,11 @@ export type GameTransaction = $Result.DefaultSelection<Prisma.$GameTransactionPa
  */
 export type BotDeposit = $Result.DefaultSelection<Prisma.$BotDepositPayload>
 /**
+ * Model StarDeposit
+ * 
+ */
+export type StarDeposit = $Result.DefaultSelection<Prisma.$StarDepositPayload>
+/**
  * Model BotWithdrawal
  * 
  */
@@ -269,6 +274,16 @@ export class PrismaClient<
     * ```
     */
   get botDeposit(): Prisma.BotDepositDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.starDeposit`: Exposes CRUD operations for the **StarDeposit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StarDeposits
+    * const starDeposits = await prisma.starDeposit.findMany()
+    * ```
+    */
+  get starDeposit(): Prisma.StarDepositDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.botWithdrawal`: Exposes CRUD operations for the **BotWithdrawal** model.
@@ -841,6 +856,7 @@ export namespace Prisma {
     GiveawayReferralLink: 'GiveawayReferralLink',
     GameTransaction: 'GameTransaction',
     BotDeposit: 'BotDeposit',
+    StarDeposit: 'StarDeposit',
     BotWithdrawal: 'BotWithdrawal',
     Wallet: 'Wallet',
     Gift: 'Gift',
@@ -868,7 +884,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "giveawayEntry" | "giveawayReferralLink" | "gameTransaction" | "botDeposit" | "botWithdrawal" | "wallet" | "gift" | "giftDepositIntent" | "giftWithdrawalRequest" | "telegramRelayState" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpParticipantGift" | "pvpInvitation"
+      modelProps: "user" | "giveawayEntry" | "giveawayReferralLink" | "gameTransaction" | "botDeposit" | "starDeposit" | "botWithdrawal" | "wallet" | "gift" | "giftDepositIntent" | "giftWithdrawalRequest" | "telegramRelayState" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpParticipantGift" | "pvpInvitation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1239,6 +1255,80 @@ export namespace Prisma {
           count: {
             args: Prisma.BotDepositCountArgs<ExtArgs>
             result: $Utils.Optional<BotDepositCountAggregateOutputType> | number
+          }
+        }
+      }
+      StarDeposit: {
+        payload: Prisma.$StarDepositPayload<ExtArgs>
+        fields: Prisma.StarDepositFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StarDepositFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StarDepositFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>
+          }
+          findFirst: {
+            args: Prisma.StarDepositFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StarDepositFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>
+          }
+          findMany: {
+            args: Prisma.StarDepositFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>[]
+          }
+          create: {
+            args: Prisma.StarDepositCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>
+          }
+          createMany: {
+            args: Prisma.StarDepositCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StarDepositCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>[]
+          }
+          delete: {
+            args: Prisma.StarDepositDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>
+          }
+          update: {
+            args: Prisma.StarDepositUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>
+          }
+          deleteMany: {
+            args: Prisma.StarDepositDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StarDepositUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StarDepositUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>[]
+          }
+          upsert: {
+            args: Prisma.StarDepositUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StarDepositPayload>
+          }
+          aggregate: {
+            args: Prisma.StarDepositAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStarDeposit>
+          }
+          groupBy: {
+            args: Prisma.StarDepositGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StarDepositGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StarDepositCountArgs<ExtArgs>
+            result: $Utils.Optional<StarDepositCountAggregateOutputType> | number
           }
         }
       }
@@ -2258,6 +2348,7 @@ export namespace Prisma {
     giveawayReferralLink?: GiveawayReferralLinkOmit
     gameTransaction?: GameTransactionOmit
     botDeposit?: BotDepositOmit
+    starDeposit?: StarDepositOmit
     botWithdrawal?: BotWithdrawalOmit
     wallet?: WalletOmit
     gift?: GiftOmit
@@ -2363,6 +2454,7 @@ export namespace Prisma {
     receivedPvpInvitations: number
     botDeposits: number
     botWithdrawals: number
+    starDeposits: number
     gameTransactions: number
     giftDepositIntents: number
     giftWithdrawalRequests: number
@@ -2385,6 +2477,7 @@ export namespace Prisma {
     receivedPvpInvitations?: boolean | UserCountOutputTypeCountReceivedPvpInvitationsArgs
     botDeposits?: boolean | UserCountOutputTypeCountBotDepositsArgs
     botWithdrawals?: boolean | UserCountOutputTypeCountBotWithdrawalsArgs
+    starDeposits?: boolean | UserCountOutputTypeCountStarDepositsArgs
     gameTransactions?: boolean | UserCountOutputTypeCountGameTransactionsArgs
     giftDepositIntents?: boolean | UserCountOutputTypeCountGiftDepositIntentsArgs
     giftWithdrawalRequests?: boolean | UserCountOutputTypeCountGiftWithdrawalRequestsArgs
@@ -2493,6 +2586,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBotWithdrawalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BotWithdrawalWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStarDepositsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StarDepositWhereInput
   }
 
   /**
@@ -2922,6 +3022,7 @@ export namespace Prisma {
     receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
+    starDeposits?: boolean | User$starDepositsArgs<ExtArgs>
     gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
     giftDepositIntents?: boolean | User$giftDepositIntentsArgs<ExtArgs>
     giftWithdrawalRequests?: boolean | User$giftWithdrawalRequestsArgs<ExtArgs>
@@ -2985,6 +3086,7 @@ export namespace Prisma {
     receivedPvpInvitations?: boolean | User$receivedPvpInvitationsArgs<ExtArgs>
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
+    starDeposits?: boolean | User$starDepositsArgs<ExtArgs>
     gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
     giftDepositIntents?: boolean | User$giftDepositIntentsArgs<ExtArgs>
     giftWithdrawalRequests?: boolean | User$giftWithdrawalRequestsArgs<ExtArgs>
@@ -3012,6 +3114,7 @@ export namespace Prisma {
       receivedPvpInvitations: Prisma.$PvpInvitationPayload<ExtArgs>[]
       botDeposits: Prisma.$BotDepositPayload<ExtArgs>[]
       botWithdrawals: Prisma.$BotWithdrawalPayload<ExtArgs>[]
+      starDeposits: Prisma.$StarDepositPayload<ExtArgs>[]
       gameTransactions: Prisma.$GameTransactionPayload<ExtArgs>[]
       giftDepositIntents: Prisma.$GiftDepositIntentPayload<ExtArgs>[]
       giftWithdrawalRequests: Prisma.$GiftWithdrawalRequestPayload<ExtArgs>[]
@@ -3437,6 +3540,7 @@ export namespace Prisma {
     receivedPvpInvitations<T extends User$receivedPvpInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedPvpInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PvpInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     botDeposits<T extends User$botDepositsArgs<ExtArgs> = {}>(args?: Subset<T, User$botDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     botWithdrawals<T extends User$botWithdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$botWithdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    starDeposits<T extends User$starDepositsArgs<ExtArgs> = {}>(args?: Subset<T, User$starDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gameTransactions<T extends User$gameTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     giftDepositIntents<T extends User$giftDepositIntentsArgs<ExtArgs> = {}>(args?: Subset<T, User$giftDepositIntentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     giftWithdrawalRequests<T extends User$giftWithdrawalRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$giftWithdrawalRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4184,6 +4288,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BotWithdrawalScalarFieldEnum | BotWithdrawalScalarFieldEnum[]
+  }
+
+  /**
+   * User.starDeposits
+   */
+  export type User$starDepositsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    where?: StarDepositWhereInput
+    orderBy?: StarDepositOrderByWithRelationInput | StarDepositOrderByWithRelationInput[]
+    cursor?: StarDepositWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StarDepositScalarFieldEnum | StarDepositScalarFieldEnum[]
   }
 
   /**
@@ -8849,6 +8977,1185 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BotDepositInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StarDeposit
+   */
+
+  export type AggregateStarDeposit = {
+    _count: StarDepositCountAggregateOutputType | null
+    _avg: StarDepositAvgAggregateOutputType | null
+    _sum: StarDepositSumAggregateOutputType | null
+    _min: StarDepositMinAggregateOutputType | null
+    _max: StarDepositMaxAggregateOutputType | null
+  }
+
+  export type StarDepositAvgAggregateOutputType = {
+    starAmount: number | null
+    gramAmount: Decimal | null
+  }
+
+  export type StarDepositSumAggregateOutputType = {
+    starAmount: number | null
+    gramAmount: Decimal | null
+  }
+
+  export type StarDepositMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    starAmount: number | null
+    gramAmount: Decimal | null
+    payload: string | null
+    chargeId: string | null
+    providerChargeId: string | null
+    status: string | null
+    expiresAt: Date | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type StarDepositMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    starAmount: number | null
+    gramAmount: Decimal | null
+    payload: string | null
+    chargeId: string | null
+    providerChargeId: string | null
+    status: string | null
+    expiresAt: Date | null
+    confirmedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type StarDepositCountAggregateOutputType = {
+    id: number
+    userId: number
+    starAmount: number
+    gramAmount: number
+    payload: number
+    chargeId: number
+    providerChargeId: number
+    status: number
+    expiresAt: number
+    confirmedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type StarDepositAvgAggregateInputType = {
+    starAmount?: true
+    gramAmount?: true
+  }
+
+  export type StarDepositSumAggregateInputType = {
+    starAmount?: true
+    gramAmount?: true
+  }
+
+  export type StarDepositMinAggregateInputType = {
+    id?: true
+    userId?: true
+    starAmount?: true
+    gramAmount?: true
+    payload?: true
+    chargeId?: true
+    providerChargeId?: true
+    status?: true
+    expiresAt?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type StarDepositMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    starAmount?: true
+    gramAmount?: true
+    payload?: true
+    chargeId?: true
+    providerChargeId?: true
+    status?: true
+    expiresAt?: true
+    confirmedAt?: true
+    createdAt?: true
+  }
+
+  export type StarDepositCountAggregateInputType = {
+    id?: true
+    userId?: true
+    starAmount?: true
+    gramAmount?: true
+    payload?: true
+    chargeId?: true
+    providerChargeId?: true
+    status?: true
+    expiresAt?: true
+    confirmedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type StarDepositAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StarDeposit to aggregate.
+     */
+    where?: StarDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarDeposits to fetch.
+     */
+    orderBy?: StarDepositOrderByWithRelationInput | StarDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StarDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StarDeposits
+    **/
+    _count?: true | StarDepositCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StarDepositAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StarDepositSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StarDepositMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StarDepositMaxAggregateInputType
+  }
+
+  export type GetStarDepositAggregateType<T extends StarDepositAggregateArgs> = {
+        [P in keyof T & keyof AggregateStarDeposit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStarDeposit[P]>
+      : GetScalarType<T[P], AggregateStarDeposit[P]>
+  }
+
+
+
+
+  export type StarDepositGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StarDepositWhereInput
+    orderBy?: StarDepositOrderByWithAggregationInput | StarDepositOrderByWithAggregationInput[]
+    by: StarDepositScalarFieldEnum[] | StarDepositScalarFieldEnum
+    having?: StarDepositScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StarDepositCountAggregateInputType | true
+    _avg?: StarDepositAvgAggregateInputType
+    _sum?: StarDepositSumAggregateInputType
+    _min?: StarDepositMinAggregateInputType
+    _max?: StarDepositMaxAggregateInputType
+  }
+
+  export type StarDepositGroupByOutputType = {
+    id: string
+    userId: string
+    starAmount: number
+    gramAmount: Decimal
+    payload: string
+    chargeId: string | null
+    providerChargeId: string | null
+    status: string
+    expiresAt: Date
+    confirmedAt: Date | null
+    createdAt: Date
+    _count: StarDepositCountAggregateOutputType | null
+    _avg: StarDepositAvgAggregateOutputType | null
+    _sum: StarDepositSumAggregateOutputType | null
+    _min: StarDepositMinAggregateOutputType | null
+    _max: StarDepositMaxAggregateOutputType | null
+  }
+
+  type GetStarDepositGroupByPayload<T extends StarDepositGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StarDepositGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StarDepositGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StarDepositGroupByOutputType[P]>
+            : GetScalarType<T[P], StarDepositGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StarDepositSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    starAmount?: boolean
+    gramAmount?: boolean
+    payload?: boolean
+    chargeId?: boolean
+    providerChargeId?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["starDeposit"]>
+
+  export type StarDepositSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    starAmount?: boolean
+    gramAmount?: boolean
+    payload?: boolean
+    chargeId?: boolean
+    providerChargeId?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["starDeposit"]>
+
+  export type StarDepositSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    starAmount?: boolean
+    gramAmount?: boolean
+    payload?: boolean
+    chargeId?: boolean
+    providerChargeId?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["starDeposit"]>
+
+  export type StarDepositSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    starAmount?: boolean
+    gramAmount?: boolean
+    payload?: boolean
+    chargeId?: boolean
+    providerChargeId?: boolean
+    status?: boolean
+    expiresAt?: boolean
+    confirmedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type StarDepositOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "starAmount" | "gramAmount" | "payload" | "chargeId" | "providerChargeId" | "status" | "expiresAt" | "confirmedAt" | "createdAt", ExtArgs["result"]["starDeposit"]>
+  export type StarDepositInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type StarDepositIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type StarDepositIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $StarDepositPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StarDeposit"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      starAmount: number
+      gramAmount: Prisma.Decimal
+      payload: string
+      chargeId: string | null
+      providerChargeId: string | null
+      status: string
+      expiresAt: Date
+      confirmedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["starDeposit"]>
+    composites: {}
+  }
+
+  type StarDepositGetPayload<S extends boolean | null | undefined | StarDepositDefaultArgs> = $Result.GetResult<Prisma.$StarDepositPayload, S>
+
+  type StarDepositCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StarDepositFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StarDepositCountAggregateInputType | true
+    }
+
+  export interface StarDepositDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StarDeposit'], meta: { name: 'StarDeposit' } }
+    /**
+     * Find zero or one StarDeposit that matches the filter.
+     * @param {StarDepositFindUniqueArgs} args - Arguments to find a StarDeposit
+     * @example
+     * // Get one StarDeposit
+     * const starDeposit = await prisma.starDeposit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StarDepositFindUniqueArgs>(args: SelectSubset<T, StarDepositFindUniqueArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StarDeposit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StarDepositFindUniqueOrThrowArgs} args - Arguments to find a StarDeposit
+     * @example
+     * // Get one StarDeposit
+     * const starDeposit = await prisma.starDeposit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StarDepositFindUniqueOrThrowArgs>(args: SelectSubset<T, StarDepositFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StarDeposit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarDepositFindFirstArgs} args - Arguments to find a StarDeposit
+     * @example
+     * // Get one StarDeposit
+     * const starDeposit = await prisma.starDeposit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StarDepositFindFirstArgs>(args?: SelectSubset<T, StarDepositFindFirstArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StarDeposit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarDepositFindFirstOrThrowArgs} args - Arguments to find a StarDeposit
+     * @example
+     * // Get one StarDeposit
+     * const starDeposit = await prisma.starDeposit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StarDepositFindFirstOrThrowArgs>(args?: SelectSubset<T, StarDepositFindFirstOrThrowArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StarDeposits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarDepositFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StarDeposits
+     * const starDeposits = await prisma.starDeposit.findMany()
+     * 
+     * // Get first 10 StarDeposits
+     * const starDeposits = await prisma.starDeposit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const starDepositWithIdOnly = await prisma.starDeposit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StarDepositFindManyArgs>(args?: SelectSubset<T, StarDepositFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StarDeposit.
+     * @param {StarDepositCreateArgs} args - Arguments to create a StarDeposit.
+     * @example
+     * // Create one StarDeposit
+     * const StarDeposit = await prisma.starDeposit.create({
+     *   data: {
+     *     // ... data to create a StarDeposit
+     *   }
+     * })
+     * 
+     */
+    create<T extends StarDepositCreateArgs>(args: SelectSubset<T, StarDepositCreateArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StarDeposits.
+     * @param {StarDepositCreateManyArgs} args - Arguments to create many StarDeposits.
+     * @example
+     * // Create many StarDeposits
+     * const starDeposit = await prisma.starDeposit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StarDepositCreateManyArgs>(args?: SelectSubset<T, StarDepositCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StarDeposits and returns the data saved in the database.
+     * @param {StarDepositCreateManyAndReturnArgs} args - Arguments to create many StarDeposits.
+     * @example
+     * // Create many StarDeposits
+     * const starDeposit = await prisma.starDeposit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StarDeposits and only return the `id`
+     * const starDepositWithIdOnly = await prisma.starDeposit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StarDepositCreateManyAndReturnArgs>(args?: SelectSubset<T, StarDepositCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a StarDeposit.
+     * @param {StarDepositDeleteArgs} args - Arguments to delete one StarDeposit.
+     * @example
+     * // Delete one StarDeposit
+     * const StarDeposit = await prisma.starDeposit.delete({
+     *   where: {
+     *     // ... filter to delete one StarDeposit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StarDepositDeleteArgs>(args: SelectSubset<T, StarDepositDeleteArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StarDeposit.
+     * @param {StarDepositUpdateArgs} args - Arguments to update one StarDeposit.
+     * @example
+     * // Update one StarDeposit
+     * const starDeposit = await prisma.starDeposit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StarDepositUpdateArgs>(args: SelectSubset<T, StarDepositUpdateArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StarDeposits.
+     * @param {StarDepositDeleteManyArgs} args - Arguments to filter StarDeposits to delete.
+     * @example
+     * // Delete a few StarDeposits
+     * const { count } = await prisma.starDeposit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StarDepositDeleteManyArgs>(args?: SelectSubset<T, StarDepositDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StarDeposits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarDepositUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StarDeposits
+     * const starDeposit = await prisma.starDeposit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StarDepositUpdateManyArgs>(args: SelectSubset<T, StarDepositUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StarDeposits and returns the data updated in the database.
+     * @param {StarDepositUpdateManyAndReturnArgs} args - Arguments to update many StarDeposits.
+     * @example
+     * // Update many StarDeposits
+     * const starDeposit = await prisma.starDeposit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more StarDeposits and only return the `id`
+     * const starDepositWithIdOnly = await prisma.starDeposit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StarDepositUpdateManyAndReturnArgs>(args: SelectSubset<T, StarDepositUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one StarDeposit.
+     * @param {StarDepositUpsertArgs} args - Arguments to update or create a StarDeposit.
+     * @example
+     * // Update or create a StarDeposit
+     * const starDeposit = await prisma.starDeposit.upsert({
+     *   create: {
+     *     // ... data to create a StarDeposit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StarDeposit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StarDepositUpsertArgs>(args: SelectSubset<T, StarDepositUpsertArgs<ExtArgs>>): Prisma__StarDepositClient<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StarDeposits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarDepositCountArgs} args - Arguments to filter StarDeposits to count.
+     * @example
+     * // Count the number of StarDeposits
+     * const count = await prisma.starDeposit.count({
+     *   where: {
+     *     // ... the filter for the StarDeposits we want to count
+     *   }
+     * })
+    **/
+    count<T extends StarDepositCountArgs>(
+      args?: Subset<T, StarDepositCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StarDepositCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StarDeposit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarDepositAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StarDepositAggregateArgs>(args: Subset<T, StarDepositAggregateArgs>): Prisma.PrismaPromise<GetStarDepositAggregateType<T>>
+
+    /**
+     * Group by StarDeposit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StarDepositGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StarDepositGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StarDepositGroupByArgs['orderBy'] }
+        : { orderBy?: StarDepositGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StarDepositGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStarDepositGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StarDeposit model
+   */
+  readonly fields: StarDepositFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StarDeposit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StarDepositClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StarDeposit model
+   */
+  interface StarDepositFieldRefs {
+    readonly id: FieldRef<"StarDeposit", 'String'>
+    readonly userId: FieldRef<"StarDeposit", 'String'>
+    readonly starAmount: FieldRef<"StarDeposit", 'Int'>
+    readonly gramAmount: FieldRef<"StarDeposit", 'Decimal'>
+    readonly payload: FieldRef<"StarDeposit", 'String'>
+    readonly chargeId: FieldRef<"StarDeposit", 'String'>
+    readonly providerChargeId: FieldRef<"StarDeposit", 'String'>
+    readonly status: FieldRef<"StarDeposit", 'String'>
+    readonly expiresAt: FieldRef<"StarDeposit", 'DateTime'>
+    readonly confirmedAt: FieldRef<"StarDeposit", 'DateTime'>
+    readonly createdAt: FieldRef<"StarDeposit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StarDeposit findUnique
+   */
+  export type StarDepositFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which StarDeposit to fetch.
+     */
+    where: StarDepositWhereUniqueInput
+  }
+
+  /**
+   * StarDeposit findUniqueOrThrow
+   */
+  export type StarDepositFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which StarDeposit to fetch.
+     */
+    where: StarDepositWhereUniqueInput
+  }
+
+  /**
+   * StarDeposit findFirst
+   */
+  export type StarDepositFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which StarDeposit to fetch.
+     */
+    where?: StarDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarDeposits to fetch.
+     */
+    orderBy?: StarDepositOrderByWithRelationInput | StarDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StarDeposits.
+     */
+    cursor?: StarDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StarDeposits.
+     */
+    distinct?: StarDepositScalarFieldEnum | StarDepositScalarFieldEnum[]
+  }
+
+  /**
+   * StarDeposit findFirstOrThrow
+   */
+  export type StarDepositFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which StarDeposit to fetch.
+     */
+    where?: StarDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarDeposits to fetch.
+     */
+    orderBy?: StarDepositOrderByWithRelationInput | StarDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StarDeposits.
+     */
+    cursor?: StarDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StarDeposits.
+     */
+    distinct?: StarDepositScalarFieldEnum | StarDepositScalarFieldEnum[]
+  }
+
+  /**
+   * StarDeposit findMany
+   */
+  export type StarDepositFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * Filter, which StarDeposits to fetch.
+     */
+    where?: StarDepositWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StarDeposits to fetch.
+     */
+    orderBy?: StarDepositOrderByWithRelationInput | StarDepositOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StarDeposits.
+     */
+    cursor?: StarDepositWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StarDeposits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StarDeposits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StarDeposits.
+     */
+    distinct?: StarDepositScalarFieldEnum | StarDepositScalarFieldEnum[]
+  }
+
+  /**
+   * StarDeposit create
+   */
+  export type StarDepositCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StarDeposit.
+     */
+    data: XOR<StarDepositCreateInput, StarDepositUncheckedCreateInput>
+  }
+
+  /**
+   * StarDeposit createMany
+   */
+  export type StarDepositCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StarDeposits.
+     */
+    data: StarDepositCreateManyInput | StarDepositCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StarDeposit createManyAndReturn
+   */
+  export type StarDepositCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * The data used to create many StarDeposits.
+     */
+    data: StarDepositCreateManyInput | StarDepositCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StarDeposit update
+   */
+  export type StarDepositUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StarDeposit.
+     */
+    data: XOR<StarDepositUpdateInput, StarDepositUncheckedUpdateInput>
+    /**
+     * Choose, which StarDeposit to update.
+     */
+    where: StarDepositWhereUniqueInput
+  }
+
+  /**
+   * StarDeposit updateMany
+   */
+  export type StarDepositUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StarDeposits.
+     */
+    data: XOR<StarDepositUpdateManyMutationInput, StarDepositUncheckedUpdateManyInput>
+    /**
+     * Filter which StarDeposits to update
+     */
+    where?: StarDepositWhereInput
+    /**
+     * Limit how many StarDeposits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StarDeposit updateManyAndReturn
+   */
+  export type StarDepositUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * The data used to update StarDeposits.
+     */
+    data: XOR<StarDepositUpdateManyMutationInput, StarDepositUncheckedUpdateManyInput>
+    /**
+     * Filter which StarDeposits to update
+     */
+    where?: StarDepositWhereInput
+    /**
+     * Limit how many StarDeposits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StarDeposit upsert
+   */
+  export type StarDepositUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StarDeposit to update in case it exists.
+     */
+    where: StarDepositWhereUniqueInput
+    /**
+     * In case the StarDeposit found by the `where` argument doesn't exist, create a new StarDeposit with this data.
+     */
+    create: XOR<StarDepositCreateInput, StarDepositUncheckedCreateInput>
+    /**
+     * In case the StarDeposit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StarDepositUpdateInput, StarDepositUncheckedUpdateInput>
+  }
+
+  /**
+   * StarDeposit delete
+   */
+  export type StarDepositDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
+    /**
+     * Filter which StarDeposit to delete.
+     */
+    where: StarDepositWhereUniqueInput
+  }
+
+  /**
+   * StarDeposit deleteMany
+   */
+  export type StarDepositDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StarDeposits to delete
+     */
+    where?: StarDepositWhereInput
+    /**
+     * Limit how many StarDeposits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StarDeposit without action
+   */
+  export type StarDepositDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StarDeposit
+     */
+    select?: StarDepositSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StarDeposit
+     */
+    omit?: StarDepositOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StarDepositInclude<ExtArgs> | null
   }
 
 
@@ -22891,6 +24198,23 @@ export namespace Prisma {
   export type BotDepositScalarFieldEnum = (typeof BotDepositScalarFieldEnum)[keyof typeof BotDepositScalarFieldEnum]
 
 
+  export const StarDepositScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    starAmount: 'starAmount',
+    gramAmount: 'gramAmount',
+    payload: 'payload',
+    chargeId: 'chargeId',
+    providerChargeId: 'providerChargeId',
+    status: 'status',
+    expiresAt: 'expiresAt',
+    confirmedAt: 'confirmedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type StarDepositScalarFieldEnum = (typeof StarDepositScalarFieldEnum)[keyof typeof StarDepositScalarFieldEnum]
+
+
   export const BotWithdrawalScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -23234,6 +24558,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationListRelationFilter
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
+    starDeposits?: StarDepositListRelationFilter
     gameTransactions?: GameTransactionListRelationFilter
     giftDepositIntents?: GiftDepositIntentListRelationFilter
     giftWithdrawalRequests?: GiftWithdrawalRequestListRelationFilter
@@ -23266,6 +24591,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationOrderByRelationAggregateInput
     botDeposits?: BotDepositOrderByRelationAggregateInput
     botWithdrawals?: BotWithdrawalOrderByRelationAggregateInput
+    starDeposits?: StarDepositOrderByRelationAggregateInput
     gameTransactions?: GameTransactionOrderByRelationAggregateInput
     giftDepositIntents?: GiftDepositIntentOrderByRelationAggregateInput
     giftWithdrawalRequests?: GiftWithdrawalRequestOrderByRelationAggregateInput
@@ -23301,6 +24627,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationListRelationFilter
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
+    starDeposits?: StarDepositListRelationFilter
     gameTransactions?: GameTransactionListRelationFilter
     giftDepositIntents?: GiftDepositIntentListRelationFilter
     giftWithdrawalRequests?: GiftWithdrawalRequestListRelationFilter
@@ -23630,6 +24957,93 @@ export namespace Prisma {
     expiresAt?: DateTimeWithAggregatesFilter<"BotDeposit"> | Date | string
     confirmedAt?: DateTimeNullableWithAggregatesFilter<"BotDeposit"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BotDeposit"> | Date | string
+  }
+
+  export type StarDepositWhereInput = {
+    AND?: StarDepositWhereInput | StarDepositWhereInput[]
+    OR?: StarDepositWhereInput[]
+    NOT?: StarDepositWhereInput | StarDepositWhereInput[]
+    id?: StringFilter<"StarDeposit"> | string
+    userId?: StringFilter<"StarDeposit"> | string
+    starAmount?: IntFilter<"StarDeposit"> | number
+    gramAmount?: DecimalFilter<"StarDeposit"> | Decimal | DecimalJsLike | number | string
+    payload?: StringFilter<"StarDeposit"> | string
+    chargeId?: StringNullableFilter<"StarDeposit"> | string | null
+    providerChargeId?: StringNullableFilter<"StarDeposit"> | string | null
+    status?: StringFilter<"StarDeposit"> | string
+    expiresAt?: DateTimeFilter<"StarDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableFilter<"StarDeposit"> | Date | string | null
+    createdAt?: DateTimeFilter<"StarDeposit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type StarDepositOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    starAmount?: SortOrder
+    gramAmount?: SortOrder
+    payload?: SortOrder
+    chargeId?: SortOrderInput | SortOrder
+    providerChargeId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type StarDepositWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    payload?: string
+    chargeId?: string
+    AND?: StarDepositWhereInput | StarDepositWhereInput[]
+    OR?: StarDepositWhereInput[]
+    NOT?: StarDepositWhereInput | StarDepositWhereInput[]
+    userId?: StringFilter<"StarDeposit"> | string
+    starAmount?: IntFilter<"StarDeposit"> | number
+    gramAmount?: DecimalFilter<"StarDeposit"> | Decimal | DecimalJsLike | number | string
+    providerChargeId?: StringNullableFilter<"StarDeposit"> | string | null
+    status?: StringFilter<"StarDeposit"> | string
+    expiresAt?: DateTimeFilter<"StarDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableFilter<"StarDeposit"> | Date | string | null
+    createdAt?: DateTimeFilter<"StarDeposit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "payload" | "chargeId">
+
+  export type StarDepositOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    starAmount?: SortOrder
+    gramAmount?: SortOrder
+    payload?: SortOrder
+    chargeId?: SortOrderInput | SortOrder
+    providerChargeId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: StarDepositCountOrderByAggregateInput
+    _avg?: StarDepositAvgOrderByAggregateInput
+    _max?: StarDepositMaxOrderByAggregateInput
+    _min?: StarDepositMinOrderByAggregateInput
+    _sum?: StarDepositSumOrderByAggregateInput
+  }
+
+  export type StarDepositScalarWhereWithAggregatesInput = {
+    AND?: StarDepositScalarWhereWithAggregatesInput | StarDepositScalarWhereWithAggregatesInput[]
+    OR?: StarDepositScalarWhereWithAggregatesInput[]
+    NOT?: StarDepositScalarWhereWithAggregatesInput | StarDepositScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"StarDeposit"> | string
+    userId?: StringWithAggregatesFilter<"StarDeposit"> | string
+    starAmount?: IntWithAggregatesFilter<"StarDeposit"> | number
+    gramAmount?: DecimalWithAggregatesFilter<"StarDeposit"> | Decimal | DecimalJsLike | number | string
+    payload?: StringWithAggregatesFilter<"StarDeposit"> | string
+    chargeId?: StringNullableWithAggregatesFilter<"StarDeposit"> | string | null
+    providerChargeId?: StringNullableWithAggregatesFilter<"StarDeposit"> | string | null
+    status?: StringWithAggregatesFilter<"StarDeposit"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"StarDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableWithAggregatesFilter<"StarDeposit"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"StarDeposit"> | Date | string
   }
 
   export type BotWithdrawalWhereInput = {
@@ -24606,6 +26020,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -24638,6 +26053,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -24670,6 +26086,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -24702,6 +26119,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -25046,6 +26464,103 @@ export namespace Prisma {
     walletAddress?: StringFieldUpdateOperationsInput | string
     comment?: StringFieldUpdateOperationsInput | string
     txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarDepositCreateInput = {
+    id?: string
+    starAmount: number
+    gramAmount: Decimal | DecimalJsLike | number | string
+    payload: string
+    chargeId?: string | null
+    providerChargeId?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutStarDepositsInput
+  }
+
+  export type StarDepositUncheckedCreateInput = {
+    id?: string
+    userId: string
+    starAmount: number
+    gramAmount: Decimal | DecimalJsLike | number | string
+    payload: string
+    chargeId?: string | null
+    providerChargeId?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type StarDepositUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    starAmount?: IntFieldUpdateOperationsInput | number
+    gramAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payload?: StringFieldUpdateOperationsInput | string
+    chargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerChargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStarDepositsNestedInput
+  }
+
+  export type StarDepositUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    starAmount?: IntFieldUpdateOperationsInput | number
+    gramAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payload?: StringFieldUpdateOperationsInput | string
+    chargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerChargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarDepositCreateManyInput = {
+    id?: string
+    userId: string
+    starAmount: number
+    gramAmount: Decimal | DecimalJsLike | number | string
+    payload: string
+    chargeId?: string | null
+    providerChargeId?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type StarDepositUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    starAmount?: IntFieldUpdateOperationsInput | number
+    gramAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payload?: StringFieldUpdateOperationsInput | string
+    chargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerChargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarDepositUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    starAmount?: IntFieldUpdateOperationsInput | number
+    gramAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payload?: StringFieldUpdateOperationsInput | string
+    chargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerChargeId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26148,6 +27663,12 @@ export namespace Prisma {
     none?: BotWithdrawalWhereInput
   }
 
+  export type StarDepositListRelationFilter = {
+    every?: StarDepositWhereInput
+    some?: StarDepositWhereInput
+    none?: StarDepositWhereInput
+  }
+
   export type GameTransactionListRelationFilter = {
     every?: GameTransactionWhereInput
     some?: GameTransactionWhereInput
@@ -26216,6 +27737,10 @@ export namespace Prisma {
   }
 
   export type BotWithdrawalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StarDepositOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26632,6 +28157,85 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type StarDepositCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    starAmount?: SortOrder
+    gramAmount?: SortOrder
+    payload?: SortOrder
+    chargeId?: SortOrder
+    providerChargeId?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StarDepositAvgOrderByAggregateInput = {
+    starAmount?: SortOrder
+    gramAmount?: SortOrder
+  }
+
+  export type StarDepositMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    starAmount?: SortOrder
+    gramAmount?: SortOrder
+    payload?: SortOrder
+    chargeId?: SortOrder
+    providerChargeId?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StarDepositMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    starAmount?: SortOrder
+    gramAmount?: SortOrder
+    payload?: SortOrder
+    chargeId?: SortOrder
+    providerChargeId?: SortOrder
+    status?: SortOrder
+    expiresAt?: SortOrder
+    confirmedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StarDepositSumOrderByAggregateInput = {
+    starAmount?: SortOrder
+    gramAmount?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -27275,6 +28879,13 @@ export namespace Prisma {
     connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
   }
 
+  export type StarDepositCreateNestedManyWithoutUserInput = {
+    create?: XOR<StarDepositCreateWithoutUserInput, StarDepositUncheckedCreateWithoutUserInput> | StarDepositCreateWithoutUserInput[] | StarDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarDepositCreateOrConnectWithoutUserInput | StarDepositCreateOrConnectWithoutUserInput[]
+    createMany?: StarDepositCreateManyUserInputEnvelope
+    connect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+  }
+
   export type GameTransactionCreateNestedManyWithoutUserInput = {
     create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
@@ -27406,6 +29017,13 @@ export namespace Prisma {
     connectOrCreate?: BotWithdrawalCreateOrConnectWithoutUserInput | BotWithdrawalCreateOrConnectWithoutUserInput[]
     createMany?: BotWithdrawalCreateManyUserInputEnvelope
     connect?: BotWithdrawalWhereUniqueInput | BotWithdrawalWhereUniqueInput[]
+  }
+
+  export type StarDepositUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StarDepositCreateWithoutUserInput, StarDepositUncheckedCreateWithoutUserInput> | StarDepositCreateWithoutUserInput[] | StarDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarDepositCreateOrConnectWithoutUserInput | StarDepositCreateOrConnectWithoutUserInput[]
+    createMany?: StarDepositCreateManyUserInputEnvelope
+    connect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
   }
 
   export type GameTransactionUncheckedCreateNestedManyWithoutUserInput = {
@@ -27650,6 +29268,20 @@ export namespace Prisma {
     update?: BotWithdrawalUpdateWithWhereUniqueWithoutUserInput | BotWithdrawalUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: BotWithdrawalUpdateManyWithWhereWithoutUserInput | BotWithdrawalUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
+  }
+
+  export type StarDepositUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StarDepositCreateWithoutUserInput, StarDepositUncheckedCreateWithoutUserInput> | StarDepositCreateWithoutUserInput[] | StarDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarDepositCreateOrConnectWithoutUserInput | StarDepositCreateOrConnectWithoutUserInput[]
+    upsert?: StarDepositUpsertWithWhereUniqueWithoutUserInput | StarDepositUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StarDepositCreateManyUserInputEnvelope
+    set?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    disconnect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    delete?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    connect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    update?: StarDepositUpdateWithWhereUniqueWithoutUserInput | StarDepositUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StarDepositUpdateManyWithWhereWithoutUserInput | StarDepositUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StarDepositScalarWhereInput | StarDepositScalarWhereInput[]
   }
 
   export type GameTransactionUpdateManyWithoutUserNestedInput = {
@@ -27918,6 +29550,20 @@ export namespace Prisma {
     deleteMany?: BotWithdrawalScalarWhereInput | BotWithdrawalScalarWhereInput[]
   }
 
+  export type StarDepositUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StarDepositCreateWithoutUserInput, StarDepositUncheckedCreateWithoutUserInput> | StarDepositCreateWithoutUserInput[] | StarDepositUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StarDepositCreateOrConnectWithoutUserInput | StarDepositCreateOrConnectWithoutUserInput[]
+    upsert?: StarDepositUpsertWithWhereUniqueWithoutUserInput | StarDepositUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StarDepositCreateManyUserInputEnvelope
+    set?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    disconnect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    delete?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    connect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+    update?: StarDepositUpdateWithWhereUniqueWithoutUserInput | StarDepositUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StarDepositUpdateManyWithWhereWithoutUserInput | StarDepositUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StarDepositScalarWhereInput | StarDepositScalarWhereInput[]
+  }
+
   export type GameTransactionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
@@ -28088,6 +29734,28 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutBotDepositsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBotDepositsInput, UserUpdateWithoutBotDepositsInput>, UserUncheckedUpdateWithoutBotDepositsInput>
+  }
+
+  export type UserCreateNestedOneWithoutStarDepositsInput = {
+    create?: XOR<UserCreateWithoutStarDepositsInput, UserUncheckedCreateWithoutStarDepositsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStarDepositsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutStarDepositsNestedInput = {
+    create?: XOR<UserCreateWithoutStarDepositsInput, UserUncheckedCreateWithoutStarDepositsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStarDepositsInput
+    upsert?: UserUpsertWithoutStarDepositsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStarDepositsInput, UserUpdateWithoutStarDepositsInput>, UserUncheckedUpdateWithoutStarDepositsInput>
   }
 
   export type UserCreateNestedOneWithoutBotWithdrawalsInput = {
@@ -28970,6 +30638,33 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -29462,6 +31157,42 @@ export namespace Prisma {
 
   export type BotWithdrawalCreateManyUserInputEnvelope = {
     data: BotWithdrawalCreateManyUserInput | BotWithdrawalCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StarDepositCreateWithoutUserInput = {
+    id?: string
+    starAmount: number
+    gramAmount: Decimal | DecimalJsLike | number | string
+    payload: string
+    chargeId?: string | null
+    providerChargeId?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type StarDepositUncheckedCreateWithoutUserInput = {
+    id?: string
+    starAmount: number
+    gramAmount: Decimal | DecimalJsLike | number | string
+    payload: string
+    chargeId?: string | null
+    providerChargeId?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type StarDepositCreateOrConnectWithoutUserInput = {
+    where: StarDepositWhereUniqueInput
+    create: XOR<StarDepositCreateWithoutUserInput, StarDepositUncheckedCreateWithoutUserInput>
+  }
+
+  export type StarDepositCreateManyUserInputEnvelope = {
+    data: StarDepositCreateManyUserInput | StarDepositCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -29987,6 +31718,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BotWithdrawal"> | Date | string
   }
 
+  export type StarDepositUpsertWithWhereUniqueWithoutUserInput = {
+    where: StarDepositWhereUniqueInput
+    update: XOR<StarDepositUpdateWithoutUserInput, StarDepositUncheckedUpdateWithoutUserInput>
+    create: XOR<StarDepositCreateWithoutUserInput, StarDepositUncheckedCreateWithoutUserInput>
+  }
+
+  export type StarDepositUpdateWithWhereUniqueWithoutUserInput = {
+    where: StarDepositWhereUniqueInput
+    data: XOR<StarDepositUpdateWithoutUserInput, StarDepositUncheckedUpdateWithoutUserInput>
+  }
+
+  export type StarDepositUpdateManyWithWhereWithoutUserInput = {
+    where: StarDepositScalarWhereInput
+    data: XOR<StarDepositUpdateManyMutationInput, StarDepositUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type StarDepositScalarWhereInput = {
+    AND?: StarDepositScalarWhereInput | StarDepositScalarWhereInput[]
+    OR?: StarDepositScalarWhereInput[]
+    NOT?: StarDepositScalarWhereInput | StarDepositScalarWhereInput[]
+    id?: StringFilter<"StarDeposit"> | string
+    userId?: StringFilter<"StarDeposit"> | string
+    starAmount?: IntFilter<"StarDeposit"> | number
+    gramAmount?: DecimalFilter<"StarDeposit"> | Decimal | DecimalJsLike | number | string
+    payload?: StringFilter<"StarDeposit"> | string
+    chargeId?: StringNullableFilter<"StarDeposit"> | string | null
+    providerChargeId?: StringNullableFilter<"StarDeposit"> | string | null
+    status?: StringFilter<"StarDeposit"> | string
+    expiresAt?: DateTimeFilter<"StarDeposit"> | Date | string
+    confirmedAt?: DateTimeNullableFilter<"StarDeposit"> | Date | string | null
+    createdAt?: DateTimeFilter<"StarDeposit"> | Date | string
+  }
+
   export type GameTransactionUpsertWithWhereUniqueWithoutUserInput = {
     where: GameTransactionWhereUniqueInput
     update: XOR<GameTransactionUpdateWithoutUserInput, GameTransactionUncheckedUpdateWithoutUserInput>
@@ -30171,6 +31935,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -30202,6 +31967,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -30238,6 +32004,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -30269,6 +32036,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -30316,6 +32084,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -30347,6 +32116,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -30389,6 +32159,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -30420,6 +32191,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -30451,6 +32223,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -30482,6 +32255,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -30529,6 +32303,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -30560,6 +32335,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -30591,6 +32367,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
@@ -30622,6 +32399,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
@@ -30669,6 +32447,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
@@ -30700,6 +32479,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
@@ -30730,6 +32510,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -30761,6 +32542,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -30808,6 +32590,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -30838,6 +32621,151 @@ export namespace Prisma {
     pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserCreateWithoutStarDepositsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserUncheckedCreateWithoutStarDepositsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserCreateOrConnectWithoutStarDepositsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStarDepositsInput, UserUncheckedCreateWithoutStarDepositsInput>
+  }
+
+  export type UserUpsertWithoutStarDepositsInput = {
+    update: XOR<UserUpdateWithoutStarDepositsInput, UserUncheckedUpdateWithoutStarDepositsInput>
+    create: XOR<UserCreateWithoutStarDepositsInput, UserUncheckedCreateWithoutStarDepositsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStarDepositsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStarDepositsInput, UserUncheckedUpdateWithoutStarDepositsInput>
+  }
+
+  export type UserUpdateWithoutStarDepositsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStarDepositsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
@@ -30870,6 +32798,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -30901,6 +32830,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -30948,6 +32878,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -30979,6 +32910,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -31010,6 +32942,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -31041,6 +32974,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -31088,6 +33022,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -31119,6 +33054,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -31150,6 +33086,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -31181,6 +33118,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -31369,6 +33307,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -31400,6 +33339,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -31536,6 +33476,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
@@ -31567,6 +33508,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
@@ -31667,6 +33609,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
@@ -31698,6 +33641,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
@@ -31788,6 +33732,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
@@ -31819,6 +33764,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
@@ -31919,6 +33865,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
@@ -31950,6 +33897,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
@@ -32092,6 +34040,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32123,6 +34072,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32159,6 +34109,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32190,6 +34141,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32296,6 +34248,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32327,6 +34280,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32369,6 +34323,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32400,6 +34355,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32484,6 +34440,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32515,6 +34472,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32551,6 +34509,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32582,6 +34541,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32688,6 +34648,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32719,6 +34680,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32761,6 +34723,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32792,6 +34755,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32823,6 +34787,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32854,6 +34819,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32890,6 +34856,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32921,6 +34888,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -33024,6 +34992,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33055,6 +35024,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -33097,6 +35067,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33128,6 +35099,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -33230,6 +35202,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -33261,6 +35234,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -33377,6 +35351,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33408,6 +35383,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -33658,6 +35634,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -33689,6 +35666,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -33725,6 +35703,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -33756,6 +35735,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -33848,6 +35828,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33879,6 +35860,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -33921,6 +35903,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33952,6 +35935,7 @@ export namespace Prisma {
     sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -34117,6 +36101,19 @@ export namespace Prisma {
     confirmedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type StarDepositCreateManyUserInput = {
+    id?: string
+    starAmount: number
+    gramAmount: Decimal | DecimalJsLike | number | string
+    payload: string
+    chargeId?: string | null
+    providerChargeId?: string | null
+    status?: string
+    expiresAt: Date | string
+    confirmedAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type GameTransactionCreateManyUserInput = {
@@ -34667,6 +36664,45 @@ export namespace Prisma {
     confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarDepositUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    starAmount?: IntFieldUpdateOperationsInput | number
+    gramAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payload?: StringFieldUpdateOperationsInput | string
+    chargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerChargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarDepositUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    starAmount?: IntFieldUpdateOperationsInput | number
+    gramAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payload?: StringFieldUpdateOperationsInput | string
+    chargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerChargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StarDepositUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    starAmount?: IntFieldUpdateOperationsInput | number
+    gramAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payload?: StringFieldUpdateOperationsInput | string
+    chargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerChargeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GameTransactionUpdateWithoutUserInput = {

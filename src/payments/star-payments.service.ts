@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { randomBytes } from 'node:crypto';
 import { PrismaService } from '../prisma.service.js';
 
 export const STAR_DEPOSIT_PAYLOAD_PREFIX = 'stars:';
@@ -80,18 +81,19 @@ export class StarPaymentsService {
       throw new BadRequestException(`Star deposit must be between ${MIN_STAR_DEPOSIT} and ${MAX_STAR_DEPOSIT} Stars`);
     }
     const gramAmount = this.gramForStars(starAmount);
+    // Single insert with a random payload: two concurrent deposits must never
+    // collide on the UNIQUE payload column.
+    const payload = `${STAR_DEPOSIT_PAYLOAD_PREFIX}${randomBytes(8).toString('hex')}`;
     const deposit = await this.prisma.starDeposit.create({
       data: {
         userId,
         starAmount,
         gramAmount,
-        payload: `${STAR_DEPOSIT_PAYLOAD_PREFIX}pending`,
+        payload,
         status: 'PENDING',
         expiresAt: new Date(Date.now() + STAR_DEPOSIT_TTL_MS),
       },
     });
-    const payload = `${STAR_DEPOSIT_PAYLOAD_PREFIX}${deposit.id}`;
-    await this.prisma.starDeposit.update({ where: { id: deposit.id }, data: { payload } });
     const invoiceLink = (await this.telegramBotRequest('createInvoiceLink', {
       title: 'ORBIT Stars top-up',
       description: `${starAmount} Stars to your ORBIT Stars balance`,
@@ -149,26 +151,33 @@ export class StarPaymentsService {
     if (!chargeId) return false;
     const already = await this.prisma.starDeposit.findUnique({ where: { chargeId } });
     if (already?.status === 'CONFIRMED') return true;
-    await this.prisma.$transaction(async (tx) => {
-      const deposit = await tx.starDeposit.findUnique({ where: { payload } });
-      if (!deposit || deposit.status !== 'PENDING') return;
-      if (payment.total_amount !== deposit.starAmount) return;
-      await tx.starDeposit.update({
-        where: { id: deposit.id },
-        data: { status: 'CONFIRMED', chargeId, providerChargeId: payment.provider_payment_charge_id ?? null, confirmedAt: new Date() },
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        const deposit = await tx.starDeposit.findUnique({ where: { payload } });
+        if (!deposit || deposit.status !== 'PENDING') return;
+        if (payment.total_amount !== deposit.starAmount) return;
+        await tx.starDeposit.update({
+          where: { id: deposit.id },
+          data: { status: 'CONFIRMED', chargeId, providerChargeId: payment.provider_payment_charge_id ?? null, confirmedAt: new Date() },
+        });
+        await tx.user.update({ where: { id: deposit.userId }, data: { balanceStars: { increment: deposit.starAmount } } });
+        await tx.gameTransaction.create({
+          data: {
+            userId: deposit.userId,
+            game: 'STARS',
+            type: 'DEPOSIT',
+            reference: `stars:${deposit.id}`,
+            amountGram: deposit.gramAmount.toString(),
+            details: { starAmount: deposit.starAmount, chargeId, currency: 'STARS' },
+          },
+        });
       });
-      await tx.user.update({ where: { id: deposit.userId }, data: { balanceStars: { increment: deposit.starAmount } } });
-      await tx.gameTransaction.create({
-        data: {
-          userId: deposit.userId,
-          game: 'STARS',
-          type: 'DEPOSIT',
-          reference: `stars:${deposit.id}`,
-          amountGram: deposit.gramAmount.toString(),
-          details: { starAmount: deposit.starAmount, chargeId, currency: 'STARS' },
-        },
-      });
-    });
+    } catch {
+      // A duplicate delivery racing this one wins the UNIQUE chargeId; the
+      // retry then observes the CONFIRMED row instead of failing loudly.
+      const raced = await this.prisma.starDeposit.findUnique({ where: { chargeId } });
+      if (raced?.status !== 'CONFIRMED') throw new ServiceUnavailableException('Star deposit confirmation raced, please retry');
+    }
     return true;
   }
 }

@@ -16,6 +16,7 @@ model User {
   lastName           String?
   photoUrl           String?
   balanceGram        Decimal  @default(0) @db.Decimal(20, 9)
+  balanceStars       Int      @default(0)
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
@@ -264,6 +265,7 @@ model PvpRoom {
   id              String    @id @default(cuid())
   code            String    @unique
   stakeGram       Decimal   @db.Decimal(20, 9)
+  stakeStars      Int       @default(0)
   status          String    @default("WAITING")
   isPublic        Boolean   @default(false)
   arenaMode       String    @default("CLASSIC")
@@ -284,12 +286,13 @@ model PvpRoom {
 }
 
 model PvpParticipant {
-  id            String   @id @default(cuid())
-  roomId        String
-  userId        String
-  stakeGram     Decimal  @default(0) @db.Decimal(20, 9)
-  cashStakeGram Decimal  @default(0) @db.Decimal(20, 9)
-  joinedAt      DateTime @default(now())
+  id             String   @id @default(cuid())
+  roomId         String
+  userId         String
+  stakeGram      Decimal  @default(0) @db.Decimal(20, 9)
+  cashStakeGram  Decimal  @default(0) @db.Decimal(20, 9)
+  cashStakeStars Int      @default(0)
+  joinedAt       DateTime @default(now())
 
   room  PvpRoom              @relation(fields: [roomId], references: [id], onDelete: Cascade)
   user  User                 @relation(fields: [userId], references: [id], onDelete: Cascade)

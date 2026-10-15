@@ -129,6 +129,7 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   photoUrl: 'photoUrl',
   balanceGram: 'balanceGram',
+  balanceStars: 'balanceStars',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -292,6 +293,7 @@ exports.Prisma.PvpRoomScalarFieldEnum = {
   id: 'id',
   code: 'code',
   stakeGram: 'stakeGram',
+  stakeStars: 'stakeStars',
   status: 'status',
   isPublic: 'isPublic',
   arenaMode: 'arenaMode',
@@ -310,6 +312,7 @@ exports.Prisma.PvpParticipantScalarFieldEnum = {
   userId: 'userId',
   stakeGram: 'stakeGram',
   cashStakeGram: 'cashStakeGram',
+  cashStakeStars: 'cashStakeStars',
   joinedAt: 'joinedAt'
 };
 

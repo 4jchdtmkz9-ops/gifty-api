@@ -93,12 +93,12 @@ export class StarPaymentsService {
     const payload = `${STAR_DEPOSIT_PAYLOAD_PREFIX}${deposit.id}`;
     await this.prisma.starDeposit.update({ where: { id: deposit.id }, data: { payload } });
     const invoiceLink = (await this.telegramBotRequest('createInvoiceLink', {
-      title: 'ORBIT balance top-up',
-      description: `${starAmount} Stars → ${gramAmount} GRAM`,
+      title: 'ORBIT Stars top-up',
+      description: `${starAmount} Stars to your ORBIT Stars balance`,
       payload,
       provider_token: '',
       currency: 'XTR',
-      prices: [{ label: 'ORBIT balance', amount: starAmount }],
+      prices: [{ label: 'ORBIT Stars balance', amount: starAmount }],
     })) as string;
     return { depositId: deposit.id, invoiceLink, starAmount, gramAmount };
   }
@@ -157,7 +157,7 @@ export class StarPaymentsService {
         where: { id: deposit.id },
         data: { status: 'CONFIRMED', chargeId, providerChargeId: payment.provider_payment_charge_id ?? null, confirmedAt: new Date() },
       });
-      await tx.user.update({ where: { id: deposit.userId }, data: { balanceGram: { increment: deposit.gramAmount.toString() } } });
+      await tx.user.update({ where: { id: deposit.userId }, data: { balanceStars: { increment: deposit.starAmount } } });
       await tx.gameTransaction.create({
         data: {
           userId: deposit.userId,
@@ -165,7 +165,7 @@ export class StarPaymentsService {
           type: 'DEPOSIT',
           reference: `stars:${deposit.id}`,
           amountGram: deposit.gramAmount.toString(),
-          details: { starAmount: deposit.starAmount, chargeId },
+          details: { starAmount: deposit.starAmount, chargeId, currency: 'STARS' },
         },
       });
     });

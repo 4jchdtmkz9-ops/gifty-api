@@ -110,9 +110,9 @@ export class BotBalanceService implements OnModuleInit, OnModuleDestroy {
   async getBalance(userId: string) {
     const user = await this.prisma.user.findUniqueOrThrow({
       where: { id: userId },
-      select: { balanceGram: true },
+      select: { balanceGram: true, balanceStars: true },
     });
-    return { balanceGram: user.balanceGram.toString(), depositConfigured: this.isDepositConfigured(), withdrawalConfigured: await this.isWithdrawalConfigured() };
+    return { balanceGram: user.balanceGram.toString(), balanceStars: user.balanceStars, depositConfigured: this.isDepositConfigured(), withdrawalConfigured: await this.isWithdrawalConfigured() };
   }
 
   async createWithdrawal(userId: string, amountText: string) {

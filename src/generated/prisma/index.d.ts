@@ -2785,10 +2785,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     balanceGram: Decimal | null
+    balanceStars: number | null
   }
 
   export type UserSumAggregateOutputType = {
     balanceGram: Decimal | null
+    balanceStars: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -2800,6 +2802,7 @@ export namespace Prisma {
     lastName: string | null
     photoUrl: string | null
     balanceGram: Decimal | null
+    balanceStars: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2813,6 +2816,7 @@ export namespace Prisma {
     lastName: string | null
     photoUrl: string | null
     balanceGram: Decimal | null
+    balanceStars: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2826,6 +2830,7 @@ export namespace Prisma {
     lastName: number
     photoUrl: number
     balanceGram: number
+    balanceStars: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2834,10 +2839,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     balanceGram?: true
+    balanceStars?: true
   }
 
   export type UserSumAggregateInputType = {
     balanceGram?: true
+    balanceStars?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -2849,6 +2856,7 @@ export namespace Prisma {
     lastName?: true
     photoUrl?: true
     balanceGram?: true
+    balanceStars?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2862,6 +2870,7 @@ export namespace Prisma {
     lastName?: true
     photoUrl?: true
     balanceGram?: true
+    balanceStars?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2875,6 +2884,7 @@ export namespace Prisma {
     lastName?: true
     photoUrl?: true
     balanceGram?: true
+    balanceStars?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2975,6 +2985,7 @@ export namespace Prisma {
     lastName: string | null
     photoUrl: string | null
     balanceGram: Decimal
+    balanceStars: number
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -3007,6 +3018,7 @@ export namespace Prisma {
     lastName?: boolean
     photoUrl?: boolean
     balanceGram?: boolean
+    balanceStars?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     wallets?: boolean | User$walletsArgs<ExtArgs>
@@ -3041,6 +3053,7 @@ export namespace Prisma {
     lastName?: boolean
     photoUrl?: boolean
     balanceGram?: boolean
+    balanceStars?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -3054,6 +3067,7 @@ export namespace Prisma {
     lastName?: boolean
     photoUrl?: boolean
     balanceGram?: boolean
+    balanceStars?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -3067,11 +3081,12 @@ export namespace Prisma {
     lastName?: boolean
     photoUrl?: boolean
     balanceGram?: boolean
+    balanceStars?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "telegramId" | "telegramAccessHash" | "username" | "firstName" | "lastName" | "photoUrl" | "balanceGram" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "telegramId" | "telegramAccessHash" | "username" | "firstName" | "lastName" | "photoUrl" | "balanceGram" | "balanceStars" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     wallets?: boolean | User$walletsArgs<ExtArgs>
     gifts?: boolean | User$giftsArgs<ExtArgs>
@@ -3131,6 +3146,7 @@ export namespace Prisma {
       lastName: string | null
       photoUrl: string | null
       balanceGram: Prisma.Decimal
+      balanceStars: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -3584,6 +3600,7 @@ export namespace Prisma {
     readonly lastName: FieldRef<"User", 'String'>
     readonly photoUrl: FieldRef<"User", 'String'>
     readonly balanceGram: FieldRef<"User", 'Decimal'>
+    readonly balanceStars: FieldRef<"User", 'Int'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -19478,16 +19495,19 @@ export namespace Prisma {
 
   export type PvpRoomAvgAggregateOutputType = {
     stakeGram: Decimal | null
+    stakeStars: number | null
   }
 
   export type PvpRoomSumAggregateOutputType = {
     stakeGram: Decimal | null
+    stakeStars: number | null
   }
 
   export type PvpRoomMinAggregateOutputType = {
     id: string | null
     code: string | null
     stakeGram: Decimal | null
+    stakeStars: number | null
     status: string | null
     isPublic: boolean | null
     arenaMode: string | null
@@ -19504,6 +19524,7 @@ export namespace Prisma {
     id: string | null
     code: string | null
     stakeGram: Decimal | null
+    stakeStars: number | null
     status: string | null
     isPublic: boolean | null
     arenaMode: string | null
@@ -19520,6 +19541,7 @@ export namespace Prisma {
     id: number
     code: number
     stakeGram: number
+    stakeStars: number
     status: number
     isPublic: number
     arenaMode: number
@@ -19536,16 +19558,19 @@ export namespace Prisma {
 
   export type PvpRoomAvgAggregateInputType = {
     stakeGram?: true
+    stakeStars?: true
   }
 
   export type PvpRoomSumAggregateInputType = {
     stakeGram?: true
+    stakeStars?: true
   }
 
   export type PvpRoomMinAggregateInputType = {
     id?: true
     code?: true
     stakeGram?: true
+    stakeStars?: true
     status?: true
     isPublic?: true
     arenaMode?: true
@@ -19562,6 +19587,7 @@ export namespace Prisma {
     id?: true
     code?: true
     stakeGram?: true
+    stakeStars?: true
     status?: true
     isPublic?: true
     arenaMode?: true
@@ -19578,6 +19604,7 @@ export namespace Prisma {
     id?: true
     code?: true
     stakeGram?: true
+    stakeStars?: true
     status?: true
     isPublic?: true
     arenaMode?: true
@@ -19681,6 +19708,7 @@ export namespace Prisma {
     id: string
     code: string
     stakeGram: Decimal
+    stakeStars: number
     status: string
     isPublic: boolean
     arenaMode: string
@@ -19716,6 +19744,7 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     stakeGram?: boolean
+    stakeStars?: boolean
     status?: boolean
     isPublic?: boolean
     arenaMode?: boolean
@@ -19737,6 +19766,7 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     stakeGram?: boolean
+    stakeStars?: boolean
     status?: boolean
     isPublic?: boolean
     arenaMode?: boolean
@@ -19755,6 +19785,7 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     stakeGram?: boolean
+    stakeStars?: boolean
     status?: boolean
     isPublic?: boolean
     arenaMode?: boolean
@@ -19773,6 +19804,7 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     stakeGram?: boolean
+    stakeStars?: boolean
     status?: boolean
     isPublic?: boolean
     arenaMode?: boolean
@@ -19785,7 +19817,7 @@ export namespace Prisma {
     creatorId?: boolean
   }
 
-  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "status" | "isPublic" | "arenaMode" | "winnerId" | "createdAt" | "startedAt" | "countdownEndsAt" | "completedAt" | "settledAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
+  export type PvpRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "stakeGram" | "stakeStars" | "status" | "isPublic" | "arenaMode" | "winnerId" | "createdAt" | "startedAt" | "countdownEndsAt" | "completedAt" | "settledAt" | "creatorId", ExtArgs["result"]["pvpRoom"]>
   export type PvpRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | UserDefaultArgs<ExtArgs>
     winner?: boolean | PvpRoom$winnerArgs<ExtArgs>
@@ -19814,6 +19846,7 @@ export namespace Prisma {
       id: string
       code: string
       stakeGram: Prisma.Decimal
+      stakeStars: number
       status: string
       isPublic: boolean
       arenaMode: string
@@ -20254,6 +20287,7 @@ export namespace Prisma {
     readonly id: FieldRef<"PvpRoom", 'String'>
     readonly code: FieldRef<"PvpRoom", 'String'>
     readonly stakeGram: FieldRef<"PvpRoom", 'Decimal'>
+    readonly stakeStars: FieldRef<"PvpRoom", 'Int'>
     readonly status: FieldRef<"PvpRoom", 'String'>
     readonly isPublic: FieldRef<"PvpRoom", 'Boolean'>
     readonly arenaMode: FieldRef<"PvpRoom", 'String'>
@@ -20765,11 +20799,13 @@ export namespace Prisma {
   export type PvpParticipantAvgAggregateOutputType = {
     stakeGram: Decimal | null
     cashStakeGram: Decimal | null
+    cashStakeStars: number | null
   }
 
   export type PvpParticipantSumAggregateOutputType = {
     stakeGram: Decimal | null
     cashStakeGram: Decimal | null
+    cashStakeStars: number | null
   }
 
   export type PvpParticipantMinAggregateOutputType = {
@@ -20778,6 +20814,7 @@ export namespace Prisma {
     userId: string | null
     stakeGram: Decimal | null
     cashStakeGram: Decimal | null
+    cashStakeStars: number | null
     joinedAt: Date | null
   }
 
@@ -20787,6 +20824,7 @@ export namespace Prisma {
     userId: string | null
     stakeGram: Decimal | null
     cashStakeGram: Decimal | null
+    cashStakeStars: number | null
     joinedAt: Date | null
   }
 
@@ -20796,6 +20834,7 @@ export namespace Prisma {
     userId: number
     stakeGram: number
     cashStakeGram: number
+    cashStakeStars: number
     joinedAt: number
     _all: number
   }
@@ -20804,11 +20843,13 @@ export namespace Prisma {
   export type PvpParticipantAvgAggregateInputType = {
     stakeGram?: true
     cashStakeGram?: true
+    cashStakeStars?: true
   }
 
   export type PvpParticipantSumAggregateInputType = {
     stakeGram?: true
     cashStakeGram?: true
+    cashStakeStars?: true
   }
 
   export type PvpParticipantMinAggregateInputType = {
@@ -20817,6 +20858,7 @@ export namespace Prisma {
     userId?: true
     stakeGram?: true
     cashStakeGram?: true
+    cashStakeStars?: true
     joinedAt?: true
   }
 
@@ -20826,6 +20868,7 @@ export namespace Prisma {
     userId?: true
     stakeGram?: true
     cashStakeGram?: true
+    cashStakeStars?: true
     joinedAt?: true
   }
 
@@ -20835,6 +20878,7 @@ export namespace Prisma {
     userId?: true
     stakeGram?: true
     cashStakeGram?: true
+    cashStakeStars?: true
     joinedAt?: true
     _all?: true
   }
@@ -20931,6 +20975,7 @@ export namespace Prisma {
     userId: string
     stakeGram: Decimal
     cashStakeGram: Decimal
+    cashStakeStars: number
     joinedAt: Date
     _count: PvpParticipantCountAggregateOutputType | null
     _avg: PvpParticipantAvgAggregateOutputType | null
@@ -20959,6 +21004,7 @@ export namespace Prisma {
     userId?: boolean
     stakeGram?: boolean
     cashStakeGram?: boolean
+    cashStakeStars?: boolean
     joinedAt?: boolean
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -20972,6 +21018,7 @@ export namespace Prisma {
     userId?: boolean
     stakeGram?: boolean
     cashStakeGram?: boolean
+    cashStakeStars?: boolean
     joinedAt?: boolean
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -20983,6 +21030,7 @@ export namespace Prisma {
     userId?: boolean
     stakeGram?: boolean
     cashStakeGram?: boolean
+    cashStakeStars?: boolean
     joinedAt?: boolean
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -20994,10 +21042,11 @@ export namespace Prisma {
     userId?: boolean
     stakeGram?: boolean
     cashStakeGram?: boolean
+    cashStakeStars?: boolean
     joinedAt?: boolean
   }
 
-  export type PvpParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "userId" | "stakeGram" | "cashStakeGram" | "joinedAt", ExtArgs["result"]["pvpParticipant"]>
+  export type PvpParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "userId" | "stakeGram" | "cashStakeGram" | "cashStakeStars" | "joinedAt", ExtArgs["result"]["pvpParticipant"]>
   export type PvpParticipantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     room?: boolean | PvpRoomDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -21026,6 +21075,7 @@ export namespace Prisma {
       userId: string
       stakeGram: Prisma.Decimal
       cashStakeGram: Prisma.Decimal
+      cashStakeStars: number
       joinedAt: Date
     }, ExtArgs["result"]["pvpParticipant"]>
     composites: {}
@@ -21458,6 +21508,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"PvpParticipant", 'String'>
     readonly stakeGram: FieldRef<"PvpParticipant", 'Decimal'>
     readonly cashStakeGram: FieldRef<"PvpParticipant", 'Decimal'>
+    readonly cashStakeStars: FieldRef<"PvpParticipant", 'Int'>
     readonly joinedAt: FieldRef<"PvpParticipant", 'DateTime'>
   }
     
@@ -24135,6 +24186,7 @@ export namespace Prisma {
     lastName: 'lastName',
     photoUrl: 'photoUrl',
     balanceGram: 'balanceGram',
+    balanceStars: 'balanceStars',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -24340,6 +24392,7 @@ export namespace Prisma {
     id: 'id',
     code: 'code',
     stakeGram: 'stakeGram',
+    stakeStars: 'stakeStars',
     status: 'status',
     isPublic: 'isPublic',
     arenaMode: 'arenaMode',
@@ -24361,6 +24414,7 @@ export namespace Prisma {
     userId: 'userId',
     stakeGram: 'stakeGram',
     cashStakeGram: 'cashStakeGram',
+    cashStakeStars: 'cashStakeStars',
     joinedAt: 'joinedAt'
   };
 
@@ -24466,6 +24520,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -24501,20 +24569,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -24543,6 +24597,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     photoUrl?: StringNullableFilter<"User"> | string | null
     balanceGram?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     wallets?: WalletListRelationFilter
@@ -24576,6 +24631,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
     balanceGram?: SortOrder
+    balanceStars?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     wallets?: WalletOrderByRelationAggregateInput
@@ -24612,6 +24668,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     photoUrl?: StringNullableFilter<"User"> | string | null
     balanceGram?: DecimalFilter<"User"> | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     wallets?: WalletListRelationFilter
@@ -24645,6 +24702,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     photoUrl?: SortOrderInput | SortOrder
     balanceGram?: SortOrder
+    balanceStars?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -24666,6 +24724,7 @@ export namespace Prisma {
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     photoUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     balanceGram?: DecimalWithAggregatesFilter<"User"> | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -25696,6 +25755,7 @@ export namespace Prisma {
     id?: StringFilter<"PvpRoom"> | string
     code?: StringFilter<"PvpRoom"> | string
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFilter<"PvpRoom"> | number
     status?: StringFilter<"PvpRoom"> | string
     isPublic?: BoolFilter<"PvpRoom"> | boolean
     arenaMode?: StringFilter<"PvpRoom"> | string
@@ -25716,6 +25776,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     stakeGram?: SortOrder
+    stakeStars?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
     arenaMode?: SortOrder
@@ -25739,6 +25800,7 @@ export namespace Prisma {
     OR?: PvpRoomWhereInput[]
     NOT?: PvpRoomWhereInput | PvpRoomWhereInput[]
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFilter<"PvpRoom"> | number
     status?: StringFilter<"PvpRoom"> | string
     isPublic?: BoolFilter<"PvpRoom"> | boolean
     arenaMode?: StringFilter<"PvpRoom"> | string
@@ -25759,6 +25821,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     stakeGram?: SortOrder
+    stakeStars?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
     arenaMode?: SortOrder
@@ -25783,6 +25846,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"PvpRoom"> | string
     code?: StringWithAggregatesFilter<"PvpRoom"> | string
     stakeGram?: DecimalWithAggregatesFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntWithAggregatesFilter<"PvpRoom"> | number
     status?: StringWithAggregatesFilter<"PvpRoom"> | string
     isPublic?: BoolWithAggregatesFilter<"PvpRoom"> | boolean
     arenaMode?: StringWithAggregatesFilter<"PvpRoom"> | string
@@ -25804,6 +25868,7 @@ export namespace Prisma {
     userId?: StringFilter<"PvpParticipant"> | string
     stakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFilter<"PvpParticipant"> | number
     joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
     room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -25816,6 +25881,7 @@ export namespace Prisma {
     userId?: SortOrder
     stakeGram?: SortOrder
     cashStakeGram?: SortOrder
+    cashStakeStars?: SortOrder
     joinedAt?: SortOrder
     room?: PvpRoomOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
@@ -25832,6 +25898,7 @@ export namespace Prisma {
     userId?: StringFilter<"PvpParticipant"> | string
     stakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFilter<"PvpParticipant"> | number
     joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
     room?: XOR<PvpRoomScalarRelationFilter, PvpRoomWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -25844,6 +25911,7 @@ export namespace Prisma {
     userId?: SortOrder
     stakeGram?: SortOrder
     cashStakeGram?: SortOrder
+    cashStakeStars?: SortOrder
     joinedAt?: SortOrder
     _count?: PvpParticipantCountOrderByAggregateInput
     _avg?: PvpParticipantAvgOrderByAggregateInput
@@ -25861,6 +25929,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"PvpParticipant"> | string
     stakeGram?: DecimalWithAggregatesFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalWithAggregatesFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntWithAggregatesFilter<"PvpParticipant"> | number
     joinedAt?: DateTimeWithAggregatesFilter<"PvpParticipant"> | Date | string
   }
 
@@ -26005,6 +26074,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -26038,6 +26108,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -26071,6 +26142,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -26104,6 +26176,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -26137,6 +26210,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -26150,6 +26224,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26163,6 +26238,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27257,6 +27333,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -27275,6 +27352,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -27293,6 +27371,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -27311,6 +27390,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -27329,6 +27409,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -27345,6 +27426,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -27359,6 +27441,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -27375,6 +27458,7 @@ export namespace Prisma {
     id?: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
     room: PvpRoomCreateNestedOneWithoutParticipantsInput
     user: UserCreateNestedOneWithoutPvpParticipationsInput
@@ -27387,6 +27471,7 @@ export namespace Prisma {
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
     gifts?: PvpParticipantGiftUncheckedCreateNestedManyWithoutParticipantInput
   }
@@ -27395,6 +27480,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
     user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
@@ -27407,6 +27493,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gifts?: PvpParticipantGiftUncheckedUpdateManyWithoutParticipantNestedInput
   }
@@ -27417,6 +27504,7 @@ export namespace Prisma {
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
   }
 
@@ -27424,6 +27512,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27433,6 +27522,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27596,6 +27686,17 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -27773,12 +27874,14 @@ export namespace Prisma {
     lastName?: SortOrder
     photoUrl?: SortOrder
     balanceGram?: SortOrder
+    balanceStars?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
     balanceGram?: SortOrder
+    balanceStars?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -27790,6 +27893,7 @@ export namespace Prisma {
     lastName?: SortOrder
     photoUrl?: SortOrder
     balanceGram?: SortOrder
+    balanceStars?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -27803,12 +27907,14 @@ export namespace Prisma {
     lastName?: SortOrder
     photoUrl?: SortOrder
     balanceGram?: SortOrder
+    balanceStars?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     balanceGram?: SortOrder
+    balanceStars?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -27861,6 +27967,22 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -28159,17 +28281,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type StarDepositCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -28220,22 +28331,6 @@ export namespace Prisma {
   export type StarDepositSumOrderByAggregateInput = {
     starAmount?: SortOrder
     gramAmount?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -28617,6 +28712,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     stakeGram?: SortOrder
+    stakeStars?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
     arenaMode?: SortOrder
@@ -28631,12 +28727,14 @@ export namespace Prisma {
 
   export type PvpRoomAvgOrderByAggregateInput = {
     stakeGram?: SortOrder
+    stakeStars?: SortOrder
   }
 
   export type PvpRoomMaxOrderByAggregateInput = {
     id?: SortOrder
     code?: SortOrder
     stakeGram?: SortOrder
+    stakeStars?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
     arenaMode?: SortOrder
@@ -28653,6 +28751,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     stakeGram?: SortOrder
+    stakeStars?: SortOrder
     status?: SortOrder
     isPublic?: SortOrder
     arenaMode?: SortOrder
@@ -28667,6 +28766,7 @@ export namespace Prisma {
 
   export type PvpRoomSumOrderByAggregateInput = {
     stakeGram?: SortOrder
+    stakeStars?: SortOrder
   }
 
   export type PvpRoomScalarRelationFilter = {
@@ -28685,12 +28785,14 @@ export namespace Prisma {
     userId?: SortOrder
     stakeGram?: SortOrder
     cashStakeGram?: SortOrder
+    cashStakeStars?: SortOrder
     joinedAt?: SortOrder
   }
 
   export type PvpParticipantAvgOrderByAggregateInput = {
     stakeGram?: SortOrder
     cashStakeGram?: SortOrder
+    cashStakeStars?: SortOrder
   }
 
   export type PvpParticipantMaxOrderByAggregateInput = {
@@ -28699,6 +28801,7 @@ export namespace Prisma {
     userId?: SortOrder
     stakeGram?: SortOrder
     cashStakeGram?: SortOrder
+    cashStakeStars?: SortOrder
     joinedAt?: SortOrder
   }
 
@@ -28708,12 +28811,14 @@ export namespace Prisma {
     userId?: SortOrder
     stakeGram?: SortOrder
     cashStakeGram?: SortOrder
+    cashStakeStars?: SortOrder
     joinedAt?: SortOrder
   }
 
   export type PvpParticipantSumOrderByAggregateInput = {
     stakeGram?: SortOrder
     cashStakeGram?: SortOrder
+    cashStakeStars?: SortOrder
   }
 
   export type PvpParticipantScalarRelationFilter = {
@@ -29082,6 +29187,14 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -29740,14 +29853,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutStarDepositsInput, UserUncheckedCreateWithoutStarDepositsInput>
     connectOrCreate?: UserCreateOrConnectWithoutStarDepositsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutStarDepositsNestedInput = {
@@ -30453,6 +30558,17 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -30479,17 +30595,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -30534,6 +30639,33 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -30636,33 +30768,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -30912,6 +31017,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -30929,6 +31035,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -30956,6 +31063,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -30973,6 +31081,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -31000,6 +31109,7 @@ export namespace Prisma {
     id?: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
     room: PvpRoomCreateNestedOneWithoutParticipantsInput
     gifts?: PvpParticipantGiftCreateNestedManyWithoutParticipantInput
@@ -31010,6 +31120,7 @@ export namespace Prisma {
     roomId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
     gifts?: PvpParticipantGiftUncheckedCreateNestedManyWithoutParticipantInput
   }
@@ -31547,6 +31658,7 @@ export namespace Prisma {
     id?: StringFilter<"PvpRoom"> | string
     code?: StringFilter<"PvpRoom"> | string
     stakeGram?: DecimalFilter<"PvpRoom"> | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFilter<"PvpRoom"> | number
     status?: StringFilter<"PvpRoom"> | string
     isPublic?: BoolFilter<"PvpRoom"> | boolean
     arenaMode?: StringFilter<"PvpRoom"> | string
@@ -31600,6 +31712,7 @@ export namespace Prisma {
     userId?: StringFilter<"PvpParticipant"> | string
     stakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFilter<"PvpParticipant"> | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFilter<"PvpParticipant"> | number
     joinedAt?: DateTimeFilter<"PvpParticipant"> | Date | string
   }
 
@@ -31920,6 +32033,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -31952,6 +32066,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -31989,6 +32104,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -32021,6 +32137,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -32069,6 +32186,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -32101,6 +32219,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -32144,6 +32263,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -32176,6 +32296,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -32208,6 +32329,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -32240,6 +32362,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -32288,6 +32411,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -32320,6 +32444,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -32352,6 +32477,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -32384,6 +32510,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -32432,6 +32559,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -32464,6 +32592,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -32496,6 +32625,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -32528,6 +32658,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -32576,6 +32707,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -32608,6 +32740,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -32640,6 +32773,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -32672,6 +32806,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -32720,6 +32855,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -32752,6 +32888,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -32784,6 +32921,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -32816,6 +32954,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -32864,6 +33003,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -32896,6 +33036,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -32928,6 +33069,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     gifts?: GiftCreateNestedManyWithoutOwnerInput
@@ -32960,6 +33102,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
@@ -33008,6 +33151,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gifts?: GiftUpdateManyWithoutOwnerNestedInput
@@ -33040,6 +33184,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
@@ -33072,6 +33217,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -33104,6 +33250,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -33293,6 +33440,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -33325,6 +33473,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -33461,6 +33610,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -33493,6 +33643,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -33594,6 +33745,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -33626,6 +33778,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -33717,6 +33870,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -33749,6 +33903,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -33850,6 +34005,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -33882,6 +34038,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -34026,6 +34183,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -34058,6 +34216,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -34095,6 +34254,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -34127,6 +34287,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -34234,6 +34395,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -34266,6 +34428,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -34309,6 +34472,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -34341,6 +34505,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -34426,6 +34591,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -34458,6 +34624,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -34495,6 +34662,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -34527,6 +34695,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -34634,6 +34803,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -34666,6 +34836,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -34709,6 +34880,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -34741,6 +34913,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -34773,6 +34946,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -34805,6 +34979,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -34842,6 +35017,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -34874,6 +35050,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -34906,6 +35083,7 @@ export namespace Prisma {
     id?: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
     user: UserCreateNestedOneWithoutPvpParticipationsInput
     gifts?: PvpParticipantGiftCreateNestedManyWithoutParticipantInput
@@ -34916,6 +35094,7 @@ export namespace Prisma {
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
     gifts?: PvpParticipantGiftUncheckedCreateNestedManyWithoutParticipantInput
   }
@@ -34978,6 +35157,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -35010,6 +35190,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -35053,6 +35234,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -35085,6 +35267,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -35144,6 +35327,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -35161,6 +35345,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -35188,6 +35373,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -35220,6 +35406,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -35287,6 +35474,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -35304,6 +35492,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -35337,6 +35526,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -35369,6 +35559,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -35412,6 +35603,7 @@ export namespace Prisma {
     id?: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
     room: PvpRoomCreateNestedOneWithoutParticipantsInput
     user: UserCreateNestedOneWithoutPvpParticipationsInput
@@ -35423,6 +35615,7 @@ export namespace Prisma {
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
   }
 
@@ -35499,6 +35692,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
     user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
@@ -35510,6 +35704,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -35576,6 +35771,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -35593,6 +35789,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -35620,6 +35817,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -35652,6 +35850,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -35689,6 +35888,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletCreateNestedManyWithoutUserInput
@@ -35721,6 +35921,7 @@ export namespace Prisma {
     lastName?: string | null
     photoUrl?: string | null
     balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
@@ -35764,6 +35965,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -35781,6 +35983,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -35814,6 +36017,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -35846,6 +36050,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -35889,6 +36094,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUpdateManyWithoutUserNestedInput
@@ -35921,6 +36127,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
@@ -36021,6 +36228,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -36036,6 +36244,7 @@ export namespace Prisma {
     id?: string
     code: string
     stakeGram: Decimal | DecimalJsLike | number | string
+    stakeStars?: number
     status?: string
     isPublic?: boolean
     arenaMode?: string
@@ -36052,6 +36261,7 @@ export namespace Prisma {
     roomId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
   }
 
@@ -36402,6 +36612,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -36419,6 +36630,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -36436,6 +36648,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -36451,6 +36664,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -36468,6 +36682,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -36485,6 +36700,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     arenaMode?: StringFieldUpdateOperationsInput | string
@@ -36500,6 +36716,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     room?: PvpRoomUpdateOneRequiredWithoutParticipantsNestedInput
     gifts?: PvpParticipantGiftUpdateManyWithoutParticipantNestedInput
@@ -36510,6 +36727,7 @@ export namespace Prisma {
     roomId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gifts?: PvpParticipantGiftUncheckedUpdateManyWithoutParticipantNestedInput
   }
@@ -36519,6 +36737,7 @@ export namespace Prisma {
     roomId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -37025,6 +37244,7 @@ export namespace Prisma {
     userId: string
     stakeGram?: Decimal | DecimalJsLike | number | string
     cashStakeGram?: Decimal | DecimalJsLike | number | string
+    cashStakeStars?: number
     joinedAt?: Date | string
   }
 
@@ -37041,6 +37261,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPvpParticipationsNestedInput
     gifts?: PvpParticipantGiftUpdateManyWithoutParticipantNestedInput
@@ -37051,6 +37272,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     gifts?: PvpParticipantGiftUncheckedUpdateManyWithoutParticipantNestedInput
   }
@@ -37060,6 +37282,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     cashStakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashStakeStars?: IntFieldUpdateOperationsInput | number
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

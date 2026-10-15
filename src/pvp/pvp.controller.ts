@@ -54,6 +54,23 @@ function fromNano(value: bigint) {
   return `${whole}.${fraction || '0'}`;
 }
 
+type StakeCurrency = 'GRAM' | 'STARS';
+
+function gramPerStarRate(): string {
+  return (process.env.STARS_GRAM_PER_STAR ?? '0.01').trim() || '0.01';
+}
+
+/** Exact GRAM value of a whole-Stars amount, honouring STARS_GRAM_PER_STAR. */
+function starsToGramAmount(stars: number): string {
+  const [whole = '0', fraction = ''] = gramPerStarRate().split('.');
+  const scale = fraction.length;
+  const product = BigInt(stars) * BigInt(`${whole}${fraction || '0'}`);
+  const divisor = 10n ** BigInt(scale);
+  const int = product / divisor;
+  const rem = (product % divisor).toString().padStart(scale, '0').replace(/0+$/, '');
+  return rem ? `${int}.${rem}` : int.toString();
+}
+
 function randomBigIntBelow(maxExclusive: bigint) {
   const byteLength = Math.ceil(maxExclusive.toString(2).length / 8);
   const range = 1n << BigInt(byteLength * 8);
@@ -76,20 +93,35 @@ function chooseWeightedParticipant<T extends { stakeGram: { toString(): string }
   return participants[participants.length - 1];
 }
 
-async function charge(tx: Prisma.TransactionClient, userId: string, amount: string, reference: string, details?: Prisma.InputJsonValue) {
-  const debit = await tx.user.updateMany({ where: { id: userId, balanceGram: { gte: amount } }, data: { balanceGram: { decrement: amount } } });
+async function charge(tx: Prisma.TransactionClient, userId: string, amount: string | number, currency: StakeCurrency, reference: string, details?: Prisma.InputJsonValue) {
+  if (currency === 'STARS') {
+    const stars = Math.floor(Number(amount));
+    if (!Number.isInteger(stars) || stars <= 0) throw new BadRequestException('Enter a whole Stars stake of at least 1');
+    const debit = await tx.user.updateMany({ where: { id: userId, balanceStars: { gte: stars } }, data: { balanceStars: { decrement: stars } } });
+    if (debit.count !== 1) throw new BadRequestException('Insufficient Stars balance for this stake');
+    await tx.gameTransaction.create({ data: { userId, game: 'PVP', type: 'STAKE', reference, amountGram: `-${starsToGramAmount(stars)}`, details: { ...((details as Record<string, unknown> | undefined) ?? {}), currency, starAmount: stars } } });
+    return { gramEquiv: starsToGramAmount(stars), stars };
+  }
+  const gram = String(amount);
+  const debit = await tx.user.updateMany({ where: { id: userId, balanceGram: { gte: gram } }, data: { balanceGram: { decrement: gram } } });
   if (debit.count !== 1) throw new BadRequestException('Insufficient ORBIT balance for this stake');
-  await tx.gameTransaction.create({ data: { userId, game: 'PVP', type: 'STAKE', reference, amountGram: `-${amount}`, details } });
+  await tx.gameTransaction.create({ data: { userId, game: 'PVP', type: 'STAKE', reference, amountGram: `-${gram}`, details } });
+  return { gramEquiv: gram, stars: 0 };
 }
 
 async function settleWinner(tx: Prisma.TransactionClient, roomId: string, winnerId: string) {
   const changed = await tx.pvpRoom.updateMany({ where: { id: roomId, settledAt: null }, data: { settledAt: new Date() } });
   if (changed.count !== 1) return;
-  const cash = await tx.pvpParticipant.aggregate({ where: { roomId }, _sum: { cashStakeGram: true } });
+  const cash = await tx.pvpParticipant.aggregate({ where: { roomId }, _sum: { cashStakeGram: true, cashStakeStars: true } });
   const pot = (cash._sum.cashStakeGram ?? 0).toString();
   if (toNano(pot) > 0n) {
     await tx.user.update({ where: { id: winnerId }, data: { balanceGram: { increment: pot } } });
     await tx.gameTransaction.create({ data: { userId: winnerId, game: 'PVP', type: 'PAYOUT', reference: `pvp:${roomId}:payout`, amountGram: pot, details: { roomId, winnerId } } });
+  }
+  const starsPot = cash._sum.cashStakeStars ?? 0;
+  if (starsPot > 0) {
+    await tx.user.update({ where: { id: winnerId }, data: { balanceStars: { increment: starsPot } } });
+    await tx.gameTransaction.create({ data: { userId: winnerId, game: 'PVP', type: 'PAYOUT', reference: `pvp:${roomId}:stars-payout`, amountGram: starsToGramAmount(starsPot), details: { roomId, winnerId, currency: 'STARS', starAmount: starsPot } } });
   }
   const staked = await tx.pvpParticipantGift.findMany({
     where: { participant: { roomId } },
@@ -114,7 +146,7 @@ async function settleWinner(tx: Prisma.TransactionClient, roomId: string, winner
   }
 }
 
-async function refundRoom(tx: Prisma.TransactionClient, roomId: string, participants: Array<{ userId: string; cashStakeGram: { toString(): string } }>) {
+async function refundRoom(tx: Prisma.TransactionClient, roomId: string, participants: Array<{ userId: string; cashStakeGram: { toString(): string }; cashStakeStars?: number | null }>) {
   const changed = await tx.pvpRoom.updateMany({ where: { id: roomId, settledAt: null, status: { in: ['WAITING', 'COUNTDOWN'] } }, data: { status: 'CANCELLED', settledAt: new Date() } });
   if (changed.count !== 1) return;
   const staked = await tx.pvpParticipantGift.findMany({ where: { participant: { roomId } }, select: { giftId: true } });
@@ -124,9 +156,15 @@ async function refundRoom(tx: Prisma.TransactionClient, roomId: string, particip
   }
   for (const participant of participants) {
     const amount = participant.cashStakeGram.toString();
-    if (toNano(amount) <= 0n) continue;
-    await tx.user.update({ where: { id: participant.userId }, data: { balanceGram: { increment: amount } } });
-    await tx.gameTransaction.create({ data: { userId: participant.userId, game: 'PVP', type: 'REFUND', reference: `pvp:${roomId}:refund:${participant.userId}`, amountGram: amount, details: { roomId } } });
+    if (toNano(amount) > 0n) {
+      await tx.user.update({ where: { id: participant.userId }, data: { balanceGram: { increment: amount } } });
+      await tx.gameTransaction.create({ data: { userId: participant.userId, game: 'PVP', type: 'REFUND', reference: `pvp:${roomId}:refund:${participant.userId}`, amountGram: amount, details: { roomId } } });
+    }
+    const stars = participant.cashStakeStars ?? 0;
+    if (stars > 0) {
+      await tx.user.update({ where: { id: participant.userId }, data: { balanceStars: { increment: stars } } });
+      await tx.gameTransaction.create({ data: { userId: participant.userId, game: 'PVP', type: 'REFUND', reference: `pvp:${roomId}:stars-refund:${participant.userId}`, amountGram: starsToGramAmount(stars), details: { roomId, currency: 'STARS', starAmount: stars } } });
+    }
   }
 }
 
@@ -218,14 +256,26 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
   }
 
   @Post('public-join')
-  async joinPublicArena(@Body() body: { initData?: string; stakeGram?: string; arenaMode?: string }) {
+  async joinPublicArena(@Body() body: { initData?: string; stakeGram?: string; stakeStars?: string | number; stakeCurrency?: string; arenaMode?: string }) {
     const user = await this.getUser(body.initData);
     const arenaMode = body.arenaMode === 'WHEEL' ? 'WHEEL' : 'CLASSIC';
-    const input = body.stakeGram ?? '';
-    if (!/^\d{1,8}(\.\d{1,9})?$/.test(input) || Number(input) <= 0 || Number(input) > 100000) {
-      throw new BadRequestException('Enter a stake from 0.000000001 to 100,000 GRAM');
+    const currency: StakeCurrency = body.stakeCurrency === 'STARS' ? 'STARS' : 'GRAM';
+    let stake: string;
+    let starAmount = 0;
+    if (currency === 'STARS') {
+      const stars = Math.floor(Number(body.stakeStars ?? body.stakeGram ?? ''));
+      if (!Number.isInteger(stars) || stars < 1 || stars > 10_000_000) {
+        throw new BadRequestException('Enter a Stars stake from 1 to 10,000,000');
+      }
+      starAmount = stars;
+      stake = starsToGramAmount(stars);
+    } else {
+      const input = body.stakeGram ?? '';
+      if (!/^\d{1,8}(\.\d{1,9})?$/.test(input) || Number(input) <= 0 || Number(input) > 100000) {
+        throw new BadRequestException('Enter a stake from 0.000000001 to 100,000 GRAM');
+      }
+      stake = canonicalStake(input);
     }
-    const stake = canonicalStake(input);
     const roomResult = await this.prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext('orbit-public-arena'))::text AS locked`;
       const now = new Date();
@@ -241,7 +291,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
             { status: 'WAITING', createdAt: { lte: new Date(now.getTime() - 15 * 60_000) } },
           ],
         },
-        include: { participants: { select: { id: true, userId: true, stakeGram: true, cashStakeGram: true } } },
+        include: { participants: { select: { id: true, userId: true, stakeGram: true, cashStakeGram: true, cashStakeStars: true } } },
         take: 50,
       });
       for (const expiredRoom of expiredRooms) {
@@ -282,7 +332,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
             { status: 'COUNTDOWN', countdownEndsAt: { gt: now } },
           ],
         },
-      include: { participants: { select: { id: true, userId: true, stakeGram: true, cashStakeGram: true } } },
+      include: { participants: { select: { id: true, userId: true, stakeGram: true, cashStakeGram: true, cashStakeStars: true } } },
         orderBy: { createdAt: 'desc' },
       });
 
@@ -291,13 +341,14 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           data: {
             code: randomBytes(5).toString('base64url').toUpperCase(),
             stakeGram: stake,
+            stakeStars: starAmount,
             creatorId: user.id,
             isPublic: true,
             arenaMode,
-            participants: { create: { userId: user.id, stakeGram: stake, cashStakeGram: stake } },
+            participants: { create: { userId: user.id, stakeGram: stake, cashStakeGram: currency === 'GRAM' ? stake : '0', cashStakeStars: starAmount } },
           },
         });
-        await charge(tx, user.id, stake, `pvp:${created.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: created.id });
+        await charge(tx, user.id, currency === 'STARS' ? starAmount : stake, currency, `pvp:${created.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: created.id });
         return { roomId: created.id, isFinishing: false };
       }
 
@@ -307,16 +358,16 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         // submitted amount. Never replace the player's stake or refund funds.
         const addedStake = toNano(existingEntry.stakeGram) + toNano(stake);
         const total = toNano(room.stakeGram) + toNano(stake);
-        await charge(tx, user.id, stake, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
+        await charge(tx, user.id, currency === 'STARS' ? starAmount : stake, currency, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
         await tx.pvpParticipant.update({
           where: { roomId_userId: { roomId: room.id, userId: user.id } },
-          data: { stakeGram: fromNano(addedStake), cashStakeGram: { increment: stake } },
+          data: { stakeGram: fromNano(addedStake), cashStakeGram: { increment: currency === 'GRAM' ? stake : '0' }, cashStakeStars: { increment: starAmount } },
         });
-        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
+        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total), stakeStars: { increment: starAmount } } });
         return { roomId: room.id, isFinishing: false };
       }
-      await charge(tx, user.id, stake, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
-      await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: stake, cashStakeGram: stake } });
+      await charge(tx, user.id, currency === 'STARS' ? starAmount : stake, currency, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
+      await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: stake, cashStakeGram: currency === 'GRAM' ? stake : '0', cashStakeStars: starAmount } });
       const total = toNano(room.stakeGram) + toNano(stake);
       if (room.status === 'WAITING' && room.participants.length >= 1) {
         const startedAt = new Date();
@@ -324,13 +375,14 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
           where: { id: room.id },
           data: {
             stakeGram: fromNano(total),
+            stakeStars: { increment: starAmount },
             status: 'COUNTDOWN',
             startedAt,
             countdownEndsAt: new Date(startedAt.getTime() + 10_000),
           },
         });
       } else {
-        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total) } });
+        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(total), stakeStars: { increment: starAmount } } });
       }
       return { roomId: room.id, isFinishing: false };
     });
@@ -354,7 +406,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       if (room.status !== 'WAITING' && room.status !== 'COUNTDOWN') throw new ConflictException('NFT stakes are closed for this round');
       if (room.status === 'COUNTDOWN' && room.countdownEndsAt && room.countdownEndsAt <= new Date()) throw new ConflictException('The countdown has ended; this round is closing');
       const participant = room.participants.find(({ userId }) => userId === user.id);
-      if (!participant) throw new ConflictException('Join the arena with a GRAM stake before adding gifts');
+      if (!participant) throw new ConflictException('Join the arena before adding gifts');
       const gifts = await tx.gift.findMany({
         where: {
           id: { in: ids }, ownerId: user.id, status: 'OWNED',
@@ -427,14 +479,27 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
   }
 
   @Post('rooms')
-  async createRoom(@Body() body: { initData?: string; stakeGram?: string; inviteeIds?: string[]; arenaMode?: string }) {
+  async createRoom(@Body() body: { initData?: string; stakeGram?: string; stakeStars?: string | number; stakeCurrency?: string; inviteeIds?: string[]; arenaMode?: string }) {
     const creator = await this.getUser(body.initData);
     const arenaMode = body.arenaMode === 'WHEEL' ? 'WHEEL' : 'CLASSIC';
-    const stake = body.stakeGram ?? '';
-    if (!/^\d{1,8}(\.\d{1,9})?$/.test(stake) || Number(stake) <= 0) {
-      throw new BadRequestException('Enter a stake greater than zero (up to 9 decimals)');
+    const currency: StakeCurrency = body.stakeCurrency === 'STARS' ? 'STARS' : 'GRAM';
+    let stake: string;
+    let starAmount = 0;
+    if (currency === 'STARS') {
+      const stars = Math.floor(Number(body.stakeStars ?? body.stakeGram ?? ''));
+      if (!Number.isInteger(stars) || stars < 1 || stars > 10_000_000) {
+        throw new BadRequestException('Enter a Stars stake from 1 to 10,000,000');
+      }
+      starAmount = stars;
+      stake = starsToGramAmount(stars);
+    } else {
+      stake = body.stakeGram ?? '';
+      if (!/^\d{1,8}(\.\d{1,9})?$/.test(stake) || Number(stake) <= 0) {
+        throw new BadRequestException('Enter a stake greater than zero (up to 9 decimals)');
+      }
+      if (Number(stake) > 100000) throw new BadRequestException('Stake cannot exceed 100,000 GRAM');
+      stake = canonicalStake(stake);
     }
-    if (Number(stake) > 100000) throw new BadRequestException('Stake cannot exceed 100,000 GRAM');
 
     const inviteeIds = [...new Set((body.inviteeIds ?? []).filter((id) => id !== creator.id))];
     const invitees = inviteeIds.length
@@ -448,18 +513,19 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         data: {
           code,
           stakeGram: stake,
+          stakeStars: starAmount,
           creatorId: creator.id,
           arenaMode,
-          participants: { create: { userId: creator.id, stakeGram: stake, cashStakeGram: stake } },
+          participants: { create: { userId: creator.id, stakeGram: stake, cashStakeGram: currency === 'GRAM' ? stake : '0', cashStakeStars: starAmount } },
           invitations: invitees.length ? {
             create: invitees.map(({ id }) => ({ senderId: creator.id, recipientId: id })),
           } : undefined,
         },
       });
-      await charge(tx, creator.id, stake, `pvp:${created.id}:stake:${creator.id}:${randomBytes(6).toString('hex')}`, { roomId: created.id });
+      await charge(tx, creator.id, currency === 'STARS' ? starAmount : stake, currency, `pvp:${created.id}:stake:${creator.id}:${randomBytes(6).toString('hex')}`, { roomId: created.id });
       return tx.pvpRoom.findUniqueOrThrow({ where: { id: created.id }, include: roomInclude });
     });
-    const notificationStats = await this.notifyInvitees(invitees.map(({ telegramId }) => telegramId), code, stake)
+    const notificationStats = await this.notifyInvitees(invitees.map(({ telegramId }) => telegramId), code, currency === 'STARS' ? `${starAmount} Stars` : `${stake} GRAM`)
       .catch((error: unknown) => {
         console.error('Arena invite delivery failed:', error);
         return { sent: 0, failed: invitees.length };
@@ -509,11 +575,17 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       if (room.status !== 'WAITING') throw new BadRequestException('This arena round has already started');
       const existing = await tx.pvpParticipant.findUnique({ where: { roomId_userId: { roomId: room.id, userId: user.id } } });
       if (!existing) {
-        const creatorStake = await tx.pvpParticipant.findUniqueOrThrow({ where: { roomId_userId: { roomId: room.id, userId: room.creatorId } }, select: { cashStakeGram: true } });
+        const creatorStake = await tx.pvpParticipant.findUniqueOrThrow({ where: { roomId_userId: { roomId: room.id, userId: room.creatorId } }, select: { cashStakeGram: true, cashStakeStars: true } });
         const amount = creatorStake.cashStakeGram.toString();
-        await charge(tx, user.id, amount, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
-        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(toNano(room.stakeGram) + toNano(amount)) } });
-        await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: amount, cashStakeGram: amount } });
+        const creatorStars = creatorStake.cashStakeStars;
+        if (toNano(amount) > 0n) {
+          await charge(tx, user.id, amount, 'GRAM', `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
+        }
+        if (creatorStars > 0) {
+          await charge(tx, user.id, creatorStars, 'STARS', `pvp:${room.id}:stars-stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
+        }
+        await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(toNano(room.stakeGram) + toNano(amount) + toNano(creatorStars > 0 ? starsToGramAmount(creatorStars) : '0')), stakeStars: { increment: creatorStars } } });
+        await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: fromNano(toNano(amount) + toNano(creatorStars > 0 ? starsToGramAmount(creatorStars) : '0')), cashStakeGram: amount, cashStakeStars: creatorStars } });
       }
       await tx.pvpInvitation.updateMany({
         where: { roomId: room.id, recipientId: user.id, status: 'PENDING' },
@@ -531,7 +603,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       where: { recipientId: user.id, status: 'PENDING', room: { status: 'WAITING' } },
       include: {
         sender: { select: { username: true, firstName: true } },
-        room: { select: { code: true, stakeGram: true, createdAt: true, _count: { select: { participants: true } } } },
+        room: { select: { code: true, stakeGram: true, stakeStars: true, createdAt: true, _count: { select: { participants: true } } } },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -564,11 +636,17 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
       if (body.accept) {
         const existing = await tx.pvpParticipant.findUnique({ where: { roomId_userId: { roomId: invitation.roomId, userId: user.id } } });
         if (!existing) {
-          const creatorStake = await tx.pvpParticipant.findUniqueOrThrow({ where: { roomId_userId: { roomId: room.id, userId: room.creatorId } }, select: { cashStakeGram: true } });
+          const creatorStake = await tx.pvpParticipant.findUniqueOrThrow({ where: { roomId_userId: { roomId: room.id, userId: room.creatorId } }, select: { cashStakeGram: true, cashStakeStars: true } });
           const amount = creatorStake.cashStakeGram.toString();
-          await charge(tx, user.id, amount, `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
-          await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(toNano(room.stakeGram) + toNano(amount)) } });
-          await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: amount, cashStakeGram: amount } });
+          const creatorStars = creatorStake.cashStakeStars;
+          if (toNano(amount) > 0n) {
+            await charge(tx, user.id, amount, 'GRAM', `pvp:${room.id}:stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
+          }
+          if (creatorStars > 0) {
+            await charge(tx, user.id, creatorStars, 'STARS', `pvp:${room.id}:stars-stake:${user.id}:${randomBytes(6).toString('hex')}`, { roomId: room.id });
+          }
+          await tx.pvpRoom.update({ where: { id: room.id }, data: { stakeGram: fromNano(toNano(room.stakeGram) + toNano(amount) + toNano(creatorStars > 0 ? starsToGramAmount(creatorStars) : '0')), stakeStars: { increment: creatorStars } } });
+          await tx.pvpParticipant.create({ data: { roomId: room.id, userId: user.id, stakeGram: fromNano(toNano(amount) + toNano(creatorStars > 0 ? starsToGramAmount(creatorStars) : '0')), cashStakeGram: amount, cashStakeStars: creatorStars } });
         }
       }
       return tx.pvpRoom.findUniqueOrThrow({ where: { id: invitation.roomId }, include: roomInclude });
@@ -651,7 +729,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
               { status: 'WAITING', createdAt: { lte: new Date(now.getTime() - 15 * 60_000) } },
             ],
           },
-          include: { participants: { select: { userId: true, cashStakeGram: true, stakeGram: true } } },
+          include: { participants: { select: { userId: true, cashStakeGram: true, cashStakeStars: true, stakeGram: true } } },
           take: 50,
         });
         for (const room of expired) {
@@ -676,7 +754,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  private async notifyInvitees(telegramIds: string[], code: string, stakeGram: string) {
+  private async notifyInvitees(telegramIds: string[], code: string, stakeLabel: string) {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     if (!token || telegramIds.length === 0) return { sent: 0, failed: telegramIds.length };
 
@@ -687,7 +765,7 @@ export class PvpController implements OnModuleInit, OnModuleDestroy {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: chatId,
-          text: `You have an ORBIT Arena invitation. Stake: ${stakeGram} GRAM per player, charged from your ORBIT balance only if you accept. Unstarted rooms are refunded after 15 minutes.`,
+          text: `You have an ORBIT Arena invitation. Stake: ${stakeLabel} per player, charged from your ORBIT balance only if you accept. Unstarted rooms are refunded after 15 minutes.`,
           reply_markup: {
             inline_keyboard: [[{ text: 'Open ORBIT Arena', url }]],
           },

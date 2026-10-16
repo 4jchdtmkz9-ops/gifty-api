@@ -15,21 +15,18 @@ import { PrismaService } from '../prisma.service.js';
 import { TelegramAuthService } from '../auth/telegram-auth.service.js';
 import { StarPaymentsService } from '../payments/star-payments.service.js';
 
-const GIVEAWAY_ID = 'eternal-rose-2026-10';
+// Referral NFT giveaway — ChillFlame (https://t.me/nft/ChillFlame-447145).
+// Conditions (verified server-side): channel subscription, connected wallet,
+// and at least 0.1 TON staked in the public Arena. The weighted draw runs
+// automatically as soon as the 10th participant enters.
+const GIVEAWAY_ID = 'nft-chillflame-2026-10';
 const CHANNEL_USERNAME = '@orbit_market_official';
 const PARTICIPANT_LIMIT = 10;
 const REFERRAL_WEIGHT_BONUS = 10;
-const REVIEW_PENDING = 'PENDING';
-const REVIEW_APPROVED = 'APPROVED';
-const REVIEW_REJECTED = 'REJECTED';
+const ARENA_MIN_TON = 0.1;
+const ENTRY_APPROVED = 'APPROVED';
 
 type TelegramUpdate = {
-  callback_query?: {
-    id: string;
-    data?: string;
-    from: { id: number };
-    message?: { chat: { id: number }; message_id: number };
-  };
   pre_checkout_query?: {
     id: string;
     from: { id: number };
@@ -61,91 +58,74 @@ export class GiveawaysController {
     private readonly stars: StarPaymentsService,
   ) {}
 
-  @Get('rose/status')
+  @Get('nft/status')
   async status(
     @Headers('x-telegram-init-data') initData?: string,
-    @Headers('x-rose-referral-code') referralCode?: string,
+    @Headers('x-giveaway-referral-code') referralCode?: string,
   ) {
     const user = await this.getUser(initData);
     if (referralCode) await this.recordReferralVisit(user.id, referralCode);
-    const [entry, participants, referralCount, referralVisitCount, winner, referralLink] = await Promise.all([
-      this.prisma.giveawayEntry.findUnique({ where: { giveaway_userId: { giveaway: GIVEAWAY_ID, userId: user.id } } }),
-      this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED } }),
-      this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED, referredByUserId: user.id } }),
-      this.countReferralVisits(user.id),
-      this.getWinner(),
-      this.getReferralLink(user.id),
-    ]);
-    return {
-      entered: entry?.reviewStatus === REVIEW_APPROVED,
-      applicationStatus: entry?.reviewStatus ?? null,
-      participants, winner,
-      full: Boolean(winner) || participants >= PARTICIPANT_LIMIT,
-      referralLink, referralCount, referralVisitCount,
-      referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS,
-    };
+    return this.currentState(user);
   }
 
-  @Post('rose/enter')
+  @Post('nft/enter')
   async enter(
     @Headers('x-telegram-init-data') initData?: string,
-    @Headers('x-rose-referral-code') referralCode?: string,
-    @Body() body?: { profileConditionConfirmed?: boolean },
+    @Headers('x-giveaway-referral-code') referralCode?: string,
   ) {
     const user = await this.getUser(initData);
-    if (body?.profileConditionConfirmed !== true) throw new BadRequestException('Confirm the Telegram profile condition before entering');
-    const isMember = await this.isSubscribed(user.telegramId);
-    if (!isMember) throw new BadRequestException(`Subscribe to ${CHANNEL_USERNAME} before entering`);
+
+    // Every condition is re-checked server-side at the moment of entering.
+    const subscribed = await this.isSubscribed(user.telegramId);
+    const { walletConnected, arenaStake } = await this.walletAndArena(user.id);
+    if (!subscribed) throw new BadRequestException(`Subscribe to ${CHANNEL_USERNAME} before entering`);
+    if (!walletConnected) throw new BadRequestException('Connect your wallet on the site or in the bot before entering');
+    if (!arenaStake) throw new BadRequestException(`Bet at least ${ARENA_MIN_TON} TON in the Arena before entering`);
+
     const referrerId = referralCode
       ? await this.recordReferralVisit(user.id, referralCode)
       : await this.getRecordedReferrerId(user.id);
 
-    const result = await this.prisma.$transaction(async (tx) => {
+    await this.prisma.$transaction(async (tx) => {
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${GIVEAWAY_ID}))::text AS locked`;
       const existing = await tx.giveawayEntry.findUnique({
         where: { giveaway_userId: { giveaway: GIVEAWAY_ID, userId: user.id } },
       });
-      if (existing?.reviewStatus === REVIEW_APPROVED || existing?.reviewStatus === REVIEW_PENDING) {
-        const count = await tx.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED } });
-        const winnerEntry = await tx.giveawayEntry.findFirst({
-          where: { giveaway: GIVEAWAY_ID, winner: true },
-          include: { user: { select: { username: true, firstName: true, lastName: true, photoUrl: true } } },
+      if (!existing) {
+        const count = await tx.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: ENTRY_APPROVED } });
+        if (count >= PARTICIPANT_LIMIT) throw new BadRequestException(`The giveaway already has its ${PARTICIPANT_LIMIT} participants`);
+        await tx.giveawayEntry.create({
+          data: { giveaway: GIVEAWAY_ID, userId: user.id, referredByUserId: referrerId, reviewStatus: ENTRY_APPROVED },
         });
-        return { entered: existing.reviewStatus === REVIEW_APPROVED, applicationStatus: existing.reviewStatus, entryId: existing.id, participants: count, winner: this.publicWinner(winnerEntry), full: Boolean(winnerEntry) || count >= PARTICIPANT_LIMIT, created: false };
       }
 
-      const count = await tx.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED } });
-      if (count >= PARTICIPANT_LIMIT) {
-        const winnerEntry = await tx.giveawayEntry.findFirst({
-          where: { giveaway: GIVEAWAY_ID, winner: true },
-          include: { user: { select: { username: true, firstName: true, lastName: true, photoUrl: true } } },
+      // The draw fires on the 10th approved participant (idempotent).
+      const participants = await tx.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: ENTRY_APPROVED } });
+      const drawn = await tx.giveawayEntry.findFirst({ where: { giveaway: GIVEAWAY_ID, winner: true }, select: { id: true } });
+      if (!drawn && participants >= PARTICIPANT_LIMIT) {
+        const entries = await tx.giveawayEntry.findMany({
+          where: { giveaway: GIVEAWAY_ID, reviewStatus: ENTRY_APPROVED },
+          select: { id: true, userId: true },
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
         });
-        return { entered: false, applicationStatus: existing?.reviewStatus ?? null, entryId: existing?.id ?? null, participants: count, winner: this.publicWinner(winnerEntry), full: true, created: false };
+        const weights = await Promise.all(entries.map(async (entry) => ({
+          ...entry,
+          weight: REFERRAL_WEIGHT_BONUS + await tx.giveawayEntry.count({
+            where: { giveaway: GIVEAWAY_ID, reviewStatus: ENTRY_APPROVED, referredByUserId: entry.userId },
+          }),
+        })));
+        const totalWeight = weights.reduce((sum, entry) => sum + entry.weight, 0);
+        let draw = randomInt(totalWeight);
+        let selected = weights[0];
+        for (const entry of weights) {
+          if (draw < entry.weight) { selected = entry; break; }
+          draw -= entry.weight;
+        }
+        await tx.giveawayEntry.update({ where: { id: selected.id }, data: { winner: true } });
       }
-
-      const entry = existing
-        ? await tx.giveawayEntry.update({ where: { id: existing.id }, data: { reviewStatus: REVIEW_PENDING, referredByUserId: referrerId, winner: false } })
-        : await tx.giveawayEntry.create({ data: { giveaway: GIVEAWAY_ID, userId: user.id, referredByUserId: referrerId, reviewStatus: REVIEW_PENDING } });
-      return { entered: false, applicationStatus: REVIEW_PENDING, entryId: entry.id, participants: count, winner: await this.publicWinner(await tx.giveawayEntry.findFirst({ where: { giveaway: GIVEAWAY_ID, winner: true }, include: { user: { select: { username: true, firstName: true, lastName: true, photoUrl: true } } } })), full: false, created: true };
     });
-    if (result.full && !result.entryId) throw new BadRequestException('The rose giveaway is full');
-    if (result.created && result.entryId) {
-      try {
-        await this.notifyAdmins(user, result.entryId);
-      } catch (error) {
-        await this.prisma.giveawayEntry.deleteMany({ where: { id: result.entryId, reviewStatus: REVIEW_PENDING } });
-        throw error;
-      }
-    }
-    const [referralCount, referralVisitCount, ownReferralLink] = await Promise.all([
-      this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED, referredByUserId: user.id } }),
-      this.countReferralVisits(user.id),
-      this.getReferralLink(user.id),
-    ]);
-    return {
-      ...result, referralLink: ownReferralLink, referralCount, referralVisitCount,
-      referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS,
-    };
+
+    return this.currentState(user);
   }
 
   @Post('telegram-updates')
@@ -164,128 +144,50 @@ export class GiveawaysController {
       await this.stars.confirmSuccessfulPayment(update.message.successful_payment);
       return { ok: true };
     }
-    const callback = update?.callback_query;
-    if (!callback?.data?.startsWith('rose:')) return { ok: true };
-
-    const adminIds = await this.getGiveawayAdminTelegramIds();
-    if (!adminIds.has(String(callback.from.id))) {
-      await this.answerCallback(callback.id, 'Not authorized');
-      return { ok: true };
-    }
-
-    const [, action, entryId] = callback.data.split(':');
-    if (!entryId || (action !== 'approve' && action !== 'reject')) {
-      await this.answerCallback(callback.id, 'Invalid action');
-      return { ok: true };
-    }
-
-    const decision = await this.reviewEntry(entryId, action === 'approve');
-    const message = decision === 'APPROVED'
-      ? '✅ Giveaway application approved'
-      : decision === 'FULL' ? 'The giveaway already has 10 approved participants' : '❌ Giveaway application rejected';
-    await this.answerCallback(callback.id, message);
-    if (callback.message) {
-      await this.telegramRequest('editMessageText', {
-        chat_id: callback.message.chat.id,
-        message_id: callback.message.message_id,
-        text: `${message}\nApplication: ${entryId}`,
-        reply_markup: { inline_keyboard: [] },
-      }).catch(() => undefined);
-    }
     return { ok: true };
   }
 
-  private async notifyAdmins(user: { id: string; telegramId: string; username: string | null; firstName: string | null; lastName: string | null }, entryId: string) {
-    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN')?.trim();
-    if (!token) throw new ServiceUnavailableException('Telegram bot is not configured to notify giveaway admins');
-    const adminIds = await this.getGiveawayAdminTelegramIds();
-    if (adminIds.size === 0) throw new ServiceUnavailableException('Giveaway admins must open the ORBIT bot before receiving review requests');
-
-    const displayName = [user.firstName, user.lastName].filter(Boolean).join(' ') || 'Telegram user';
-    const label = user.username ? `@${user.username}` : `${displayName} · ID ${user.telegramId}`;
-    const text = `🌹 ORBIT giveaway application\n\nUser: ${label}\nName: ${displayName}\nTelegram ID: ${user.telegramId}\n\nCondition 1: channel subscription verified.\nCondition 2: user confirmed the profile requirement.\nPlease review the entry:`;
-    const results = await Promise.all([...adminIds].map(async (chatId) => {
-      const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text,
-          reply_markup: { inline_keyboard: [[
-            { text: '✅ Approve', callback_data: `rose:approve:${entryId}` },
-            { text: '✖️ Reject', callback_data: `rose:reject:${entryId}` },
-          ]] },
-        }),
-        signal: AbortSignal.timeout(8_000),
-      }).then(async (res) => res.ok && Boolean((await res.json() as { ok?: boolean }).ok)).catch(() => false);
-      return response;
-    }));
-    if (results.every((sent) => !sent)) throw new ServiceUnavailableException('Could not deliver the giveaway review request to the admins');
+  private async currentState(user: { id: string; telegramId: string }) {
+    const [entry, participants, referralCount, referralVisitCount, winner, referralLink, walletConnected, arenaStake] = await Promise.all([
+      this.prisma.giveawayEntry.findUnique({ where: { giveaway_userId: { giveaway: GIVEAWAY_ID, userId: user.id } } }),
+      this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: ENTRY_APPROVED } }),
+      this.prisma.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: ENTRY_APPROVED, referredByUserId: user.id } }),
+      this.countReferralVisits(user.id),
+      this.getWinner(),
+      this.getReferralLink(user.id),
+      this.prisma.wallet.findFirst({ where: { userId: user.id, isConnected: true }, select: { id: true } }),
+      this.prisma.pvpParticipant.findFirst({
+        where: { userId: user.id, cashStakeGram: { gte: ARENA_MIN_TON }, room: { isPublic: true } },
+        select: { id: true },
+      }),
+    ]);
+    return {
+      entered: Boolean(entry),
+      participants,
+      winner,
+      full: Boolean(winner) || participants >= PARTICIPANT_LIMIT,
+      conditions: {
+        // Degrades to false when the bot cannot verify membership (same as FREE case).
+        subscribed: await this.isSubscribed(user.telegramId).catch(() => false),
+        walletConnected: Boolean(walletConnected),
+        arenaStake: Boolean(arenaStake),
+      },
+      referralLink,
+      referralCount,
+      referralVisitCount,
+      referralBonusPercent: referralCount * REFERRAL_WEIGHT_BONUS,
+    };
   }
 
-  private async getGiveawayAdminTelegramIds() {
-    const configured = this.config.get<string>('GIVEAWAY_ADMIN_USERNAMES') ?? 'maxhqdI,progcoder';
-    const usernames = new Set(configured.split(',').map((name) => name.trim().replace(/^@/, '').toLowerCase()).filter(Boolean));
-    if (usernames.size === 0) return new Set<string>();
-    const users = await this.prisma.user.findMany({ select: { username: true, telegramId: true } });
-    return new Set(users.filter((user) => user.username && usernames.has(user.username.toLowerCase())).map((user) => user.telegramId));
-  }
-
-  private async reviewEntry(entryId: string, approve: boolean) {
-    return this.prisma.$transaction(async (tx) => {
-      await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${GIVEAWAY_ID}))::text AS locked`;
-      const entry = await tx.giveawayEntry.findFirst({ where: { id: entryId, giveaway: GIVEAWAY_ID } });
-      if (!entry || entry.reviewStatus !== REVIEW_PENDING) return entry?.reviewStatus ?? REVIEW_REJECTED;
-      const approvedCount = await tx.giveawayEntry.count({ where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED } });
-      if (approve && approvedCount >= PARTICIPANT_LIMIT) {
-        await tx.giveawayEntry.update({ where: { id: entry.id }, data: { reviewStatus: REVIEW_REJECTED } });
-        return 'FULL';
-      }
-      if (!approve) {
-        await tx.giveawayEntry.update({ where: { id: entry.id }, data: { reviewStatus: REVIEW_REJECTED } });
-        return REVIEW_REJECTED;
-      }
-
-      await tx.giveawayEntry.update({ where: { id: entry.id }, data: { reviewStatus: REVIEW_APPROVED } });
-      const participants = approvedCount + 1;
-      if (participants === PARTICIPANT_LIMIT) {
-        const entries = await tx.giveawayEntry.findMany({
-          where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED },
-          select: { id: true, userId: true },
-          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-        });
-        const weights = await Promise.all(entries.map(async (approvedEntry) => ({
-          ...approvedEntry,
-          weight: REFERRAL_WEIGHT_BONUS + await tx.giveawayEntry.count({
-            where: { giveaway: GIVEAWAY_ID, reviewStatus: REVIEW_APPROVED, referredByUserId: approvedEntry.userId },
-          }),
-        })));
-        const totalWeight = weights.reduce((sum, approvedEntry) => sum + approvedEntry.weight, 0);
-        let draw = randomInt(totalWeight);
-        let selected = weights[0];
-        for (const approvedEntry of weights) {
-          if (draw < approvedEntry.weight) { selected = approvedEntry; break; }
-          draw -= approvedEntry.weight;
-        }
-        await tx.giveawayEntry.update({ where: { id: selected.id }, data: { winner: true } });
-      }
-      return REVIEW_APPROVED;
-    });
-  }
-
-  private async answerCallback(callbackId: string, text: string) {
-    await this.telegramRequest('answerCallbackQuery', { callback_query_id: callbackId, text }).catch(() => undefined);
-  }
-
-  private async telegramRequest(method: string, payload: Record<string, unknown>) {
-    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN')?.trim();
-    if (!token) throw new ServiceUnavailableException('Telegram bot is not configured');
-    const response = await fetch(`https://api.telegram.org/bot${token}/${method}`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: AbortSignal.timeout(8_000),
-    });
-    if (!response.ok) throw new Error(`Telegram ${method} failed`);
-    const result = await response.json() as { ok?: boolean };
-    if (!result.ok) throw new Error(`Telegram ${method} failed`);
+  private async walletAndArena(userId: string) {
+    const [connectedWallet, arenaBet] = await Promise.all([
+      this.prisma.wallet.findFirst({ where: { userId, isConnected: true }, select: { id: true } }),
+      this.prisma.pvpParticipant.findFirst({
+        where: { userId, cashStakeGram: { gte: ARENA_MIN_TON }, room: { isPublic: true } },
+        select: { id: true },
+      }),
+    ]);
+    return { walletConnected: Boolean(connectedWallet), arenaStake: Boolean(arenaBet) };
   }
 
   private async recordReferralVisit(inviteeUserId: string, referralCode?: string) {
@@ -327,7 +229,7 @@ export class GiveawaysController {
       select: { code: true },
     });
     const username = await this.telegramBotUsername();
-    return username ? `https://t.me/${username}?startapp=rose_${saved.code}` : null;
+    return username ? `https://t.me/${username}?startapp=nft_${saved.code}` : null;
   }
 
   private async telegramBotUsername() {
@@ -355,10 +257,6 @@ export class GiveawaysController {
       where: { giveaway: GIVEAWAY_ID, winner: true },
       include: { user: { select: { username: true, firstName: true, lastName: true, photoUrl: true } } },
     });
-    return this.publicWinner(entry);
-  }
-
-  private publicWinner(entry: { user: { username: string | null; firstName: string | null; lastName: string | null; photoUrl: string | null } } | null) {
     if (!entry) return null;
     return {
       username: entry.user.username,

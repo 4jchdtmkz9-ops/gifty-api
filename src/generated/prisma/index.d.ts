@@ -11607,6 +11607,7 @@ export namespace Prisma {
     stakeStars: number | null
     stakeGram: Decimal | null
     autoCashoutAt: Decimal | null
+    capMultiplier: Decimal | null
     cashoutMultiplier: Decimal | null
     payoutStars: number | null
     payoutGram: Decimal | null
@@ -11616,6 +11617,7 @@ export namespace Prisma {
     stakeStars: number | null
     stakeGram: Decimal | null
     autoCashoutAt: Decimal | null
+    capMultiplier: Decimal | null
     cashoutMultiplier: Decimal | null
     payoutStars: number | null
     payoutGram: Decimal | null
@@ -11629,6 +11631,7 @@ export namespace Prisma {
     stakeStars: number | null
     stakeGram: Decimal | null
     autoCashoutAt: Decimal | null
+    capMultiplier: Decimal | null
     status: string | null
     cashoutMultiplier: Decimal | null
     payoutStars: number | null
@@ -11645,6 +11648,7 @@ export namespace Prisma {
     stakeStars: number | null
     stakeGram: Decimal | null
     autoCashoutAt: Decimal | null
+    capMultiplier: Decimal | null
     status: string | null
     cashoutMultiplier: Decimal | null
     payoutStars: number | null
@@ -11661,6 +11665,7 @@ export namespace Prisma {
     stakeStars: number
     stakeGram: number
     autoCashoutAt: number
+    capMultiplier: number
     status: number
     cashoutMultiplier: number
     payoutStars: number
@@ -11675,6 +11680,7 @@ export namespace Prisma {
     stakeStars?: true
     stakeGram?: true
     autoCashoutAt?: true
+    capMultiplier?: true
     cashoutMultiplier?: true
     payoutStars?: true
     payoutGram?: true
@@ -11684,6 +11690,7 @@ export namespace Prisma {
     stakeStars?: true
     stakeGram?: true
     autoCashoutAt?: true
+    capMultiplier?: true
     cashoutMultiplier?: true
     payoutStars?: true
     payoutGram?: true
@@ -11697,6 +11704,7 @@ export namespace Prisma {
     stakeStars?: true
     stakeGram?: true
     autoCashoutAt?: true
+    capMultiplier?: true
     status?: true
     cashoutMultiplier?: true
     payoutStars?: true
@@ -11713,6 +11721,7 @@ export namespace Prisma {
     stakeStars?: true
     stakeGram?: true
     autoCashoutAt?: true
+    capMultiplier?: true
     status?: true
     cashoutMultiplier?: true
     payoutStars?: true
@@ -11729,6 +11738,7 @@ export namespace Prisma {
     stakeStars?: true
     stakeGram?: true
     autoCashoutAt?: true
+    capMultiplier?: true
     status?: true
     cashoutMultiplier?: true
     payoutStars?: true
@@ -11832,6 +11842,7 @@ export namespace Prisma {
     stakeStars: number
     stakeGram: Decimal
     autoCashoutAt: Decimal | null
+    capMultiplier: Decimal | null
     status: string
     cashoutMultiplier: Decimal | null
     payoutStars: number
@@ -11867,6 +11878,7 @@ export namespace Prisma {
     stakeStars?: boolean
     stakeGram?: boolean
     autoCashoutAt?: boolean
+    capMultiplier?: boolean
     status?: boolean
     cashoutMultiplier?: boolean
     payoutStars?: boolean
@@ -11885,6 +11897,7 @@ export namespace Prisma {
     stakeStars?: boolean
     stakeGram?: boolean
     autoCashoutAt?: boolean
+    capMultiplier?: boolean
     status?: boolean
     cashoutMultiplier?: boolean
     payoutStars?: boolean
@@ -11903,6 +11916,7 @@ export namespace Prisma {
     stakeStars?: boolean
     stakeGram?: boolean
     autoCashoutAt?: boolean
+    capMultiplier?: boolean
     status?: boolean
     cashoutMultiplier?: boolean
     payoutStars?: boolean
@@ -11921,6 +11935,7 @@ export namespace Prisma {
     stakeStars?: boolean
     stakeGram?: boolean
     autoCashoutAt?: boolean
+    capMultiplier?: boolean
     status?: boolean
     cashoutMultiplier?: boolean
     payoutStars?: boolean
@@ -11929,7 +11944,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type RushBetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roundId" | "userId" | "currency" | "stakeStars" | "stakeGram" | "autoCashoutAt" | "status" | "cashoutMultiplier" | "payoutStars" | "payoutGram" | "cashedOutAt" | "createdAt", ExtArgs["result"]["rushBet"]>
+  export type RushBetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roundId" | "userId" | "currency" | "stakeStars" | "stakeGram" | "autoCashoutAt" | "capMultiplier" | "status" | "cashoutMultiplier" | "payoutStars" | "payoutGram" | "cashedOutAt" | "createdAt", ExtArgs["result"]["rushBet"]>
   export type RushBetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     round?: boolean | RushRoundDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11957,6 +11972,10 @@ export namespace Prisma {
       stakeStars: number
       stakeGram: Prisma.Decimal
       autoCashoutAt: Prisma.Decimal | null
+      /**
+       * Low stakes (<10 Stars) fly a capped round on 70% of bets: the bet dies at this multiplier.
+       */
+      capMultiplier: Prisma.Decimal | null
       status: string
       cashoutMultiplier: Prisma.Decimal | null
       payoutStars: number
@@ -12395,6 +12414,7 @@ export namespace Prisma {
     readonly stakeStars: FieldRef<"RushBet", 'Int'>
     readonly stakeGram: FieldRef<"RushBet", 'Decimal'>
     readonly autoCashoutAt: FieldRef<"RushBet", 'Decimal'>
+    readonly capMultiplier: FieldRef<"RushBet", 'Decimal'>
     readonly status: FieldRef<"RushBet", 'String'>
     readonly cashoutMultiplier: FieldRef<"RushBet", 'Decimal'>
     readonly payoutStars: FieldRef<"RushBet", 'Int'>
@@ -26934,6 +26954,7 @@ export namespace Prisma {
     stakeStars: 'stakeStars',
     stakeGram: 'stakeGram',
     autoCashoutAt: 'autoCashoutAt',
+    capMultiplier: 'capMultiplier',
     status: 'status',
     cashoutMultiplier: 'cashoutMultiplier',
     payoutStars: 'payoutStars',
@@ -27874,6 +27895,7 @@ export namespace Prisma {
     stakeStars?: IntFilter<"RushBet"> | number
     stakeGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     status?: StringFilter<"RushBet"> | string
     cashoutMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFilter<"RushBet"> | number
@@ -27892,6 +27914,7 @@ export namespace Prisma {
     stakeStars?: SortOrder
     stakeGram?: SortOrder
     autoCashoutAt?: SortOrderInput | SortOrder
+    capMultiplier?: SortOrderInput | SortOrder
     status?: SortOrder
     cashoutMultiplier?: SortOrderInput | SortOrder
     payoutStars?: SortOrder
@@ -27914,6 +27937,7 @@ export namespace Prisma {
     stakeStars?: IntFilter<"RushBet"> | number
     stakeGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     status?: StringFilter<"RushBet"> | string
     cashoutMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFilter<"RushBet"> | number
@@ -27932,6 +27956,7 @@ export namespace Prisma {
     stakeStars?: SortOrder
     stakeGram?: SortOrder
     autoCashoutAt?: SortOrderInput | SortOrder
+    capMultiplier?: SortOrderInput | SortOrder
     status?: SortOrder
     cashoutMultiplier?: SortOrderInput | SortOrder
     payoutStars?: SortOrder
@@ -27956,6 +27981,7 @@ export namespace Prisma {
     stakeStars?: IntWithAggregatesFilter<"RushBet"> | number
     stakeGram?: DecimalWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: DecimalNullableWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: DecimalNullableWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     status?: StringWithAggregatesFilter<"RushBet"> | string
     cashoutMultiplier?: DecimalNullableWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntWithAggregatesFilter<"RushBet"> | number
@@ -29600,6 +29626,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -29618,6 +29645,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -29632,6 +29660,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -29650,6 +29679,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -29666,6 +29696,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -29680,6 +29711,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -29696,6 +29728,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -31468,6 +31501,7 @@ export namespace Prisma {
     stakeStars?: SortOrder
     stakeGram?: SortOrder
     autoCashoutAt?: SortOrder
+    capMultiplier?: SortOrder
     status?: SortOrder
     cashoutMultiplier?: SortOrder
     payoutStars?: SortOrder
@@ -31480,6 +31514,7 @@ export namespace Prisma {
     stakeStars?: SortOrder
     stakeGram?: SortOrder
     autoCashoutAt?: SortOrder
+    capMultiplier?: SortOrder
     cashoutMultiplier?: SortOrder
     payoutStars?: SortOrder
     payoutGram?: SortOrder
@@ -31493,6 +31528,7 @@ export namespace Prisma {
     stakeStars?: SortOrder
     stakeGram?: SortOrder
     autoCashoutAt?: SortOrder
+    capMultiplier?: SortOrder
     status?: SortOrder
     cashoutMultiplier?: SortOrder
     payoutStars?: SortOrder
@@ -31509,6 +31545,7 @@ export namespace Prisma {
     stakeStars?: SortOrder
     stakeGram?: SortOrder
     autoCashoutAt?: SortOrder
+    capMultiplier?: SortOrder
     status?: SortOrder
     cashoutMultiplier?: SortOrder
     payoutStars?: SortOrder
@@ -31521,6 +31558,7 @@ export namespace Prisma {
     stakeStars?: SortOrder
     stakeGram?: SortOrder
     autoCashoutAt?: SortOrder
+    capMultiplier?: SortOrder
     cashoutMultiplier?: SortOrder
     payoutStars?: SortOrder
     payoutGram?: SortOrder
@@ -34618,6 +34656,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -34634,6 +34673,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -35236,6 +35276,7 @@ export namespace Prisma {
     stakeStars?: IntFilter<"RushBet"> | number
     stakeGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     status?: StringFilter<"RushBet"> | string
     cashoutMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFilter<"RushBet"> | number
@@ -36322,6 +36363,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -36338,6 +36380,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -40065,6 +40108,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -40677,6 +40721,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -40693,6 +40738,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -40708,6 +40754,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -40882,6 +40929,7 @@ export namespace Prisma {
     stakeStars?: number
     stakeGram?: Decimal | DecimalJsLike | number | string
     autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: Decimal | DecimalJsLike | number | string | null
     status?: string
     cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
     payoutStars?: number
@@ -40896,6 +40944,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -40912,6 +40961,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number
@@ -40927,6 +40977,7 @@ export namespace Prisma {
     stakeStars?: IntFieldUpdateOperationsInput | number
     stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    capMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     status?: StringFieldUpdateOperationsInput | string
     cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     payoutStars?: IntFieldUpdateOperationsInput | number

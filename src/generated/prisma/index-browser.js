@@ -212,6 +212,7 @@ exports.Prisma.RushBetScalarFieldEnum = {
   stakeStars: 'stakeStars',
   stakeGram: 'stakeGram',
   autoCashoutAt: 'autoCashoutAt',
+  capMultiplier: 'capMultiplier',
   status: 'status',
   cashoutMultiplier: 'cashoutMultiplier',
   payoutStars: 'payoutStars',

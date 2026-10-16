@@ -23,13 +23,18 @@ const BETTING_WINDOW_MS = 8_000;
 const CRASH_RESULT_MS = 4_000;
 // Doubling roughly every 8 seconds keeps rounds punchy for a mini app.
 const GROWTH_PER_MS = Math.LN2 / 8_000;
-const HOUSE_EDGE = 0.03; // 97% RTP
 const MAX_CRASH = 500;
+// Owner curve (Oct 2026): 60% of rounds die below 2x, 40% fly past it.
+const HIGH_ROUND_SHARE = 0.4;
+// Stakes below 10 Stars-equivalent fly a capped round on 70% of bets.
+const LOW_STAKE_CAP_STARS = 10;
+const LOW_STAKE_CAP_MULTIPLIER = 1.2;
+const LOW_STAKE_CAP_CHANCE = 0.7;
 
 const MIN_STARS = 1;
-const MAX_STARS = 100_000;
-const MIN_GRAM = '0.05';
-const MAX_GRAM = '1000';
+const MAX_STARS = 4_000_000; // payout (stake x500) must fit a Prisma Int
+const MIN_GRAM = '0.01';
+const MAX_GRAM = '100000';
 const MIN_AUTO = 1.1;
 const MAX_AUTO = 500;
 
@@ -58,11 +63,42 @@ function starsToGramAmount(stars: number): string {
   return rem ? `${int}.${rem}` : int.toString();
 }
 
-/** 3% house edge: P(crash > m) = 0.97 / m for m >= 1. */
+/** Exact Stars-per-GRAM rate used for stake-cap equivalence. */
+function gramPerStar(): number {
+  const rate = (process.env.STARS_GRAM_PER_STAR ?? '0.01').trim() || '0.01';
+  const value = Number(rate);
+  return Number.isFinite(value) && value > 0 ? value : 0.01;
+}
+
+/**
+ * Owner curve (Oct 2026): 60% of rounds crash below 2x, 40% fly past it.
+ *   P(crash > m) = 0.6 * (2 - m)^2 + 0.4  for 1 <= m < 2
+ *   P(crash > m) = 0.8 / m                for m >= 2
+ * A fixed cash-out at m >= 2 pays EV 0.8; below 2x EV never exceeds ~1.
+ */
 export function generateCrashMultiplier() {
-  const u = randomInt(1_000_000_000) / 1_000_000_000;
-  const raw = (1 - HOUSE_EDGE) / Math.max(1e-9, 1 - u);
+  const branch = randomInt(1_000_000_000) / 1_000_000_000;
+  const raw = branch < 1 - HIGH_ROUND_SHARE
+    ? (() => {
+        const u = randomInt(1_000_000_000) / 1_000_000_000;
+        return 2 - Math.sqrt(u); // [1, 2), skewed toward quick crashes
+      })()
+    : (() => {
+        const u = randomInt(1_000_000_000) / 1_000_000_000;
+        return 2 / Math.max(1e-9, 1 - u); // [2, MAX_CRASH]
+      })();
   return Math.min(MAX_CRASH, Math.max(1, Math.floor(raw * 100) / 100));
+}
+
+/** Stars-equivalent of a stake, used by the low-stake flight cap. */
+export function stakeStarsEquivalent(currency: string, stakeStars: number, stakeGram: string) {
+  return currency === 'STARS' ? stakeStars : Math.round(Number(stakeGram) / gramPerStar());
+}
+
+/** 70% of sub-10-Star bets fly a capped x1.20 round (owner's rule). */
+export function lowStakeCapFor(starsEquivalent: number): number | null {
+  if (starsEquivalent >= LOW_STAKE_CAP_STARS) return null;
+  return randomInt(1_000_000) / 1_000_000 < LOW_STAKE_CAP_CHANCE ? LOW_STAKE_CAP_MULTIPLIER : null;
 }
 
 export function multiplierAt(flyingStartedAt: Date, now: Date) {
@@ -127,7 +163,7 @@ export class RushRoundEngine {
           await this.crash(round);
           continue;
         }
-        await this.processAutoCashouts(round, mult);
+        await this.processInFlightSettlements(round, mult);
         return;
       }
 
@@ -173,7 +209,7 @@ export class RushRoundEngine {
     });
   }
 
-  private async processAutoCashouts(round: RushRoundRecord, currentMultiplier: number) {
+  private async processInFlightSettlements(round: RushRoundRecord, currentMultiplier: number) {
     const bets = await this.prisma.rushBet.findMany({
       where: { roundId: round.id, status: 'ACTIVE', autoCashoutAt: { not: null } },
     });
@@ -183,16 +219,34 @@ export class RushRoundEngine {
         await this.settleCashout(bet.id, Math.min(target, floor2(currentMultiplier)));
       }
     }
+    // Low-stake caps: these bets die the moment the rocket passes their cap,
+    // even though the shared round keeps flying for everyone else.
+    const capped = await this.prisma.rushBet.findMany({
+      where: { roundId: round.id, status: 'ACTIVE', capMultiplier: { not: null } },
+    });
+    for (const bet of capped) {
+      const cap = Number(bet.capMultiplier?.toString() ?? '0');
+      if (cap > 0 && floor2(currentMultiplier) >= cap) {
+        await this.prisma.rushBet.updateMany({
+          where: { id: bet.id, status: 'ACTIVE' },
+          data: { status: 'LOST', cashoutMultiplier: cap.toFixed(2) },
+        });
+      }
+    }
   }
 
   /** Credits a bet's payout at the given multiplier. Guarded + idempotent. */
   async settleCashout(betId: string, multiplier: number) {
-    const multiplierMilli = BigInt(Math.floor(multiplier * 1000));
     return this.prisma.$transaction(async (tx) => {
       const bet = await tx.rushBet.findUnique({ where: { id: betId }, include: { round: true } });
       if (!bet || bet.round.phase !== 'FLYING') return null;
       const crash = Number(bet.round.crashMultiplier.toString());
       if (multiplier < 1 || multiplier >= crash) return null;
+      // Low-stake caps: a cash-out above the personal cap is impossible —
+      // by the time the rocket passes the cap the bet is already LOST.
+      const cap = bet.capMultiplier ? Number(bet.capMultiplier.toString()) : null;
+      if (cap != null && multiplier > cap) return null;
+      const multiplierMilli = BigInt(Math.floor(multiplier * 1000));
       const claim = await tx.rushBet.updateMany({
         where: { id: betId, status: 'ACTIVE' },
         data: {
@@ -325,6 +379,7 @@ export class RushController implements OnModuleInit, OnModuleDestroy {
         stakeStars: bet.stakeStars,
         stakeGram: bet.stakeGram.toString(),
         autoCashoutAt: bet.autoCashoutAt?.toString() ?? null,
+        capMultiplier: bet.capMultiplier?.toString() ?? null,
         status: bet.status,
         cashoutMultiplier: bet.cashoutMultiplier?.toString() ?? null,
         payoutStars: bet.payoutStars,
@@ -336,6 +391,7 @@ export class RushController implements OnModuleInit, OnModuleDestroy {
         stakeStars: myBet.stakeStars,
         stakeGram: myBet.stakeGram.toString(),
         autoCashoutAt: myBet.autoCashoutAt?.toString() ?? null,
+        capMultiplier: myBet.capMultiplier?.toString() ?? null,
         status: myBet.status,
         cashoutMultiplier: myBet.cashoutMultiplier?.toString() ?? null,
         payoutStars: myBet.payoutStars,
@@ -405,6 +461,10 @@ export class RushController implements OnModuleInit, OnModuleDestroy {
           });
           if (debit.count !== 1) throw new BadRequestException('Insufficient ORBIT balance for this stake');
         }
+        // Owner's rule: sub-10-Star stakes fly a capped round 70% of the time.
+        const capMultiplier = lowStakeCapFor(stakeStarsEquivalent(currency, stakeStars, stakeGram));
+        // A personal cap always beats a higher auto-stop target.
+        const effectiveAuto = capMultiplier != null && autoCashoutAt != null && autoCashoutAt > capMultiplier ? capMultiplier : autoCashoutAt;
         await tx.rushBet.create({
           data: {
             roundId: round.id,
@@ -412,7 +472,8 @@ export class RushController implements OnModuleInit, OnModuleDestroy {
             currency,
             stakeStars,
             stakeGram,
-            autoCashoutAt: autoCashoutAt?.toFixed(2) ?? null,
+            autoCashoutAt: effectiveAuto?.toFixed(2) ?? null,
+            capMultiplier: capMultiplier?.toFixed(2) ?? null,
           },
         });
         await tx.gameTransaction.create({
@@ -422,14 +483,14 @@ export class RushController implements OnModuleInit, OnModuleDestroy {
             type: 'STAKE',
             reference,
             amountGram: `-${stakeGram}`,
-            details: { currency, starAmount: stakeStars, round: round.number, autoCashoutAt },
+            details: { currency, starAmount: stakeStars, round: round.number, autoCashoutAt: effectiveAuto, capMultiplier },
           },
         });
         const balance = await tx.user.findUniqueOrThrow({
           where: { id: user.id },
           select: { balanceGram: true, balanceStars: true },
         });
-        return { round: round.number, balanceGram: balance.balanceGram.toString(), balanceStars: balance.balanceStars };
+        return { round: round.number, capMultiplier: capMultiplier?.toFixed(2) ?? null, balanceGram: balance.balanceGram.toString(), balanceStars: balance.balanceStars };
       });
     } catch (error) {
       // A network retry may race the first request; the unique (round, user)
@@ -437,7 +498,7 @@ export class RushController implements OnModuleInit, OnModuleDestroy {
       const committed = await this.prisma.rushBet.findFirst({ where: { roundId: round.id, userId: user.id } });
       if (committed) {
         const balance = await this.prisma.user.findUniqueOrThrow({ where: { id: user.id }, select: { balanceGram: true, balanceStars: true } });
-        return { round: round.number, balanceGram: balance.balanceGram.toString(), balanceStars: balance.balanceStars };
+        return { round: round.number, capMultiplier: committed.capMultiplier?.toString() ?? null, balanceGram: balance.balanceGram.toString(), balanceStars: balance.balanceStars };
       }
       throw error;
     }

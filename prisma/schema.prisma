@@ -153,6 +153,8 @@ model RushBet {
   stakeStars Int     @default(0)
   stakeGram Decimal  @default(0) @db.Decimal(20, 9)
   autoCashoutAt Decimal? @db.Decimal(10, 2)
+  /// Low stakes (<10 Stars) fly a capped round on 70% of bets: the bet dies at this multiplier.
+  capMultiplier Decimal? @db.Decimal(10, 2)
   status    String   @default("ACTIVE")
   cashoutMultiplier Decimal? @db.Decimal(10, 2)
   payoutStars Int    @default(0)

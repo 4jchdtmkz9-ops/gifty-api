@@ -1,9 +1,11 @@
 import {
   floor2,
   generateCrashMultiplier,
+  lowStakeCapFor,
   multiplierAt,
   payoutGramFor,
   payoutStarsFor,
+  stakeStarsEquivalent,
 } from './rush.controller.js';
 
 describe('RUSH round math', () => {
@@ -17,16 +19,46 @@ describe('RUSH round math', () => {
       }
     });
 
-    it('respects the 3% house edge: P(crash > m) ≈ 0.97 / m', () => {
+    it("matches the owner's curve: ~40% of rounds pass 2x, 60% die below", () => {
       const samples = Array.from({ length: 60_000 }, () => generateCrashMultiplier());
       const shareAbove = (m: number) => samples.filter((value) => value > m).length / samples.length;
-      // A player cashing out at xm wins with probability 0.97/m → EV = 0.97.
-      expect(shareAbove(2)).toBeGreaterThan(0.44);
-      expect(shareAbove(2)).toBeLessThan(0.53);
-      expect(shareAbove(10)).toBeGreaterThan(0.07);
-      expect(shareAbove(10)).toBeLessThan(0.13);
-      expect(shareAbove(100)).toBeGreaterThan(0.005);
-      expect(shareAbove(100)).toBeLessThan(0.015);
+      // P(crash > m) = 0.8 / m for m >= 2 — a fixed 2x cash-out pays EV 0.8.
+      expect(shareAbove(2)).toBeGreaterThan(0.36);
+      expect(shareAbove(2)).toBeLessThan(0.44);
+      expect(shareAbove(10)).toBeGreaterThan(0.05);
+      expect(shareAbove(10)).toBeLessThan(0.11);
+      expect(shareAbove(100)).toBeGreaterThan(0.004);
+      expect(shareAbove(100)).toBeLessThan(0.012);
+      // Below 2x the sub-2 branch dominates: most rounds die quickly.
+      expect(shareAbove(1.5)).toBeLessThan(0.62);
+      expect(shareAbove(1.5)).toBeGreaterThan(0.5);
+    });
+  });
+
+  describe('lowStakeCapFor', () => {
+    it('caps sub-10-Star stakes at 1.2 about 70% of the time', () => {
+      let capped = 0;
+      const samples = 20_000;
+      for (let i = 0; i < samples; i += 1) {
+        if (lowStakeCapFor(1) === 1.2) capped += 1;
+      }
+      const share = capped / samples;
+      expect(share).toBeGreaterThan(0.67);
+      expect(share).toBeLessThan(0.73);
+    });
+
+    it('never caps stakes of 10 Stars or more', () => {
+      for (let i = 0; i < 2_000; i += 1) {
+        expect(lowStakeCapFor(10)).toBeNull();
+        expect(lowStakeCapFor(1_000)).toBeNull();
+      }
+    });
+
+    it('converts GRAM stakes to Stars at the configured rate', () => {
+      // Default rate: 1 Star = 0.01 GRAM
+      expect(stakeStarsEquivalent('GRAM', 0, '0.09')).toBe(9);
+      expect(stakeStarsEquivalent('GRAM', 0, '0.1')).toBe(10);
+      expect(stakeStarsEquivalent('STARS', 7, '0')).toBe(7);
     });
   });
 

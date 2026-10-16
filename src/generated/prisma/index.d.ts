@@ -44,6 +44,16 @@ export type BotDeposit = $Result.DefaultSelection<Prisma.$BotDepositPayload>
  */
 export type StarDeposit = $Result.DefaultSelection<Prisma.$StarDepositPayload>
 /**
+ * Model RushRound
+ * 
+ */
+export type RushRound = $Result.DefaultSelection<Prisma.$RushRoundPayload>
+/**
+ * Model RushBet
+ * 
+ */
+export type RushBet = $Result.DefaultSelection<Prisma.$RushBetPayload>
+/**
  * Model BotWithdrawal
  * 
  */
@@ -284,6 +294,26 @@ export class PrismaClient<
     * ```
     */
   get starDeposit(): Prisma.StarDepositDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rushRound`: Exposes CRUD operations for the **RushRound** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RushRounds
+    * const rushRounds = await prisma.rushRound.findMany()
+    * ```
+    */
+  get rushRound(): Prisma.RushRoundDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rushBet`: Exposes CRUD operations for the **RushBet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RushBets
+    * const rushBets = await prisma.rushBet.findMany()
+    * ```
+    */
+  get rushBet(): Prisma.RushBetDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.botWithdrawal`: Exposes CRUD operations for the **BotWithdrawal** model.
@@ -857,6 +887,8 @@ export namespace Prisma {
     GameTransaction: 'GameTransaction',
     BotDeposit: 'BotDeposit',
     StarDeposit: 'StarDeposit',
+    RushRound: 'RushRound',
+    RushBet: 'RushBet',
     BotWithdrawal: 'BotWithdrawal',
     Wallet: 'Wallet',
     Gift: 'Gift',
@@ -884,7 +916,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "giveawayEntry" | "giveawayReferralLink" | "gameTransaction" | "botDeposit" | "starDeposit" | "botWithdrawal" | "wallet" | "gift" | "giftDepositIntent" | "giftWithdrawalRequest" | "telegramRelayState" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpParticipantGift" | "pvpInvitation"
+      modelProps: "user" | "giveawayEntry" | "giveawayReferralLink" | "gameTransaction" | "botDeposit" | "starDeposit" | "rushRound" | "rushBet" | "botWithdrawal" | "wallet" | "gift" | "giftDepositIntent" | "giftWithdrawalRequest" | "telegramRelayState" | "transaction" | "offer" | "pvpRoom" | "pvpParticipant" | "pvpParticipantGift" | "pvpInvitation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1329,6 +1361,154 @@ export namespace Prisma {
           count: {
             args: Prisma.StarDepositCountArgs<ExtArgs>
             result: $Utils.Optional<StarDepositCountAggregateOutputType> | number
+          }
+        }
+      }
+      RushRound: {
+        payload: Prisma.$RushRoundPayload<ExtArgs>
+        fields: Prisma.RushRoundFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RushRoundFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RushRoundFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>
+          }
+          findFirst: {
+            args: Prisma.RushRoundFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RushRoundFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>
+          }
+          findMany: {
+            args: Prisma.RushRoundFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>[]
+          }
+          create: {
+            args: Prisma.RushRoundCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>
+          }
+          createMany: {
+            args: Prisma.RushRoundCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RushRoundCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>[]
+          }
+          delete: {
+            args: Prisma.RushRoundDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>
+          }
+          update: {
+            args: Prisma.RushRoundUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>
+          }
+          deleteMany: {
+            args: Prisma.RushRoundDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RushRoundUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RushRoundUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>[]
+          }
+          upsert: {
+            args: Prisma.RushRoundUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushRoundPayload>
+          }
+          aggregate: {
+            args: Prisma.RushRoundAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRushRound>
+          }
+          groupBy: {
+            args: Prisma.RushRoundGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RushRoundGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RushRoundCountArgs<ExtArgs>
+            result: $Utils.Optional<RushRoundCountAggregateOutputType> | number
+          }
+        }
+      }
+      RushBet: {
+        payload: Prisma.$RushBetPayload<ExtArgs>
+        fields: Prisma.RushBetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RushBetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RushBetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>
+          }
+          findFirst: {
+            args: Prisma.RushBetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RushBetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>
+          }
+          findMany: {
+            args: Prisma.RushBetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>[]
+          }
+          create: {
+            args: Prisma.RushBetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>
+          }
+          createMany: {
+            args: Prisma.RushBetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RushBetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>[]
+          }
+          delete: {
+            args: Prisma.RushBetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>
+          }
+          update: {
+            args: Prisma.RushBetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>
+          }
+          deleteMany: {
+            args: Prisma.RushBetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RushBetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RushBetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>[]
+          }
+          upsert: {
+            args: Prisma.RushBetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RushBetPayload>
+          }
+          aggregate: {
+            args: Prisma.RushBetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRushBet>
+          }
+          groupBy: {
+            args: Prisma.RushBetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RushBetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RushBetCountArgs<ExtArgs>
+            result: $Utils.Optional<RushBetCountAggregateOutputType> | number
           }
         }
       }
@@ -2349,6 +2529,8 @@ export namespace Prisma {
     gameTransaction?: GameTransactionOmit
     botDeposit?: BotDepositOmit
     starDeposit?: StarDepositOmit
+    rushRound?: RushRoundOmit
+    rushBet?: RushBetOmit
     botWithdrawal?: BotWithdrawalOmit
     wallet?: WalletOmit
     gift?: GiftOmit
@@ -2455,6 +2637,7 @@ export namespace Prisma {
     botDeposits: number
     botWithdrawals: number
     starDeposits: number
+    rushBets: number
     gameTransactions: number
     giftDepositIntents: number
     giftWithdrawalRequests: number
@@ -2478,6 +2661,7 @@ export namespace Prisma {
     botDeposits?: boolean | UserCountOutputTypeCountBotDepositsArgs
     botWithdrawals?: boolean | UserCountOutputTypeCountBotWithdrawalsArgs
     starDeposits?: boolean | UserCountOutputTypeCountStarDepositsArgs
+    rushBets?: boolean | UserCountOutputTypeCountRushBetsArgs
     gameTransactions?: boolean | UserCountOutputTypeCountGameTransactionsArgs
     giftDepositIntents?: boolean | UserCountOutputTypeCountGiftDepositIntentsArgs
     giftWithdrawalRequests?: boolean | UserCountOutputTypeCountGiftWithdrawalRequestsArgs
@@ -2598,6 +2782,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountRushBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RushBetWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountGameTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GameTransactionWhereInput
   }
@@ -2635,6 +2826,37 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReferredGiveawayEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GiveawayEntryWhereInput
+  }
+
+
+  /**
+   * Count Type RushRoundCountOutputType
+   */
+
+  export type RushRoundCountOutputType = {
+    bets: number
+  }
+
+  export type RushRoundCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bets?: boolean | RushRoundCountOutputTypeCountBetsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RushRoundCountOutputType without action
+   */
+  export type RushRoundCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRoundCountOutputType
+     */
+    select?: RushRoundCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RushRoundCountOutputType without action
+   */
+  export type RushRoundCountOutputTypeCountBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RushBetWhereInput
   }
 
 
@@ -3035,6 +3257,7 @@ export namespace Prisma {
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
     starDeposits?: boolean | User$starDepositsArgs<ExtArgs>
+    rushBets?: boolean | User$rushBetsArgs<ExtArgs>
     gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
     giftDepositIntents?: boolean | User$giftDepositIntentsArgs<ExtArgs>
     giftWithdrawalRequests?: boolean | User$giftWithdrawalRequestsArgs<ExtArgs>
@@ -3102,6 +3325,7 @@ export namespace Prisma {
     botDeposits?: boolean | User$botDepositsArgs<ExtArgs>
     botWithdrawals?: boolean | User$botWithdrawalsArgs<ExtArgs>
     starDeposits?: boolean | User$starDepositsArgs<ExtArgs>
+    rushBets?: boolean | User$rushBetsArgs<ExtArgs>
     gameTransactions?: boolean | User$gameTransactionsArgs<ExtArgs>
     giftDepositIntents?: boolean | User$giftDepositIntentsArgs<ExtArgs>
     giftWithdrawalRequests?: boolean | User$giftWithdrawalRequestsArgs<ExtArgs>
@@ -3130,6 +3354,7 @@ export namespace Prisma {
       botDeposits: Prisma.$BotDepositPayload<ExtArgs>[]
       botWithdrawals: Prisma.$BotWithdrawalPayload<ExtArgs>[]
       starDeposits: Prisma.$StarDepositPayload<ExtArgs>[]
+      rushBets: Prisma.$RushBetPayload<ExtArgs>[]
       gameTransactions: Prisma.$GameTransactionPayload<ExtArgs>[]
       giftDepositIntents: Prisma.$GiftDepositIntentPayload<ExtArgs>[]
       giftWithdrawalRequests: Prisma.$GiftWithdrawalRequestPayload<ExtArgs>[]
@@ -3557,6 +3782,7 @@ export namespace Prisma {
     botDeposits<T extends User$botDepositsArgs<ExtArgs> = {}>(args?: Subset<T, User$botDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     botWithdrawals<T extends User$botWithdrawalsArgs<ExtArgs> = {}>(args?: Subset<T, User$botWithdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BotWithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     starDeposits<T extends User$starDepositsArgs<ExtArgs> = {}>(args?: Subset<T, User$starDepositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StarDepositPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rushBets<T extends User$rushBetsArgs<ExtArgs> = {}>(args?: Subset<T, User$rushBetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gameTransactions<T extends User$gameTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$gameTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GameTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     giftDepositIntents<T extends User$giftDepositIntentsArgs<ExtArgs> = {}>(args?: Subset<T, User$giftDepositIntentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftDepositIntentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     giftWithdrawalRequests<T extends User$giftWithdrawalRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$giftWithdrawalRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GiftWithdrawalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4329,6 +4555,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StarDepositScalarFieldEnum | StarDepositScalarFieldEnum[]
+  }
+
+  /**
+   * User.rushBets
+   */
+  export type User$rushBetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    where?: RushBetWhereInput
+    orderBy?: RushBetOrderByWithRelationInput | RushBetOrderByWithRelationInput[]
+    cursor?: RushBetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RushBetScalarFieldEnum | RushBetScalarFieldEnum[]
   }
 
   /**
@@ -10173,6 +10423,2400 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: StarDepositInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RushRound
+   */
+
+  export type AggregateRushRound = {
+    _count: RushRoundCountAggregateOutputType | null
+    _avg: RushRoundAvgAggregateOutputType | null
+    _sum: RushRoundSumAggregateOutputType | null
+    _min: RushRoundMinAggregateOutputType | null
+    _max: RushRoundMaxAggregateOutputType | null
+  }
+
+  export type RushRoundAvgAggregateOutputType = {
+    number: number | null
+    crashMultiplier: Decimal | null
+  }
+
+  export type RushRoundSumAggregateOutputType = {
+    number: number | null
+    crashMultiplier: Decimal | null
+  }
+
+  export type RushRoundMinAggregateOutputType = {
+    id: string | null
+    number: number | null
+    phase: string | null
+    crashMultiplier: Decimal | null
+    bettingEndsAt: Date | null
+    flyingStartedAt: Date | null
+    crashedAt: Date | null
+    settledAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RushRoundMaxAggregateOutputType = {
+    id: string | null
+    number: number | null
+    phase: string | null
+    crashMultiplier: Decimal | null
+    bettingEndsAt: Date | null
+    flyingStartedAt: Date | null
+    crashedAt: Date | null
+    settledAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RushRoundCountAggregateOutputType = {
+    id: number
+    number: number
+    phase: number
+    crashMultiplier: number
+    bettingEndsAt: number
+    flyingStartedAt: number
+    crashedAt: number
+    settledAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RushRoundAvgAggregateInputType = {
+    number?: true
+    crashMultiplier?: true
+  }
+
+  export type RushRoundSumAggregateInputType = {
+    number?: true
+    crashMultiplier?: true
+  }
+
+  export type RushRoundMinAggregateInputType = {
+    id?: true
+    number?: true
+    phase?: true
+    crashMultiplier?: true
+    bettingEndsAt?: true
+    flyingStartedAt?: true
+    crashedAt?: true
+    settledAt?: true
+    createdAt?: true
+  }
+
+  export type RushRoundMaxAggregateInputType = {
+    id?: true
+    number?: true
+    phase?: true
+    crashMultiplier?: true
+    bettingEndsAt?: true
+    flyingStartedAt?: true
+    crashedAt?: true
+    settledAt?: true
+    createdAt?: true
+  }
+
+  export type RushRoundCountAggregateInputType = {
+    id?: true
+    number?: true
+    phase?: true
+    crashMultiplier?: true
+    bettingEndsAt?: true
+    flyingStartedAt?: true
+    crashedAt?: true
+    settledAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RushRoundAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RushRound to aggregate.
+     */
+    where?: RushRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushRounds to fetch.
+     */
+    orderBy?: RushRoundOrderByWithRelationInput | RushRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RushRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushRounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RushRounds
+    **/
+    _count?: true | RushRoundCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RushRoundAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RushRoundSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RushRoundMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RushRoundMaxAggregateInputType
+  }
+
+  export type GetRushRoundAggregateType<T extends RushRoundAggregateArgs> = {
+        [P in keyof T & keyof AggregateRushRound]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRushRound[P]>
+      : GetScalarType<T[P], AggregateRushRound[P]>
+  }
+
+
+
+
+  export type RushRoundGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RushRoundWhereInput
+    orderBy?: RushRoundOrderByWithAggregationInput | RushRoundOrderByWithAggregationInput[]
+    by: RushRoundScalarFieldEnum[] | RushRoundScalarFieldEnum
+    having?: RushRoundScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RushRoundCountAggregateInputType | true
+    _avg?: RushRoundAvgAggregateInputType
+    _sum?: RushRoundSumAggregateInputType
+    _min?: RushRoundMinAggregateInputType
+    _max?: RushRoundMaxAggregateInputType
+  }
+
+  export type RushRoundGroupByOutputType = {
+    id: string
+    number: number
+    phase: string
+    crashMultiplier: Decimal
+    bettingEndsAt: Date
+    flyingStartedAt: Date | null
+    crashedAt: Date | null
+    settledAt: Date | null
+    createdAt: Date
+    _count: RushRoundCountAggregateOutputType | null
+    _avg: RushRoundAvgAggregateOutputType | null
+    _sum: RushRoundSumAggregateOutputType | null
+    _min: RushRoundMinAggregateOutputType | null
+    _max: RushRoundMaxAggregateOutputType | null
+  }
+
+  type GetRushRoundGroupByPayload<T extends RushRoundGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RushRoundGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RushRoundGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RushRoundGroupByOutputType[P]>
+            : GetScalarType<T[P], RushRoundGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RushRoundSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    phase?: boolean
+    crashMultiplier?: boolean
+    bettingEndsAt?: boolean
+    flyingStartedAt?: boolean
+    crashedAt?: boolean
+    settledAt?: boolean
+    createdAt?: boolean
+    bets?: boolean | RushRound$betsArgs<ExtArgs>
+    _count?: boolean | RushRoundCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rushRound"]>
+
+  export type RushRoundSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    phase?: boolean
+    crashMultiplier?: boolean
+    bettingEndsAt?: boolean
+    flyingStartedAt?: boolean
+    crashedAt?: boolean
+    settledAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["rushRound"]>
+
+  export type RushRoundSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    number?: boolean
+    phase?: boolean
+    crashMultiplier?: boolean
+    bettingEndsAt?: boolean
+    flyingStartedAt?: boolean
+    crashedAt?: boolean
+    settledAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["rushRound"]>
+
+  export type RushRoundSelectScalar = {
+    id?: boolean
+    number?: boolean
+    phase?: boolean
+    crashMultiplier?: boolean
+    bettingEndsAt?: boolean
+    flyingStartedAt?: boolean
+    crashedAt?: boolean
+    settledAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type RushRoundOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "number" | "phase" | "crashMultiplier" | "bettingEndsAt" | "flyingStartedAt" | "crashedAt" | "settledAt" | "createdAt", ExtArgs["result"]["rushRound"]>
+  export type RushRoundInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bets?: boolean | RushRound$betsArgs<ExtArgs>
+    _count?: boolean | RushRoundCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RushRoundIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type RushRoundIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $RushRoundPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RushRound"
+    objects: {
+      bets: Prisma.$RushBetPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      number: number
+      phase: string
+      crashMultiplier: Prisma.Decimal
+      bettingEndsAt: Date
+      flyingStartedAt: Date | null
+      crashedAt: Date | null
+      settledAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["rushRound"]>
+    composites: {}
+  }
+
+  type RushRoundGetPayload<S extends boolean | null | undefined | RushRoundDefaultArgs> = $Result.GetResult<Prisma.$RushRoundPayload, S>
+
+  type RushRoundCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RushRoundFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RushRoundCountAggregateInputType | true
+    }
+
+  export interface RushRoundDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RushRound'], meta: { name: 'RushRound' } }
+    /**
+     * Find zero or one RushRound that matches the filter.
+     * @param {RushRoundFindUniqueArgs} args - Arguments to find a RushRound
+     * @example
+     * // Get one RushRound
+     * const rushRound = await prisma.rushRound.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RushRoundFindUniqueArgs>(args: SelectSubset<T, RushRoundFindUniqueArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RushRound that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RushRoundFindUniqueOrThrowArgs} args - Arguments to find a RushRound
+     * @example
+     * // Get one RushRound
+     * const rushRound = await prisma.rushRound.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RushRoundFindUniqueOrThrowArgs>(args: SelectSubset<T, RushRoundFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RushRound that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushRoundFindFirstArgs} args - Arguments to find a RushRound
+     * @example
+     * // Get one RushRound
+     * const rushRound = await prisma.rushRound.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RushRoundFindFirstArgs>(args?: SelectSubset<T, RushRoundFindFirstArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RushRound that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushRoundFindFirstOrThrowArgs} args - Arguments to find a RushRound
+     * @example
+     * // Get one RushRound
+     * const rushRound = await prisma.rushRound.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RushRoundFindFirstOrThrowArgs>(args?: SelectSubset<T, RushRoundFindFirstOrThrowArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RushRounds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushRoundFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RushRounds
+     * const rushRounds = await prisma.rushRound.findMany()
+     * 
+     * // Get first 10 RushRounds
+     * const rushRounds = await prisma.rushRound.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rushRoundWithIdOnly = await prisma.rushRound.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RushRoundFindManyArgs>(args?: SelectSubset<T, RushRoundFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RushRound.
+     * @param {RushRoundCreateArgs} args - Arguments to create a RushRound.
+     * @example
+     * // Create one RushRound
+     * const RushRound = await prisma.rushRound.create({
+     *   data: {
+     *     // ... data to create a RushRound
+     *   }
+     * })
+     * 
+     */
+    create<T extends RushRoundCreateArgs>(args: SelectSubset<T, RushRoundCreateArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RushRounds.
+     * @param {RushRoundCreateManyArgs} args - Arguments to create many RushRounds.
+     * @example
+     * // Create many RushRounds
+     * const rushRound = await prisma.rushRound.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RushRoundCreateManyArgs>(args?: SelectSubset<T, RushRoundCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RushRounds and returns the data saved in the database.
+     * @param {RushRoundCreateManyAndReturnArgs} args - Arguments to create many RushRounds.
+     * @example
+     * // Create many RushRounds
+     * const rushRound = await prisma.rushRound.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RushRounds and only return the `id`
+     * const rushRoundWithIdOnly = await prisma.rushRound.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RushRoundCreateManyAndReturnArgs>(args?: SelectSubset<T, RushRoundCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RushRound.
+     * @param {RushRoundDeleteArgs} args - Arguments to delete one RushRound.
+     * @example
+     * // Delete one RushRound
+     * const RushRound = await prisma.rushRound.delete({
+     *   where: {
+     *     // ... filter to delete one RushRound
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RushRoundDeleteArgs>(args: SelectSubset<T, RushRoundDeleteArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RushRound.
+     * @param {RushRoundUpdateArgs} args - Arguments to update one RushRound.
+     * @example
+     * // Update one RushRound
+     * const rushRound = await prisma.rushRound.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RushRoundUpdateArgs>(args: SelectSubset<T, RushRoundUpdateArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RushRounds.
+     * @param {RushRoundDeleteManyArgs} args - Arguments to filter RushRounds to delete.
+     * @example
+     * // Delete a few RushRounds
+     * const { count } = await prisma.rushRound.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RushRoundDeleteManyArgs>(args?: SelectSubset<T, RushRoundDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RushRounds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushRoundUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RushRounds
+     * const rushRound = await prisma.rushRound.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RushRoundUpdateManyArgs>(args: SelectSubset<T, RushRoundUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RushRounds and returns the data updated in the database.
+     * @param {RushRoundUpdateManyAndReturnArgs} args - Arguments to update many RushRounds.
+     * @example
+     * // Update many RushRounds
+     * const rushRound = await prisma.rushRound.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RushRounds and only return the `id`
+     * const rushRoundWithIdOnly = await prisma.rushRound.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RushRoundUpdateManyAndReturnArgs>(args: SelectSubset<T, RushRoundUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RushRound.
+     * @param {RushRoundUpsertArgs} args - Arguments to update or create a RushRound.
+     * @example
+     * // Update or create a RushRound
+     * const rushRound = await prisma.rushRound.upsert({
+     *   create: {
+     *     // ... data to create a RushRound
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RushRound we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RushRoundUpsertArgs>(args: SelectSubset<T, RushRoundUpsertArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RushRounds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushRoundCountArgs} args - Arguments to filter RushRounds to count.
+     * @example
+     * // Count the number of RushRounds
+     * const count = await prisma.rushRound.count({
+     *   where: {
+     *     // ... the filter for the RushRounds we want to count
+     *   }
+     * })
+    **/
+    count<T extends RushRoundCountArgs>(
+      args?: Subset<T, RushRoundCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RushRoundCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RushRound.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushRoundAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RushRoundAggregateArgs>(args: Subset<T, RushRoundAggregateArgs>): Prisma.PrismaPromise<GetRushRoundAggregateType<T>>
+
+    /**
+     * Group by RushRound.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushRoundGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RushRoundGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RushRoundGroupByArgs['orderBy'] }
+        : { orderBy?: RushRoundGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RushRoundGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRushRoundGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RushRound model
+   */
+  readonly fields: RushRoundFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RushRound.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RushRoundClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    bets<T extends RushRound$betsArgs<ExtArgs> = {}>(args?: Subset<T, RushRound$betsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RushRound model
+   */
+  interface RushRoundFieldRefs {
+    readonly id: FieldRef<"RushRound", 'String'>
+    readonly number: FieldRef<"RushRound", 'Int'>
+    readonly phase: FieldRef<"RushRound", 'String'>
+    readonly crashMultiplier: FieldRef<"RushRound", 'Decimal'>
+    readonly bettingEndsAt: FieldRef<"RushRound", 'DateTime'>
+    readonly flyingStartedAt: FieldRef<"RushRound", 'DateTime'>
+    readonly crashedAt: FieldRef<"RushRound", 'DateTime'>
+    readonly settledAt: FieldRef<"RushRound", 'DateTime'>
+    readonly createdAt: FieldRef<"RushRound", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RushRound findUnique
+   */
+  export type RushRoundFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RushRound to fetch.
+     */
+    where: RushRoundWhereUniqueInput
+  }
+
+  /**
+   * RushRound findUniqueOrThrow
+   */
+  export type RushRoundFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RushRound to fetch.
+     */
+    where: RushRoundWhereUniqueInput
+  }
+
+  /**
+   * RushRound findFirst
+   */
+  export type RushRoundFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RushRound to fetch.
+     */
+    where?: RushRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushRounds to fetch.
+     */
+    orderBy?: RushRoundOrderByWithRelationInput | RushRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RushRounds.
+     */
+    cursor?: RushRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushRounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RushRounds.
+     */
+    distinct?: RushRoundScalarFieldEnum | RushRoundScalarFieldEnum[]
+  }
+
+  /**
+   * RushRound findFirstOrThrow
+   */
+  export type RushRoundFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RushRound to fetch.
+     */
+    where?: RushRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushRounds to fetch.
+     */
+    orderBy?: RushRoundOrderByWithRelationInput | RushRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RushRounds.
+     */
+    cursor?: RushRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushRounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RushRounds.
+     */
+    distinct?: RushRoundScalarFieldEnum | RushRoundScalarFieldEnum[]
+  }
+
+  /**
+   * RushRound findMany
+   */
+  export type RushRoundFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RushRounds to fetch.
+     */
+    where?: RushRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushRounds to fetch.
+     */
+    orderBy?: RushRoundOrderByWithRelationInput | RushRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RushRounds.
+     */
+    cursor?: RushRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushRounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RushRounds.
+     */
+    distinct?: RushRoundScalarFieldEnum | RushRoundScalarFieldEnum[]
+  }
+
+  /**
+   * RushRound create
+   */
+  export type RushRoundCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RushRound.
+     */
+    data: XOR<RushRoundCreateInput, RushRoundUncheckedCreateInput>
+  }
+
+  /**
+   * RushRound createMany
+   */
+  export type RushRoundCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RushRounds.
+     */
+    data: RushRoundCreateManyInput | RushRoundCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RushRound createManyAndReturn
+   */
+  export type RushRoundCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * The data used to create many RushRounds.
+     */
+    data: RushRoundCreateManyInput | RushRoundCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RushRound update
+   */
+  export type RushRoundUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RushRound.
+     */
+    data: XOR<RushRoundUpdateInput, RushRoundUncheckedUpdateInput>
+    /**
+     * Choose, which RushRound to update.
+     */
+    where: RushRoundWhereUniqueInput
+  }
+
+  /**
+   * RushRound updateMany
+   */
+  export type RushRoundUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RushRounds.
+     */
+    data: XOR<RushRoundUpdateManyMutationInput, RushRoundUncheckedUpdateManyInput>
+    /**
+     * Filter which RushRounds to update
+     */
+    where?: RushRoundWhereInput
+    /**
+     * Limit how many RushRounds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RushRound updateManyAndReturn
+   */
+  export type RushRoundUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * The data used to update RushRounds.
+     */
+    data: XOR<RushRoundUpdateManyMutationInput, RushRoundUncheckedUpdateManyInput>
+    /**
+     * Filter which RushRounds to update
+     */
+    where?: RushRoundWhereInput
+    /**
+     * Limit how many RushRounds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RushRound upsert
+   */
+  export type RushRoundUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RushRound to update in case it exists.
+     */
+    where: RushRoundWhereUniqueInput
+    /**
+     * In case the RushRound found by the `where` argument doesn't exist, create a new RushRound with this data.
+     */
+    create: XOR<RushRoundCreateInput, RushRoundUncheckedCreateInput>
+    /**
+     * In case the RushRound was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RushRoundUpdateInput, RushRoundUncheckedUpdateInput>
+  }
+
+  /**
+   * RushRound delete
+   */
+  export type RushRoundDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+    /**
+     * Filter which RushRound to delete.
+     */
+    where: RushRoundWhereUniqueInput
+  }
+
+  /**
+   * RushRound deleteMany
+   */
+  export type RushRoundDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RushRounds to delete
+     */
+    where?: RushRoundWhereInput
+    /**
+     * Limit how many RushRounds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RushRound.bets
+   */
+  export type RushRound$betsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    where?: RushBetWhereInput
+    orderBy?: RushBetOrderByWithRelationInput | RushBetOrderByWithRelationInput[]
+    cursor?: RushBetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RushBetScalarFieldEnum | RushBetScalarFieldEnum[]
+  }
+
+  /**
+   * RushRound without action
+   */
+  export type RushRoundDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushRound
+     */
+    select?: RushRoundSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushRound
+     */
+    omit?: RushRoundOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushRoundInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RushBet
+   */
+
+  export type AggregateRushBet = {
+    _count: RushBetCountAggregateOutputType | null
+    _avg: RushBetAvgAggregateOutputType | null
+    _sum: RushBetSumAggregateOutputType | null
+    _min: RushBetMinAggregateOutputType | null
+    _max: RushBetMaxAggregateOutputType | null
+  }
+
+  export type RushBetAvgAggregateOutputType = {
+    stakeStars: number | null
+    stakeGram: Decimal | null
+    autoCashoutAt: Decimal | null
+    cashoutMultiplier: Decimal | null
+    payoutStars: number | null
+    payoutGram: Decimal | null
+  }
+
+  export type RushBetSumAggregateOutputType = {
+    stakeStars: number | null
+    stakeGram: Decimal | null
+    autoCashoutAt: Decimal | null
+    cashoutMultiplier: Decimal | null
+    payoutStars: number | null
+    payoutGram: Decimal | null
+  }
+
+  export type RushBetMinAggregateOutputType = {
+    id: string | null
+    roundId: string | null
+    userId: string | null
+    currency: string | null
+    stakeStars: number | null
+    stakeGram: Decimal | null
+    autoCashoutAt: Decimal | null
+    status: string | null
+    cashoutMultiplier: Decimal | null
+    payoutStars: number | null
+    payoutGram: Decimal | null
+    cashedOutAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RushBetMaxAggregateOutputType = {
+    id: string | null
+    roundId: string | null
+    userId: string | null
+    currency: string | null
+    stakeStars: number | null
+    stakeGram: Decimal | null
+    autoCashoutAt: Decimal | null
+    status: string | null
+    cashoutMultiplier: Decimal | null
+    payoutStars: number | null
+    payoutGram: Decimal | null
+    cashedOutAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RushBetCountAggregateOutputType = {
+    id: number
+    roundId: number
+    userId: number
+    currency: number
+    stakeStars: number
+    stakeGram: number
+    autoCashoutAt: number
+    status: number
+    cashoutMultiplier: number
+    payoutStars: number
+    payoutGram: number
+    cashedOutAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RushBetAvgAggregateInputType = {
+    stakeStars?: true
+    stakeGram?: true
+    autoCashoutAt?: true
+    cashoutMultiplier?: true
+    payoutStars?: true
+    payoutGram?: true
+  }
+
+  export type RushBetSumAggregateInputType = {
+    stakeStars?: true
+    stakeGram?: true
+    autoCashoutAt?: true
+    cashoutMultiplier?: true
+    payoutStars?: true
+    payoutGram?: true
+  }
+
+  export type RushBetMinAggregateInputType = {
+    id?: true
+    roundId?: true
+    userId?: true
+    currency?: true
+    stakeStars?: true
+    stakeGram?: true
+    autoCashoutAt?: true
+    status?: true
+    cashoutMultiplier?: true
+    payoutStars?: true
+    payoutGram?: true
+    cashedOutAt?: true
+    createdAt?: true
+  }
+
+  export type RushBetMaxAggregateInputType = {
+    id?: true
+    roundId?: true
+    userId?: true
+    currency?: true
+    stakeStars?: true
+    stakeGram?: true
+    autoCashoutAt?: true
+    status?: true
+    cashoutMultiplier?: true
+    payoutStars?: true
+    payoutGram?: true
+    cashedOutAt?: true
+    createdAt?: true
+  }
+
+  export type RushBetCountAggregateInputType = {
+    id?: true
+    roundId?: true
+    userId?: true
+    currency?: true
+    stakeStars?: true
+    stakeGram?: true
+    autoCashoutAt?: true
+    status?: true
+    cashoutMultiplier?: true
+    payoutStars?: true
+    payoutGram?: true
+    cashedOutAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RushBetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RushBet to aggregate.
+     */
+    where?: RushBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushBets to fetch.
+     */
+    orderBy?: RushBetOrderByWithRelationInput | RushBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RushBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RushBets
+    **/
+    _count?: true | RushBetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RushBetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RushBetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RushBetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RushBetMaxAggregateInputType
+  }
+
+  export type GetRushBetAggregateType<T extends RushBetAggregateArgs> = {
+        [P in keyof T & keyof AggregateRushBet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRushBet[P]>
+      : GetScalarType<T[P], AggregateRushBet[P]>
+  }
+
+
+
+
+  export type RushBetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RushBetWhereInput
+    orderBy?: RushBetOrderByWithAggregationInput | RushBetOrderByWithAggregationInput[]
+    by: RushBetScalarFieldEnum[] | RushBetScalarFieldEnum
+    having?: RushBetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RushBetCountAggregateInputType | true
+    _avg?: RushBetAvgAggregateInputType
+    _sum?: RushBetSumAggregateInputType
+    _min?: RushBetMinAggregateInputType
+    _max?: RushBetMaxAggregateInputType
+  }
+
+  export type RushBetGroupByOutputType = {
+    id: string
+    roundId: string
+    userId: string
+    currency: string
+    stakeStars: number
+    stakeGram: Decimal
+    autoCashoutAt: Decimal | null
+    status: string
+    cashoutMultiplier: Decimal | null
+    payoutStars: number
+    payoutGram: Decimal
+    cashedOutAt: Date | null
+    createdAt: Date
+    _count: RushBetCountAggregateOutputType | null
+    _avg: RushBetAvgAggregateOutputType | null
+    _sum: RushBetSumAggregateOutputType | null
+    _min: RushBetMinAggregateOutputType | null
+    _max: RushBetMaxAggregateOutputType | null
+  }
+
+  type GetRushBetGroupByPayload<T extends RushBetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RushBetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RushBetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RushBetGroupByOutputType[P]>
+            : GetScalarType<T[P], RushBetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RushBetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roundId?: boolean
+    userId?: boolean
+    currency?: boolean
+    stakeStars?: boolean
+    stakeGram?: boolean
+    autoCashoutAt?: boolean
+    status?: boolean
+    cashoutMultiplier?: boolean
+    payoutStars?: boolean
+    payoutGram?: boolean
+    cashedOutAt?: boolean
+    createdAt?: boolean
+    round?: boolean | RushRoundDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rushBet"]>
+
+  export type RushBetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roundId?: boolean
+    userId?: boolean
+    currency?: boolean
+    stakeStars?: boolean
+    stakeGram?: boolean
+    autoCashoutAt?: boolean
+    status?: boolean
+    cashoutMultiplier?: boolean
+    payoutStars?: boolean
+    payoutGram?: boolean
+    cashedOutAt?: boolean
+    createdAt?: boolean
+    round?: boolean | RushRoundDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rushBet"]>
+
+  export type RushBetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roundId?: boolean
+    userId?: boolean
+    currency?: boolean
+    stakeStars?: boolean
+    stakeGram?: boolean
+    autoCashoutAt?: boolean
+    status?: boolean
+    cashoutMultiplier?: boolean
+    payoutStars?: boolean
+    payoutGram?: boolean
+    cashedOutAt?: boolean
+    createdAt?: boolean
+    round?: boolean | RushRoundDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rushBet"]>
+
+  export type RushBetSelectScalar = {
+    id?: boolean
+    roundId?: boolean
+    userId?: boolean
+    currency?: boolean
+    stakeStars?: boolean
+    stakeGram?: boolean
+    autoCashoutAt?: boolean
+    status?: boolean
+    cashoutMultiplier?: boolean
+    payoutStars?: boolean
+    payoutGram?: boolean
+    cashedOutAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type RushBetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roundId" | "userId" | "currency" | "stakeStars" | "stakeGram" | "autoCashoutAt" | "status" | "cashoutMultiplier" | "payoutStars" | "payoutGram" | "cashedOutAt" | "createdAt", ExtArgs["result"]["rushBet"]>
+  export type RushBetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    round?: boolean | RushRoundDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RushBetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    round?: boolean | RushRoundDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type RushBetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    round?: boolean | RushRoundDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $RushBetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RushBet"
+    objects: {
+      round: Prisma.$RushRoundPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roundId: string
+      userId: string
+      currency: string
+      stakeStars: number
+      stakeGram: Prisma.Decimal
+      autoCashoutAt: Prisma.Decimal | null
+      status: string
+      cashoutMultiplier: Prisma.Decimal | null
+      payoutStars: number
+      payoutGram: Prisma.Decimal
+      cashedOutAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["rushBet"]>
+    composites: {}
+  }
+
+  type RushBetGetPayload<S extends boolean | null | undefined | RushBetDefaultArgs> = $Result.GetResult<Prisma.$RushBetPayload, S>
+
+  type RushBetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RushBetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RushBetCountAggregateInputType | true
+    }
+
+  export interface RushBetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RushBet'], meta: { name: 'RushBet' } }
+    /**
+     * Find zero or one RushBet that matches the filter.
+     * @param {RushBetFindUniqueArgs} args - Arguments to find a RushBet
+     * @example
+     * // Get one RushBet
+     * const rushBet = await prisma.rushBet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RushBetFindUniqueArgs>(args: SelectSubset<T, RushBetFindUniqueArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one RushBet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RushBetFindUniqueOrThrowArgs} args - Arguments to find a RushBet
+     * @example
+     * // Get one RushBet
+     * const rushBet = await prisma.rushBet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RushBetFindUniqueOrThrowArgs>(args: SelectSubset<T, RushBetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RushBet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushBetFindFirstArgs} args - Arguments to find a RushBet
+     * @example
+     * // Get one RushBet
+     * const rushBet = await prisma.rushBet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RushBetFindFirstArgs>(args?: SelectSubset<T, RushBetFindFirstArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first RushBet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushBetFindFirstOrThrowArgs} args - Arguments to find a RushBet
+     * @example
+     * // Get one RushBet
+     * const rushBet = await prisma.rushBet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RushBetFindFirstOrThrowArgs>(args?: SelectSubset<T, RushBetFindFirstOrThrowArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more RushBets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushBetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RushBets
+     * const rushBets = await prisma.rushBet.findMany()
+     * 
+     * // Get first 10 RushBets
+     * const rushBets = await prisma.rushBet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const rushBetWithIdOnly = await prisma.rushBet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RushBetFindManyArgs>(args?: SelectSubset<T, RushBetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a RushBet.
+     * @param {RushBetCreateArgs} args - Arguments to create a RushBet.
+     * @example
+     * // Create one RushBet
+     * const RushBet = await prisma.rushBet.create({
+     *   data: {
+     *     // ... data to create a RushBet
+     *   }
+     * })
+     * 
+     */
+    create<T extends RushBetCreateArgs>(args: SelectSubset<T, RushBetCreateArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many RushBets.
+     * @param {RushBetCreateManyArgs} args - Arguments to create many RushBets.
+     * @example
+     * // Create many RushBets
+     * const rushBet = await prisma.rushBet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RushBetCreateManyArgs>(args?: SelectSubset<T, RushBetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RushBets and returns the data saved in the database.
+     * @param {RushBetCreateManyAndReturnArgs} args - Arguments to create many RushBets.
+     * @example
+     * // Create many RushBets
+     * const rushBet = await prisma.rushBet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RushBets and only return the `id`
+     * const rushBetWithIdOnly = await prisma.rushBet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RushBetCreateManyAndReturnArgs>(args?: SelectSubset<T, RushBetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a RushBet.
+     * @param {RushBetDeleteArgs} args - Arguments to delete one RushBet.
+     * @example
+     * // Delete one RushBet
+     * const RushBet = await prisma.rushBet.delete({
+     *   where: {
+     *     // ... filter to delete one RushBet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RushBetDeleteArgs>(args: SelectSubset<T, RushBetDeleteArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one RushBet.
+     * @param {RushBetUpdateArgs} args - Arguments to update one RushBet.
+     * @example
+     * // Update one RushBet
+     * const rushBet = await prisma.rushBet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RushBetUpdateArgs>(args: SelectSubset<T, RushBetUpdateArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more RushBets.
+     * @param {RushBetDeleteManyArgs} args - Arguments to filter RushBets to delete.
+     * @example
+     * // Delete a few RushBets
+     * const { count } = await prisma.rushBet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RushBetDeleteManyArgs>(args?: SelectSubset<T, RushBetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RushBets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushBetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RushBets
+     * const rushBet = await prisma.rushBet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RushBetUpdateManyArgs>(args: SelectSubset<T, RushBetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RushBets and returns the data updated in the database.
+     * @param {RushBetUpdateManyAndReturnArgs} args - Arguments to update many RushBets.
+     * @example
+     * // Update many RushBets
+     * const rushBet = await prisma.rushBet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more RushBets and only return the `id`
+     * const rushBetWithIdOnly = await prisma.rushBet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RushBetUpdateManyAndReturnArgs>(args: SelectSubset<T, RushBetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one RushBet.
+     * @param {RushBetUpsertArgs} args - Arguments to update or create a RushBet.
+     * @example
+     * // Update or create a RushBet
+     * const rushBet = await prisma.rushBet.upsert({
+     *   create: {
+     *     // ... data to create a RushBet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RushBet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RushBetUpsertArgs>(args: SelectSubset<T, RushBetUpsertArgs<ExtArgs>>): Prisma__RushBetClient<$Result.GetResult<Prisma.$RushBetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of RushBets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushBetCountArgs} args - Arguments to filter RushBets to count.
+     * @example
+     * // Count the number of RushBets
+     * const count = await prisma.rushBet.count({
+     *   where: {
+     *     // ... the filter for the RushBets we want to count
+     *   }
+     * })
+    **/
+    count<T extends RushBetCountArgs>(
+      args?: Subset<T, RushBetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RushBetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RushBet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushBetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RushBetAggregateArgs>(args: Subset<T, RushBetAggregateArgs>): Prisma.PrismaPromise<GetRushBetAggregateType<T>>
+
+    /**
+     * Group by RushBet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RushBetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RushBetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RushBetGroupByArgs['orderBy'] }
+        : { orderBy?: RushBetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RushBetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRushBetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RushBet model
+   */
+  readonly fields: RushBetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RushBet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RushBetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    round<T extends RushRoundDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RushRoundDefaultArgs<ExtArgs>>): Prisma__RushRoundClient<$Result.GetResult<Prisma.$RushRoundPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RushBet model
+   */
+  interface RushBetFieldRefs {
+    readonly id: FieldRef<"RushBet", 'String'>
+    readonly roundId: FieldRef<"RushBet", 'String'>
+    readonly userId: FieldRef<"RushBet", 'String'>
+    readonly currency: FieldRef<"RushBet", 'String'>
+    readonly stakeStars: FieldRef<"RushBet", 'Int'>
+    readonly stakeGram: FieldRef<"RushBet", 'Decimal'>
+    readonly autoCashoutAt: FieldRef<"RushBet", 'Decimal'>
+    readonly status: FieldRef<"RushBet", 'String'>
+    readonly cashoutMultiplier: FieldRef<"RushBet", 'Decimal'>
+    readonly payoutStars: FieldRef<"RushBet", 'Int'>
+    readonly payoutGram: FieldRef<"RushBet", 'Decimal'>
+    readonly cashedOutAt: FieldRef<"RushBet", 'DateTime'>
+    readonly createdAt: FieldRef<"RushBet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RushBet findUnique
+   */
+  export type RushBetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RushBet to fetch.
+     */
+    where: RushBetWhereUniqueInput
+  }
+
+  /**
+   * RushBet findUniqueOrThrow
+   */
+  export type RushBetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RushBet to fetch.
+     */
+    where: RushBetWhereUniqueInput
+  }
+
+  /**
+   * RushBet findFirst
+   */
+  export type RushBetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RushBet to fetch.
+     */
+    where?: RushBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushBets to fetch.
+     */
+    orderBy?: RushBetOrderByWithRelationInput | RushBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RushBets.
+     */
+    cursor?: RushBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RushBets.
+     */
+    distinct?: RushBetScalarFieldEnum | RushBetScalarFieldEnum[]
+  }
+
+  /**
+   * RushBet findFirstOrThrow
+   */
+  export type RushBetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RushBet to fetch.
+     */
+    where?: RushBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushBets to fetch.
+     */
+    orderBy?: RushBetOrderByWithRelationInput | RushBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RushBets.
+     */
+    cursor?: RushBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RushBets.
+     */
+    distinct?: RushBetScalarFieldEnum | RushBetScalarFieldEnum[]
+  }
+
+  /**
+   * RushBet findMany
+   */
+  export type RushBetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * Filter, which RushBets to fetch.
+     */
+    where?: RushBetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RushBets to fetch.
+     */
+    orderBy?: RushBetOrderByWithRelationInput | RushBetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RushBets.
+     */
+    cursor?: RushBetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RushBets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RushBets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RushBets.
+     */
+    distinct?: RushBetScalarFieldEnum | RushBetScalarFieldEnum[]
+  }
+
+  /**
+   * RushBet create
+   */
+  export type RushBetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RushBet.
+     */
+    data: XOR<RushBetCreateInput, RushBetUncheckedCreateInput>
+  }
+
+  /**
+   * RushBet createMany
+   */
+  export type RushBetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RushBets.
+     */
+    data: RushBetCreateManyInput | RushBetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * RushBet createManyAndReturn
+   */
+  export type RushBetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * The data used to create many RushBets.
+     */
+    data: RushBetCreateManyInput | RushBetCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RushBet update
+   */
+  export type RushBetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RushBet.
+     */
+    data: XOR<RushBetUpdateInput, RushBetUncheckedUpdateInput>
+    /**
+     * Choose, which RushBet to update.
+     */
+    where: RushBetWhereUniqueInput
+  }
+
+  /**
+   * RushBet updateMany
+   */
+  export type RushBetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RushBets.
+     */
+    data: XOR<RushBetUpdateManyMutationInput, RushBetUncheckedUpdateManyInput>
+    /**
+     * Filter which RushBets to update
+     */
+    where?: RushBetWhereInput
+    /**
+     * Limit how many RushBets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * RushBet updateManyAndReturn
+   */
+  export type RushBetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * The data used to update RushBets.
+     */
+    data: XOR<RushBetUpdateManyMutationInput, RushBetUncheckedUpdateManyInput>
+    /**
+     * Filter which RushBets to update
+     */
+    where?: RushBetWhereInput
+    /**
+     * Limit how many RushBets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RushBet upsert
+   */
+  export type RushBetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RushBet to update in case it exists.
+     */
+    where: RushBetWhereUniqueInput
+    /**
+     * In case the RushBet found by the `where` argument doesn't exist, create a new RushBet with this data.
+     */
+    create: XOR<RushBetCreateInput, RushBetUncheckedCreateInput>
+    /**
+     * In case the RushBet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RushBetUpdateInput, RushBetUncheckedUpdateInput>
+  }
+
+  /**
+   * RushBet delete
+   */
+  export type RushBetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
+    /**
+     * Filter which RushBet to delete.
+     */
+    where: RushBetWhereUniqueInput
+  }
+
+  /**
+   * RushBet deleteMany
+   */
+  export type RushBetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RushBets to delete
+     */
+    where?: RushBetWhereInput
+    /**
+     * Limit how many RushBets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * RushBet without action
+   */
+  export type RushBetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RushBet
+     */
+    select?: RushBetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RushBet
+     */
+    omit?: RushBetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RushBetInclude<ExtArgs> | null
   }
 
 
@@ -24267,6 +26911,40 @@ export namespace Prisma {
   export type StarDepositScalarFieldEnum = (typeof StarDepositScalarFieldEnum)[keyof typeof StarDepositScalarFieldEnum]
 
 
+  export const RushRoundScalarFieldEnum: {
+    id: 'id',
+    number: 'number',
+    phase: 'phase',
+    crashMultiplier: 'crashMultiplier',
+    bettingEndsAt: 'bettingEndsAt',
+    flyingStartedAt: 'flyingStartedAt',
+    crashedAt: 'crashedAt',
+    settledAt: 'settledAt',
+    createdAt: 'createdAt'
+  };
+
+  export type RushRoundScalarFieldEnum = (typeof RushRoundScalarFieldEnum)[keyof typeof RushRoundScalarFieldEnum]
+
+
+  export const RushBetScalarFieldEnum: {
+    id: 'id',
+    roundId: 'roundId',
+    userId: 'userId',
+    currency: 'currency',
+    stakeStars: 'stakeStars',
+    stakeGram: 'stakeGram',
+    autoCashoutAt: 'autoCashoutAt',
+    status: 'status',
+    cashoutMultiplier: 'cashoutMultiplier',
+    payoutStars: 'payoutStars',
+    payoutGram: 'payoutGram',
+    cashedOutAt: 'cashedOutAt',
+    createdAt: 'createdAt'
+  };
+
+  export type RushBetScalarFieldEnum = (typeof RushBetScalarFieldEnum)[keyof typeof RushBetScalarFieldEnum]
+
+
   export const BotWithdrawalScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -24614,6 +27292,7 @@ export namespace Prisma {
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
     starDeposits?: StarDepositListRelationFilter
+    rushBets?: RushBetListRelationFilter
     gameTransactions?: GameTransactionListRelationFilter
     giftDepositIntents?: GiftDepositIntentListRelationFilter
     giftWithdrawalRequests?: GiftWithdrawalRequestListRelationFilter
@@ -24648,6 +27327,7 @@ export namespace Prisma {
     botDeposits?: BotDepositOrderByRelationAggregateInput
     botWithdrawals?: BotWithdrawalOrderByRelationAggregateInput
     starDeposits?: StarDepositOrderByRelationAggregateInput
+    rushBets?: RushBetOrderByRelationAggregateInput
     gameTransactions?: GameTransactionOrderByRelationAggregateInput
     giftDepositIntents?: GiftDepositIntentOrderByRelationAggregateInput
     giftWithdrawalRequests?: GiftWithdrawalRequestOrderByRelationAggregateInput
@@ -24685,6 +27365,7 @@ export namespace Prisma {
     botDeposits?: BotDepositListRelationFilter
     botWithdrawals?: BotWithdrawalListRelationFilter
     starDeposits?: StarDepositListRelationFilter
+    rushBets?: RushBetListRelationFilter
     gameTransactions?: GameTransactionListRelationFilter
     giftDepositIntents?: GiftDepositIntentListRelationFilter
     giftWithdrawalRequests?: GiftWithdrawalRequestListRelationFilter
@@ -25103,6 +27784,184 @@ export namespace Prisma {
     expiresAt?: DateTimeWithAggregatesFilter<"StarDeposit"> | Date | string
     confirmedAt?: DateTimeNullableWithAggregatesFilter<"StarDeposit"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"StarDeposit"> | Date | string
+  }
+
+  export type RushRoundWhereInput = {
+    AND?: RushRoundWhereInput | RushRoundWhereInput[]
+    OR?: RushRoundWhereInput[]
+    NOT?: RushRoundWhereInput | RushRoundWhereInput[]
+    id?: StringFilter<"RushRound"> | string
+    number?: IntFilter<"RushRound"> | number
+    phase?: StringFilter<"RushRound"> | string
+    crashMultiplier?: DecimalFilter<"RushRound"> | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFilter<"RushRound"> | Date | string
+    flyingStartedAt?: DateTimeNullableFilter<"RushRound"> | Date | string | null
+    crashedAt?: DateTimeNullableFilter<"RushRound"> | Date | string | null
+    settledAt?: DateTimeNullableFilter<"RushRound"> | Date | string | null
+    createdAt?: DateTimeFilter<"RushRound"> | Date | string
+    bets?: RushBetListRelationFilter
+  }
+
+  export type RushRoundOrderByWithRelationInput = {
+    id?: SortOrder
+    number?: SortOrder
+    phase?: SortOrder
+    crashMultiplier?: SortOrder
+    bettingEndsAt?: SortOrder
+    flyingStartedAt?: SortOrderInput | SortOrder
+    crashedAt?: SortOrderInput | SortOrder
+    settledAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    bets?: RushBetOrderByRelationAggregateInput
+  }
+
+  export type RushRoundWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    number?: number
+    AND?: RushRoundWhereInput | RushRoundWhereInput[]
+    OR?: RushRoundWhereInput[]
+    NOT?: RushRoundWhereInput | RushRoundWhereInput[]
+    phase?: StringFilter<"RushRound"> | string
+    crashMultiplier?: DecimalFilter<"RushRound"> | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFilter<"RushRound"> | Date | string
+    flyingStartedAt?: DateTimeNullableFilter<"RushRound"> | Date | string | null
+    crashedAt?: DateTimeNullableFilter<"RushRound"> | Date | string | null
+    settledAt?: DateTimeNullableFilter<"RushRound"> | Date | string | null
+    createdAt?: DateTimeFilter<"RushRound"> | Date | string
+    bets?: RushBetListRelationFilter
+  }, "id" | "number">
+
+  export type RushRoundOrderByWithAggregationInput = {
+    id?: SortOrder
+    number?: SortOrder
+    phase?: SortOrder
+    crashMultiplier?: SortOrder
+    bettingEndsAt?: SortOrder
+    flyingStartedAt?: SortOrderInput | SortOrder
+    crashedAt?: SortOrderInput | SortOrder
+    settledAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: RushRoundCountOrderByAggregateInput
+    _avg?: RushRoundAvgOrderByAggregateInput
+    _max?: RushRoundMaxOrderByAggregateInput
+    _min?: RushRoundMinOrderByAggregateInput
+    _sum?: RushRoundSumOrderByAggregateInput
+  }
+
+  export type RushRoundScalarWhereWithAggregatesInput = {
+    AND?: RushRoundScalarWhereWithAggregatesInput | RushRoundScalarWhereWithAggregatesInput[]
+    OR?: RushRoundScalarWhereWithAggregatesInput[]
+    NOT?: RushRoundScalarWhereWithAggregatesInput | RushRoundScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RushRound"> | string
+    number?: IntWithAggregatesFilter<"RushRound"> | number
+    phase?: StringWithAggregatesFilter<"RushRound"> | string
+    crashMultiplier?: DecimalWithAggregatesFilter<"RushRound"> | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeWithAggregatesFilter<"RushRound"> | Date | string
+    flyingStartedAt?: DateTimeNullableWithAggregatesFilter<"RushRound"> | Date | string | null
+    crashedAt?: DateTimeNullableWithAggregatesFilter<"RushRound"> | Date | string | null
+    settledAt?: DateTimeNullableWithAggregatesFilter<"RushRound"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RushRound"> | Date | string
+  }
+
+  export type RushBetWhereInput = {
+    AND?: RushBetWhereInput | RushBetWhereInput[]
+    OR?: RushBetWhereInput[]
+    NOT?: RushBetWhereInput | RushBetWhereInput[]
+    id?: StringFilter<"RushBet"> | string
+    roundId?: StringFilter<"RushBet"> | string
+    userId?: StringFilter<"RushBet"> | string
+    currency?: StringFilter<"RushBet"> | string
+    stakeStars?: IntFilter<"RushBet"> | number
+    stakeGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringFilter<"RushBet"> | string
+    cashoutMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFilter<"RushBet"> | number
+    payoutGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: DateTimeNullableFilter<"RushBet"> | Date | string | null
+    createdAt?: DateTimeFilter<"RushBet"> | Date | string
+    round?: XOR<RushRoundScalarRelationFilter, RushRoundWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type RushBetOrderByWithRelationInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    currency?: SortOrder
+    stakeStars?: SortOrder
+    stakeGram?: SortOrder
+    autoCashoutAt?: SortOrderInput | SortOrder
+    status?: SortOrder
+    cashoutMultiplier?: SortOrderInput | SortOrder
+    payoutStars?: SortOrder
+    payoutGram?: SortOrder
+    cashedOutAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    round?: RushRoundOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type RushBetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    roundId_userId?: RushBetRoundIdUserIdCompoundUniqueInput
+    AND?: RushBetWhereInput | RushBetWhereInput[]
+    OR?: RushBetWhereInput[]
+    NOT?: RushBetWhereInput | RushBetWhereInput[]
+    roundId?: StringFilter<"RushBet"> | string
+    userId?: StringFilter<"RushBet"> | string
+    currency?: StringFilter<"RushBet"> | string
+    stakeStars?: IntFilter<"RushBet"> | number
+    stakeGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringFilter<"RushBet"> | string
+    cashoutMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFilter<"RushBet"> | number
+    payoutGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: DateTimeNullableFilter<"RushBet"> | Date | string | null
+    createdAt?: DateTimeFilter<"RushBet"> | Date | string
+    round?: XOR<RushRoundScalarRelationFilter, RushRoundWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "roundId_userId">
+
+  export type RushBetOrderByWithAggregationInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    currency?: SortOrder
+    stakeStars?: SortOrder
+    stakeGram?: SortOrder
+    autoCashoutAt?: SortOrderInput | SortOrder
+    status?: SortOrder
+    cashoutMultiplier?: SortOrderInput | SortOrder
+    payoutStars?: SortOrder
+    payoutGram?: SortOrder
+    cashedOutAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: RushBetCountOrderByAggregateInput
+    _avg?: RushBetAvgOrderByAggregateInput
+    _max?: RushBetMaxOrderByAggregateInput
+    _min?: RushBetMinOrderByAggregateInput
+    _sum?: RushBetSumOrderByAggregateInput
+  }
+
+  export type RushBetScalarWhereWithAggregatesInput = {
+    AND?: RushBetScalarWhereWithAggregatesInput | RushBetScalarWhereWithAggregatesInput[]
+    OR?: RushBetScalarWhereWithAggregatesInput[]
+    NOT?: RushBetScalarWhereWithAggregatesInput | RushBetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RushBet"> | string
+    roundId?: StringWithAggregatesFilter<"RushBet"> | string
+    userId?: StringWithAggregatesFilter<"RushBet"> | string
+    currency?: StringWithAggregatesFilter<"RushBet"> | string
+    stakeStars?: IntWithAggregatesFilter<"RushBet"> | number
+    stakeGram?: DecimalWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: DecimalNullableWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringWithAggregatesFilter<"RushBet"> | string
+    cashoutMultiplier?: DecimalNullableWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntWithAggregatesFilter<"RushBet"> | number
+    payoutGram?: DecimalWithAggregatesFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: DateTimeNullableWithAggregatesFilter<"RushBet"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RushBet"> | Date | string
   }
 
   export type BotWithdrawalWhereInput = {
@@ -26091,6 +28950,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -26125,6 +28985,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -26159,6 +29020,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -26193,6 +29055,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -26640,6 +29503,204 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     confirmedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushRoundCreateInput = {
+    id?: string
+    number: number
+    phase?: string
+    crashMultiplier: Decimal | DecimalJsLike | number | string
+    bettingEndsAt: Date | string
+    flyingStartedAt?: Date | string | null
+    crashedAt?: Date | string | null
+    settledAt?: Date | string | null
+    createdAt?: Date | string
+    bets?: RushBetCreateNestedManyWithoutRoundInput
+  }
+
+  export type RushRoundUncheckedCreateInput = {
+    id?: string
+    number: number
+    phase?: string
+    crashMultiplier: Decimal | DecimalJsLike | number | string
+    bettingEndsAt: Date | string
+    flyingStartedAt?: Date | string | null
+    crashedAt?: Date | string | null
+    settledAt?: Date | string | null
+    createdAt?: Date | string
+    bets?: RushBetUncheckedCreateNestedManyWithoutRoundInput
+  }
+
+  export type RushRoundUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    phase?: StringFieldUpdateOperationsInput | string
+    crashMultiplier?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flyingStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    crashedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bets?: RushBetUpdateManyWithoutRoundNestedInput
+  }
+
+  export type RushRoundUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    phase?: StringFieldUpdateOperationsInput | string
+    crashMultiplier?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flyingStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    crashedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bets?: RushBetUncheckedUpdateManyWithoutRoundNestedInput
+  }
+
+  export type RushRoundCreateManyInput = {
+    id?: string
+    number: number
+    phase?: string
+    crashMultiplier: Decimal | DecimalJsLike | number | string
+    bettingEndsAt: Date | string
+    flyingStartedAt?: Date | string | null
+    crashedAt?: Date | string | null
+    settledAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushRoundUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    phase?: StringFieldUpdateOperationsInput | string
+    crashMultiplier?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flyingStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    crashedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushRoundUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    phase?: StringFieldUpdateOperationsInput | string
+    crashMultiplier?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flyingStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    crashedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushBetCreateInput = {
+    id?: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+    round: RushRoundCreateNestedOneWithoutBetsInput
+    user: UserCreateNestedOneWithoutRushBetsInput
+  }
+
+  export type RushBetUncheckedCreateInput = {
+    id?: string
+    roundId: string
+    userId: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushBetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    round?: RushRoundUpdateOneRequiredWithoutBetsNestedInput
+    user?: UserUpdateOneRequiredWithoutRushBetsNestedInput
+  }
+
+  export type RushBetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushBetCreateManyInput = {
+    id?: string
+    roundId: string
+    userId: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushBetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushBetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27770,6 +30831,12 @@ export namespace Prisma {
     none?: StarDepositWhereInput
   }
 
+  export type RushBetListRelationFilter = {
+    every?: RushBetWhereInput
+    some?: RushBetWhereInput
+    none?: RushBetWhereInput
+  }
+
   export type GameTransactionListRelationFilter = {
     every?: GameTransactionWhereInput
     some?: GameTransactionWhereInput
@@ -27842,6 +30909,10 @@ export namespace Prisma {
   }
 
   export type StarDepositOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RushBetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -28331,6 +31402,128 @@ export namespace Prisma {
   export type StarDepositSumOrderByAggregateInput = {
     starAmount?: SortOrder
     gramAmount?: SortOrder
+  }
+
+  export type RushRoundCountOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    phase?: SortOrder
+    crashMultiplier?: SortOrder
+    bettingEndsAt?: SortOrder
+    flyingStartedAt?: SortOrder
+    crashedAt?: SortOrder
+    settledAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RushRoundAvgOrderByAggregateInput = {
+    number?: SortOrder
+    crashMultiplier?: SortOrder
+  }
+
+  export type RushRoundMaxOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    phase?: SortOrder
+    crashMultiplier?: SortOrder
+    bettingEndsAt?: SortOrder
+    flyingStartedAt?: SortOrder
+    crashedAt?: SortOrder
+    settledAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RushRoundMinOrderByAggregateInput = {
+    id?: SortOrder
+    number?: SortOrder
+    phase?: SortOrder
+    crashMultiplier?: SortOrder
+    bettingEndsAt?: SortOrder
+    flyingStartedAt?: SortOrder
+    crashedAt?: SortOrder
+    settledAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RushRoundSumOrderByAggregateInput = {
+    number?: SortOrder
+    crashMultiplier?: SortOrder
+  }
+
+  export type RushRoundScalarRelationFilter = {
+    is?: RushRoundWhereInput
+    isNot?: RushRoundWhereInput
+  }
+
+  export type RushBetRoundIdUserIdCompoundUniqueInput = {
+    roundId: string
+    userId: string
+  }
+
+  export type RushBetCountOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    currency?: SortOrder
+    stakeStars?: SortOrder
+    stakeGram?: SortOrder
+    autoCashoutAt?: SortOrder
+    status?: SortOrder
+    cashoutMultiplier?: SortOrder
+    payoutStars?: SortOrder
+    payoutGram?: SortOrder
+    cashedOutAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RushBetAvgOrderByAggregateInput = {
+    stakeStars?: SortOrder
+    stakeGram?: SortOrder
+    autoCashoutAt?: SortOrder
+    cashoutMultiplier?: SortOrder
+    payoutStars?: SortOrder
+    payoutGram?: SortOrder
+  }
+
+  export type RushBetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    currency?: SortOrder
+    stakeStars?: SortOrder
+    stakeGram?: SortOrder
+    autoCashoutAt?: SortOrder
+    status?: SortOrder
+    cashoutMultiplier?: SortOrder
+    payoutStars?: SortOrder
+    payoutGram?: SortOrder
+    cashedOutAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RushBetMinOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    currency?: SortOrder
+    stakeStars?: SortOrder
+    stakeGram?: SortOrder
+    autoCashoutAt?: SortOrder
+    status?: SortOrder
+    cashoutMultiplier?: SortOrder
+    payoutStars?: SortOrder
+    payoutGram?: SortOrder
+    cashedOutAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RushBetSumOrderByAggregateInput = {
+    stakeStars?: SortOrder
+    stakeGram?: SortOrder
+    autoCashoutAt?: SortOrder
+    cashoutMultiplier?: SortOrder
+    payoutStars?: SortOrder
+    payoutGram?: SortOrder
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -28991,6 +32184,13 @@ export namespace Prisma {
     connect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
   }
 
+  export type RushBetCreateNestedManyWithoutUserInput = {
+    create?: XOR<RushBetCreateWithoutUserInput, RushBetUncheckedCreateWithoutUserInput> | RushBetCreateWithoutUserInput[] | RushBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutUserInput | RushBetCreateOrConnectWithoutUserInput[]
+    createMany?: RushBetCreateManyUserInputEnvelope
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+  }
+
   export type GameTransactionCreateNestedManyWithoutUserInput = {
     create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
@@ -29129,6 +32329,13 @@ export namespace Prisma {
     connectOrCreate?: StarDepositCreateOrConnectWithoutUserInput | StarDepositCreateOrConnectWithoutUserInput[]
     createMany?: StarDepositCreateManyUserInputEnvelope
     connect?: StarDepositWhereUniqueInput | StarDepositWhereUniqueInput[]
+  }
+
+  export type RushBetUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RushBetCreateWithoutUserInput, RushBetUncheckedCreateWithoutUserInput> | RushBetCreateWithoutUserInput[] | RushBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutUserInput | RushBetCreateOrConnectWithoutUserInput[]
+    createMany?: RushBetCreateManyUserInputEnvelope
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
   }
 
   export type GameTransactionUncheckedCreateNestedManyWithoutUserInput = {
@@ -29395,6 +32602,20 @@ export namespace Prisma {
     update?: StarDepositUpdateWithWhereUniqueWithoutUserInput | StarDepositUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: StarDepositUpdateManyWithWhereWithoutUserInput | StarDepositUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: StarDepositScalarWhereInput | StarDepositScalarWhereInput[]
+  }
+
+  export type RushBetUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RushBetCreateWithoutUserInput, RushBetUncheckedCreateWithoutUserInput> | RushBetCreateWithoutUserInput[] | RushBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutUserInput | RushBetCreateOrConnectWithoutUserInput[]
+    upsert?: RushBetUpsertWithWhereUniqueWithoutUserInput | RushBetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RushBetCreateManyUserInputEnvelope
+    set?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    disconnect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    delete?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    update?: RushBetUpdateWithWhereUniqueWithoutUserInput | RushBetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RushBetUpdateManyWithWhereWithoutUserInput | RushBetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RushBetScalarWhereInput | RushBetScalarWhereInput[]
   }
 
   export type GameTransactionUpdateManyWithoutUserNestedInput = {
@@ -29677,6 +32898,20 @@ export namespace Prisma {
     deleteMany?: StarDepositScalarWhereInput | StarDepositScalarWhereInput[]
   }
 
+  export type RushBetUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RushBetCreateWithoutUserInput, RushBetUncheckedCreateWithoutUserInput> | RushBetCreateWithoutUserInput[] | RushBetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutUserInput | RushBetCreateOrConnectWithoutUserInput[]
+    upsert?: RushBetUpsertWithWhereUniqueWithoutUserInput | RushBetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RushBetCreateManyUserInputEnvelope
+    set?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    disconnect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    delete?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    update?: RushBetUpdateWithWhereUniqueWithoutUserInput | RushBetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RushBetUpdateManyWithWhereWithoutUserInput | RushBetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RushBetScalarWhereInput | RushBetScalarWhereInput[]
+  }
+
   export type GameTransactionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<GameTransactionCreateWithoutUserInput, GameTransactionUncheckedCreateWithoutUserInput> | GameTransactionCreateWithoutUserInput[] | GameTransactionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: GameTransactionCreateOrConnectWithoutUserInput | GameTransactionCreateOrConnectWithoutUserInput[]
@@ -29861,6 +33096,76 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutStarDepositsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStarDepositsInput, UserUpdateWithoutStarDepositsInput>, UserUncheckedUpdateWithoutStarDepositsInput>
+  }
+
+  export type RushBetCreateNestedManyWithoutRoundInput = {
+    create?: XOR<RushBetCreateWithoutRoundInput, RushBetUncheckedCreateWithoutRoundInput> | RushBetCreateWithoutRoundInput[] | RushBetUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutRoundInput | RushBetCreateOrConnectWithoutRoundInput[]
+    createMany?: RushBetCreateManyRoundInputEnvelope
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+  }
+
+  export type RushBetUncheckedCreateNestedManyWithoutRoundInput = {
+    create?: XOR<RushBetCreateWithoutRoundInput, RushBetUncheckedCreateWithoutRoundInput> | RushBetCreateWithoutRoundInput[] | RushBetUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutRoundInput | RushBetCreateOrConnectWithoutRoundInput[]
+    createMany?: RushBetCreateManyRoundInputEnvelope
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+  }
+
+  export type RushBetUpdateManyWithoutRoundNestedInput = {
+    create?: XOR<RushBetCreateWithoutRoundInput, RushBetUncheckedCreateWithoutRoundInput> | RushBetCreateWithoutRoundInput[] | RushBetUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutRoundInput | RushBetCreateOrConnectWithoutRoundInput[]
+    upsert?: RushBetUpsertWithWhereUniqueWithoutRoundInput | RushBetUpsertWithWhereUniqueWithoutRoundInput[]
+    createMany?: RushBetCreateManyRoundInputEnvelope
+    set?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    disconnect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    delete?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    update?: RushBetUpdateWithWhereUniqueWithoutRoundInput | RushBetUpdateWithWhereUniqueWithoutRoundInput[]
+    updateMany?: RushBetUpdateManyWithWhereWithoutRoundInput | RushBetUpdateManyWithWhereWithoutRoundInput[]
+    deleteMany?: RushBetScalarWhereInput | RushBetScalarWhereInput[]
+  }
+
+  export type RushBetUncheckedUpdateManyWithoutRoundNestedInput = {
+    create?: XOR<RushBetCreateWithoutRoundInput, RushBetUncheckedCreateWithoutRoundInput> | RushBetCreateWithoutRoundInput[] | RushBetUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RushBetCreateOrConnectWithoutRoundInput | RushBetCreateOrConnectWithoutRoundInput[]
+    upsert?: RushBetUpsertWithWhereUniqueWithoutRoundInput | RushBetUpsertWithWhereUniqueWithoutRoundInput[]
+    createMany?: RushBetCreateManyRoundInputEnvelope
+    set?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    disconnect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    delete?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    connect?: RushBetWhereUniqueInput | RushBetWhereUniqueInput[]
+    update?: RushBetUpdateWithWhereUniqueWithoutRoundInput | RushBetUpdateWithWhereUniqueWithoutRoundInput[]
+    updateMany?: RushBetUpdateManyWithWhereWithoutRoundInput | RushBetUpdateManyWithWhereWithoutRoundInput[]
+    deleteMany?: RushBetScalarWhereInput | RushBetScalarWhereInput[]
+  }
+
+  export type RushRoundCreateNestedOneWithoutBetsInput = {
+    create?: XOR<RushRoundCreateWithoutBetsInput, RushRoundUncheckedCreateWithoutBetsInput>
+    connectOrCreate?: RushRoundCreateOrConnectWithoutBetsInput
+    connect?: RushRoundWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutRushBetsInput = {
+    create?: XOR<UserCreateWithoutRushBetsInput, UserUncheckedCreateWithoutRushBetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRushBetsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RushRoundUpdateOneRequiredWithoutBetsNestedInput = {
+    create?: XOR<RushRoundCreateWithoutBetsInput, RushRoundUncheckedCreateWithoutBetsInput>
+    connectOrCreate?: RushRoundCreateOrConnectWithoutBetsInput
+    upsert?: RushRoundUpsertWithoutBetsInput
+    connect?: RushRoundWhereUniqueInput
+    update?: XOR<XOR<RushRoundUpdateToOneWithWhereWithoutBetsInput, RushRoundUpdateWithoutBetsInput>, RushRoundUncheckedUpdateWithoutBetsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutRushBetsNestedInput = {
+    create?: XOR<UserCreateWithoutRushBetsInput, UserUncheckedCreateWithoutRushBetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRushBetsInput
+    upsert?: UserUpsertWithoutRushBetsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRushBetsInput, UserUpdateWithoutRushBetsInput>, UserUncheckedUpdateWithoutRushBetsInput>
   }
 
   export type UserCreateNestedOneWithoutBotWithdrawalsInput = {
@@ -31307,6 +34612,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RushBetCreateWithoutUserInput = {
+    id?: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+    round: RushRoundCreateNestedOneWithoutBetsInput
+  }
+
+  export type RushBetUncheckedCreateWithoutUserInput = {
+    id?: string
+    roundId: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushBetCreateOrConnectWithoutUserInput = {
+    where: RushBetWhereUniqueInput
+    create: XOR<RushBetCreateWithoutUserInput, RushBetUncheckedCreateWithoutUserInput>
+  }
+
+  export type RushBetCreateManyUserInputEnvelope = {
+    data: RushBetCreateManyUserInput | RushBetCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type GameTransactionCreateWithoutUserInput = {
     id?: string
     game: string
@@ -31864,6 +35209,41 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"StarDeposit"> | Date | string
   }
 
+  export type RushBetUpsertWithWhereUniqueWithoutUserInput = {
+    where: RushBetWhereUniqueInput
+    update: XOR<RushBetUpdateWithoutUserInput, RushBetUncheckedUpdateWithoutUserInput>
+    create: XOR<RushBetCreateWithoutUserInput, RushBetUncheckedCreateWithoutUserInput>
+  }
+
+  export type RushBetUpdateWithWhereUniqueWithoutUserInput = {
+    where: RushBetWhereUniqueInput
+    data: XOR<RushBetUpdateWithoutUserInput, RushBetUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RushBetUpdateManyWithWhereWithoutUserInput = {
+    where: RushBetScalarWhereInput
+    data: XOR<RushBetUpdateManyMutationInput, RushBetUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RushBetScalarWhereInput = {
+    AND?: RushBetScalarWhereInput | RushBetScalarWhereInput[]
+    OR?: RushBetScalarWhereInput[]
+    NOT?: RushBetScalarWhereInput | RushBetScalarWhereInput[]
+    id?: StringFilter<"RushBet"> | string
+    roundId?: StringFilter<"RushBet"> | string
+    userId?: StringFilter<"RushBet"> | string
+    currency?: StringFilter<"RushBet"> | string
+    stakeStars?: IntFilter<"RushBet"> | number
+    stakeGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringFilter<"RushBet"> | string
+    cashoutMultiplier?: DecimalNullableFilter<"RushBet"> | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFilter<"RushBet"> | number
+    payoutGram?: DecimalFilter<"RushBet"> | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: DateTimeNullableFilter<"RushBet"> | Date | string | null
+    createdAt?: DateTimeFilter<"RushBet"> | Date | string
+  }
+
   export type GameTransactionUpsertWithWhereUniqueWithoutUserInput = {
     where: GameTransactionWhereUniqueInput
     update: XOR<GameTransactionUpdateWithoutUserInput, GameTransactionUncheckedUpdateWithoutUserInput>
@@ -32050,6 +35430,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32083,6 +35464,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32121,6 +35503,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32154,6 +35537,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32203,6 +35587,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32236,6 +35621,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32280,6 +35666,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32313,6 +35700,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32346,6 +35734,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32379,6 +35768,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32428,6 +35818,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32461,6 +35852,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32494,6 +35886,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
@@ -32527,6 +35920,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
@@ -32576,6 +35970,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
@@ -32609,6 +36004,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
@@ -32641,6 +36037,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32674,6 +36071,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32723,6 +36121,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32756,6 +36155,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32789,6 +36189,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32822,6 +36223,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -32871,6 +36273,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -32904,6 +36307,279 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type RushBetCreateWithoutRoundInput = {
+    id?: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRushBetsInput
+  }
+
+  export type RushBetUncheckedCreateWithoutRoundInput = {
+    id?: string
+    userId: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushBetCreateOrConnectWithoutRoundInput = {
+    where: RushBetWhereUniqueInput
+    create: XOR<RushBetCreateWithoutRoundInput, RushBetUncheckedCreateWithoutRoundInput>
+  }
+
+  export type RushBetCreateManyRoundInputEnvelope = {
+    data: RushBetCreateManyRoundInput | RushBetCreateManyRoundInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RushBetUpsertWithWhereUniqueWithoutRoundInput = {
+    where: RushBetWhereUniqueInput
+    update: XOR<RushBetUpdateWithoutRoundInput, RushBetUncheckedUpdateWithoutRoundInput>
+    create: XOR<RushBetCreateWithoutRoundInput, RushBetUncheckedCreateWithoutRoundInput>
+  }
+
+  export type RushBetUpdateWithWhereUniqueWithoutRoundInput = {
+    where: RushBetWhereUniqueInput
+    data: XOR<RushBetUpdateWithoutRoundInput, RushBetUncheckedUpdateWithoutRoundInput>
+  }
+
+  export type RushBetUpdateManyWithWhereWithoutRoundInput = {
+    where: RushBetScalarWhereInput
+    data: XOR<RushBetUpdateManyMutationInput, RushBetUncheckedUpdateManyWithoutRoundInput>
+  }
+
+  export type RushRoundCreateWithoutBetsInput = {
+    id?: string
+    number: number
+    phase?: string
+    crashMultiplier: Decimal | DecimalJsLike | number | string
+    bettingEndsAt: Date | string
+    flyingStartedAt?: Date | string | null
+    crashedAt?: Date | string | null
+    settledAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushRoundUncheckedCreateWithoutBetsInput = {
+    id?: string
+    number: number
+    phase?: string
+    crashMultiplier: Decimal | DecimalJsLike | number | string
+    bettingEndsAt: Date | string
+    flyingStartedAt?: Date | string | null
+    crashedAt?: Date | string | null
+    settledAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushRoundCreateOrConnectWithoutBetsInput = {
+    where: RushRoundWhereUniqueInput
+    create: XOR<RushRoundCreateWithoutBetsInput, RushRoundUncheckedCreateWithoutBetsInput>
+  }
+
+  export type UserCreateWithoutRushBetsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletCreateNestedManyWithoutUserInput
+    gifts?: GiftCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserUncheckedCreateWithoutRushBetsInput = {
+    id?: string
+    telegramId: string
+    telegramAccessHash?: string | null
+    username?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    photoUrl?: string | null
+    balanceGram?: Decimal | DecimalJsLike | number | string
+    balanceStars?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    wallets?: WalletUncheckedCreateNestedManyWithoutUserInput
+    gifts?: GiftUncheckedCreateNestedManyWithoutOwnerInput
+    buyerTransactions?: TransactionUncheckedCreateNestedManyWithoutBuyerInput
+    sellerTransactions?: TransactionUncheckedCreateNestedManyWithoutSellerInput
+    buyerOffers?: OfferUncheckedCreateNestedManyWithoutBuyerInput
+    sellerOffers?: OfferUncheckedCreateNestedManyWithoutSellerInput
+    createdPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutCreatorInput
+    wonPvpRooms?: PvpRoomUncheckedCreateNestedManyWithoutWinnerInput
+    pvpParticipations?: PvpParticipantUncheckedCreateNestedManyWithoutUserInput
+    sentPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutSenderInput
+    receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
+    botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
+    botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
+    starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
+    giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
+    giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
+    giveawayReferralLinks?: GiveawayReferralLinkUncheckedCreateNestedManyWithoutUserInput
+    referredGiveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutReferredByInput
+  }
+
+  export type UserCreateOrConnectWithoutRushBetsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRushBetsInput, UserUncheckedCreateWithoutRushBetsInput>
+  }
+
+  export type RushRoundUpsertWithoutBetsInput = {
+    update: XOR<RushRoundUpdateWithoutBetsInput, RushRoundUncheckedUpdateWithoutBetsInput>
+    create: XOR<RushRoundCreateWithoutBetsInput, RushRoundUncheckedCreateWithoutBetsInput>
+    where?: RushRoundWhereInput
+  }
+
+  export type RushRoundUpdateToOneWithWhereWithoutBetsInput = {
+    where?: RushRoundWhereInput
+    data: XOR<RushRoundUpdateWithoutBetsInput, RushRoundUncheckedUpdateWithoutBetsInput>
+  }
+
+  export type RushRoundUpdateWithoutBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    phase?: StringFieldUpdateOperationsInput | string
+    crashMultiplier?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flyingStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    crashedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushRoundUncheckedUpdateWithoutBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    number?: IntFieldUpdateOperationsInput | number
+    phase?: StringFieldUpdateOperationsInput | string
+    crashMultiplier?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    bettingEndsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flyingStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    crashedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    settledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutRushBetsInput = {
+    update: XOR<UserUpdateWithoutRushBetsInput, UserUncheckedUpdateWithoutRushBetsInput>
+    create: XOR<UserCreateWithoutRushBetsInput, UserUncheckedCreateWithoutRushBetsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRushBetsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRushBetsInput, UserUncheckedUpdateWithoutRushBetsInput>
+  }
+
+  export type UserUpdateWithoutRushBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUpdateManyWithoutUserNestedInput
+    gifts?: GiftUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
+    giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
+    giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
+    giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
+    giveawayReferralLinks?: GiveawayReferralLinkUpdateManyWithoutUserNestedInput
+    referredGiveawayEntries?: GiveawayEntryUpdateManyWithoutReferredByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRushBetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    telegramId?: StringFieldUpdateOperationsInput | string
+    telegramAccessHash?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    balanceStars?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallets?: WalletUncheckedUpdateManyWithoutUserNestedInput
+    gifts?: GiftUncheckedUpdateManyWithoutOwnerNestedInput
+    buyerTransactions?: TransactionUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerTransactions?: TransactionUncheckedUpdateManyWithoutSellerNestedInput
+    buyerOffers?: OfferUncheckedUpdateManyWithoutBuyerNestedInput
+    sellerOffers?: OfferUncheckedUpdateManyWithoutSellerNestedInput
+    createdPvpRooms?: PvpRoomUncheckedUpdateManyWithoutCreatorNestedInput
+    wonPvpRooms?: PvpRoomUncheckedUpdateManyWithoutWinnerNestedInput
+    pvpParticipations?: PvpParticipantUncheckedUpdateManyWithoutUserNestedInput
+    sentPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutSenderNestedInput
+    receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
+    botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
+    botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
+    starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -32937,6 +36613,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -32970,6 +36647,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedCreateNestedManyWithoutRecipientInput
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -33019,6 +36697,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33052,6 +36731,7 @@ export namespace Prisma {
     receivedPvpInvitations?: PvpInvitationUncheckedUpdateManyWithoutRecipientNestedInput
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -33085,6 +36765,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -33118,6 +36799,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -33167,6 +36849,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33200,6 +36883,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -33233,6 +36917,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -33266,6 +36951,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -33456,6 +37142,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -33489,6 +37176,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -33627,6 +37315,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
@@ -33660,6 +37349,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
@@ -33762,6 +37452,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
@@ -33795,6 +37486,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
@@ -33887,6 +37579,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryCreateNestedManyWithoutUserInput
@@ -33920,6 +37613,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giveawayEntries?: GiveawayEntryUncheckedCreateNestedManyWithoutUserInput
@@ -34022,6 +37716,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUpdateManyWithoutUserNestedInput
@@ -34055,6 +37750,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giveawayEntries?: GiveawayEntryUncheckedUpdateManyWithoutUserNestedInput
@@ -34199,6 +37895,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -34232,6 +37929,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -34270,6 +37968,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -34303,6 +38002,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -34411,6 +38111,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -34444,6 +38145,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -34488,6 +38190,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -34521,6 +38224,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -34607,6 +38311,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -34640,6 +38345,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -34678,6 +38384,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -34711,6 +38418,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -34819,6 +38527,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -34852,6 +38561,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -34896,6 +38606,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -34929,6 +38640,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -34962,6 +38674,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -34995,6 +38708,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -35033,6 +38747,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -35066,6 +38781,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -35173,6 +38889,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -35206,6 +38923,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -35250,6 +38968,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -35283,6 +39002,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -35389,6 +39109,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -35422,6 +39143,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -35542,6 +39264,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -35575,6 +39298,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -35833,6 +39557,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -35866,6 +39591,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -35904,6 +39630,7 @@ export namespace Prisma {
     botDeposits?: BotDepositCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositCreateNestedManyWithoutUserInput
+    rushBets?: RushBetCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestCreateNestedManyWithoutUserInput
@@ -35937,6 +39664,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedCreateNestedManyWithoutUserInput
     botWithdrawals?: BotWithdrawalUncheckedCreateNestedManyWithoutUserInput
     starDeposits?: StarDepositUncheckedCreateNestedManyWithoutUserInput
+    rushBets?: RushBetUncheckedCreateNestedManyWithoutUserInput
     gameTransactions?: GameTransactionUncheckedCreateNestedManyWithoutUserInput
     giftDepositIntents?: GiftDepositIntentUncheckedCreateNestedManyWithoutUserInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
@@ -36033,6 +39761,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -36066,6 +39795,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -36110,6 +39840,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUpdateManyWithoutUserNestedInput
@@ -36143,6 +39874,7 @@ export namespace Prisma {
     botDeposits?: BotDepositUncheckedUpdateManyWithoutUserNestedInput
     botWithdrawals?: BotWithdrawalUncheckedUpdateManyWithoutUserNestedInput
     starDeposits?: StarDepositUncheckedUpdateManyWithoutUserNestedInput
+    rushBets?: RushBetUncheckedUpdateManyWithoutUserNestedInput
     gameTransactions?: GameTransactionUncheckedUpdateManyWithoutUserNestedInput
     giftDepositIntents?: GiftDepositIntentUncheckedUpdateManyWithoutUserNestedInput
     giftWithdrawalRequests?: GiftWithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -36323,6 +40055,21 @@ export namespace Prisma {
     status?: string
     expiresAt: Date | string
     confirmedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushBetCreateManyUserInput = {
+    id?: string
+    roundId: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -36924,6 +40671,51 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RushBetUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    round?: RushRoundUpdateOneRequiredWithoutBetsNestedInput
+  }
+
+  export type RushBetUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushBetUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type GameTransactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     game?: StringFieldUpdateOperationsInput | string
@@ -37080,6 +40872,66 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     winner?: BoolFieldUpdateOperationsInput | boolean
     reviewStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushBetCreateManyRoundInput = {
+    id?: string
+    userId: string
+    currency?: string
+    stakeStars?: number
+    stakeGram?: Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    cashoutMultiplier?: Decimal | DecimalJsLike | number | string | null
+    payoutStars?: number
+    payoutGram?: Decimal | DecimalJsLike | number | string
+    cashedOutAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type RushBetUpdateWithoutRoundInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRushBetsNestedInput
+  }
+
+  export type RushBetUncheckedUpdateWithoutRoundInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RushBetUncheckedUpdateManyWithoutRoundInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    stakeStars?: IntFieldUpdateOperationsInput | number
+    stakeGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    autoCashoutAt?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    cashoutMultiplier?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payoutStars?: IntFieldUpdateOperationsInput | number
+    payoutGram?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cashedOutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

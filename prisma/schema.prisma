@@ -34,6 +34,7 @@ model User {
   botDeposits            BotDeposit[]
   botWithdrawals         BotWithdrawal[]
   starDeposits           StarDeposit[]
+  rushBets               RushBet[]
   gameTransactions      GameTransaction[]
   giftDepositIntents    GiftDepositIntent[]
   giftWithdrawalRequests GiftWithdrawalRequest[]
@@ -125,6 +126,45 @@ model StarDeposit {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([status, expiresAt])
+  @@index([userId, createdAt])
+}
+
+model RushRound {
+  id           String   @id @default(cuid())
+  number       Int      @unique
+  phase        String   @default("BETTING")
+  crashMultiplier Decimal @db.Decimal(10, 2)
+  bettingEndsAt DateTime
+  flyingStartedAt DateTime?
+  crashedAt    DateTime?
+  settledAt    DateTime?
+  createdAt    DateTime @default(now())
+
+  bets RushBet[]
+
+  @@index([phase, bettingEndsAt])
+}
+
+model RushBet {
+  id        String   @id @default(cuid())
+  roundId   String
+  userId    String
+  currency  String   @default("STARS")
+  stakeStars Int     @default(0)
+  stakeGram Decimal  @default(0) @db.Decimal(20, 9)
+  autoCashoutAt Decimal? @db.Decimal(10, 2)
+  status    String   @default("ACTIVE")
+  cashoutMultiplier Decimal? @db.Decimal(10, 2)
+  payoutStars Int    @default(0)
+  payoutGram Decimal @default(0) @db.Decimal(20, 9)
+  cashedOutAt DateTime?
+  createdAt DateTime @default(now())
+
+  round RushRound @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  user  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roundId, userId])
+  @@index([roundId])
   @@index([userId, createdAt])
 }
 

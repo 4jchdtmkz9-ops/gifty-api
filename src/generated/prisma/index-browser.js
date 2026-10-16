@@ -192,6 +192,34 @@ exports.Prisma.StarDepositScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.RushRoundScalarFieldEnum = {
+  id: 'id',
+  number: 'number',
+  phase: 'phase',
+  crashMultiplier: 'crashMultiplier',
+  bettingEndsAt: 'bettingEndsAt',
+  flyingStartedAt: 'flyingStartedAt',
+  crashedAt: 'crashedAt',
+  settledAt: 'settledAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RushBetScalarFieldEnum = {
+  id: 'id',
+  roundId: 'roundId',
+  userId: 'userId',
+  currency: 'currency',
+  stakeStars: 'stakeStars',
+  stakeGram: 'stakeGram',
+  autoCashoutAt: 'autoCashoutAt',
+  status: 'status',
+  cashoutMultiplier: 'cashoutMultiplier',
+  payoutStars: 'payoutStars',
+  payoutGram: 'payoutGram',
+  cashedOutAt: 'cashedOutAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.BotWithdrawalScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -368,6 +396,8 @@ exports.Prisma.ModelName = {
   GameTransaction: 'GameTransaction',
   BotDeposit: 'BotDeposit',
   StarDeposit: 'StarDeposit',
+  RushRound: 'RushRound',
+  RushBet: 'RushBet',
   BotWithdrawal: 'BotWithdrawal',
   Wallet: 'Wallet',
   Gift: 'Gift',

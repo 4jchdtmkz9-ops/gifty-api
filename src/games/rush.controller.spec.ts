@@ -22,13 +22,16 @@ describe('RUSH round math', () => {
     it("matches the owner's curve: ~40% of rounds pass 2x, 60% die below", () => {
       const samples = Array.from({ length: 60_000 }, () => generateCrashMultiplier());
       const shareAbove = (m: number) => samples.filter((value) => value > m).length / samples.length;
-      // P(crash > m) = 0.8 / m for m >= 2 — a fixed 2x cash-out pays EV 0.8.
+      // P(crash > m) = 0.4 * (2 / m)^1.5 for m >= 2 — a fixed 2x cash-out pays EV 0.8.
       expect(shareAbove(2)).toBeGreaterThan(0.36);
       expect(shareAbove(2)).toBeLessThan(0.44);
-      expect(shareAbove(10)).toBeGreaterThan(0.05);
-      expect(shareAbove(10)).toBeLessThan(0.11);
-      expect(shareAbove(100)).toBeGreaterThan(0.004);
-      expect(shareAbove(100)).toBeLessThan(0.012);
+      // Steep tail: x10+ only ~3.6%, x100+ only ~0.1% of rounds.
+      expect(shareAbove(5)).toBeGreaterThan(0.075);
+      expect(shareAbove(5)).toBeLessThan(0.13);
+      expect(shareAbove(10)).toBeGreaterThan(0.02);
+      expect(shareAbove(10)).toBeLessThan(0.055);
+      expect(shareAbove(100)).toBeGreaterThan(0.0004);
+      expect(shareAbove(100)).toBeLessThan(0.003);
       // Below 2x the sub-2 branch dominates: most rounds die quickly.
       expect(shareAbove(1.5)).toBeLessThan(0.62);
       expect(shareAbove(1.5)).toBeGreaterThan(0.5);

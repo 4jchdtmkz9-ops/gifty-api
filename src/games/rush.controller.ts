@@ -24,8 +24,10 @@ const CRASH_RESULT_MS = 4_000;
 // Doubling roughly every 8 seconds keeps rounds punchy for a mini app.
 const GROWTH_PER_MS = Math.LN2 / 8_000;
 const MAX_CRASH = 500;
-// Owner curve (Oct 2026): 60% of rounds die below 2x, 40% fly past it.
+// Owner curve (Oct 2026): 60% of rounds die below 2x, 40% fly past it —
+// with a steep tail so x10+ stays rare instead of flying way past 2x often.
 const HIGH_ROUND_SHARE = 0.4;
+const TAIL_STEEPNESS = 1.5;
 // Stakes below 10 Stars-equivalent fly a capped round on 70% of bets.
 const LOW_STAKE_CAP_STARS = 10;
 const LOW_STAKE_CAP_MULTIPLIER = 1.2;
@@ -72,9 +74,10 @@ function gramPerStar(): number {
 
 /**
  * Owner curve (Oct 2026): 60% of rounds crash below 2x, 40% fly past it.
- *   P(crash > m) = 0.6 * (2 - m)^2 + 0.4  for 1 <= m < 2
- *   P(crash > m) = 0.8 / m                for m >= 2
- * A fixed cash-out at m >= 2 pays EV 0.8; below 2x EV never exceeds ~1.
+ *   P(crash > m) = 0.6 * (2 - m)^2 + 0.4    for 1 <= m < 2
+ *   P(crash > m) = 0.4 * (2 / m)^1.5        for m >= 2
+ * A fixed cash-out at m >= 2 pays EV 0.8; big multipliers are rare by design
+ * (x10+ ≈ 3.6% of rounds, x100+ ≈ 0.1%).
  */
 export function generateCrashMultiplier() {
   const branch = randomInt(1_000_000_000) / 1_000_000_000;
@@ -85,7 +88,7 @@ export function generateCrashMultiplier() {
       })()
     : (() => {
         const u = randomInt(1_000_000_000) / 1_000_000_000;
-        return 2 / Math.max(1e-9, 1 - u); // [2, MAX_CRASH]
+        return 2 / Math.pow(Math.max(1e-9, 1 - u), 1 / TAIL_STEEPNESS); // [2, MAX_CRASH], steep tail
       })();
   return Math.min(MAX_CRASH, Math.max(1, Math.floor(raw * 100) / 100));
 }
